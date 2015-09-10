@@ -1,12 +1,13 @@
 'use strict';
 
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-// this is needed but throws error because fuck you that's why
-// app.use(express.bodyParser());
+// Using body parser to parse JSON in for API calls
+app.use('/api', bodyParser.json());
 
 app.use('/client', express.static('client'));
 app.use('/node_modules', express.static('node_modules'));
