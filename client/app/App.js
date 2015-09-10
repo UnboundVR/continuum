@@ -1,5 +1,5 @@
-define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container', 'Scene', 'Network', 'VRMode'],
-    function(THREE, fpControls, renderer, objectLoader, container, scene, network, vrMode) {
+define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container', 'Scene', 'Network', 'VRMode', 'GUI'],
+    function(THREE, fpControls, renderer, objectLoader, container, scene, network, vrMode, gui) {
         var App = function() {
             var camera;
 
@@ -15,16 +15,48 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
                 update: [],
             };
 
-            this.dom = undefined;
+			this.domElement = undefined;
 
             this.width = window.innerWidth;
             this.height = window.innerHeight;
 
             this.load = function(json) {
-                this.dom = renderer.domElement;
+				var css3DDomElement = renderer.css3D.domElement;
+				css3DDomElement.style.position = 'absolute';
+				css3DDomElement.style.top = 0;								
+                
+				var webGLDomElement = renderer.webGL.domElement;
+				webGLDomElement.style.position = 'absolute';
+				webGLDomElement.style.zIndex = 1;
+				webGLDomElement.style.top = 0;
+				
+				css3DDomElement.appendChild(webGLDomElement);
+				
+				this.domElement = css3DDomElement;
+				
                 scene.setScene(objectLoader.parse(json.scene));
+
+				// The CSS3D Scene is empty initially (i.e. HTML stuff is not stored in scene.json yet)
+				var css3DScene = new THREE.Scene();
+				scene.setCSS3DScene(css3DScene);
+				
                 this.setCamera(fpControls.camera);
                 this.loadScripts(json.scripts);
+				
+				// Test adding a simple HTML element
+				// FIXME for some reason I had to copy the content of the GUI embedHtml function here... if I called it, the scene properties were null...
+				var element = document.createElement('iframe');
+				element.setAttribute('src', 'http://metavrse.io');
+
+				var plane = scene.getScene().getObjectByName('Floor');
+				var cssObject = new THREE.CSS3DObject(element);
+				cssObject.position = plane.position;
+				cssObject.rotation = plane.rotation;
+				scene.getCSS3DScene().add(cssObject);
+				
+				// I have to do this BECAUSE OF REASONS
+				scene.getScene().getObjectByName('Skybox').blending = THREE.NoBlending;
+				scene.getScene().remove(scene.getScene().getObjectByName('Skybox'));
             };
 
             this.loadScripts = function(jsonScripts) {
@@ -56,7 +88,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
             };
 
             this.setSize = function(width, height) {
-                if (renderer._fullScreen) {
+                if (renderer.webGL._fullScreen) {
                     return;
                 }
 
@@ -66,7 +98,8 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
                 camera.aspect = this.width / this.height;
                 camera.updateProjectionMatrix();
 
-                renderer.setSize(width, height);
+                renderer.webGL.setSize(width, height);
+				renderer.css3D.setSize(width, height);
             };
 
             var dispatch = function(array, event) {
@@ -85,7 +118,8 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
 
                 fpControls.animate();
 
-                renderer.render(scene.getScene(), camera);
+                renderer.webGL.render(scene.getScene(), camera);
+				renderer.css3D.render(scene.getCSS3DScene(), camera);
 
                 prevTime = time;
             };
@@ -107,6 +141,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
                 network.init();
             };
 
+			// FIXME is this being called somewhere?
             this.stop = function() {
                 document.removeEventListener('keydown', onDocumentKeyDown);
                 document.removeEventListener('keyup', onDocumentKeyUp);
@@ -161,8 +196,8 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
                     _this.setSize(window.innerWidth, window.innerHeight);
                     _this.play();
 
-                    container.appendChild(_this.dom);
-
+					container.appendChild(_this.domElement);
+					
                     window.addEventListener('resize', function() {
                         _this.setSize(window.innerWidth, window.innerHeight);
                     });
