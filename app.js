@@ -5,8 +5,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-// this is needed but throws error because fuck you
-// app.use(express.bodyParser());
+// this is needed but throws error because fuck you that's why
+app.use(express.bodyParser());
 
 app.use('/client', express.static('client'));
 app.use('/node_modules', express.static('node_modules'));
