@@ -1,4 +1,4 @@
-define(['Three'], function(THREE) {
+define([], function() {
     return {
         setScene: function(value) {
             this.scene = value;
@@ -7,13 +7,13 @@ define(['Three'], function(THREE) {
         getScene: function() {
             return this.scene;
         },
-		
-		setCSS3DScene: function(value) {
-			this.css3DScene = value
-		},
-		
-		getCSS3DScene: function() {
-			return this.css3DScene;
-		}
+
+        setCSS3DScene: function(value) {
+            this.css3DScene = value;
+        },
+
+        getCSS3DScene: function() {
+            return this.css3DScene;
+        }
     };
 });
