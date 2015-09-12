@@ -16,11 +16,8 @@ var require = {
          * --- end THREE sub-components
          */
 
-        Detector: {exports: 'Detector'}, // TODO ensure it's the latest version
-        /**
-         * --- Terrain, pointer lock, etc...
-         */
-        Stats: {exports: 'Stats'}, // TODO ensure it's the latest version
+        Detector: {exports: 'Detector'},
+        Stats: {exports: 'Stats'}
     },
     /**
      * --- Third party code lives in client/lib
@@ -44,12 +41,12 @@ var require = {
         /**
          * --- Require.js plugins
          */
-        Text: 'lib/require_plugins/Text', // TODO ensure it's actually needed
+        Text: 'lib/require_plugins/Text',
         Shader: 'lib/require_plugins/Shader',
 
         /**
          * --- Where to look for shader files
          */
-        shaders: 'shaders',
-    },
+        shaders: 'shaders'
+    }
 };
