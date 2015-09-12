@@ -29,6 +29,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
                 webGLDomElement.style.position = 'absolute';
                 webGLDomElement.style.zIndex = 1;
                 webGLDomElement.style.top = 0;
+				webGLDomElement.style.pointerEvents = 'none';
 
                 css3DDomElement.appendChild(webGLDomElement);
 
@@ -43,18 +44,15 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
 
                 this.setCamera(fpControls.camera);
                 this.loadScripts(json.scripts);
-
-                /*
-				The following would add an iframe pointing to metavrse.io to the floor plane :P
-                
+              
 				// Test adding a simple HTML element
-                // FIXME for some reason I had to copy the content of the GUI embedHtml function here... if I called it, the scene properties were null...
-                var element = document.createElement('iframe');
-                element.setAttribute('src', 'http://metavrse.io');
+                var element = document.createElement('div');
+				element.innerHTML = '<h1>Welcome to the Metaverse \\m/</h1><button>I\'m clickable because I\'m HTML :D</button>';
+				element.style.width = '600px';
+				element.style.height = '300px';
 
-                var plane = scene.getScene().getObjectByName('Floor');
+                var plane = scene.getScene().getObjectByName('Info panel');
 				gui.embedHtml(element, plane);
-				*/
             };
 
             this.loadScripts = function(jsonScripts) {

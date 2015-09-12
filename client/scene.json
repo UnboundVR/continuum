@@ -44,6 +44,14 @@
 				"phiLength": 6.29,
 				"thetaStart": 0,
 				"thetaLength": 3.14
+			},
+			{
+				"uuid": "0440789E-D4A6-423A-86C9-0A15FA4B5D5A",
+				"type": "PlaneGeometry",
+				"width": 200,
+				"height": 200,
+				"widthSegments": 1,
+				"heightSegments": 1
 			}],
 		"materials": [
 			{
@@ -59,6 +67,14 @@
 				"type": "MeshBasicMaterial",
 				"color": 8421504,
 				"side": 1
+			},
+			{
+				"uuid": "642C290C-38EB-49CE-9389-C4361F1B3865",
+				"type": "MeshPhongMaterial",
+				"color": 16777215,
+				"emissive": 0,
+				"specular": 1118481,
+				"shininess": 30
 			}],
 		"object": {
 			"uuid": "31517222-A9A7-4EAF-B5F6-60751C0BABA3",
@@ -89,6 +105,14 @@
 					"geometry": "FAE93433-E45A-4F81-B8EE-55B232701CEA",
 					"material": "7A3B6FEC-10FA-4F5D-9220-39FFE41130F5",
 					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,712.280029296875,-1106.8399658203125,-321.17999267578125,1]
+				},
+				{
+					"uuid": "F57146D0-9296-4408-B753-0532A3B8AC2F",
+					"type": "Mesh",
+					"name": "Info panel",
+					"geometry": "0440789E-D4A6-423A-86C9-0A15FA4B5D5A",
+					"material": "642C290C-38EB-49CE-9389-C4361F1B3865",
+					"matrix": [3.197934150695801,0,0,0,0,1.590786099433899,0,0,0,0,1,0,29.3294734954834,161.34609985351562,-657.7916259765625,1]
 				}]
 		}
 	},
