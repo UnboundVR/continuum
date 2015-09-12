@@ -17,6 +17,6 @@ define(['Three', 'Scene'], function(THREE, scene) {
     };
 
     return {
-        embedHtml: embedHtm
+        embedHtml: embedHtml
     };
 });
