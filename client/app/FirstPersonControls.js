@@ -15,7 +15,7 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
     var collidableObjects = [];
 
     var aspect = window.innerWidth / window.innerHeight;
-    var camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 100000);
+    var camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100000);
 
     // Based on https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html
     var setupPointerLock = function() {
