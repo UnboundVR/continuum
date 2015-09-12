@@ -25,12 +25,12 @@ define(['SocketIO', 'Scene'], function(io, scene) {
 
             this.socket.on('other disconnect', function(id) {
                 var player = _this.players.others[id];
-                delete self.players.others[id];
+                delete _this.players.others[id];
                 _this.removePlayerAvatar(player);
             });
 
             this.socket.on('other change', function(data) {
-                var player = self.players.others[data.id];
+                var player = _this.players.others[data.id];
                 if (player) {
                     player.position = data.position;
                     player.mesh.position.copy(data.position);
