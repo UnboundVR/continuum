@@ -25,7 +25,7 @@
     ],
     "disallowMixedSpacesAndTabs": true,
     "disallowTrailingWhitespace": true,
-    "requireTrailingComma": {"ignoreSingleLine": true},
+    "requireTrailingComma": false,
     "disallowYodaConditions": true,
     "disallowKeywords": ["with"],
     "disallowKeywordsOnNewLine": ["else"],
