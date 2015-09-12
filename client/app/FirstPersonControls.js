@@ -110,6 +110,7 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
                     break;
                 case 32: // space
                     if (canJump === true) velocity.y += 350;
+					// Comment out this line and people can fly :D
                     canJump = false;
                     break;
 				case 16:
