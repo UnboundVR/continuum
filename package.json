@@ -1,6 +1,7 @@
 {
   "name": "metavrse",
   "version": "0.0.1",
+  "license": "MIT",
   "description": "all your base are belong to us",
   "dependencies": {
     "body-parser": "^1.13.3",
