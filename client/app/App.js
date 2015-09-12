@@ -44,13 +44,17 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
                 this.setCamera(fpControls.camera);
                 this.loadScripts(json.scripts);
 
-                // Test adding a simple HTML element
+                /*
+				The following would add an iframe pointing to metavrse.io to the floor plane :P
+                
+				// Test adding a simple HTML element
                 // FIXME for some reason I had to copy the content of the GUI embedHtml function here... if I called it, the scene properties were null...
                 var element = document.createElement('iframe');
                 element.setAttribute('src', 'http://metavrse.io');
 
                 var plane = scene.getScene().getObjectByName('Floor');
-                gui.embedHtml(element, plane);
+				gui.embedHtml(element, plane);
+				*/
             };
 
             this.loadScripts = function(jsonScripts) {
