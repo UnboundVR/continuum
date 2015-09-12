@@ -1,5 +1,5 @@
-define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container', 'Scene', 'Network', 'VRMode', 'GUI'],
-    function(THREE, fpControls, renderer, objectLoader, container, scene, network, vrMode, gui) {
+define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container', 'Scene', 'Network', 'VRMode', 'GUI', 'code-mirror!javascript:ambiance'],
+    function(THREE, fpControls, renderer, objectLoader, container, scene, network, vrMode, gui, cm) {
         var App = function() {
             var camera;
 
