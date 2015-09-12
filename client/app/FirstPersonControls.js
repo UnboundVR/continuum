@@ -41,26 +41,19 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
                 } else {
                     controlsEnabled = false;
                     controls.enabled = false;
-                    blocker.style.display = '-webkit-box';
-                    blocker.style.display = '-moz-box';
-                    blocker.style.display = 'box';
-                    instructions.style.display = '';
+                    //blocker.style.display = '-webkit-box';
+                    //blocker.style.display = '-moz-box';
+                    //blocker.style.display = 'box';
+                    //instructions.style.display = '';
                 }
             };
 
             var pointerlockerror = function(event) {
                 instructions.style.display = '';
             };
-
-            // Hook pointer lock state change events
-            document.addEventListener('pointerlockchange', pointerlockchange, false);
-            document.addEventListener('mozpointerlockchange', pointerlockchange, false);
-            document.addEventListener('webkitpointerlockchange', pointerlockchange, false);
-            document.addEventListener('pointerlockerror', pointerlockerror, false);
-            document.addEventListener('mozpointerlockerror', pointerlockerror, false);
-            document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
-            instructions.addEventListener('click', function(event) {
-                instructions.style.display = 'none';
+			
+			var requestPointerLock = function() {
+				instructions.style.display = 'none';
 
                 // Ask the browser to lock the pointer
                 element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
@@ -80,6 +73,19 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
                 } else {
                     element.requestPointerLock();
                 }
+			};
+
+            // Hook pointer lock state change events
+            document.addEventListener('pointerlockchange', pointerlockchange, false);
+            document.addEventListener('mozpointerlockchange', pointerlockchange, false);
+            document.addEventListener('webkitpointerlockchange', pointerlockchange, false);
+            document.addEventListener('pointerlockerror', pointerlockerror, false);
+            document.addEventListener('mozpointerlockerror', pointerlockerror, false);
+            document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
+            instructions.addEventListener('click', function(event) {
+				
+				requestPointerLock();
+
             }, false);
         } else {
             instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
@@ -140,6 +146,8 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
 				case 16:
 					running = false;
 					break;
+				case 115:
+					requestPointerLock();
             }
         };
 

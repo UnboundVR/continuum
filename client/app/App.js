@@ -59,25 +59,35 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
 					gui.embedHtml(htmlNode, object);
 				}
 			};
+			
+			var loadScript = function(uuid, script) {
+				var object = scene.getScene().getObjectByProperty('uuid', uuid, true);
+				var func = new Function('player, scene, keydown, keyup, mousedown, mouseup, mousemove, touchstart, touchend, touchmove, update', script + '\nreturn { keydown: keydown, keyup: keyup, mousedown: mousedown, mouseup: mouseup, mousemove: mousemove, touchstart: touchstart, touchend: touchend, touchmove: touchmove, update: update };');
+				var functions = (func.bind(object))(this, scene.getScene());
+				for (var name in functions) {
+					if (functions[name] === undefined) continue;
+					if (events[name] === undefined) {
+						console.warn('APP.Player: event type not supported (', name, ')');
+						continue;
+					}
+
+					events[name].push(functions[name].bind(object));
+				}
+			};
+			
+			// FIXME haha
+			window.loadScript = function() {
+				loadScript("F5C66F19-25FA-4CB5-85C1-8BA584DDA369", document.getElementById("leCode").value);
+			};
 
             this.loadScripts = function(jsonScripts) {
                 for (var uuid in jsonScripts) {
-                    var object = scene.getScene().getObjectByProperty('uuid', uuid, true);
                     var scripts = jsonScripts[uuid];
+                    var object = scene.getScene().getObjectByProperty('uuid', uuid, true);
 
                     for (var i = 0; i < scripts.length; i++) {
                         var script = scripts[i];
-                        var functions = (new Function('player, scene, keydown, keyup, mousedown, mouseup, mousemove, touchstart, touchend, touchmove, update', script.source + '\nreturn { keydown: keydown, keyup: keyup, mousedown: mousedown, mouseup: mouseup, mousemove: mousemove, touchstart: touchstart, touchend: touchend, touchmove: touchmove, update: update };').bind(object))(this, scene.getScene());
-
-                        for (var name in functions) {
-                            if (functions[name] === undefined) continue;
-                            if (events[name] === undefined) {
-                                console.warn('APP.Player: event type not supported (', name, ')');
-                                continue;
-                            }
-
-                            events[name].push(functions[name].bind(object));
-                        }
+						loadScript(uuid, script.source);
                     }
                 }
             };
