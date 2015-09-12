@@ -4,6 +4,7 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
     var raycaster;
     var canJump = true;
     var moveForward = false;
+	var running = false;
     var moveBackward = false;
     var moveLeft = false;
     var moveRight = false;
@@ -111,6 +112,9 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
                     if (canJump === true) velocity.y += 350;
                     canJump = false;
                     break;
+				case 16:
+					running = true;
+					break;
             }
         };
 
@@ -132,6 +136,9 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
                 case 68: // d
                     moveRight = false;
                     break;
+				case 16:
+					running = false;
+					break;
             }
         };
 
@@ -179,10 +186,13 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
             velocity.x -= velocity.x * 10.0 * delta;
             velocity.z -= velocity.z * 10.0 * delta;
             velocity.y -= 9.8 * 75.0 * delta; // 75.0 = mass
-            if (moveForward) velocity.z -= 4000.0 * delta;
-            if (moveBackward) velocity.z += 4000.0 * delta;
-            if (moveLeft) velocity.x -= 4000.0 * delta;
-            if (moveRight) velocity.x += 4000.0 * delta;
+			
+			var speed = running ? 16000 : 4000;
+			
+            if (moveForward) velocity.z -= speed * delta;
+            if (moveBackward) velocity.z += speed * delta;
+            if (moveLeft) velocity.x -= speed * delta;
+            if (moveRight) velocity.x += speed * delta;
             if (isOnObject) {
                 velocity.y = Math.max(0, velocity.y);
                 canJump = true;
