@@ -1,3 +1,5 @@
+'use strict';
+
 define(['SocketIO', 'Scene'], function(io, scene) {
     return {
         init: function() {
@@ -50,8 +52,8 @@ define(['SocketIO', 'Scene'], function(io, scene) {
             // texture.anisotropy = Metavrse.renderer.getMaxAnisotropy();
             var material = new THREE.MeshBasicMaterial({map: texture});
 
-            mesh = new THREE.Mesh(geometry, material);
-            mesh.position = player.position;
+            var mesh = new THREE.Mesh(geometry, material);
+            mesh.position.copy(player.position);
 
             player.mesh = mesh;
 

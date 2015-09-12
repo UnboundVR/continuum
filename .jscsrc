@@ -25,10 +25,14 @@
     ],
     "disallowMixedSpacesAndTabs": true,
     "disallowTrailingWhitespace": true,
-    "requireTrailingComma": {"ignoreSingleLine": true},
+    "disallowTrailingComma": true,
     "disallowYodaConditions": true,
-    "disallowKeywords": ["with"],
-    "disallowKeywordsOnNewLine": ["else"],
+    "disallowKeywords": [
+        "with"
+    ],
+    "disallowKeywordsOnNewLine": [
+        "else"
+    ],
     "disallowMultipleLineBreaks": true,
     "disallowMultipleLineStrings": true,
     "disallowMultipleVarDecl": true,

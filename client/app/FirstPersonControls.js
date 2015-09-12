@@ -1,10 +1,8 @@
-"use strict";
-
 define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, scene, network) {
     var controls;
     var controlsEnabled = false;
     var raycaster;
-	var canJump = true;
+    var canJump = true;
     var moveForward = false;
     var moveBackward = false;
     var moveLeft = false;
@@ -13,7 +11,7 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
     var velocity = new THREE.Vector3();
 
     // This array should contain all objects we want to intersect with using the raycaster - for now we just care about the floor
-	// Later on we should probably use a richer collision detection mechanism, such as http://www.threejsgames.com/extensions/
+    // Later on we should probably use a richer collision detection mechanism, such as http://www.threejsgames.com/extensions/
     var collidableObjects = [];
 
     var aspect = window.innerWidth / window.innerHeight;
@@ -21,10 +19,11 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
 
     // Based on https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html
     var setupPointerLock = function() {
-		this.floor = scene.getScene().getObjectByName('Floor');
-		if(this.floor !== undefined) {
-			collidableObjects.push(this.floor);
-		}
+        this.floor = scene.getScene().getObjectByName('Floor');
+        if (this.floor !== undefined) {
+            collidableObjects.push(this.floor);
+        }
+
         var blocker = document.getElementById('blocker');
         var instructions = document.getElementById('instructions');
 
@@ -39,7 +38,7 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
                     controls.enabled = true;
                     blocker.style.display = 'none';
                 } else {
-					controlsEnabled = false;
+                    controlsEnabled = false;
                     controls.enabled = false;
                     blocker.style.display = '-webkit-box';
                     blocker.style.display = '-moz-box';
@@ -87,9 +86,9 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
 
         // From here onwards was the init in the example from mr doob
         controls = new THREE.PointerLockControls(camera);
-		controls.getObject().position.y = 15;
+        controls.getObject().position.y = 15;
         scene.getScene().add(controls.getObject());
-		
+
         var onKeyDown = function(event) {
             switch (event.keyCode) {
                 case 38: // up
@@ -142,33 +141,36 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
     };
 
     var animate = function() {
-		var time = performance.now();
-		
-		var restrainPosition = function(obj) {
-			// This guarantees that the player won't fall
-			if (obj.position.y < -5) {
-				velocity.y = 0;
-				obj.position.y = -5;
-				canJump = true;
-			}
-			
-			// This bounds the player to a plane a little (10%) larger than the floor plane
-			if(obj.position.x > 550) {
-				obj.position.x = 550;
-			}
-			if(obj.position.x < -550) {
-				obj.position.x = -550;
-			}
-			if(obj.position.z > 550) {
-				obj.position.z = 550;
-			}
-			if(obj.position.z < -550) {
-				obj.position.z = -550;
-			}
-		};
-		
+        var time = performance.now();
+
+        var restrainPosition = function(obj) {
+            // This guarantees that the player won't fall
+            if (obj.position.y < -5) {
+                velocity.y = 0;
+                obj.position.y = -5;
+                canJump = true;
+            }
+
+            // This bounds the player to a plane a little (10%) larger than the floor plane
+            if (obj.position.x > 550) {
+                obj.position.x = 550;
+            }
+
+            if (obj.position.x < -550) {
+                obj.position.x = -550;
+            }
+
+            if (obj.position.z > 550) {
+                obj.position.z = 550;
+            }
+
+            if (obj.position.z < -550) {
+                obj.position.z = -550;
+            }
+        };
+
         if (controlsEnabled) {
-			var obj = controls.getObject();
+            var obj = controls.getObject();
             raycaster.ray.origin.copy(obj.position);
             raycaster.ray.origin.y -= 10;
             var intersections = raycaster.intersectObjects(collidableObjects);
@@ -181,20 +183,21 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
             if (moveBackward) velocity.z += 4000.0 * delta;
             if (moveLeft) velocity.x -= 4000.0 * delta;
             if (moveRight) velocity.x += 4000.0 * delta;
-            if (isOnObject === true) {
+            if (isOnObject) {
                 velocity.y = Math.max(0, velocity.y);
                 canJump = true;
             }
-			
+
             obj.translateX(velocity.x * delta);
-			obj.translateY(velocity.y * delta);
+            obj.translateY(velocity.y * delta);
             obj.translateZ(velocity.z * delta);
-            
-			restrainPosition(obj);
+
+            restrainPosition(obj);
 
             network.playerMoved(obj.position);
         }
-		prevTime = time;
+
+        prevTime = time;
     };
 
     return {

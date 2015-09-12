@@ -1,13 +1,19 @@
-define(['Three'], function(THREE) {
-    var scene = null;
-
+define([], function() {
     return {
         setScene: function(value) {
-            scene = value;
+            this.scene = value;
         },
 
         getScene: function() {
-            return scene;
+            return this.scene;
         },
+
+        setCSS3DScene: function(value) {
+            this.css3DScene = value;
+        },
+
+        getCSS3DScene: function() {
+            return this.css3DScene;
+        }
     };
 });

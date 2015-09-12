@@ -11,15 +11,13 @@ var require = {
         OrbitControls: {deps: ['ThreeCore'], exports: 'THREE'},
         PointerLockControls: {deps: ['ThreeCore'], exports: 'THREE'},
         StereoEffect: {deps: ['ThreeCore'], exports: 'THREE'},
+        CSS3DRenderer: {deps: ['ThreeCore'], exports: 'THREE'},
         /**
          * --- end THREE sub-components
          */
 
-        Detector: {exports: 'Detector'}, // TODO ensure it's the latest version
-        /**
-         * --- Terrain, pointer lock, etc...
-         */
-        Stats: {exports: 'Stats'}, // TODO ensure it's the latest version
+        Detector: {exports: 'Detector'},
+        Stats: {exports: 'Stats'}
     },
     /**
      * --- Third party code lives in client/lib
@@ -31,6 +29,7 @@ var require = {
         OrbitControls: '../lib/controls/OrbitControls',
         PointerLockControls: '../lib/controls/PointerLockControls',
         StereoEffect: '../lib/effects/StereoEffect',
+        CSS3DRenderer: '../lib/renderers/CSS3DRenderer',
         SocketIO: '/socket.io/socket.io',
         /**
          * --- end THREE sub-components
@@ -42,12 +41,12 @@ var require = {
         /**
          * --- Require.js plugins
          */
-        Text: 'lib/require_plugins/Text', // TODO ensure it's actually needed
+        Text: 'lib/require_plugins/Text',
         Shader: 'lib/require_plugins/Shader',
 
         /**
          * --- Where to look for shader files
          */
-        shaders: 'shaders',
-    },
+        shaders: 'shaders'
+    }
 };
