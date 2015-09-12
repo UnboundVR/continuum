@@ -36,24 +36,29 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
                 this.domElement = css3DDomElement;
 
                 scene.setScene(objectLoader.parse(json.scene));
-
-                // The CSS3D Scene is empty initially (i.e. HTML stuff is not stored in scene.json yet)
-                // TODO fill this from scene.json
-                var css3DScene = new THREE.Scene();
-                scene.setCSS3DScene(css3DScene);
-
+				
                 this.setCamera(fpControls.camera);
                 this.loadScripts(json.scripts);
-              
-				// Test adding a simple HTML element
-                var element = document.createElement('div');
-				element.innerHTML = '<h1>Welcome to the Metaverse \\m/</h1><button>I\'m clickable because I\'m HTML :D</button>';
-				element.style.width = '600px';
-				element.style.height = '300px';
-
-                var plane = scene.getScene().getObjectByName('Info panel');
-				gui.embedHtml(element, plane);
+				
+				var css3DScene = new THREE.Scene();
+                scene.setCSS3DScene(css3DScene);
+				this.loadGUI(json.gui);
             };
+			
+			this.loadGUI = function(jsonGui) {
+				for (var uuid in jsonGui) {
+					var object = scene.getScene().getObjectByProperty('uuid', uuid, true);
+					var guiElement = jsonGui[uuid];
+					
+					var cssNode = document.createElement('style');
+					cssNode.innerHTML = guiElement.css;
+					document.body.appendChild(cssNode);
+					
+					var htmlNode = document.createElement('div');
+					htmlNode.innerHTML = guiElement.html;					 
+					gui.embedHtml(htmlNode, object);
+				}
+			};
 
             this.loadScripts = function(jsonScripts) {
                 for (var uuid in jsonScripts) {

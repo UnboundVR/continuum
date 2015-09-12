@@ -122,5 +122,11 @@
 				"name": "changeTexture",
 				"source": "this.material.map = THREE.ImageUtils.loadTexture('client/assets/img/galaxy_starfield.png');"
 			}]
+	},
+	"gui": {
+		"F57146D0-9296-4408-B753-0532A3B8AC2F": {
+			"html": "<h1 class=\"header\">Welcome to the Metaverse \\m/</h1><button>I am clickable because HTML :D</button>",
+			"css": ".header {color:red;}"
+		}
 	}
 }
