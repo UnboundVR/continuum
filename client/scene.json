@@ -1,160 +1,102 @@
 {
-    "scene": {
-        "metadata": {
-            "version": 4.3,
-            "type": "Object",
-            "generator": "ObjectExporter"
-        },
-        "geometries": [
-            {
-                "uuid": "46F4D8AF-47E1-4FD6-8687-9373FCF91C1C",
-                "type": "PlaneGeometry",
-                "width": 200,
-                "height": 200,
-                "widthSegments": 1,
-                "heightSegments": 1
-            },
-            {
-                "uuid": "60A2BA46-1397-4689-863F-7C9A1484A77F",
-                "type": "SphereGeometry",
-                "radius": 3000,
-                "widthSegments": 60,
-                "heightSegments": 40,
-                "phiStart": 0,
-                "phiLength": 6.28,
-                "thetaStart": 0,
-                "thetaLength": 3.14
-            }
-        ],
-        "materials": [
-            {
-                "uuid": "9A1BAC6E-AEDD-406D-97CA-73BA733FABBB",
-                "type": "MeshPhongMaterial",
-                "color": 7974655,
-                "emissive": 0,
-                "specular": 1118481,
-                "shininess": 3
-            },
-            {
-                "uuid": "7A3B6FEC-10FA-4F5D-9220-39FFE41130F5",
-                "type": "ShaderMaterial",
-                "uniforms": {
-                    "texture": {
-                        "type": "t",
-                        "value": ""
-                    }
-                },
-                "vertexShader": "varying vec2 vUV;\n\nvoid main() {\n\tvUV = uv;\n\tvec4 pos = vec4(position, 1.0);\n\tgl_Position = projectionMatrix * modelViewMatrix * pos;\n}",
-                "fragmentShader": "uniform sampler2D texture;\nvarying vec2 vUV;\n\nvoid main() {\n  vec4 sample = texture2D(texture, vUV);\n  gl_FragColor = vec4(sample.xyz, sample.w);\n}"
-            }
-        ],
-        "object": {
-            "uuid": "31517222-A9A7-4EAF-B5F6-60751C0BABA3",
-            "type": "Scene",
-            "name": "Scene",
-            "matrix": [
-                1,
-                0,
-                0,
-                0,
-                0,
-                1,
-                0,
-                0,
-                0,
-                0,
-                1,
-                0,
-                0,
-                0,
-                0,
-                1
-            ],
-            "children": [
-                {
-                    "uuid": "0C2EC231-41E4-4F71-B017-790340178843",
-                    "type": "Mesh",
-                    "name": "Floor",
-                    "geometry": "46F4D8AF-47E1-4FD6-8687-9373FCF91C1C",
-                    "material": "9A1BAC6E-AEDD-406D-97CA-73BA733FABBB",
-                    "matrix": [
-                        5,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0.003981064073741436,
-                        -4.999998569488525,
-                        0,
-                        0,
-                        0.9999997019767761,
-                        0.0007962127565406263,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1
-                    ]
-                },
-                {
-                    "uuid": "395C5D46-0DA0-4AB3-9908-CC5C0D9E803A",
-                    "type": "DirectionalLight",
-                    "name": "Sun",
-                    "color": 16777215,
-                    "intensity": 1,
-                    "matrix": [
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        100,
-                        400,
-                        150,
-                        1
-                    ]
-                },
-                {
-                    "uuid": "62A1BA26-57C8-4BEA-B54C-A7339488FF42",
-                    "type": "Mesh",
-                    "name": "Skybox",
-                    "geometry": "60A2BA46-1397-4689-863F-7C9A1484A77F",
-                    "material": "7A3B6FEC-10FA-4F5D-9220-39FFE41130F5",
-                    "matrix": [
-                        -1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1
-                    ]
-                }
-            ]
-        }
-    },
-    "scripts": {
-        "62A1BA26-57C8-4BEA-B54C-A7339488FF42": [
-            {
-                "name": "changeTexture",
-                "source": "this.material.uniforms = {\n\ttexture: { type: 't', value: THREE.ImageUtils.loadTexture('client/assets/img/skysphere1.jpg') }\n};\n\nthis.eulerOrder = 'XZY';\nthis.renderDepth = 1000.0;"
-            }
-        ]
-    }
+	"project": {
+		"vr": false
+	},
+	"camera": {
+		"metadata": {
+			"version": 4.3,
+			"type": "Object",
+			"generator": "ObjectExporter"
+		},
+		"object": {
+			"uuid": "E22E11FC-408A-4823-AE47-F34A8B4C60D6",
+			"type": "PerspectiveCamera",
+			"name": "Camera",
+			"fov": 50,
+			"aspect": 1.949025487256372,
+			"near": 0.1,
+			"far": 100000,
+			"matrix": [0.9999761581420898,1.0228972183168317e-11,0.006907379720360041,0,-0.002874488476663828,0.9092971682548523,0.4161375164985657,0,-0.006280860863626003,-0.4161474406719208,0.909275472164154,0,212.37322998046875,-596.989501953125,1305.2578125,1]
+		}
+	},
+	"scene": {
+		"metadata": {
+			"version": 4.3,
+			"type": "Object",
+			"generator": "ObjectExporter"
+		},
+		"geometries": [
+			{
+				"uuid": "46F4D8AF-47E1-4FD6-8687-9373FCF91C1C",
+				"type": "PlaneGeometry",
+				"width": 200,
+				"height": 200,
+				"widthSegments": 1,
+				"heightSegments": 1
+			},
+			{
+				"uuid": "FAE93433-E45A-4F81-B8EE-55B232701CEA",
+				"type": "SphereGeometry",
+				"radius": 20000,
+				"widthSegments": 32,
+				"heightSegments": 32,
+				"phiStart": 0,
+				"phiLength": 6.29,
+				"thetaStart": 0,
+				"thetaLength": 3.14
+			}],
+		"materials": [
+			{
+				"uuid": "9A1BAC6E-AEDD-406D-97CA-73BA733FABBB",
+				"type": "MeshPhongMaterial",
+				"color": 7974655,
+				"emissive": 0,
+				"specular": 1118481,
+				"shininess": 3
+			},
+			{
+				"uuid": "7A3B6FEC-10FA-4F5D-9220-39FFE41130F5",
+				"type": "MeshBasicMaterial",
+				"color": 8421504,
+				"side": 1
+			}],
+		"object": {
+			"uuid": "31517222-A9A7-4EAF-B5F6-60751C0BABA3",
+			"type": "Scene",
+			"name": "Scene",
+			"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+			"children": [
+				{
+					"uuid": "0C2EC231-41E4-4F71-B017-790340178843",
+					"type": "Mesh",
+					"name": "Floor",
+					"geometry": "46F4D8AF-47E1-4FD6-8687-9373FCF91C1C",
+					"material": "9A1BAC6E-AEDD-406D-97CA-73BA733FABBB",
+					"matrix": [5,0,0,0,0,0.004003959242254496,-5.031365871429443,0,0,0.9999997019767761,0.0007957994239404798,0,0,0,0,1]
+				},
+				{
+					"uuid": "395C5D46-0DA0-4AB3-9908-CC5C0D9E803A",
+					"type": "DirectionalLight",
+					"name": "Sun",
+					"color": 16777215,
+					"intensity": 1,
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,100,400,150,1]
+				},
+				{
+					"uuid": "62A1BA26-57C8-4BEA-B54C-A7339488FF42",
+					"type": "Mesh",
+					"name": "Skybox",
+					"geometry": "FAE93433-E45A-4F81-B8EE-55B232701CEA",
+					"material": "7A3B6FEC-10FA-4F5D-9220-39FFE41130F5",
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,712.280029296875,-1106.8399658203125,-321.17999267578125,1]
+				}]
+		}
+	},
+	"scripts": {
+		"62A1BA26-57C8-4BEA-B54C-A7339488FF42": [
+			{
+				"name": "changeTexture",
+				"source": "this.material.map = THREE.ImageUtils.loadTexture('client/assets/img/galaxy_starfield.png');"
+			}]
+	}
 }
