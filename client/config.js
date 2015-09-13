@@ -12,12 +12,15 @@ var require = {
         PointerLockControls: {deps: ['ThreeCore'], exports: 'THREE'},
         StereoEffect: {deps: ['ThreeCore'], exports: 'THREE'},
         CSS3DRenderer: {deps: ['ThreeCore'], exports: 'THREE'},
+		
         /**
          * --- end THREE sub-components
          */
 
         Detector: {exports: 'Detector'},
-        Stats: {exports: 'Stats'}
+        Stats: {exports: 'Stats'},
+		
+		QRCode: ['jquery']
     },
     /**
      * --- Third party code lives in client/lib
@@ -47,6 +50,10 @@ var require = {
         /**
          * --- Where to look for shader files
          */
-        shaders: 'shaders'
+        shaders: 'shaders',
+		
+		// jQuery and its plugins
+		jquery: '/node_modules/jquery/dist/jquery.min',
+		QRCode: '../lib/jQuery.QRCode.min'
     }
 };

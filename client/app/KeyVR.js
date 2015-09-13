@@ -1,4 +1,4 @@
-define(['SocketIO'], function(io) {
+define(['SocketIO', 'jquery', 'QRCode'], function(io, $) {
 	var init = function() {
 		var self = this;
 		
@@ -13,8 +13,12 @@ define(['SocketIO'], function(io) {
         document.addEventListener('keyup', onKeyUp, false);
 	};
 	
-	var startKeyVR = function() {
+	var showQRCode = function() {
+		$('#threejs-container').detach();
+		var qrElement = $('div').attr('id', 'qrCode');
+		qrElement.qrcode('hola');
 		
+		$('body').add(qrElement);
 	};
 	
     return {
