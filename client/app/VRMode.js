@@ -1,5 +1,5 @@
 define([], function() {
     return {
-        vr: false,
+        vr: true,
     };
 });

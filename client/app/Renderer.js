@@ -1,4 +1,4 @@
-define(['Three', 'Container', 'VRMode', 'CSS3DRenderer'], function(THREE, container, vrMode) {
+define(['Three', 'Container', 'VRMode'], function(THREE, container, vrMode) {
     var VRRenderer = function(realRenderer) {
         var effect;
         if (vrMode.vr) {
@@ -31,12 +31,11 @@ define(['Three', 'Container', 'VRMode', 'CSS3DRenderer'], function(THREE, contai
     webGLRenderer.setPixelRatio(window.devicePixelRatio);
     var webGLVRRenderer = new VRRenderer(webGLRenderer);
 
-    // FIXME CSS3D renderer will most likely not work with stereo effect -
-    // we should test it and try with https://github.com/mrdoob/three.js/blob/master/examples/js/renderers/CSS3DStereoRenderer.js
     var css3DRenderer = new THREE.CSS3DRenderer();
+	var css3DVRRenderer = new VRRenderer(css3DRenderer);
 
     return {
         webGL: webGLVRRenderer,
-        css3D: css3DRenderer
+        css3D: css3DVRRenderer
     };
 });

@@ -12,6 +12,7 @@ var require = {
         PointerLockControls: {deps: ['ThreeCore'], exports: 'THREE'},
         StereoEffect: {deps: ['ThreeCore'], exports: 'THREE'},
         CSS3DRenderer: {deps: ['ThreeCore'], exports: 'THREE'},
+		CSS3DStereoRenderer: {deps: ['ThreeCore'], exports: 'THREE'},
         /**
          * --- end THREE sub-components
          */
@@ -30,6 +31,7 @@ var require = {
         PointerLockControls: '../lib/controls/PointerLockControls',
         StereoEffect: '../lib/effects/StereoEffect',
         CSS3DRenderer: '../lib/renderers/CSS3DRenderer',
+		CSS3DStereoRenderer: '../lib/renderers/CSS3DStereoRenderer',
         SocketIO: '/socket.io/socket.io',
         /**
          * --- end THREE sub-components
