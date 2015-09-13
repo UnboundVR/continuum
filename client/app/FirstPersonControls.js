@@ -39,12 +39,9 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
                     controls.enabled = true;
                     blocker.style.display = 'none';
                 } else {
-                    controlsEnabled = false;
-                    controls.enabled = false;
-                    blocker.style.display = '-webkit-box';
-                    blocker.style.display = '-moz-box';
-                    blocker.style.display = 'box';
-                    instructions.style.display = '';
+                   controlsEnabled = true;
+                    controls.enabled = true;
+                    blocker.style.display = 'none';
                 }
             };
 

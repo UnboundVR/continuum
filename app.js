@@ -14,8 +14,10 @@ app.use('/node_modules', express.static('node_modules'));
 
 // Serve index file
 app.get('/', function(req, res) {
-    res.sendfile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/index.html');
 });
+
+app.use('/keyvr', express.static('keyvr'));
 
 var players = {};
 

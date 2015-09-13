@@ -18,9 +18,7 @@ var require = {
          */
 
         Detector: {exports: 'Detector'},
-        Stats: {exports: 'Stats'},
-		
-		QRCode: ['jquery']
+        Stats: {exports: 'Stats'}
     },
     /**
      * --- Third party code lives in client/lib
@@ -50,10 +48,6 @@ var require = {
         /**
          * --- Where to look for shader files
          */
-        shaders: 'shaders',
-		
-		// jQuery and its plugins
-		jquery: '/node_modules/jquery/dist/jquery.min',
-		QRCode: '../lib/jQuery.QRCode.min'
+        shaders: 'shaders'
     }
 };

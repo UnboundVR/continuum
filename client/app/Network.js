@@ -1,11 +1,9 @@
 'use strict';
 
-define(['SocketIO', 'Scene'], function(io, scene) {
+define(['Socket', 'Scene'], function(socket, scene) {
     return {
         init: function() {
             var _this = this;
-
-            this.socket = io.connect();
 
             this.players = {
                 me: {
@@ -15,23 +13,23 @@ define(['SocketIO', 'Scene'], function(io, scene) {
                 others: {},
             };
 
-            this.socket.on('connect', function() {
+            socket.on('connect', function() {
                 _this.players.me.id = this.id;
-                _this.socket.emit('register', _this.players.me);
+                socket.emit('register', _this.players.me);
             });
 
-            this.socket.on('other connect', function(other) {
+            socket.on('other connect', function(other) {
                 _this.players.others[other.id] = other;
                 _this.addPlayerAvatar(other);
             });
 
-            this.socket.on('other disconnect', function(id) {
+            socket.on('other disconnect', function(id) {
                 var player = _this.players.others[id];
                 delete _this.players.others[id];
                 _this.removePlayerAvatar(player);
             });
 
-            this.socket.on('other change', function(data) {
+            socket.on('other change', function(data) {
                 var player = _this.players.others[data.id];
                 if (player) {
                     player.position = data.position;
@@ -62,7 +60,7 @@ define(['SocketIO', 'Scene'], function(io, scene) {
 
         playerMoved: function(position) {
             this.players.me.position = position;
-            this.socket.emit('change', this.players.me);
+            socket.emit('change', this.players.me);
         },
     };
 });
