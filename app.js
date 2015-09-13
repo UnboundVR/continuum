@@ -19,10 +19,11 @@ app.get('/', function(req, res) {
 
 var players = {};
 
-// Position syncing logic (TODO move to API)
+// TODO move to other files
 io.on('connection', function(socket) {
     console.log(socket.id + ' connected!');
 
+	// Position sync
     socket.on('register', function(data) {
         for (var id in players) {
             var player = players[id];
@@ -42,6 +43,16 @@ io.on('connection', function(socket) {
         delete players[socket.id];
         socket.broadcast.emit('other disconnect', socket.id);
     });
+	
+	// KeyVR
+	socket.on('qrCodeScanned', function(data) {
+		console.log(data.keyboardId + ' scanned!');
+		socket.broadcast.to(data.keyboardId).emit('deviceConnected', {deviceId: socket.id});
+	});
+	
+	socket.on('keypress', function(data) {
+		socket.broadcast.to(data.deviceId).emit('keypress', {'key' : data.key, 'ts' : data.ts});
+	});
 });
 
 var port = 1337;

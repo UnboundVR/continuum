@@ -1,5 +1,5 @@
-define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container', 'Scene', 'Network', 'VRMode', 'GUI'],
-    function(THREE, fpControls, renderer, objectLoader, container, scene, network, vrMode, gui) {
+define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container', 'Scene', 'Network', 'VRMode', 'GUI', 'KeyVR'],
+    function(THREE, fpControls, renderer, objectLoader, container, scene, network, vrMode, gui, keyVR) {
         var App = function() {
             var camera;
 
@@ -140,6 +140,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
 
                 fpControls.init();
                 network.init();
+				keyVR.init();
             };
 
             // FIXME is this being called somewhere?
