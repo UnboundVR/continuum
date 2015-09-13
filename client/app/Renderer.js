@@ -1,4 +1,4 @@
-define(['Three', 'Container', 'VRMode', 'CSS3DRenderer'], function(THREE, container, vrMode) {
+define(['Three', 'Container', 'VRMode'], function(THREE, container, vrMode) {
     var VRRenderer = function(realRenderer) {
         var effect;
         if (vrMode.vr) {
