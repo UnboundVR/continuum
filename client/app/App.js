@@ -52,9 +52,11 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
 					var object = scene.getScene().getObjectByProperty('uuid', uuid, true);
 					var guiElement = jsonGui[uuid];
 					
-					var cssNode = document.createElement('style');
-					cssNode.innerHTML = guiElement.css;
-					document.body.appendChild(cssNode);
+					if(guiElement.css) {
+						var cssNode = document.createElement('style');
+						cssNode.innerHTML = guiElement.css;
+						document.body.appendChild(cssNode);
+					}
 					
 					var htmlNode = document.createElement('div');
 					htmlNode.innerHTML = guiElement.html;					 
