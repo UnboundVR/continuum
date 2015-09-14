@@ -1,61 +1,30 @@
 'use strict';
 
-define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container', 'Scene', 'Network', 'VRMode', 'loaders/GUILoader'],
-    function(THREE, fpControls, renderer, objectLoader, container, scene, network, vrMode, guiLoader) {
+define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container', 'Scene', 'Network', 'loaders/GUILoader', 'loaders/ScriptsLoader'],
+    function(THREE, fpControls, renderer, objectLoader, container, scene, network, guiLoader, scriptsLoader) {
         var App = function() {
             var camera;
 			var prevTime;
             var request;
 
-            var events = {
-                keydown: {list: [], isBrowserEvent: true},
-                keyup: {list: [], isBrowserEvent: true},
-                mousedown: {list: [], isBrowserEvent: true},
-                mouseup: {list: [], isBrowserEvent: true},
-                mousemove: {list: [], isBrowserEvent: true},
-                touchstart: {list: [], isBrowserEvent: true},
-                touchend: {list: [], isBrowserEvent: true},
-                touchmove: {list: [], isBrowserEvent: true},
-                update: {list: []}
-            };
-			
-			var browserEvents = Object.keys(events).filter(function(key) {
-				return events[key].isBrowserEvent;
-			});
-
             this.load = function(json) {
 				scene.setScene(objectLoader.parse(json.scene));
                 scene.setCSS3DScene(guiLoader.parse(json.gui));
                 
+				// Perhaps we could pass more things -- the most important thing is that later on we document which things we expose to scripts
+				// We can also pass things like renderer directly as params (such as when we pass scene) but I think it's OK to pass just scene as a distinct param
+				var relevantApp = {
+					setCamera: this.setCamera,
+					setSize: this.setSize,
+					play: this.play,
+					stop: this.stop,
+					renderer: renderer,
+					network: network
+				};
+				
+                scriptsLoader.load(json.scripts, relevantApp);
+				
 				this.setCamera(fpControls.camera);
-                this.loadScripts(json.scripts);
-            };
-
-            this.loadScripts = function(jsonScripts) {
-                for (var uuid in jsonScripts) {
-                    var object = scene.getScene().getObjectByProperty('uuid', uuid, true);
-                    var scripts = jsonScripts[uuid];
-
-                    for (var i = 0; i < scripts.length; i++) {
-                        var script = scripts[i];
-						
-						var params = 'player, scene, ' + Object.keys(events).join(', ');
-						var source = script.source + '\nreturn {' + Object.keys(events).map(function(key) {
-							return key + ': ' + key;
-						}).join(', ') + '};';
-                        var functions = (new Function(params, source).bind(object))(this, scene.getScene());
-						
-                        for (var name in functions) {
-                            if (functions[name] === undefined) continue;
-                            if (events[name] === undefined) {
-                                console.warn('APP.Player: event type not supported (', name, ')');
-                                continue;
-                            }
-
-                            events[name].push(functions[name].bind(object));
-                        }
-                    }
-                }
             };
 
             this.setCamera = function(value) {
@@ -74,39 +43,23 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
                 renderer.setSize(width, height);
             };
 
-            var dispatch = function(array, event) {
-                for (var i = 0, l = array.length; i < l; i++) {
-                    array[i](event);
-                }
-            };
-
             var animate = function(time) {
                 request = requestAnimationFrame(animate);
-                dispatch(events.update.list, {time: time, delta: time - prevTime});
+                scriptsLoader.dispatchEvent(scriptsLoader.events.update, {time: time, delta: time - prevTime});
                 fpControls.animate();
                 renderer.render(scene, camera);
                 prevTime = time;
             };
 
             this.play = function() {
-				for(var i = 0; i < browserEvents.length; i++) {
-					var key = browserEvents[i];
-					var callback = function(event) {
-						dispatch(events[key].list, event);
-					};
-					events[key].callback = callback;
-					document.addEventListener(key, callback);
-				}
+				scriptsLoader.addEventListeners();
 
                 request = requestAnimationFrame(animate);
                 prevTime = performance.now();
             };
 
             this.stop = function() {
-				for(var i = 0; i < browserEvents.length; i++) {
-					var key = browserEvents[i];				
-					document.removeEventListener(key, events[key].callback);
-				}
+				scriptsLoader.removeEventListeners();
 
                 cancelAnimationFrame(request);
             };
