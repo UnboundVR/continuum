@@ -1,9 +1,9 @@
 'use strict';
 
 // Based on http://learningthreejs.com/blog/2013/04/30/closing-the-gap-between-html-and-webgl/
-define(['Three', 'Scene'], function(THREE, scene) {
+define(['Three'], function(THREE) {
 
-    var embedHtml = function(element, plane) {
+    var embedHtml = function(element, plane, css3DScene) {
         var cssObject = new THREE.CSS3DObject(element);
         cssObject.position.copy(plane.position);
         cssObject.rotation.copy(plane.rotation);
@@ -15,7 +15,7 @@ define(['Three', 'Scene'], function(THREE, scene) {
 
         plane.material = material;
 
-        scene.getCSS3DScene().add(cssObject);
+        css3DScene.add(cssObject);
     };
 
     return {

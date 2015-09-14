@@ -1,7 +1,7 @@
 'use strict';
 
-define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container', 'Scene', 'Network', 'VRMode', 'GUI'],
-    function(THREE, fpControls, renderer, objectLoader, container, scene, network, vrMode, gui) {
+define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container', 'Scene', 'Network', 'VRMode', 'loaders/GUILoader'],
+    function(THREE, fpControls, renderer, objectLoader, container, scene, network, vrMode, guiLoader) {
         var App = function() {
             var camera;
 			var prevTime;
@@ -25,31 +25,11 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
 
             this.load = function(json) {
 				scene.setScene(objectLoader.parse(json.scene));
+                scene.setCSS3DScene(guiLoader.parse(json.gui));
                 
 				this.setCamera(fpControls.camera);
                 this.loadScripts(json.scripts);
-				
-				var css3DScene = new THREE.Scene();
-                scene.setCSS3DScene(css3DScene);
-				this.loadGUI(json.gui);
             };
-			
-			this.loadGUI = function(jsonGui) {
-				for (var uuid in jsonGui) {
-					var object = scene.getScene().getObjectByProperty('uuid', uuid, true);
-					var guiElement = jsonGui[uuid];
-					
-					if(guiElement.css) {
-						var cssNode = document.createElement('style');
-						cssNode.innerHTML = guiElement.css;
-						document.body.appendChild(cssNode);
-					}
-					
-					var htmlNode = document.createElement('div');
-					htmlNode.innerHTML = guiElement.html;					 
-					gui.embedHtml(htmlNode, object);
-				}
-			};
 
             this.loadScripts = function(jsonScripts) {
                 for (var uuid in jsonScripts) {
