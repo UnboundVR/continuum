@@ -11,7 +11,8 @@ define(['Scene'], function(scene) {
 		touchstart: {list: [], isBrowserEvent: true},
 		touchend: {list: [], isBrowserEvent: true},
 		touchmove: {list: [], isBrowserEvent: true},
-		update: {list: []}
+		update: {list: []},
+		unload: {list: []}
 	};
 	
 	var browserEvents = Object.keys(events).filter(function(key) {
@@ -42,6 +43,27 @@ define(['Scene'], function(scene) {
 			document.removeEventListener(key, events[key].callback);
 		}
 	};
+	
+	var loadScript = function(script, object, app) {
+		var params = 'app, scene, ' + Object.keys(events).join(', ');
+		var source = script.source + '\nreturn {' + Object.keys(events).map(function(key) {
+			return key + ': ' + key;
+		}).join(', ') + '};';
+		var functions = (new Function(params, source).bind(object))(app, scene.getScene());
+		
+		for (var name in functions) {
+			if (functions[name] === undefined) {
+				continue;
+			}
+			
+			if (events[name] === undefined) {
+				console.warn('Event type not supported (', name, ')');
+				continue;
+			}
+
+			events[name].push(functions[name].bind(object));
+		}
+	};
 
 	var load = function(json, app) {
 		for (var uuid in json) {
@@ -49,23 +71,7 @@ define(['Scene'], function(scene) {
 			var scripts = json[uuid];
 
 			for (var i = 0; i < scripts.length; i++) {
-				var script = scripts[i];
-				
-				var params = 'app, scene, ' + Object.keys(events).join(', ');
-				var source = script.source + '\nreturn {' + Object.keys(events).map(function(key) {
-					return key + ': ' + key;
-				}).join(', ') + '};';
-				var functions = (new Function(params, source).bind(object))(app, scene.getScene());
-				
-				for (var name in functions) {
-					if (functions[name] === undefined) continue;
-					if (events[name] === undefined) {
-						console.warn('Event type not supported (', name, ')');
-						continue;
-					}
-
-					events[name].push(functions[name].bind(object));
-				}
+				loadScript(scripts[i], object, app);
 			}
 		}
 	};
