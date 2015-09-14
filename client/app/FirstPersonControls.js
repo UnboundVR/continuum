@@ -1,4 +1,6 @@
-define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, scene, network) {
+'use strict';
+
+define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
     var controls;
     var controlsEnabled = false;
     var raycaster;
@@ -213,7 +215,7 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
 
             restrainPosition(obj);
 
-            network.playerMoved(obj.position);
+            playerSync.playerMoved(obj.position);
         }
 
         prevTime = time;

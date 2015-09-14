@@ -1,7 +1,8 @@
-require(['Detector', 'App', 'Container'], function(detector, app, container) {
+'use strict';
+
+require(['Detector', 'App'], function(detector, app) {
     if (!detector.webgl) {
         detector.addGetWebGLMessage();
-        container.innerHTML = '';
     }
 
     app.init();
