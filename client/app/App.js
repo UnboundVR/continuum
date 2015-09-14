@@ -123,8 +123,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
 
                 fpControls.animate();
 
-                renderer.webGL.render(scene.getScene(), camera);
-                renderer.css3D.render(scene.getCSS3DScene(), camera);
+                renderer.render(camera);
 
                 prevTime = time;
             };
