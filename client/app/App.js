@@ -23,10 +23,14 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
 				};
 				
                 scriptsLoader.load(json.scripts, relevantApp);
+				this.setCamera(fpControls.camera);
 				
 				// FIXME haha
 				window.loadScript = function() {
-					loadScript("F5C66F19-25FA-4CB5-85C1-8BA584DDA369", document.getElementById("leCode").value);
+					scriptsLoader.loadScript(
+						{name: 'stuff', source: document.getElementById("leCode").value},
+						scene.getObjectByUUID('F5C66F19-25FA-4CB5-85C1-8BA584DDA369')
+					);
 				};
             };
 

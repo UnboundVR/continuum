@@ -44,12 +44,12 @@ define(['Scene'], function(scene) {
 		}
 	};
 	
-	var loadScript = function(script, object, app) {
+	var loadScript = function(script, object) {
 		var params = 'app, scene, ' + Object.keys(events).join(', ');
 		var source = script.source + '\nreturn {' + Object.keys(events).map(function(key) {
 			return key + ': ' + key;
 		}).join(', ') + '};';
-		var functions = (new Function(params, source).bind(object))(app, scene.getScene());
+		var functions = (new Function(params, source).bind(object))(this.app, scene.getScene());
 		
 		for (var name in functions) {
 			if (functions[name] === undefined) {
@@ -61,17 +61,18 @@ define(['Scene'], function(scene) {
 				continue;
 			}
 
-			events[name].push(functions[name].bind(object));
+			events[name].list.push(functions[name].bind(object));
 		}
 	};
 
 	var load = function(json, app) {
+		this.app = app;
 		for (var uuid in json) {
 			var object = scene.getObjectByUUID(uuid);
 			var scripts = json[uuid];
 
 			for (var i = 0; i < scripts.length; i++) {
-				loadScript(scripts[i], object, app);
+				this.loadScript(scripts[i], object);
 			}
 		}
 	};
@@ -79,6 +80,7 @@ define(['Scene'], function(scene) {
     return {
         events: events,
 		load: load,
+		loadScript: loadScript,
 		dispatchEvent: dispatch,
 		addEventListeners: addEventListeners,
 		removeEventListeners: removeEventListeners
