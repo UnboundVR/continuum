@@ -1,7 +1,7 @@
 'use strict';
 
-define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container', 'Scene', 'Network', 'loaders/GUILoader', 'loaders/ScriptsLoader'],
-    function(THREE, fpControls, renderer, objectLoader, container, scene, network, guiLoader, scriptsLoader) {
+define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'PlayerSync', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader'],
+    function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader) {
         var App = function() {
             var camera;
 			var prevTime;
@@ -19,7 +19,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
 					play: this.play,
 					stop: this.stop,
 					renderer: renderer,
-					network: network
+					playerSync: playerSync
 				};
 				
                 scriptsLoader.load(json.scripts, relevantApp);
@@ -74,7 +74,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
                     _this.play();
 					
 					fpControls.init();
-					network.init();
+					playerSync.init();
 
                     container.appendChild(renderer.domElement);
 
