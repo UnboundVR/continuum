@@ -4,23 +4,24 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
     function(THREE, fpControls, renderer, objectLoader, container, scene, network, vrMode, gui) {
         var App = function() {
             var camera;
+			var prevTime;
+            var request;
 
             var events = {
-                keydown: [],
-                keyup: [],
-                mousedown: [],
-                mouseup: [],
-                mousemove: [],
-                touchstart: [],
-                touchend: [],
-                touchmove: [],
-                update: [],
+                keydown: {list: [], isBrowserEvent: true},
+                keyup: {list: [], isBrowserEvent: true},
+                mousedown: {list: [], isBrowserEvent: true},
+                mouseup: {list: [], isBrowserEvent: true},
+                mousemove: {list: [], isBrowserEvent: true},
+                touchstart: {list: [], isBrowserEvent: true},
+                touchend: {list: [], isBrowserEvent: true},
+                touchmove: {list: [], isBrowserEvent: true},
+                update: {list: []}
             };
-
-            this.domElement = undefined;
-
-            this.width = window.innerWidth;
-            this.height = window.innerHeight;
+			
+			var browserEvents = Object.keys(events).filter(function(key) {
+				return events[key].isBrowserEvent;
+			});
 
             this.load = function(json) {
                 var css3DDomElement = renderer.css3D.domElement;
@@ -113,13 +114,10 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
                 }
             };
 
-            var prevTime;
-            var request;
-
             var animate = function(time) {
                 request = requestAnimationFrame(animate);
 
-                dispatch(events.update, {time: time, delta: time - prevTime});
+                dispatch(events.update.list, {time: time, delta: time - prevTime});
 
                 fpControls.animate();
 
@@ -129,66 +127,26 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
             };
 
             this.play = function() {
-                document.addEventListener('keydown', onDocumentKeyDown);
-                document.addEventListener('keyup', onDocumentKeyUp);
-                document.addEventListener('mousedown', onDocumentMouseDown);
-                document.addEventListener('mouseup', onDocumentMouseUp);
-                document.addEventListener('mousemove', onDocumentMouseMove);
-                document.addEventListener('touchstart', onDocumentTouchStart);
-                document.addEventListener('touchend', onDocumentTouchEnd);
-                document.addEventListener('touchmove', onDocumentTouchMove);
+				for(var i = 0; i < browserEvents.length; i++) {
+					var key = browserEvents[i];
+					var callback = function(event) {
+						dispatch(events[key].list, event);
+					};
+					events[key].callback = callback;
+					document.addEventListener(key, callback);
+				}
 
                 request = requestAnimationFrame(animate);
                 prevTime = performance.now();
-
-                fpControls.init();
-                network.init();
             };
 
-            // FIXME is this being called somewhere?
             this.stop = function() {
-                document.removeEventListener('keydown', onDocumentKeyDown);
-                document.removeEventListener('keyup', onDocumentKeyUp);
-                document.removeEventListener('mousedown', onDocumentMouseDown);
-                document.removeEventListener('mouseup', onDocumentMouseUp);
-                document.removeEventListener('mousemove', onDocumentMouseMove);
-                document.removeEventListener('touchstart', onDocumentTouchStart);
-                document.removeEventListener('touchend', onDocumentTouchEnd);
-                document.removeEventListener('touchmove', onDocumentTouchMove);
+				for(var i = 0; i < browserEvents.length; i++) {
+					var key = browserEvents[i];				
+					document.removeEventListener(key, events[key].callback);
+				}
 
                 cancelAnimationFrame(request);
-            };
-
-            var onDocumentKeyDown = function(event) {
-                dispatch(events.keydown, event);
-            };
-
-            var onDocumentKeyUp = function(event) {
-                dispatch(events.keyup, event);
-            };
-
-            var onDocumentMouseDown = function(event) {
-                dispatch(events.mousedown, event);
-            };
-
-            var onDocumentMouseUp = function(event) {
-                dispatch(events.mouseup, event);
-            };
-
-            var onDocumentMouseMove = function(event) {
-                dispatch(events.mousemove, event);
-            };
-
-            var onDocumentTouchStart = function(event) {
-                dispatch(events.touchstart, event);
-            };
-
-            var onDocumentTouchEnd = function(event) {
-                dispatch(events.touchend, event);
-            };
-
-            var onDocumentTouchMove = function(event) {
-                dispatch(events.touchmove, event);
             };
 
             this.init = function() {
@@ -199,6 +157,9 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
                     _this.load(JSON.parse(text));
                     _this.setSize(window.innerWidth, window.innerHeight);
                     _this.play();
+					
+					fpControls.init();
+					network.init();
 
                     container.appendChild(_this.domElement);
 

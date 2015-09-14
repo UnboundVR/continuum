@@ -1,8 +1,6 @@
 'use strict';
 
-// Configure Require.js
 var require = {
-    // Default load path for js files
     baseUrl: 'client/app',
     shim: {
         ThreeCore: {exports: 'THREE'},
