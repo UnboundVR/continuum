@@ -78,7 +78,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
 							return key + ': ' + key;
 						}).join(', ') + '};';
                         var functions = (new Function(params, source).bind(object))(this, scene.getScene());
-
+						
                         for (var name in functions) {
                             if (functions[name] === undefined) continue;
                             if (events[name] === undefined) {
