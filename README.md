@@ -1,8 +1,9 @@
-Metavrse by UnboundVR
+# metavrse.io by Unbound VR
 
-Get dependencies
+Get dependencies => **npm install**
 
-**npm install**
-**node app.js**
+Run => **node app.js**
 
 Navigate to http://localhost:1337
+
+\m/

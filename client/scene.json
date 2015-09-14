@@ -120,7 +120,7 @@
 		"62A1BA26-57C8-4BEA-B54C-A7339488FF42": [
 			{
 				"name": "changeTexture",
-				"source": "this.material.map = THREE.ImageUtils.loadTexture('client/assets/img/galaxy_starfield.png');"
+				"source": "this.material.map = THREE.ImageUtils.loadTexture('client/assets/img/galaxy-starfield.png');"
 			}]
 	},
 	"gui": {
