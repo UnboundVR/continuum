@@ -41,7 +41,7 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
                     controls.enabled = true;
                     blocker.style.display = 'none';
                 } else {
-                   controlsEnabled = true;
+					controlsEnabled = true;
                     controls.enabled = true;
                     blocker.style.display = 'none';
                 }

@@ -54,10 +54,6 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
 
                 request = requestAnimationFrame(animate);
                 prevTime = performance.now();
-
-                fpControls.init();
-                network.init();
-				keyVR.init();
             };
 
             this.stop = function() {
@@ -77,6 +73,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
 					
 					fpControls.init();
 					playerSync.init();
+					keyVR.init();
 
                     container.appendChild(renderer.domElement);
 

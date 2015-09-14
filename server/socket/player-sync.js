@@ -5,6 +5,7 @@ var players = {};
 var init = function(io) {
 	io.on('connection', function(socket) {
 		socket.on('register', function(data) {
+			console.log(socket.id)
 			for (var id in players) {
 				var player = players[id];
 				io.to(socket.id).emit('other connect', player);
