@@ -1,3 +1,5 @@
+'use strict';
+
 define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container', 'Scene', 'Network', 'VRMode', 'GUI'],
     function(THREE, fpControls, renderer, objectLoader, container, scene, network, vrMode, gui) {
         var App = function() {

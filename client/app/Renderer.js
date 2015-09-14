@@ -1,3 +1,5 @@
+'use strict';
+
 define(['Three', 'Container', 'VRMode'], function(THREE, container, vrMode) {
     var VRRenderer = function(realRenderer) {
         var effect;

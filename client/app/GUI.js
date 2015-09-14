@@ -1,3 +1,5 @@
+'use strict';
+
 // Based on http://learningthreejs.com/blog/2013/04/30/closing-the-gap-between-html-and-webgl/
 define(['Three', 'Scene'], function(THREE, scene) {
 
@@ -6,7 +8,7 @@ define(['Three', 'Scene'], function(THREE, scene) {
         cssObject.position.copy(plane.position);
         cssObject.rotation.copy(plane.rotation);
 
-        var material   = new THREE.MeshBasicMaterial();
+        var material = new THREE.MeshBasicMaterial();
         material.color.set('black');
         material.opacity   = 0;
         material.blending  = THREE.NoBlending;

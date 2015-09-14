@@ -23,9 +23,6 @@ var require = {
         CSS3DRenderer: '../lib/renderers/CSS3DRenderer',
         SocketIO: '/socket.io/socket.io',
         Detector: '../lib/Detector',
-        Stats: 'lib/Stats.min',
-        Text: 'lib/require_plugins/Text',
-        Shader: 'lib/require_plugins/Shader',
-        shaders: 'shaders'
+        Stats: 'lib/Stats.min'
     }
 };

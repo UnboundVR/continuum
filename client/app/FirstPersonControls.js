@@ -1,3 +1,5 @@
+'use strict';
+
 define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, scene, network) {
     var controls;
     var controlsEnabled = false;
