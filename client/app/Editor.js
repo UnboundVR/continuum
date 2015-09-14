@@ -1,15 +1,15 @@
 'use strict';
 
 define([], function() {
-	var editScript = function() {
+	var editScript = function(uuid) {
 		
 	};
 	
-	var editHtml = function() {
+	var editHtml = function(uuid) {
 		
 	};
 	
-	var editCss = function() {
+	var editCss = function(uuid) {
 		
 	};
 	

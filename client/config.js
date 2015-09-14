@@ -10,7 +10,8 @@ var require = {
         StereoEffect: {deps: ['ThreeCore'], exports: 'THREE'},
         CSS3DRenderer: {deps: ['ThreeCore'], exports: 'THREE'},
         Detector: {exports: 'Detector'},
-        Stats: {exports: 'Stats'}
+        Stats: {exports: 'Stats'},
+        VReticle: {deps: ['ThreeCore'], exports: 'vreticle'}
     },
     paths: {
         Three: '../lib/Three',
@@ -21,6 +22,7 @@ var require = {
         CSS3DRenderer: '../lib/renderers/CSS3DRenderer',
         SocketIO: '/socket.io/socket.io',
         Detector: '../lib/Detector',
-        Stats: 'lib/Stats.min'
+        Stats: '../lib/Stats.min',
+        VReticle: '../lib/VReticle'
     }
 };
