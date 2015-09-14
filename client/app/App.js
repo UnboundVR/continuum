@@ -72,8 +72,12 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
 
                     for (var i = 0; i < scripts.length; i++) {
                         var script = scripts[i];
+						// TODO the 'player' object passed should have a cleaner, useful API (and also include stuff like socket io, etc.)
+						// TODO refactor to make dynamic to the list of events
                         var functions = (new Function('player, scene, keydown, keyup, mousedown, mouseup, mousemove, touchstart, touchend, touchmove, update', script.source + '\nreturn { keydown: keydown, keyup: keyup, mousedown: mousedown, mouseup: mouseup, mousemove: mousemove, touchstart: touchstart, touchend: touchend, touchmove: touchmove, update: update };').bind(object))(this, scene.getScene());
 
+						console.log(functions)
+						
                         for (var name in functions) {
                             if (functions[name] === undefined) continue;
                             if (events[name] === undefined) {
