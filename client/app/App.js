@@ -24,23 +24,9 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
 			});
 
             this.load = function(json) {
-                var css3DDomElement = renderer.css3D.domElement;
-                css3DDomElement.style.position = 'absolute';
-                css3DDomElement.style.top = 0;
-
-                var webGLDomElement = renderer.webGL.domElement;
-                webGLDomElement.style.position = 'absolute';
-                webGLDomElement.style.zIndex = 1;
-                webGLDomElement.style.top = 0;
-				webGLDomElement.style.pointerEvents = 'none';
-
-                css3DDomElement.appendChild(webGLDomElement);
-
-                this.domElement = css3DDomElement;
-
-                scene.setScene(objectLoader.parse(json.scene));
-				
-                this.setCamera(fpControls.camera);
+				scene.setScene(objectLoader.parse(json.scene));
+                
+				this.setCamera(fpControls.camera);
                 this.loadScripts(json.scripts);
 				
 				var css3DScene = new THREE.Scene();
@@ -99,18 +85,13 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
             };
 
             this.setSize = function(width, height) {
-                if (renderer.webGL._fullScreen) {
-                    return;
-                }
-
                 this.width = width;
                 this.height = height;
 
                 camera.aspect = this.width / this.height;
                 camera.updateProjectionMatrix();
 
-                renderer.webGL.setSize(width, height);
-                renderer.css3D.setSize(width, height);
+                renderer.setSize(width, height);
             };
 
             var dispatch = function(array, event) {
@@ -121,13 +102,9 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
 
             var animate = function(time) {
                 request = requestAnimationFrame(animate);
-
                 dispatch(events.update.list, {time: time, delta: time - prevTime});
-
                 fpControls.animate();
-
-                renderer.render(camera);
-
+                renderer.render(scene, camera);
                 prevTime = time;
             };
 
@@ -166,7 +143,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
 					fpControls.init();
 					network.init();
 
-                    container.appendChild(_this.domElement);
+                    container.appendChild(renderer.domElement);
 
                     window.addEventListener('resize', function() {
                         _this.setSize(window.innerWidth, window.innerHeight);
