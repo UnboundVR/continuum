@@ -72,7 +72,12 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'ObjectLoader', 'Container',
 
                     for (var i = 0; i < scripts.length; i++) {
                         var script = scripts[i];
-                        var functions = (new Function('player, scene, keydown, keyup, mousedown, mouseup, mousemove, touchstart, touchend, touchmove, update', script.source + '\nreturn { keydown: keydown, keyup: keyup, mousedown: mousedown, mouseup: mouseup, mousemove: mousemove, touchstart: touchstart, touchend: touchend, touchmove: touchmove, update: update };').bind(object))(this, scene.getScene());
+						
+						var params = 'player, scene, ' + Object.keys(events).join(', ');
+						var source = script.source + '\nreturn {' + Object.keys(events).map(function(key) {
+							return key + ': ' + key;
+						}).join(', ') + '};';
+                        var functions = (new Function(params, source).bind(object))(this, scene.getScene());
 
                         for (var name in functions) {
                             if (functions[name] === undefined) continue;
