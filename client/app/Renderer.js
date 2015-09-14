@@ -1,6 +1,9 @@
 'use strict';
 
-define(['Three', 'VRMode'], function(THREE, vrMode) {
+define(['Three'], function(THREE) {
+	// TODO make some kind of auto-detect for Cardboard (i.e. Android) and eventually a switch/auto-detect for Oculus
+	var vrMode = false;
+	
     var webGLRenderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
 	webGLRenderer.setClearColor(0x00ff00, 0.0);
 	webGLRenderer.setPixelRatio(window.devicePixelRatio);
@@ -37,6 +40,7 @@ define(['Three', 'VRMode'], function(THREE, vrMode) {
         css3D: css3DRenderer,
 		render: render,
 		setSize: setSize,
-		domElement: css3DRenderer.domElement
+		domElement: css3DRenderer.domElement,
+		vrMode: vrMode
     };
 });
