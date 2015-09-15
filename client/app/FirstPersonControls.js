@@ -4,7 +4,7 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
     var raycaster;
     var canJump = true;
     var moveForward = false;
-	var running = false;
+    var running = false;
     var moveBackward = false;
     var moveLeft = false;
     var moveRight = false;
@@ -48,12 +48,13 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
                     break;
                 case 32: // space
                     if (canJump === true) velocity.y += 350;
-					// Comment out this line and people can fly :D
+
+                    // Comment out this line and people can fly :D
                     canJump = false;
                     break;
-				case 16:
-					running = true;
-					break;
+                case 16:
+                    running = true;
+                    break;
             }
         };
 
@@ -75,9 +76,9 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
                 case 68: // d
                     moveRight = false;
                     break;
-				case 16:
-					running = false;
-					break;
+                case 16:
+                    running = false;
+                    break;
             }
         };
 
@@ -125,9 +126,9 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
             velocity.x -= velocity.x * 10.0 * delta;
             velocity.z -= velocity.z * 10.0 * delta;
             velocity.y -= 9.8 * 75.0 * delta; // 75.0 = mass
-			
-			var speed = running ? 16000 : 4000;
-			
+
+            var speed = running ? 16000 : 4000;
+
             if (moveForward) velocity.z -= speed * delta;
             if (moveBackward) velocity.z += speed * delta;
             if (moveLeft) velocity.x -= speed * delta;
@@ -148,9 +149,9 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
 
         prevTime = time;
     };
-    
+
     var getPosition = function() {
-        return controls.getObject().position;  
+        return controls.getObject().position;
     };
 
     return {

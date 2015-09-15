@@ -3,13 +3,13 @@
 
 define(['FirstPersonControls', 'loaders/ScriptsLoader'], function(controls, scripts) {
     var controlsEnabled = false;
-    
-    var init = function() {   
+
+    var init = function() {
         var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
         if (havePointerLock) {
             var element = document.body;
-            
+
             var pointerlockchange = function(event) {
                 if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
                     controlsEnabled = true;
@@ -26,12 +26,12 @@ define(['FirstPersonControls', 'loaders/ScriptsLoader'], function(controls, scri
                 // TODO do something meaninful, like allow the user to use the app without locking cursor (i.e. enable controls anyway)
                 console.log('pointer lock error');
             };
-            
+
             document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
             element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
-			element.requestFullscreen = element.requestFullscreen || element.mozRequestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen;
+            element.requestFullscreen = element.requestFullscreen || element.mozRequestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen;
 
-			var requestPointerLock = function() {
+            var requestPointerLock = function() {
                 if (/Firefox/i.test(navigator.userAgent)) {
                     var fullscreenchange = function(event) {
                         if (document.fullscreenElement === element || document.mozFullscreenElement === element || document.mozFullScreenElement === element) {
@@ -47,7 +47,7 @@ define(['FirstPersonControls', 'loaders/ScriptsLoader'], function(controls, scri
                 } else {
                     element.requestPointerLock();
                 }
-			};
+            };
 
             document.addEventListener('pointerlockchange', pointerlockchange, false);
             document.addEventListener('mozpointerlockchange', pointerlockchange, false);
@@ -55,29 +55,29 @@ define(['FirstPersonControls', 'loaders/ScriptsLoader'], function(controls, scri
             document.addEventListener('pointerlockerror', pointerlockerror, false);
             document.addEventListener('mozpointerlockerror', pointerlockerror, false);
             document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
-            
+
             // FIXME for some reason, using mouse events to toggle pointer lock causes the tab to flash when alt-tabbing if you leave pointer lock by pressing <esc>.
             var onMouseDown = function(event) {
-                if(event.button === 1) {
-                    if(controlsEnabled) {
+                if (event.button === 1) {
+                    if (controlsEnabled) {
                         document.exitPointerLock();
                     } else {
                         requestPointerLock();
                     }
                 }
             };
-            
+
             window.addEventListener('mousedown', onMouseDown, false);
         } else {
             // TODO do something meaninful, like allow the user to use the app without locking cursor (i.e. enable controls anyway)
             console.warn('Your browser doesn\'t seem to support Pointer Lock API');
         }
     };
-    
+
     var enabled = function() {
         return controlsEnabled;
     };
-    
+
     return {
         init: init,
         enabled: enabled

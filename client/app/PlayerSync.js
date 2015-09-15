@@ -8,9 +8,9 @@ define(['Socket', 'Scene'], function(socket, scene) {
             this.players = {
                 me: {
                     name: 'YO',
-                    position: new THREE.Vector3(),
+                    position: new THREE.Vector3()
                 },
-                others: {},
+                others: {}
             };
 
             socket.on('connect', function() {
@@ -61,6 +61,6 @@ define(['Socket', 'Scene'], function(socket, scene) {
         playerMoved: function(position) {
             this.players.me.position = position;
             socket.emit('change', this.players.me);
-        },
+        }
     };
 });

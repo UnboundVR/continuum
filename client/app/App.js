@@ -4,26 +4,26 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
     function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader, reticle, pointerLock, keyVR) {
         var App = function() {
             var camera;
-			var prevTime;
+            var prevTime;
             var request;
 
             this.load = function(json) {
-				scene.setScene(objectLoader.parse(json.scene));
+                scene.setScene(objectLoader.parse(json.scene));
                 scene.setCSS3DScene(guiLoader.parse(json.gui));
-                
-				// Perhaps we could pass more things -- the most important thing is that later on we document which things we expose to scripts
-				// We can also pass things like renderer directly as params (such as when we pass scene) but I think it's OK to pass just scene as a distinct param
-				var relevantApp = {
-					setCamera: this.setCamera,
-					setSize: this.setSize,
-					play: this.play,
-					stop: this.stop,
-					renderer: renderer,
-					playerSync: playerSync
-				};
-				
+
+                // Perhaps we could pass more things -- the most important thing is that later on we document which things we expose to scripts
+                // We can also pass things like renderer directly as params (such as when we pass scene) but I think it's OK to pass just scene as a distinct param
+                var relevantApp = {
+                    setCamera: this.setCamera,
+                    setSize: this.setSize,
+                    play: this.play,
+                    stop: this.stop,
+                    renderer: renderer,
+                    playerSync: playerSync
+                };
+
                 scriptsLoader.load(json.scripts, relevantApp);
-				this.setCamera(fpControls.camera);
+                this.setCamera(fpControls.camera);
             };
 
             this.setCamera = function(value) {
@@ -52,14 +52,14 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
             };
 
             this.play = function() {
-				scriptsLoader.addEventListeners();
+                scriptsLoader.addEventListeners();
 
                 request = requestAnimationFrame(animate);
                 prevTime = performance.now();
             };
 
             this.stop = function() {
-				scriptsLoader.removeEventListeners();
+                scriptsLoader.removeEventListeners();
 
                 cancelAnimationFrame(request);
             };
@@ -72,12 +72,12 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                     _this.load(JSON.parse(text));
                     _this.setSize(window.innerWidth, window.innerHeight);
                     _this.play();
-					
-					fpControls.init();
-					playerSync.init();
-					keyVR.init();
+	
+                    fpControls.init();
+                    playerSync.init();
                     reticle.init();
                     pointerLock.init();
+                    keyVR.init();
 
                     container.appendChild(renderer.domElement);
 
