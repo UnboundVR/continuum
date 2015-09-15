@@ -15,7 +15,7 @@ define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'Tween', 'loader
     };
     
     var onMouseDown = function(event) {
-        if(isIntersecting) {
+        if(isIntersecting && pointerLock.enabled()) {
             switch(event.button) {
                 case 0:
                     onSelect(lastIntersected);
