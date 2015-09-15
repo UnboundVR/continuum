@@ -77,7 +77,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                     playerSync.init();
                     reticle.init();
                     pointerLock.init();
-
+                    
                     container.appendChild(renderer.domElement);
 
                     window.addEventListener('resize', function() {
