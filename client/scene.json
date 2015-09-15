@@ -151,17 +151,12 @@
 		}
 	},
 	"scripts": {
-		"62A1BA26-57C8-4BEA-B54C-A7339488FF42": [
-			{
-				"name": "changeTexture",
-				"source": "this.material.map = THREE.ImageUtils.loadTexture('client/assets/img/galaxy-starfield.png');"
-			}],
-		"F5C66F19-25FA-4CB5-85C1-8BA584DDA369": [
-			{
-				"name": "coderCube",
-				"source": ""
-			}
-		]
+		"62A1BA26-57C8-4BEA-B54C-A7339488FF42": {
+            "changeTexture": "this.material.map = THREE.ImageUtils.loadTexture('client/assets/img/galaxy-starfield.png');"
+        },
+		"F5C66F19-25FA-4CB5-85C1-8BA584DDA369": {
+            "coderCube": "function select() {\n    this.position.y += 3;\n}"
+		}
 	},
 	"gui": {
 		"F57146D0-9296-4408-B753-0532A3B8AC2F": {
@@ -169,7 +164,8 @@
 			"css": ".header {color:red;}"
 		},
 		"B122616D-D2F4-4D4C-AC6C-899A7C03D473": {
-			"html": "<textarea id=\"leCode\">function update(){this.position.y++;}</textarea><button onclick=\"window.loadScript();\">Send to cube</button>"
+			"html": "<h1 id=\"codingHeader\">Right click the cube to change its code</h1><h2 id=\"codingHelp\">Unlock cursor to acces this textarea.</h2><div id=\"coding\"><textarea id=\"leCode\"></textarea><br><button id=\"doCode\">Update</button></div>",
+            "css": "#leCode {width: 600px; height: 150px;}\n#coding {display:none;}\n#codingHelp {display:none;}"
 		}
 	}
 }

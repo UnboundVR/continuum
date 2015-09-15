@@ -19,7 +19,7 @@ define(['Scene'], function(scene) {
         pointerlock: {list: []},
         pointerunlock: {list: []}
 	};
-	
+    
 	var browserEvents = Object.keys(events).filter(function(key) {
 		return events[key].isBrowserEvent;
 	});
@@ -89,16 +89,25 @@ define(['Scene'], function(scene) {
     
     var loadScript = function(script, uuid) {
         removeOlderScripts(script, uuid);
-        doLoadScript(script, uuid, this.app);
+        doLoadScript(script, uuid, this._app);
 	};
 
 	var load = function(json, app) {
-		this.app = app;
+		this._app = app;
+        
+        // FIXME this property is exposed publicly, but it's not defined at the end of the module. We should probably refactor this, because it might cause confusion.
+        this.scripts = json;
+        
 		for (var uuid in json) {
 			var scripts = json[uuid];
 
-			for (var i = 0; i < scripts.length; i++) {
-				doLoadScript(scripts[i], uuid, app);
+			for (var name in scripts) {
+                var script = {
+                    name: name,
+                    source: scripts[name]
+                };
+                
+				doLoadScript(script, uuid, app);
 			}
 		}
 	};
