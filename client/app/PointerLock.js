@@ -1,7 +1,7 @@
 // Based on https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html and http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 'use strict';
 
-define(['FirstPersonControls'], function(controls) {
+define(['FirstPersonControls', 'loaders/ScriptsLoader'], function(controls, scripts) {
     var controlsEnabled = false;
     
     var init = function() {   
@@ -14,9 +14,11 @@ define(['FirstPersonControls'], function(controls) {
                 if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
                     controlsEnabled = true;
                     controls.controls.enabled = true;
+                    scripts.dispatchEvent(scripts.events.pointerlock, null);
                 } else {
                     controlsEnabled = false;
                     controls.controls.enabled = false;
+                    scripts.dispatchEvent(scripts.events.pointerunlock, null);
                 }
             };
 
@@ -25,7 +27,7 @@ define(['FirstPersonControls'], function(controls) {
                 console.log('pointer lock error');
             };
             
-            element.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
+            document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
             element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
 			element.requestFullscreen = element.requestFullscreen || element.mozRequestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen;
 
@@ -54,10 +56,11 @@ define(['FirstPersonControls'], function(controls) {
             document.addEventListener('mozpointerlockerror', pointerlockerror, false);
             document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
             
+            // FIXME for some reason, using mouse events to toggle pointer lock causes the tab to flash when alt-tabbing if you leave pointer lock by pressing <esc>.
             var onMouseDown = function(event) {
                 if(event.button === 1) {
                     if(controlsEnabled) {
-                        element.exitPointerLock();
+                        document.exitPointerLock();
                     } else {
                         requestPointerLock();
                     }

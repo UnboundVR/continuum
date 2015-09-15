@@ -15,7 +15,9 @@ define(['Scene'], function(scene) {
 		unload: {list: []},
         starthover: {list: []},
         endhover: {list: []},
-        select: {list: []}
+        select: {list: []},
+        pointerlock: {list: []},
+        pointerunlock: {list: []}
 	};
 	
 	var browserEvents = Object.keys(events).filter(function(key) {
