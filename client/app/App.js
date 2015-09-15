@@ -1,5 +1,7 @@
-define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'PlayerSync', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'KeyVR'],
-    function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader, keyVR) {
+'use strict';
+
+define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'PlayerSync', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'Reticle', 'PointerLock', 'KeyVR'],
+    function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader, reticle, pointerLock, keyVR) {
         var App = function() {
             var camera;
 			var prevTime;
@@ -21,7 +23,6 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
 				};
 				
                 scriptsLoader.load(json.scripts, relevantApp);
-				
 				this.setCamera(fpControls.camera);
             };
 
@@ -45,6 +46,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                 request = requestAnimationFrame(animate);
                 scriptsLoader.dispatchEvent(scriptsLoader.events.update, {time: time, delta: time - prevTime});
                 fpControls.animate();
+                reticle.loop();
                 renderer.render(scene, camera);
                 prevTime = time;
             };
@@ -74,6 +76,8 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
 					fpControls.init();
 					playerSync.init();
 					keyVR.init();
+                    reticle.init();
+                    pointerLock.init();
 
                     container.appendChild(renderer.domElement);
 
