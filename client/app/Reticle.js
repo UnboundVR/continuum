@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'FirstPersonControls', 'Tween'], function(THREE, scene, controls, tween) {
+define(['Three', 'Scene', 'FirstPersonControls', 'Tween', 'loaders/ScriptsLoader'], function(THREE, scene, controls, tween, scripts) {
     var mouse = new THREE.Vector2();
     var isIntersecting = false;
     var lastIntersected = null;
@@ -14,14 +14,31 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Tween'], function(THREE, scene
         mouse.y = - (event.clientY / window.innerHeight ) * 2 + 1;		
     };
     
+    var onMouseDown = function(event) {
+        if(isIntersecting) {
+            onSelect(lastIntersected);
+        }  
+    };
+    
+    var matchesUUID = function(obj) {
+        return function(uuid) {
+            return uuid === obj.uuid;
+        }
+    };
+    
+    // TODO perhaps we could pass time hovered as the event payload
     var onIntersect = function(obj) {
         lastIntersected = obj;
-        console.log(obj.name);
+        scripts.dispatchEvent(scripts.events.starthover, null, matchesUUID(obj));
     };
     
     var onStopIntersect = function(obj) {
-        console.log('No longer intersecting ' + obj.name);
-    }
+        scripts.dispatchEvent(scripts.events.starthover, null, matchesUUID(obj));
+    };
+    
+    var onSelect = function(obj) {
+        scripts.dispatchEvent(scripts.events.select, null, matchesUUID(obj));
+    };
     
     var loop = function() {
         /* This would use the mouse position, not the reticle position. Might be useful in the future (e.g. for KeyVR)
@@ -51,7 +68,9 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Tween'], function(THREE, scene
                     onStopIntersect(lastIntersected);
                 }
                 
-                onIntersect(obj);
+                if(obj != lastIntersected) {
+                    onIntersect(obj);   
+                }
                 lastIntersected = obj;
                 isIntersecting = true;
             }
@@ -81,6 +100,7 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Tween'], function(THREE, scene
     
     var init = function() {
         window.addEventListener('mousemove', onMouseMove, false);
+        window.addEventListener('mousedown', onMouseDown, false);
         
         var reticleContainer = new THREE.Object3D();
         reticleContainer.add(reticle);

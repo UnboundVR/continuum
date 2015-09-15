@@ -29,7 +29,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
 				window.loadScript = function() {
 					scriptsLoader.loadScript(
 						{name: 'stuff', source: document.getElementById("leCode").value},
-						scene.getObjectByUUID('F5C66F19-25FA-4CB5-85C1-8BA584DDA369')
+						'F5C66F19-25FA-4CB5-85C1-8BA584DDA369'
 					);
 				};
             };

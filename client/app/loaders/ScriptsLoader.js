@@ -12,17 +12,28 @@ define(['Scene'], function(scene) {
 		touchend: {list: [], isBrowserEvent: true},
 		touchmove: {list: [], isBrowserEvent: true},
 		update: {list: []},
-		unload: {list: []}
+		unload: {list: []},
+        starthover: {list: []},
+        endhover: {list: []},
+        select: {list: []}
 	};
 	
 	var browserEvents = Object.keys(events).filter(function(key) {
 		return events[key].isBrowserEvent;
 	});
 	
-	var dispatch = function(obj, event) {
-		var array = obj.list;
+	var dispatch = function(obj, payload, uuidFilter) {
+		if(uuidFilter === undefined) {
+            uuidFilter = function() {
+                return true;
+            };
+        }
+        
+        var array = obj.list;
 		for (var i = 0, l = array.length; i < l; i++) {
-			array[i](event);
+			if(uuidFilter(array[i].uuid)) {
+                array[i].func(payload);
+            }
 		}
 	};
 	
@@ -44,7 +55,8 @@ define(['Scene'], function(scene) {
 		}
 	};
 	
-	var loadScript = function(script, object) {
+	var loadScript = function(script, uuid) {
+        var object = scene.getObjectByUUID(uuid);
 		var params = 'app, scene, ' + Object.keys(events).join(', ');
 		var source = script.source + '\nreturn {' + Object.keys(events).map(function(key) {
 			return key + ': ' + key;
@@ -61,18 +73,20 @@ define(['Scene'], function(scene) {
 				continue;
 			}
 
-			events[name].list.push(functions[name].bind(object));
+			events[name].list.push({
+                func: functions[name].bind(object),
+                uuid: object.uuid
+            });
 		}
 	};
 
 	var load = function(json, app) {
 		this.app = app;
 		for (var uuid in json) {
-			var object = scene.getObjectByUUID(uuid);
 			var scripts = json[uuid];
 
 			for (var i = 0; i < scripts.length; i++) {
-				this.loadScript(scripts[i], object);
+				this.loadScript(scripts[i], uuid);
 			}
 		}
 	};
