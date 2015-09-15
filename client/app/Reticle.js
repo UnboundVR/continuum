@@ -20,24 +20,18 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Tween', 'loaders/ScriptsLoader
         }  
     };
     
-    var matchesUUID = function(obj) {
-        return function(uuid) {
-            return uuid === obj.uuid;
-        }
-    };
-    
     // TODO perhaps we could pass time hovered as the event payload
     var onIntersect = function(obj) {
         lastIntersected = obj;
-        scripts.dispatchEvent(scripts.events.starthover, null, matchesUUID(obj));
+        scripts.dispatchEvent(scripts.events.starthover, null, obj.uuid);
     };
     
     var onStopIntersect = function(obj) {
-        scripts.dispatchEvent(scripts.events.starthover, null, matchesUUID(obj));
+        scripts.dispatchEvent(scripts.events.starthover, null, obj.uuid);
     };
     
     var onSelect = function(obj) {
-        scripts.dispatchEvent(scripts.events.select, null, matchesUUID(obj));
+        scripts.dispatchEvent(scripts.events.select, null, obj.uuid);
     };
     
     var loop = function() {

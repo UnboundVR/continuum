@@ -22,16 +22,10 @@ define(['Scene'], function(scene) {
 		return events[key].isBrowserEvent;
 	});
 	
-	var dispatch = function(obj, payload, uuidFilter) {
-		if(uuidFilter === undefined) {
-            uuidFilter = function() {
-                return true;
-            };
-        }
-        
+	var dispatch = function(obj, payload, uuid) {       
         var array = obj.list;
 		for (var i = 0, l = array.length; i < l; i++) {
-			if(uuidFilter(array[i].uuid)) {
+			if(uuid === undefined || uuid === array[i].uuid) {
                 array[i].func(payload);
             }
 		}
@@ -54,14 +48,24 @@ define(['Scene'], function(scene) {
 			document.removeEventListener(key, events[key].callback);
 		}
 	};
-	
-	var loadScript = function(script, uuid) {
+    
+    var removeOlderScripts = function(script, uuid) {
+        dispatch(events.unload, null, uuid);
+        
+        for(var name in events) {
+            events[name].list = events[name].list.filter(function(handler) {
+                return handler.uuid !== uuid || handler.scriptName !== script.name;
+            });
+        }
+    };
+    
+    var doLoadScript = function(script, uuid, app) {
         var object = scene.getObjectByUUID(uuid);
 		var params = 'app, scene, ' + Object.keys(events).join(', ');
 		var source = script.source + '\nreturn {' + Object.keys(events).map(function(key) {
 			return key + ': ' + key;
 		}).join(', ') + '};';
-		var functions = (new Function(params, source).bind(object))(this.app, scene.getScene());
+		var functions = (new Function(params, source).bind(object))(app, scene.getScene());
 		
 		for (var name in functions) {
 			if (functions[name] === undefined) {
@@ -75,9 +79,15 @@ define(['Scene'], function(scene) {
 
 			events[name].list.push({
                 func: functions[name].bind(object),
-                uuid: object.uuid
+                uuid: object.uuid,
+                scriptName: script.name
             });
-		}
+		}  
+    };
+    
+    var loadScript = function(script, uuid) {
+        removeOlderScripts(script, uuid);
+        doLoadScript(script, uuid, this.app);
 	};
 
 	var load = function(json, app) {
@@ -86,7 +96,7 @@ define(['Scene'], function(scene) {
 			var scripts = json[uuid];
 
 			for (var i = 0; i < scripts.length; i++) {
-				this.loadScript(scripts[i], uuid);
+				doLoadScript(scripts[i], uuid, app);
 			}
 		}
 	};
