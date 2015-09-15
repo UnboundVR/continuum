@@ -1,12 +1,11 @@
 'use strict';
 
-define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'PlayerSync', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'VReticle'],
-    function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader, vreticle) {
+define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'PlayerSync', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'Reticle'],
+    function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader, reticle) {
         var App = function() {
             var camera;
 			var prevTime;
             var request;
-            var reticle;
 
             this.load = function(json) {
 				scene.setScene(objectLoader.parse(json.scene));
@@ -25,11 +24,6 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
 				
                 scriptsLoader.load(json.scripts, relevantApp);
 				this.setCamera(fpControls.camera);
-                
-                reticle = vreticle.Reticle(camera);
-				
-                reticle.add_collider(scene.getObjectByUUID('F5C66F19-25FA-4CB5-85C1-8BA584DDA369'));
-                reticle.add_collider(scene.getObjectByUUID('B122616D-D2F4-4D4C-AC6C-899A7C03D473'));
                 
 				// FIXME haha
 				window.loadScript = function() {
@@ -60,7 +54,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                 request = requestAnimationFrame(animate);
                 scriptsLoader.dispatchEvent(scriptsLoader.events.update, {time: time, delta: time - prevTime});
                 fpControls.animate();
-                reticle.reticle_loop();
+                reticle.loop();
                 renderer.render(scene, camera);
                 prevTime = time;
             };
@@ -89,6 +83,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
 					
 					fpControls.init();
 					playerSync.init();
+                    reticle.init();
 
                     container.appendChild(renderer.domElement);
 
