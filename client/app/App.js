@@ -6,6 +6,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
             var camera;
             var prevTime;
             var request;
+            var verticalMirror;
 
             this.load = function(json) {
                 scene.setScene(objectLoader.parse(json.scene));
@@ -48,6 +49,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                 fpControls.animate();
                 reticle.loop();
                 renderer.render(scene, camera);
+                verticalMirror.render();
                 prevTime = time;
             };
 
@@ -70,7 +72,16 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                 var remoteLoader = new THREE.XHRLoader();
                 remoteLoader.load('client/scene.json', function(text) {
                     _this.load(JSON.parse(text));
-                    _this.setSize(window.innerWidth, window.innerHeight);
+                    _this.setSize(window.innerWidth, window.innerHeight);   
+                    
+                    verticalMirror = new THREE.Mirror( renderer.webGL, camera, { clipBias: 0.003, textureWidth: window.innerWidth, textureHeight: window.innerHeight, color: 0x777777 } );
+
+                    var verticalMirrorMesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 600, 600 ), verticalMirror.material );
+                    verticalMirrorMesh.add( verticalMirror );
+                    verticalMirrorMesh.position.y = 35;
+                    verticalMirrorMesh.position.z = -450;
+                    scene.getScene().add(verticalMirrorMesh);
+                    
                     _this.play();
 
                     fpControls.init();

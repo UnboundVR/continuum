@@ -12,6 +12,8 @@ define(['Socket', 'Scene'], function(socket, scene) {
                 },
                 others: {}
             };
+            
+            this.addPlayerAvatar(this.players.me);
 
             socket.on('connect', function() {
                 _this.players.me.id = this.id;
@@ -60,6 +62,7 @@ define(['Socket', 'Scene'], function(socket, scene) {
 
         playerMoved: function(position) {
             this.players.me.position = position;
+            this.players.me.mesh.position.copy(position);
             socket.emit('change', this.players.me);
         }
     };

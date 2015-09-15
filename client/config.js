@@ -9,6 +9,7 @@ var require = {
         PointerLockControls: {deps: ['ThreeCore'], exports: 'THREE'},
         StereoEffect: {deps: ['ThreeCore'], exports: 'THREE'},
         CSS3DRenderer: {deps: ['ThreeCore'], exports: 'THREE'},
+        Mirror: {deps: ['ThreeCore'], exports: 'THREE'},
         Detector: {exports: 'Detector'},
         Stats: {exports: 'Stats'}
     },
@@ -22,6 +23,7 @@ var require = {
         SocketIO: '/socket.io/socket.io',
         Detector: '../lib/Detector',
         Stats: '../lib/Stats.min',
-        Tween: '/node_modules/tween.js/src/Tween'
+        Tween: '/node_modules/tween.js/src/Tween',
+        Mirror: '../lib/Mirror'
     }
 };
