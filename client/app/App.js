@@ -68,7 +68,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                 var _this = this;
 
                 var remoteLoader = new THREE.XHRLoader();
-                remoteLoader.load('client/scene.json', function(text) {
+                remoteLoader.load('client/assets/scene.json', function(text) {
                     _this.load(JSON.parse(text));
                     _this.setSize(window.innerWidth, window.innerHeight);
                     _this.play();

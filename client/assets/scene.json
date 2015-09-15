@@ -5,6 +5,21 @@
 			"type": "Object",
 			"generator": "ObjectExporter"
 		},
+        
+        "textures": [
+            {  
+                "uuid": "9A4E4794-B019-4B58-9485-459D4FFB6F2A",
+                "image": "73928DB8-9696-443F-BF9A-B525DECFFA93"
+            }
+        ],
+        
+        "images": [
+            {
+                "uuid": "73928DB8-9696-443F-BF9A-B525DECFFA93",
+                "url": "client/assets/img/galaxy-starfield.png"
+            }
+        ],
+        
 		"geometries": [
 			{
 				"uuid": "46F4D8AF-47E1-4FD6-8687-9373FCF91C1C",
@@ -42,7 +57,9 @@
 				"widthSegments": 1,
 				"heightSegments": 1,
 				"depthSegments": 1
-			}],
+			}
+        ],
+            
 		"materials": [
 			{
 				"uuid": "9A1BAC6E-AEDD-406D-97CA-73BA733FABBB",
@@ -55,6 +72,7 @@
 			{
 				"uuid": "7A3B6FEC-10FA-4F5D-9220-39FFE41130F5",
 				"type": "MeshBasicMaterial",
+                "map": "9A4E4794-B019-4B58-9485-459D4FFB6F2A",
 				"color": 8421504,
 				"side": 1
 			},
@@ -73,7 +91,9 @@
 				"emissive": 0,
 				"specular": 1118481,
 				"shininess": 30
-			}],
+			}
+        ],
+        
 		"object": {
 			"uuid": "31517222-A9A7-4EAF-B5F6-60751C0BABA3",
 			"type": "Scene",
@@ -131,9 +151,6 @@
 		}
 	},
 	"scripts": {
-		"62A1BA26-57C8-4BEA-B54C-A7339488FF42": {
-            "changeTexture": "this.material.map = THREE.ImageUtils.loadTexture('client/assets/img/galaxy-starfield.png');"
-        },
 		"F5C66F19-25FA-4CB5-85C1-8BA584DDA369": {
             "coderCube": "function select() {\n    this.position.y += 3;\n}"
 		}
