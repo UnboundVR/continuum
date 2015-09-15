@@ -11,11 +11,14 @@ define(['Three', 'Scene', 'FirstPersonControls'], function(THREE, scene, control
     };
     
     var loop = function() {
-        raycaster.setFromCamera(mouse, controls.camera);	
+        raycaster.ray.origin.copy(controls.getPosition());
+        raycaster.ray.direction.set(mouse.x, mouse.y, 0.5).unproject(controls.camera).sub(controls.getPosition()).normalize();
         var intersects = raycaster.intersectObjects(scene.getScene().children);
 
         for (var i = 0; i < intersects.length; i++) {
-            console.log(intersects[i].object.name);
+            if(intersects[i].object.name !== 'Skybox') {
+                console.log(intersects[i].object.name);
+            }
         }
     };
     

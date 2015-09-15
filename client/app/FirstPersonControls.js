@@ -1,7 +1,6 @@
 'use strict';
 
 define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
-    var controls;
     var controlsEnabled = false;
     var raycaster;
     var canJump = true;
@@ -19,6 +18,7 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
 
     var aspect = window.innerWidth / window.innerHeight;
     var camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100000);
+    var controls = new THREE.PointerLockControls(camera);
 
     // Based on https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html
     var setupPointerLock = function() {
@@ -94,7 +94,6 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
         }
 
         // From here onwards was the init in the example from mr doob
-        controls = new THREE.PointerLockControls(camera);
         controls.getObject().position.y = 15;
         scene.getScene().add(controls.getObject());
 
@@ -220,11 +219,16 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
 
         prevTime = time;
     };
+    
+    var getPosition = function() {
+      return controls.getObject().position;  
+    };
 
     return {
         controls: controls,
         camera: camera,
         animate: animate,
         init: setupPointerLock,
+        getPosition: getPosition
     };
 });
