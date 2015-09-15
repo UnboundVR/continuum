@@ -223,9 +223,14 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
     var getPosition = function() {
       return controls.getObject().position;  
     };
+    
+    var mouseLocked = function() {
+      return controls.enabled;  
+    };
 
     return {
         controls: controls,
+        mouseLocked: mouseLocked,
         camera: camera,
         animate: animate,
         init: setupPointerLock,

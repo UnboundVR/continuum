@@ -1,8 +1,10 @@
 'use strict';
 
 define(['Three', 'Scene', 'FirstPersonControls'], function(THREE, scene, controls) {
-    var raycaster = new THREE.Raycaster();
     var mouse = new THREE.Vector2();
+    
+    // TODO take this from a serious place (e.g. excluded objects could have a flag in scene.json?)
+    var excludedObjects = ['Floor', 'Skybox'];
 
     // Based on the example in http://threejs.org/docs/#Reference/Core/Raycaster
     var onMouseMove = function(event) {
@@ -11,13 +13,25 @@ define(['Three', 'Scene', 'FirstPersonControls'], function(THREE, scene, control
     };
     
     var loop = function() {
-        raycaster.ray.origin.copy(controls.getPosition());
-        raycaster.ray.direction.set(mouse.x, mouse.y, 0.5).unproject(controls.camera).sub(controls.getPosition()).normalize();
+        /* This would use the mouse position, not the reticle position. Might be useful in the future (e.g. for KeyVR)
+        var vector = new THREE.Vector3(mouse.x, mouse.y, 0.5);
+        vector.unproject(controls.camera);
+        var raycaster = new THREE.Raycaster(controls.getPosition(), vector.sub(controls.getPosition()).normalize());
+        */
+        
+        // FIXME This magic vector was taken from https://github.com/neuman/vreticle
+        // It probably represents the position of the reticle.
+        var vector = new THREE.Vector3(-0.0012499999999999734, -0.0053859964093356805, 0.5);
+        vector.unproject(controls.camera);
+        var raycaster = new THREE.Raycaster(controls.getPosition(), vector.sub(controls.getPosition()).normalize());
+        
         var intersects = raycaster.intersectObjects(scene.getScene().children);
-
-        for (var i = 0; i < intersects.length; i++) {
-            if(intersects[i].object.name !== 'Skybox') {
-                console.log(intersects[i].object.name);
+        if(intersects.length) {
+            var intersectedObject = intersects[0].object;
+            if(!excludedObjects.some(function(exc) {
+                return exc == intersectedObject.name;
+            })) {
+                console.log(intersectedObject.name);
             }
         }
     };
