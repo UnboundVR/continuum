@@ -7,6 +7,7 @@ define(['loaders/ScriptsLoader'], function(scriptsLoader) {
         // FIXME for now this is hardcoded to only work with the cube, and only change once
         if (obj.name !== 'DevCube' || used) {
             return;
+        }
         
         // FIXME this is hardcoded to only work with 'coderCube' script for now...
         var scriptName = 'coderCube';
