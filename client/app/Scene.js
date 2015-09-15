@@ -9,10 +9,10 @@ define([], function() {
         getScene: function() {
             return this.scene;
         },
-		
-		getObjectByUUID: function(uuid) {
-			return this.scene.getObjectByProperty('uuid', uuid, true);
-		},
+
+        getObjectByUUID: function(uuid) {
+            return this.scene.getObjectByProperty('uuid', uuid, true);
+        },
 
         setCSS3DScene: function(value) {
             this.css3DScene = value;
