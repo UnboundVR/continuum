@@ -21,6 +21,7 @@ var require = {
         CSS3DRenderer: '../lib/renderers/CSS3DRenderer',
         SocketIO: '/socket.io/socket.io',
         Detector: '../lib/Detector',
-        Stats: '../lib/Stats.min'
+        Stats: '../lib/Stats.min',
+        Tween: '/node_modules/tween.js/src/Tween',
     }
 };
