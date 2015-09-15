@@ -1,7 +1,7 @@
 'use strict';
 
-define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'PlayerSync', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'Reticle'],
-    function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader, reticle) {
+define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'PlayerSync', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'Reticle', 'PointerLock'],
+    function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader, reticle, pointerLock) {
         var App = function() {
             var camera;
 			var prevTime;
@@ -84,6 +84,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
 					fpControls.init();
 					playerSync.init();
                     reticle.init();
+                    pointerLock.init();
 
                     container.appendChild(renderer.domElement);
 

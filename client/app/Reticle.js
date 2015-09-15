@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'FirstPersonControls', 'Tween', 'loaders/ScriptsLoader'], function(THREE, scene, controls, tween, scripts) {
+define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'Tween', 'loaders/ScriptsLoader', 'Editor'], function(THREE, scene, controls, pointerLock, tween, scripts, editor) {
     var mouse = new THREE.Vector2();
     var isIntersecting = false;
     var lastIntersected = null;
@@ -16,10 +16,17 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Tween', 'loaders/ScriptsLoader
     
     var onMouseDown = function(event) {
         if(isIntersecting) {
-            onSelect(lastIntersected);
+            switch(event.button) {
+                case 0:
+                    onSelect(lastIntersected);
+                    break;
+                case 2:
+                    editor.rightClick(lastIntersected);
+                    break;
+            }
         }  
     };
-    
+
     // TODO perhaps we could pass time hovered as the event payload
     var onIntersect = function(obj) {
         lastIntersected = obj;
@@ -41,7 +48,7 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Tween', 'loaders/ScriptsLoader
         var raycaster = new THREE.Raycaster(controls.getPosition(), vector.sub(controls.getPosition()).normalize());
         */
         
-        if(!controls.mouseLocked()) {
+        if(!pointerLock.enabled()) {
             return;
         }
         

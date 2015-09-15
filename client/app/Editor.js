@@ -1,21 +1,11 @@
 'use strict';
 
 define([], function() {
-	var editScript = function(uuid) {
-		
-	};
-	
-	var editHtml = function(uuid) {
-		
-	};
-	
-	var editCss = function(uuid) {
-		
-	};
+	var rightClick = function(obj) {
+        console.log('editing ' + obj.name)
+    };
 	
     return {
-		editScript: editScript,
-		editHtml: editHtml,
-		editCss: editCss
+        rightClick: rightClick
 	};
 });
