@@ -1,4 +1,4 @@
-define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, scene, network) {
+define(['Three', 'Container', 'Scene', 'Network', 'VRMode', 'Reticle'], function(THREE, container, scene, network, vrMode, vreticle) {
     var controls;
     var controlsEnabled = false;
     var raycaster;
@@ -17,6 +17,15 @@ define(['Three', 'Container', 'Scene', 'Network'], function(THREE, container, sc
 
     var aspect = window.innerWidth / window.innerHeight;
     var camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100000);
+    console.log(vreticle);
+    var cameraReticle = reticle.Reticle(camera);
+    var htmlPanel = scene.getScene().getElementsByName('Info panel');
+    cameraReticle.add_collider(htmlPanel);
+
+    if (vrMode) {
+        var vrControls;
+        vrControls = new THREE.VRControls(camera);
+    }
 
     // Based on https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html
     var setupPointerLock = function() {
