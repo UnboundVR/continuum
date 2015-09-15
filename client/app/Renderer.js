@@ -5,12 +5,17 @@ define(['Three'], function(THREE) {
     var vrMode = false;
 
     var webGLRenderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+    
     webGLRenderer.setClearColor(0x00ff00, 0.0);
     webGLRenderer.setPixelRatio(window.devicePixelRatio);
+    
     webGLRenderer.domElement.style.position = 'absolute';
     webGLRenderer.domElement.style.zIndex = 1;
     webGLRenderer.domElement.style.top = 0;
     webGLRenderer.domElement.style.pointerEvents = 'none';
+    
+    webGLRenderer.shadowMap.enabled = true;
+    webGLRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     // FIXME CSS3D renderer doesn't work with Cardboard - we're dealing with this in a branch.
     // For now, no stereo effect for embedded HTML.
