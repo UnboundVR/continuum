@@ -1,7 +1,7 @@
 'use strict';
 
-define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'PlayerSync', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'Reticle', 'PointerLock'],
-    function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader, reticle, pointerLock) {
+define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'PlayerSync', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'Reticle', 'PointerLock', 'QueryString'],
+    function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader, reticle, pointerLock, queryString) {
         var App = function() {
             var camera;
             var prevTime;
@@ -68,7 +68,10 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                 var _this = this;
 
                 var remoteLoader = new THREE.XHRLoader();
-                remoteLoader.load('client/assets/scene.json', function(text) {
+                
+                var sceneId = queryString.sceneId;
+                
+                remoteLoader.load('client/assets/'+ sceneId +'.json', function(text) {
                     _this.load(JSON.parse(text));
                     _this.setSize(window.innerWidth, window.innerHeight);
                     _this.play();
