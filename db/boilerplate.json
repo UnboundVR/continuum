@@ -1,0 +1,171 @@
+{
+	"scene": {
+		"metadata": {
+			"version": 4.3,
+			"type": "Object",
+			"generator": "ObjectExporter"
+		},
+        
+        "textures": [
+            {  
+                "uuid": "9A4E4794-B019-4B58-9485-459D4FFB6F2A",
+                "image": "73928DB8-9696-443F-BF9A-B525DECFFA93"
+            }
+        ],
+        
+        "images": [
+            {
+                "uuid": "73928DB8-9696-443F-BF9A-B525DECFFA93",
+                "url": "client/assets/img/galaxy-starfield.png"
+            }
+        ],
+        
+		"geometries": [
+			{
+				"uuid": "46F4D8AF-47E1-4FD6-8687-9373FCF91C1C",
+				"type": "PlaneBufferGeometry",
+				"width": 200,
+				"height": 200,
+				"widthSegments": 1,
+				"heightSegments": 1
+			},
+			{
+				"uuid": "FAE93433-E45A-4F81-B8EE-55B232701CEA",
+				"type": "SphereGeometry",
+				"radius": 20000,
+				"widthSegments": 32,
+				"heightSegments": 32,
+				"phiStart": 0,
+				"phiLength": 6.29,
+				"thetaStart": 0,
+				"thetaLength": 3.14
+			},
+			{
+				"uuid": "0440789E-D4A6-423A-86C9-0A15FA4B5D5A",
+				"type": "PlaneBufferGeometry",
+				"width": 200,
+				"height": 200,
+				"widthSegments": 1,
+				"heightSegments": 1
+			},
+			{
+				"uuid": "33FE8E02-741F-4705-8147-00015FAC7E79",
+				"type": "BoxGeometry",
+				"width": 100,
+				"height": 100,
+				"depth": 100,
+				"widthSegments": 1,
+				"heightSegments": 1,
+				"depthSegments": 1
+			}
+        ],
+            
+		"materials": [
+			{
+				"uuid": "9A1BAC6E-AEDD-406D-97CA-73BA733FABBB",
+				"type": "MeshPhongMaterial",
+				"color": 7974655,
+				"emissive": 0,
+				"specular": 1118481,
+				"shininess": 3
+			},
+			{
+				"uuid": "7A3B6FEC-10FA-4F5D-9220-39FFE41130F5",
+				"type": "MeshBasicMaterial",
+                "map": "9A4E4794-B019-4B58-9485-459D4FFB6F2A",
+				"color": 8421504,
+				"side": 1
+			},
+			{
+				"uuid": "642C290C-38EB-49CE-9389-C4361F1B3865",
+				"type": "MeshPhongMaterial",
+				"color": 16777215,
+				"emissive": 0,
+				"specular": 1118481,
+				"shininess": 30
+			},
+			{
+				"uuid": "239DDF04-F3EB-4149-AD24-5114144AAF1C",
+				"type": "MeshPhongMaterial",
+				"color": 16777215,
+				"emissive": 0,
+				"specular": 1118481,
+				"shininess": 30
+			}
+        ],
+        
+		"object": {
+			"uuid": "31517222-A9A7-4EAF-B5F6-60751C0BABA3",
+			"type": "Scene",
+			"name": "Scene",
+			"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+			"children": [
+				{
+					"uuid": "0C2EC231-41E4-4F71-B017-790340178843",
+					"type": "Mesh",
+					"name": "Floor",
+                    "receiveShadow": true,
+					"geometry": "46F4D8AF-47E1-4FD6-8687-9373FCF91C1C",
+					"material": "9A1BAC6E-AEDD-406D-97CA-73BA733FABBB",
+					"matrix": [5,0,0,0,0,0.004003959242254496,-5.031365871429443,0,0,0.9999997019767761,0.0007957994239404798,0,0,0,0,1]
+				},
+				{
+					"uuid": "395C5D46-0DA0-4AB3-9908-CC5C0D9E803A",
+					"type": "DirectionalLight",
+					"name": "Sun",
+                    "castShadow": true,
+					"color": 16777215,
+					"intensity": 1,
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,100,400,150,1]
+				},
+				{
+					"uuid": "62A1BA26-57C8-4BEA-B54C-A7339488FF42",
+					"type": "Mesh",
+					"name": "Skybox",
+					"geometry": "FAE93433-E45A-4F81-B8EE-55B232701CEA",
+					"material": "7A3B6FEC-10FA-4F5D-9220-39FFE41130F5",
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,712.280029296875,-1106.8399658203125,-321.17999267578125,1]
+				},
+				{
+					"uuid": "F57146D0-9296-4408-B753-0532A3B8AC2F",
+					"type": "Mesh",
+					"name": "Info panel",
+					"geometry": "0440789E-D4A6-423A-86C9-0A15FA4B5D5A",
+					"material": "642C290C-38EB-49CE-9389-C4361F1B3865",
+					"matrix": [3.197934150695801,0,0,0,0,1.590786099433899,0,0,0,0,1,0,29.3294734954834,161.34609985351562,-657.7916259765625,1]
+				},
+				{
+					"uuid": "B122616D-D2F4-4D4C-AC6C-899A7C03D473",
+					"type": "Mesh",
+					"name": "Code panel",
+					"geometry": "0440789E-D4A6-423A-86C9-0A15FA4B5D5A",
+					"material": "642C290C-38EB-49CE-9389-C4361F1B3865",
+					"matrix": [-0.31772440671920776,0,-3.1821117401123047,0,0,1.590786099433899,0,0,0.9950522780418396,0,-0.09935301542282104,0,-706.0553588867188,161.34609985351562,-35.17312240600586,1]
+				},
+				{
+					"uuid": "F5C66F19-25FA-4CB5-85C1-8BA584DDA369",
+					"type": "Mesh",
+					"name": "DevCube",
+                    "castShadow": true,
+					"geometry": "33FE8E02-741F-4705-8147-00015FAC7E79",
+					"material": "239DDF04-F3EB-4149-AD24-5114144AAF1C",
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-268.1260681152344,69.61237335205078,-283.8121337890625,1]
+				}]
+		}
+	},
+	"scripts": {
+		"F5C66F19-25FA-4CB5-85C1-8BA584DDA369": {
+            "coderCube": "function select() {\n    this.position.y += 3;\n}"
+		}
+	},
+	"gui": {
+		"F57146D0-9296-4408-B753-0532A3B8AC2F": {
+			"html": "<h1 class=\"header\">Welcome to the Metaverse \\m/</h1><h2>Press the mouse mid button or f4 to toggle pointer lock</h2>",
+			"css": ".header {color:red;}"
+		},
+		"B122616D-D2F4-4D4C-AC6C-899A7C03D473": {
+			"html": "<h1 id=\"codingHeader\">Right click the cube to change its code</h1><h2 id=\"codingHelp\">Unlock cursor to acces this textarea.</h2><div id=\"coding\"><textarea id=\"leCode\"></textarea><br><button id=\"doCode\">Update</button></div>",
+            "css": "#leCode {width: 600px; height: 150px;}\n#coding {display:none;}\n#codingHelp {display:none;}"
+		}
+	}
+}

@@ -7,11 +7,15 @@ router.use('/', bodyParser.json());
 
 var sceneDb = require('./db/scene');
 
+// I need to do this because passing just res.json doesn't work (dunno why)
+var sendJson = function(res) {
+    return function(data) {
+        res.json(data);
+    };
+}
+
 router.get('/scene/:sceneId', function(req, res, next) {
-   // TODO call next(error) if there's an error from the scene module (i.e. scene not found!), then create proper middleware for error handling if necessary
-   
-   var sceneId = req.params.sceneId;
-   sceneDb.get(sceneId);
+   sceneDb.get(req.params.sceneId).then(sendJson(res), next);
 });
 
 module.exports = router;
