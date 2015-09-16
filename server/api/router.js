@@ -12,10 +12,10 @@ var sendJson = function(res) {
     return function(data) {
         res.json(data);
     };
-}
+};
 
 router.get('/scene/:sceneId', function(req, res, next) {
-   sceneDb.get(req.params.sceneId).then(sendJson(res), next);
+   sceneDb.get(req.params.sceneId).then(sendJson(res.value), next);
 });
 
 module.exports = router;

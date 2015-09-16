@@ -12,7 +12,7 @@ var get = function(key) {
             if (err){
                 reject(err);    
             } else {
-                resolve(res.value);
+                resolve(res);
             }
         });
     });
