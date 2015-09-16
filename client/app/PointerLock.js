@@ -55,19 +55,30 @@ define(['FirstPersonControls', 'loaders/ScriptsLoader'], function(controls, scri
             document.addEventListener('pointerlockerror', pointerlockerror, false);
             document.addEventListener('mozpointerlockerror', pointerlockerror, false);
             document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
-
+            
+            var togglePointerLock = function() {
+                if (controlsEnabled) {
+                    document.exitPointerLock();
+                } else {
+                    requestPointerLock();
+                }
+            };
+            
             // FIXME for some reason, using mouse events to toggle pointer lock causes the tab to flash when alt-tabbing if you leave pointer lock by pressing <esc>.
             var onMouseDown = function(event) {
                 if (event.button === 1) {
-                    if (controlsEnabled) {
-                        document.exitPointerLock();
-                    } else {
-                        requestPointerLock();
-                    }
+                    togglePointerLock();
                 }
+            };
+            
+            var onKeyDown = function(event) {
+                if(event.keyCode == '115') {
+                    togglePointerLock();
+                }  
             };
 
             window.addEventListener('mousedown', onMouseDown, false);
+            window.addEventListener('keydown', onKeyDown, false);
         } else {
             // TODO do something meaninful, like allow the user to use the app without locking cursor (i.e. enable controls anyway)
             console.warn('Your browser doesn\'t seem to support Pointer Lock API');

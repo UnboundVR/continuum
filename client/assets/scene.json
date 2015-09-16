@@ -160,7 +160,7 @@
 	},
 	"gui": {
 		"F57146D0-9296-4408-B753-0532A3B8AC2F": {
-			"html": "<h1 class=\"header\">Welcome to the Metaverse \\m/</h1><h2>Press the mouse mid button to toggle pointer lock</h2>",
+			"html": "<h1 class=\"header\">Welcome to the Metaverse \\m/</h1><h2>Press the mouse mid button or f4 to toggle pointer lock</h2>",
 			"css": ".header {color:red;}"
 		},
 		"B122616D-D2F4-4D4C-AC6C-899A7C03D473": {

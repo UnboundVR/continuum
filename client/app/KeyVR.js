@@ -1,4 +1,4 @@
-define(['Socket'], function(socket) {
+define(['Socket', 'QueryString'], function(socket, queryString) {
 	var init = function() {
 		var onKeyUp = function(event) {
             switch (event.keyCode) {
@@ -18,17 +18,9 @@ define(['Socket'], function(socket) {
 	};
 	
 	var parseSearchString = function() {
-		var search = location.search.substring(1).split('&');
-		
-		for(var i = 0; i < search.length; i++) {
-			var item = search[i].split('=');
-			var key = item[0];
-			var value = item[1];
-			
-			if(key === 'keyboardId') {
-				syncWithKeyboard(value);
-			}
-		}
+		if(queryString.keyboardId) {
+            syncWithKeyboard(queryString.keyboardId)
+        }
 	};
 	
 	var syncWithKeyboard = function(keyboardId) {
