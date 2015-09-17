@@ -7,7 +7,6 @@ router.use('/', bodyParser.json());
 
 var sceneDb = require('./db/scene');
 
-// I need to do this because passing just res.json doesn't work (dunno why)
 var sendJson = function(res) {
     return function(data) {
         res.json(data.value);
