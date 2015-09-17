@@ -5,6 +5,10 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var db = require('./server/api/db/db');
+// FIXME this data should go in a config/env file (use dotenv?)
+db.init('couchbase://127.0.0.1', 'metavrse', '111111');
+
 var playerSync = require('./server/socket/player-sync');
 playerSync.init(io);
 
