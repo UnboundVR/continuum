@@ -49,8 +49,11 @@ define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'Tween', 'loader
         */
 
         if (!pointerLock.enabled()) {
+			hideReticle();
             return;
         }
+		
+		showReticle();
 
         // FIXME This magic vector was taken from https://github.com/neuman/vreticle
         // It probably represents the position of the reticle.
@@ -101,6 +104,14 @@ define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'Tween', 'loader
 
         return mesh;
     };
+	
+	var hideReticle = function() {
+		reticle.visible = false;
+	};
+	
+	var showReticle = function() {
+		reticle.visible = true;
+	};
 
     var init = function() {
         window.addEventListener('mousemove', onMouseMove, false);
