@@ -4,8 +4,8 @@ var couchbase = require('couchbase');
 var json = require('./boilerplate.json');
 var async = require('async');
 var uuid = require('node-uuid');
-var db = require('../server/api/db/db');
-var sceneDb = require('../server/api/db/scene');
+var db = require('../server/db/db');
+var sceneDb = require('../server/db/scene');
 db.init(process.argv[2], process.argv[3], process.argv[4]);
 
 var genUUID = function() {

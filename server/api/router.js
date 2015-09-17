@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 router.use('/', bodyParser.json());
 
-var sceneDb = require('./db/scene');
+var sceneDb = require('../db/scene');
 
 var sendJson = function(res) {
     return function(data) {
