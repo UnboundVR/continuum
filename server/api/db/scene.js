@@ -8,4 +8,4 @@ var get = function(sceneId) {
 
 module.exports = {
     get: get
-}
+};
