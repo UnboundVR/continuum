@@ -34,22 +34,20 @@ define(['Scene'], function(scene) {
     };
 
     var addEventListeners = function() {
-        for (var i = 0; i < browserEvents.length; i++) {
-            var key = browserEvents[i];
+        browserEvents.forEach(function(browserEvent) {
             var callback = function(event) {
-                dispatch(events[key], event);
+                dispatch(events[browserEvent], event);
             };
 
-            events[key].callback = callback;
-            document.addEventListener(key, callback);
-        }
+            events[browserEvent].callback = callback;
+            document.addEventListener(browserEvent, callback);
+        });
     };
 
     var removeEventListeners = function() {
-        for (var i = 0; i < browserEvents.length; i++) {
-            var key = browserEvents[i];
-            document.removeEventListener(key, events[key].callback);
-        }
+        browserEvents.forEach(function(browserEvent) {
+            document.removeEventListener(browserEvent, events[browserEvent].callback);
+        });
     };
 
     var removeOlderScripts = function(script, uuid) {
