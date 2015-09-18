@@ -9,7 +9,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
 
             this.load = function(json) {
                 scene.setScene(objectLoader.parse(json.scene));
-                scene.setCSS3DScene(guiLoader.parse(json.gui));
+                scene.setCSS3DScene(guiLoader.parse(json));
 
                 // Perhaps we could pass more things -- the most important thing is that later on we document which things we expose to scripts
                 // We can also pass things like renderer directly as params (such as when we pass scene) but I think it's OK to pass just scene as a distinct param
@@ -22,7 +22,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                     playerSync: playerSync
                 };
 
-                scriptsLoader.load(json.scripts, relevantApp);
+                scriptsLoader.load(json, relevantApp);
                 this.setCamera(fpControls.camera);
             };
 

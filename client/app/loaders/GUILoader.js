@@ -1,13 +1,23 @@
-'use strict';
+    'use strict';
 
 define(['GUI', 'Scene'], function(gui, scene) {
+
+    var guiStore = {};
 
     var parse = function(json) {
         var css3DScene = new THREE.Scene();
 
-        for (var uuid in json) {
-            var object = scene.getObjectByUUID(uuid);
-            var guiElement = json[uuid];
+        var guiDict = {};
+        json.gui.forEach(function(entry) {
+            guiDict[entry.uuid] = {
+                html: entry.html,
+                css: entry.css
+            };
+        });
+
+        var embedHtml = function(objUUID, guiUUID) {
+            var panel = scene.getObjectByUUID(objUUID);
+            var guiElement = guiDict[guiUUID];
 
             if (guiElement.css) {
                 var cssNode = document.createElement('style');
@@ -17,8 +27,22 @@ define(['GUI', 'Scene'], function(gui, scene) {
 
             var htmlNode = document.createElement('div');
             htmlNode.innerHTML = guiElement.html;
-            gui.embedHtml(htmlNode, object, css3DScene);
-        }
+            gui.embedHtml(htmlNode, panel, css3DScene);
+        };
+
+        var loadGuiForObjects = function(objs) {
+            objs.forEach(function(obj) {
+                if (obj.gui) {
+                    embedHtml(obj.uuid, obj.gui);
+                }
+
+                if (obj.children) {
+                    loadGuiForObjects(obj.children);
+                }
+            });
+        };
+
+        loadGuiForObjects([json.scene.object]);
 
         return css3DScene;
     };

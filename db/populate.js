@@ -23,13 +23,7 @@ var createScene = function(json) {
     // As for scripts and GUI, we should also store them as children of objects, which means we need to modify the structure of scene.json (and its parser)
     var scene = {
         uuid: genUUID(),
-        object: json.scene.object.uuid,
-        textures: json.scene.textures.map(getUuid),
-        images: json.scene.images.map(getUuid),
-        geometries: json.scene.geometries.map(getUuid),
-        materials: json.scene.materials.map(getUuid),
-        scripts: null,
-        gui: null,
+        object: json.scene.object.uuid
     };
     return sceneDb.create(scene);
 };

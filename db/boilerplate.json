@@ -130,6 +130,7 @@
 					"uuid": "F57146D0-9296-4408-B753-0532A3B8AC2F",
 					"type": "Mesh",
 					"name": "Info panel",
+                    "gui": "09C20E50-E41F-48F4-8BC7-84B85060FE61",
 					"geometry": "0440789E-D4A6-423A-86C9-0A15FA4B5D5A",
 					"material": "642C290C-38EB-49CE-9389-C4361F1B3865",
 					"matrix": [3.197934150695801,0,0,0,0,1.590786099433899,0,0,0,0,1,0,29.3294734954834,161.34609985351562,-657.7916259765625,1]
@@ -138,6 +139,7 @@
 					"uuid": "B122616D-D2F4-4D4C-AC6C-899A7C03D473",
 					"type": "Mesh",
 					"name": "Code panel",
+                    "gui": "EA9B9C85-99ED-4908-9BB4-139F81CF0319",
 					"geometry": "0440789E-D4A6-423A-86C9-0A15FA4B5D5A",
 					"material": "642C290C-38EB-49CE-9389-C4361F1B3865",
 					"matrix": [-0.31772440671920776,0,-3.1821117401123047,0,0,1.590786099433899,0,0,0.9950522780418396,0,-0.09935301542282104,0,-706.0553588867188,161.34609985351562,-35.17312240600586,1]
@@ -149,23 +151,29 @@
                     "castShadow": true,
 					"geometry": "33FE8E02-741F-4705-8147-00015FAC7E79",
 					"material": "239DDF04-F3EB-4149-AD24-5114144AAF1C",
+                    "scripts": ["1F55E768-39E5-4E04-9FAC-790A88C16CB1"],
 					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-268.1260681152344,69.61237335205078,-283.8121337890625,1]
-				}]
+				}
+            ]
 		}
 	},
-	"scripts": {
-		"F5C66F19-25FA-4CB5-85C1-8BA584DDA369": {
-            "coderCube": "function select() {\n    this.position.y += 3;\n}"
-		}
-	},
-	"gui": {
-		"F57146D0-9296-4408-B753-0532A3B8AC2F": {
-			"html": "<h1 class=\"header\">Welcome to the Metaverse \\m/</h1><h2>Press the mouse mid button or f4 to toggle pointer lock</h2>",
-			"css": ".header {color:red;}"
-		},
-		"B122616D-D2F4-4D4C-AC6C-899A7C03D473": {
-			"html": "<h1 id=\"codingHeader\">Right click the cube to change its code</h1><h2 id=\"codingHelp\">Unlock cursor to acces this textarea.</h2><div id=\"coding\"><textarea id=\"leCode\"></textarea><br><button id=\"doCode\">Update</button></div>",
+	"scripts": [
+        {
+            "uuid": "1F55E768-39E5-4E04-9FAC-790A88C16CB1",
+            "name": "coderCube",
+            "source": "function select() {\n    this.position.y += 3;\n}"
+        }
+    ],
+	"gui": [
+        {
+            "uuid": "09C20E50-E41F-48F4-8BC7-84B85060FE61",
+            "html": "<h1 class=\"header\">Welcome to the Metaverse \\m/</h1><h2>Press the mouse mid button or f4 to toggle pointer lock</h2>",
+            "css": ".header {color:red;}"
+        },
+        {
+            "uuid": "EA9B9C85-99ED-4908-9BB4-139F81CF0319",
+            "html": "<h1 id=\"codingHeader\">Right click the cube to change its code</h1><h2 id=\"codingHelp\">Unlock cursor to acces this textarea.</h2><div id=\"coding\"><textarea id=\"leCode\"></textarea><br><button id=\"doCode\">Update</button></div>",
             "css": "#leCode {width: 600px; height: 150px;}\n#coding {display:none;}\n#codingHelp {display:none;}"
-		}
-	}
+        }
+    ]
 }

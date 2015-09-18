@@ -1,6 +1,7 @@
 'use strict';
 
 define(['Scene'], function(scene) {
+    var scripts = {};
 
     var events = {
         keydown: {list: [], isBrowserEvent: true},
@@ -50,7 +51,7 @@ define(['Scene'], function(scene) {
         });
     };
 
-    var removeOlderScripts = function(script, uuid) {
+    var removeOldScript = function(script, uuid) {
         dispatch(events.unload, null, uuid);
 
         for (var name in events) {
@@ -87,32 +88,59 @@ define(['Scene'], function(scene) {
     };
 
     var loadScript = function(script, uuid) {
-        removeOlderScripts(script, uuid);
+        removeOldScript(script, uuid);
         doLoadScript(script, uuid, this._app);
+    };
+    
+    var getScript = function(objUUID, scriptName) {
+        return scripts[objUUID][scriptName];
+    };
+    
+    var getScripts = function(objUUID) {
+        return scripts[objUUID];
     };
 
     var load = function(json, app) {
         this._app = app;
 
-        // FIXME this property is exposed publicly, but it's not defined at the end of the module. We should probably refactor this, because it might cause confusion.
-        this.scripts = json;
-
-        for (var uuid in json) {
-            var scripts = json[uuid];
-
-            for (var name in scripts) {
-                var script = {
-                    name: name,
-                    source: scripts[name]
-                };
-
-                doLoadScript(script, uuid, app);
+        var scriptDict = {};
+        json.scripts.forEach(function(entry) {
+            scriptDict[entry.uuid] = {
+                name: entry.name,
+                source: entry.source
+            };
+        });
+        
+        var storeScript = function(script, objUUID) {
+            if(!scripts[objUUID]) {
+                scripts[objUUID] = {};
             }
-        }
+            
+            scripts[objUUID][script.name] = script.source;
+        };
+        
+        var loadScriptForObjects = function(objs) {
+            objs.forEach(function(obj) {
+                if (obj.scripts && obj.scripts.length) {
+                    obj.scripts.forEach(function(scriptUUID) {
+                        storeScript(scriptDict[scriptUUID], obj.uuid);
+                        doLoadScript(scriptDict[scriptUUID], obj.uuid, app);
+                    });
+                }
+
+                if (obj.children) {
+                    loadScriptForObjects(obj.children);
+                }
+            });
+        };
+        
+        loadScriptForObjects([json.scene.object]);
     };
 
     return {
         events: events,
+        getScript: getScript,
+        getScripts: getScripts,
         load: load,
         loadScript: loadScript,
         dispatchEvent: dispatch,
