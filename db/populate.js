@@ -13,13 +13,21 @@ var genUUID = function() {
 };
 
 var createScene = function(json) {
+    var getUuid = function(obj) {
+        return obj.uuid;
+    };
+    
+    // FIXME we shouldn't store all the stuff as children of the scene, or else each time we add a new object we should modify the scene in the DB
+    // which could bring concurrency issues. We should only store objects as children of the scene (or children of other objects),
+    // and store geometries & materials as children of objects (then textures as children of materials, and images as children of textures).
+    // As for scripts and GUI, we should also store them as children of objects, which means we need to modify the structure of scene.json (and its parser)
     var scene = {
         uuid: genUUID(),
-        object: null,
-        textures: null,
-        images: null,
-        geometries: null,
-        materials: null,
+        object: json.scene.object.uuid,
+        textures: json.scene.textures.map(getUuid),
+        images: json.scene.images.map(getUuid),
+        geometries: json.scene.geometries.map(getUuid),
+        materials: json.scene.materials.map(getUuid),
         scripts: null,
         gui: null,
     };
