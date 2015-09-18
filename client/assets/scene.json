@@ -1,11 +1,5 @@
 {
-	"scene": {
-		"metadata": {
-			"version": 4.3,
-			"type": "Object",
-			"generator": "ObjectExporter"
-		},
-        
+	"scene": {       
         "textures": [
             {  
                 "uuid": "9A4E4794-B019-4B58-9485-459D4FFB6F2A",
