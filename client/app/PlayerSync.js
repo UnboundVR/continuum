@@ -1,9 +1,11 @@
 'use strict';
 
-define(['Socket', 'Scene'], function(socket, scene) {
+define(['SocketIO', 'Scene'], function(io, scene) {
     return {
         init: function() {
             var _this = this;
+            
+            this._socket = io.connect(window.location.origin + '/sync')
 
             this.players = {
                 me: {
@@ -13,23 +15,23 @@ define(['Socket', 'Scene'], function(socket, scene) {
                 others: {}
             };
 
-            socket.on('connect', function() {
+            this._socket.on('connect', function() {
                 _this.players.me.id = this.id;
-                socket.emit('register', _this.players.me);
+                _this._socket.emit('register', _this.players.me);
             });
 
-            socket.on('other connect', function(other) {
+            this._socket.on('other connect', function(other) {
                 _this.players.others[other.id] = other;
                 _this.addPlayerAvatar(other);
             });
 
-            socket.on('other disconnect', function(id) {
+            this._socket.on('other disconnect', function(id) {
                 var player = _this.players.others[id];
                 delete _this.players.others[id];
                 _this.removePlayerAvatar(player);
             });
 
-            socket.on('other change', function(data) {
+            this._socket.on('other change', function(data) {
                 var player = _this.players.others[data.id];
                 if (player) {
                     player.position = data.position;
@@ -44,10 +46,7 @@ define(['Socket', 'Scene'], function(socket, scene) {
 
         addPlayerAvatar: function(player) {
             var geometry = new THREE.BoxGeometry(40, 40, 40);
-
             var texture = THREE.ImageUtils.loadTexture('client/assets/img/grass.jpg');
-
-            // texture.anisotropy = Metavrse.renderer.getMaxAnisotropy();
             var material = new THREE.MeshBasicMaterial({map: texture});
 
             var mesh = new THREE.Mesh(geometry, material);
@@ -60,7 +59,7 @@ define(['Socket', 'Scene'], function(socket, scene) {
 
         playerMoved: function(position) {
             this.players.me.position = position;
-            socket.emit('change', this.players.me);
+            this._socket.emit('change', this.players.me);
         }
     };
 });
