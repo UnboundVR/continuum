@@ -2,7 +2,7 @@
 
 // Allow requiring .cer files as text
 var fs = require('fs');
-require.extensions['.cer'] = function (module, filename) {
+require.extensions['.cer'] = function(module, filename) {
     module.exports = fs.readFileSync(filename, 'utf8');
 };
 
@@ -17,6 +17,7 @@ var playerSync = require('./server/socket/player-sync');
 playerSync.init(io);
 
 var db = require('./server/db/db');
+
 // FIXME this data should go in a config/env file (use dotenv?)
 db.init('couchbase://127.0.0.1', 'metavrse', '111111');
 
