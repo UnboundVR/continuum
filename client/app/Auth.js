@@ -6,12 +6,19 @@ define([], function() {
         return localStorage.getItem('id_token');
     };
     
+    var getHeaders = function() {
+        var token = getToken();
+        if(token) {
+            return {
+                'Authorization': 'bearer ' + token
+            };
+        }
+    };
+    
     var getJson = function(url) {
-        return fetch('/api/scene', {
+        return fetch(url, {
             method: 'get',
-            headers: {
-                'Authorization': 'bearer ' + this.getToken()
-            }
+            headers: getHeaders()
         }).then(function(response) {
             return response.json();
         });

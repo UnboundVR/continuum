@@ -12,8 +12,8 @@ var http = require('http').Server(app);
 
 var jwt = require('express-jwt');
 var jwtCheck = jwt({
-    secret: new Buffer(require('./server/metavrse.cer'), 'base64'),
-    audience: 'XjqQOct27l6s9mJmkikqC9OPaCOkmM0S'
+    secret: require('./server/metavrse.cer'),
+    audience: 'XjqQOct27l6s9mJmkikqC9OPaCOkmM0S' // TODO take from .env file
 });
 
 var io = require('socket.io')(http);
@@ -24,11 +24,11 @@ playerSync.init(io);
 
 var db = require('./server/db/db');
 
-// FIXME this data should go in a config/env file (use dotenv?)
+// TODO take from .env file
 db.init('couchbase://127.0.0.1', 'metavrse', '111111');
 
 var apiRouter = require('./server/api/router');
-apiRouter.use('/', jwtCheck);
+app.use('/api', jwtCheck);
 app.use('/api', apiRouter);
 
 app.use('/client', express.static('client'));
