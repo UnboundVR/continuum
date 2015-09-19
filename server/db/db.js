@@ -25,7 +25,9 @@ var denodeifyObj = function(obj, functions) {
 var getByAlias = function(type, prop, alias) {
     var _this = this;
     return this.get(type + '::' + prop + '::' + alias).then(function(res) {
-       return _this.get(type + '::' + res.value); 
+       return _this.get(type + '::' + res.value).then(function(res2) {
+           return res2.value;
+       }); 
     });
 };
 
@@ -54,8 +56,17 @@ var getMultiByAlias = function(type, prop, aliases) {
     });
 };
 
+var createByAlias = function(type, prop, obj) {
+    return db.counter('counters::' + type, 1, {initial: 1}).then(function(res) {
+        return db.insert(type + '::' + res.value, obj).then(function() {
+            return db.insert(type + '::' + prop + '::' + obj[prop], res.value);
+        });
+    });
+};
+
 module.exports = {
     init: init,
     getByAlias: getByAlias,
-    getMultiByAlias: getMultiByAlias
+    getMultiByAlias: getMultiByAlias,
+    createByAlias: createByAlias
 };

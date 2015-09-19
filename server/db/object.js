@@ -4,11 +4,7 @@ var db = require('./db');
 var promise = require('promise');
 
 var create = function(obj) {
-    return db.counter('counters::object', 1, {initial: 1}).then(function(res) {
-        return db.insert('object::' + res.value, obj).then(function() {
-            return db.insert('object::uuid::' + obj.uuid, res.value);
-        });
-    });
+    return db.createByAlias('object', 'uuid', scene);
 };
 
 var getMulti = function(uuids) {
