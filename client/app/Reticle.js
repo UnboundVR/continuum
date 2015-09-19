@@ -4,6 +4,8 @@ define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'Tween', 'loader
     var mouse = new THREE.Vector2();
     var isIntersecting = false;
     var lastIntersected = null;
+    var currentTween;
+    var mesh;
 
     // TODO take this from a serious place (e.g. excluded objects could have a flag in scene.json?)
     var excludedObjects = ['Floor', 'Skybox'];
@@ -40,8 +42,28 @@ define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'Tween', 'loader
     var onSelect = function(obj) {
         scripts.dispatchEvent(scripts.events.select, null, obj.uuid);
     };
+    
+    var updateTween = function(isIntersecting) {
+        if(currentTween && currentTween.isIntersecting != isIntersecting) {
+            currentTween.stop();
+        }
+        
+        if(!currentTween || currentTween.isIntersecting != isIntersecting) {
+            currentTween = new tween.Tween({radius: mesh.radius})
+            .to({radius: isIntersecting ? 0.15 : 0.05}, 750 )
+            .easing(TWEEN.Easing.Sinusoidal.InOut )
+            .onUpdate(function () {
+                var geometry = new THREE.CircleGeometry(this.radius, 32);
+                geometry.vertices.shift();
+                mesh.geometry = geometry;
+                mesh.radius = this.radius;
+            }).start();
+            
+            currentTween.isIntersecting = isIntersecting;
+        }
+    };
 
-    var loop = function() {
+    var loop = function(time) {
         /* This would use the mouse position, not the reticle position. Might be useful in the future (e.g. for KeyVR)
         var vector = new THREE.Vector3(mouse.x, mouse.y, 0.5);
         vector.unproject(controls.camera);
@@ -54,7 +76,11 @@ define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'Tween', 'loader
         }
 		
 		showReticle();
-
+        
+        if(currentTween) {
+            currentTween.update(time);    
+        }
+        
         // FIXME This magic vector was taken from https://github.com/neuman/vreticle
         // It probably represents the position of the reticle.
         var vector = new THREE.Vector3(-0.0012499999999999734, -0.0053859964093356805, 0.5);
@@ -89,6 +115,8 @@ define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'Tween', 'loader
 
             lastIntersected = null;
         }
+        
+        updateTween(isIntersecting);
     };
 
     var createReticle = function() {
@@ -97,10 +125,12 @@ define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'Tween', 'loader
         var material = new THREE.LineBasicMaterial();
         material.color.set(0x000000);
 
-        var mesh = new THREE.Line(geometry, material);
+        mesh = new THREE.Line(geometry, material);
         mesh.position.x = 0;
         mesh.position.y = 0;
         mesh.position.z = -10;
+        
+        mesh.radius = 0.05;
 
         return mesh;
     };

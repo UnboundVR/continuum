@@ -46,7 +46,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                 request = requestAnimationFrame(animate);
                 scriptsLoader.dispatchEvent(scriptsLoader.events.update, {time: time, delta: time - prevTime});
                 fpControls.animate();
-                reticle.loop();
+                reticle.loop(time);
                 renderer.render(scene, camera);
                 prevTime = time;
             };
