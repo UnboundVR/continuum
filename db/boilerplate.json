@@ -1,5 +1,7 @@
 {
-	"scene": {        
+	"scene": {   
+        "uuid": "9A758311-FE42-4A67-81FF-91FD7A0FC4DA",
+        
         "textures": [
             {  
                 "uuid": "9A4E4794-B019-4B58-9485-459D4FFB6F2A",

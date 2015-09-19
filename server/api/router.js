@@ -9,7 +9,7 @@ var sceneDb = require('../db/scene');
 
 var sendJson = function(res) {
     return function(data) {
-        res.json(data.value);
+        res.json(data);
     };
 };
 

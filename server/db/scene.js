@@ -4,12 +4,10 @@ var db = require('./db');
 var objectDb = require('./object');
 
 var get = function(uuid) {
-    return db.get('scene::uuid::' + uuid).then(function(res) {
-        return db.get('scene::' + res.value).then(function(res2) {
-            return objectDb.get(res2.value.object).then(function(res3) {
-                res2.value.object = res3.value;
-                return res2;
-            });
+    return db.getByAlias('scene', 'uuid', uuid).then(function(res) {
+        return objectDb.get(res.value.object).then(function(obj) {
+            res.value.object = obj;
+            return res.value;
         });
     });
 };
