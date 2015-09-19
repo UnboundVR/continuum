@@ -18,7 +18,9 @@
 
     <body>
 
-        <input id="btn-login" class="btn-login" type="submit" />
+        <input id="btn-login" class="btn-login" type="submit" value="Login" />
+        <input id="btn-logout" class="btn-logout" type="submit" value="Logout" />
+        <a href="world">Go to world</a>
         <p>Name: <span id="name"></span></p>
     
         <script>
@@ -27,7 +29,12 @@
             var userProfile = null;
 
             document.getElementById('btn-login').addEventListener('click', function() {
-              lock.show({ authParams: { scope: 'openid' } });
+              lock.show({ authParams: { scope: 'openid profile' } });
+            });
+            
+            document.getElementById('btn-logout').addEventListener('click', function() {
+              localStorage.removeItem('id_token');
+              window.location.href = "/";
             });
             
             var hash = lock.parseHash(window.location.hash);
