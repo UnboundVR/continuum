@@ -71,7 +71,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                 
                 var sceneId = queryString.sceneId;
                 
-                remoteLoader.load('client/assets/'+ sceneId +'.json', function(text) {
+                remoteLoader.load('api/scene/'+ sceneId, function(text) {
                     _this.load(JSON.parse(text));
                     _this.setSize(window.innerWidth, window.innerHeight);
                     _this.play();

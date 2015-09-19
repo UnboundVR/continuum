@@ -32,7 +32,9 @@ var getMulti = function(uuids) {
 };
 
 var get = function(uuid) {
-    return getMulti([uuid]);
+    return getMulti([uuid]).then(function(objs) {
+        return objs[0];
+    });
 };
 
 module.exports = {
