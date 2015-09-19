@@ -28,7 +28,7 @@ var db = require('./server/db/db');
 db.init('couchbase://127.0.0.1', 'metavrse', '111111');
 
 var apiRouter = require('./server/api/router');
-//apiRouter.use('/', jwtCheck);
+apiRouter.use('/', jwtCheck);
 app.use('/api', apiRouter);
 
 app.use('/client', express.static('client'));

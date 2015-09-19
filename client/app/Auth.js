@@ -6,7 +6,19 @@ define([], function() {
         return localStorage.getItem('id_token');
     };
     
+    var getJson = function(url) {
+        return fetch('/api/scene', {
+            method: 'get',
+            headers: {
+                'Authorization': 'bearer ' + this.getToken()
+            }
+        }).then(function(response) {
+            return response.json();
+        });
+    };
+    
     return {
-        getToken: getToken
+        getToken: getToken,
+        getJson: getJson
     };
 });
