@@ -35,7 +35,7 @@ app.use('/client', express.static('client'));
 app.use('/node_modules', express.static('node_modules'));
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/login.html');
 });
 
 var port = 1337;
