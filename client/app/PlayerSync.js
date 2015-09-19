@@ -6,7 +6,7 @@ define(['SocketIO', 'Scene', 'Auth'], function(io, scene, auth) {
             var _this = this;
             
             this._socket = io.connect(window.location.origin + '/sync', {
-                query: 'token=' + auth.token
+                query: 'token=' + auth.getToken()
             });
 
             this.players = {
