@@ -2,7 +2,7 @@
 
 var couchbase = require('couchbase');
 var promise = require('promise');
-var json = require('./boilerplate.json');
+var json = require('./scene.json');
 var db = require('../server/db/db');
 
 var sceneDb = require('../server/db/scene');

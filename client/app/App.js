@@ -70,8 +70,9 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                 var remoteLoader = new THREE.XHRLoader();
                 
                 var sceneId = queryString.sceneId;
+                var url = sceneId ? 'api/scene/' + sceneId : 'api/scene';
                 
-                remoteLoader.load('api/scene/'+ sceneId, function(text) {
+                remoteLoader.load(url, function(text) {
                     _this.load(JSON.parse(text));
                     _this.setSize(window.innerWidth, window.innerHeight);
                     _this.play();
