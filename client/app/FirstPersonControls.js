@@ -91,28 +91,26 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
         var time = performance.now();
 
         var restrainPosition = function(obj) {
-            // This guarantees that the player won't fall
-            if (obj.position.y < -5) {
+            if (obj.position.y < 0) {
                 velocity.y = 0;
-                obj.position.y = -5;
+                obj.position.y = 0;
                 canJump = true;
             }
 
-            // This bounds the player to a plane a little (10%) larger than the floor plane
-            if (obj.position.x > 550) {
-                obj.position.x = 550;
+            if (obj.position.x > 490) {
+                obj.position.x = 490;
             }
 
-            if (obj.position.x < -550) {
-                obj.position.x = -550;
+            if (obj.position.x < -490) {
+                obj.position.x = -490;
             }
 
-            if (obj.position.z > 550) {
-                obj.position.z = 550;
+            if (obj.position.z > 490) {
+                obj.position.z = 490;
             }
 
-            if (obj.position.z < -550) {
-                obj.position.z = -550;
+            if (obj.position.z < -490) {
+                obj.position.z = -490;
             }
         };
 

@@ -10,7 +10,7 @@ define(['SocketIO', 'Scene'], function(io, scene) {
             this.players = {
                 me: {
                     name: 'YO',
-                    position: new THREE.Vector3()
+                    position: new THREE.Vector3(0, 15, 0)
                 },
                 others: {}
             };
