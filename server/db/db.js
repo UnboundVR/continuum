@@ -57,9 +57,11 @@ var getMultiByAlias = function(type, prop, aliases) {
 };
 
 var createByAlias = function(type, prop, obj) {
-    return db.counter('counters::' + type, 1, {initial: 1}).then(function(res) {
-        return db.insert(type + '::' + res.value, obj).then(function() {
-            return db.insert(type + '::' + prop + '::' + obj[prop], res.value);
+    var _this = this;
+    
+    return this.counter('counters::' + type, 1, {initial: 1}).then(function(res) {
+        return _this.insert(type + '::' + res.value, obj).then(function() {
+            return _this.insert(type + '::' + prop + '::' + obj[prop], res.value);
         });
     });
 };

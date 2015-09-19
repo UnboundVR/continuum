@@ -3,8 +3,8 @@
 var couchbase = require('couchbase');
 var promise = require('promise');
 var json = require('./boilerplate.json');
-var uuid = require('node-uuid');
 var db = require('../server/db/db');
+
 var sceneDb = require('../server/db/scene');
 var objectDb = require('../server/db/object');
 
@@ -19,11 +19,11 @@ var createScene = function(json) {
     return sceneDb.create(scene);
 };
 
-var load = function(items, itemDb) {
+var load = function(items, type) {
     var promises = [];
     
     items.forEach(function(item) {
-        promises.push(itemDb.create(item));
+        promises.push(db.createByAlias(type, 'uuid', item));
     });
     
     return promise.all(promises);
@@ -62,12 +62,12 @@ var scene = json.scene;
 createScene(json).then(function(res) {
     return promise.all([
         loadObjects(scene.object),
-        /*load(scene.textures, textureDb),
-        load(scene.images, imageDb),
-        load(scene.geometries, geometryDb),
-        load(scene.materials, materialDb),
-        load(json.scripts, scriptDb),
-        load(json.gui, guiDb)*/
+        load(scene.textures, 'texture'),
+        load(scene.images, 'image'),
+        load(scene.geometries, 'geometry'),
+        load(scene.materials, 'material'),
+        load(json.scripts, 'script'),
+        load(json.gui, 'gui')
     ]);
 }).then(function(res) {
     console.log('Database at ' + process.argv[2] + ' populated with boilerplate scene!');
