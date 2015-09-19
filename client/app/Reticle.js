@@ -3,7 +3,7 @@
 define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'Tween', 'loaders/ScriptsLoader', 'Editor'], function(THREE, scene, controls, pointerLock, tween, scripts, editor) {
     var mouse = new THREE.Vector2();
     var isIntersecting = false;
-    var lastIntersected = null;
+    var lastIntersected;
     var currentTween;
     var mesh;
 
