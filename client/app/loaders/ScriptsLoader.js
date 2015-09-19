@@ -20,6 +20,8 @@ define(['Scene'], function(scene) {
         pointerlock: {list: []},
         pointerunlock: {list: []}
     };
+    
+    var app;
 
     var browserEvents = Object.keys(events).filter(function(key) {
         return events[key].isBrowserEvent;
@@ -89,7 +91,7 @@ define(['Scene'], function(scene) {
 
     var loadScript = function(script, uuid) {
         removeOldScript(script, uuid);
-        doLoadScript(script, uuid, this._app);
+        doLoadScript(script, uuid, app);
     };
     
     var getScript = function(objUUID, scriptName) {
@@ -100,8 +102,8 @@ define(['Scene'], function(scene) {
         return scripts[objUUID];
     };
 
-    var load = function(json, app) {
-        this._app = app;
+    var load = function(json, relevantApp) {
+        app = relevantApp;
 
         var scriptDict = {};
         json.scripts.forEach(function(entry) {
