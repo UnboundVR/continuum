@@ -1,11 +1,13 @@
 'use strict';
 
-define(['SocketIO', 'Scene'], function(io, scene) {
+define(['SocketIO', 'Scene', 'Auth'], function(io, scene, auth) {
     return {
         init: function() {
             var _this = this;
             
-            this._socket = io.connect(window.location.origin + '/sync')
+            this._socket = io.connect(window.location.origin + '/sync', {
+                query: 'token=' + auth.token
+            });
 
             this.players = {
                 me: {
