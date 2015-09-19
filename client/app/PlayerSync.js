@@ -11,7 +11,6 @@ define(['SocketIO', 'Scene', 'Auth'], function(io, scene, auth) {
 
             this.players = {
                 me: {
-                    name: 'YO',
                     position: new THREE.Vector3(0, 15, 0)
                 },
                 others: {}
@@ -23,6 +22,7 @@ define(['SocketIO', 'Scene', 'Auth'], function(io, scene, auth) {
             });
 
             this._socket.on('other connect', function(other) {
+                console.log(other.name + ' logged in!');
                 _this.players.others[other.id] = other;
                 _this.addPlayerAvatar(other);
             });
