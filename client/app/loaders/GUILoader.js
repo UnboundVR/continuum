@@ -1,6 +1,6 @@
-    'use strict';
+'use strict';
 
-define(['GUI', 'Scene'], function(gui, scene) {
+define(['GUIManager', 'Scene'], function(gui, scene) {
 
     var guiStore = {};
 

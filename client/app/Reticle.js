@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'Tween', 'loaders/ScriptsLoader', 'Editor'], function(THREE, scene, controls, pointerLock, tween, scripts, editor) {
+define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'Tween', 'ScriptsManager', 'Editor'], function(THREE, scene, controls, pointerLock, tween, scripts, editor) {
     var mouse = new THREE.Vector2();
     var isIntersecting = false;
     var lastIntersected;

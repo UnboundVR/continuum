@@ -1,7 +1,7 @@
 // Based on https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html and http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 'use strict';
 
-define(['FirstPersonControls', 'loaders/ScriptsLoader'], function(controls, scripts) {
+define(['FirstPersonControls', 'ScriptsManager'], function(controls, scripts) {
     var controlsEnabled = false;
 
     var init = function() {

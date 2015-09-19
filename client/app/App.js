@@ -1,7 +1,7 @@
 'use strict';
 
-define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'PlayerSync', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'Reticle', 'PointerLock', 'QueryString'],
-    function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader, reticle, pointerLock, queryString) {
+define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'PlayerSync', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'ScriptsManager', 'Reticle', 'PointerLock', 'QueryString'],
+    function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader, scripts, reticle, pointerLock, queryString) {
         var App = function() {
             var camera;
             var prevTime;
@@ -44,7 +44,7 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
 
             var animate = function(time) {
                 request = requestAnimationFrame(animate);
-                scriptsLoader.dispatchEvent(scriptsLoader.events.update, {time: time, delta: time - prevTime});
+                scripts.dispatchEvent(scripts.events.update, {time: time, delta: time - prevTime});
                 fpControls.animate();
                 reticle.loop(time);
                 renderer.render(scene, camera);
@@ -52,14 +52,14 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
             };
 
             this.play = function() {
-                scriptsLoader.addEventListeners();
+                scripts.addEventListeners();
 
                 request = requestAnimationFrame(animate);
                 prevTime = performance.now();
             };
 
             this.stop = function() {
-                scriptsLoader.removeEventListeners();
+                scripts.removeEventListeners();
 
                 cancelAnimationFrame(request);
             };
