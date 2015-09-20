@@ -1,7 +1,7 @@
 // Based on https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html and http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 'use strict';
 
-define(['FirstPersonControls', 'loaders/ScriptsLoader'], function(controls, scripts) {
+define(['FirstPersonControls', 'ScriptsManager', 'World'], function(controls, scripts, world) {
     var controlsEnabled = false;
 
     var init = function() {
@@ -84,13 +84,12 @@ define(['FirstPersonControls', 'loaders/ScriptsLoader'], function(controls, scri
             console.warn('Your browser doesn\'t seem to support Pointer Lock API');
         }
     };
-
-    var enabled = function() {
-        return controlsEnabled;
-    };
+    
+    world.onInit(init);
 
     return {
-        init: init,
-        enabled: enabled
+        enabled: function() {
+            return controlsEnabled;
+        }
     };
 });

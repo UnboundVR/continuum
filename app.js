@@ -32,6 +32,7 @@ app.use('/api', jwtCheck);
 app.use('/api', apiRouter);
 
 app.use('/client', express.static('client'));
+app.use('/shared', express.static('shared'));
 app.use('/node_modules', express.static('node_modules'));
 
 app.get('/', function(req, res) {

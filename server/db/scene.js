@@ -4,92 +4,80 @@ var db = require('./db');
 var objectDb = require('./object');
 var promise = require('promise');
 
-var getObjDependencies = function(obj) {
-    var deps = {
-        geometries: [],
-        scripts: [],
-        gui: [],
-        materials: []
+var get = function(uuid) {
+    var getObjDependencies = function(obj) {
+        var deps = {
+            geometry: [],
+            script: [],
+            gui: [],
+            material: []
+        };
+        
+        var getDeps = function(objs) {
+            objs.forEach(function(item) {
+                if(item.geometry) {
+                    deps.geometry.push(item.geometry);
+                }
+                
+                if(item.material) {
+                    deps.material.push(item.material);
+                }
+                
+                if(item.scripts && item.scripts.length) {
+                    deps.script.push.apply(deps.script, item.scripts);
+                }
+                
+                if(item.gui) {
+                    deps.gui.push(item.gui);
+                }
+                
+                if(item.children && item.children.length) {
+                    getDeps(item.children);
+                }
+            });
+        };
+        
+        getDeps([obj]);
+        
+        return deps;
     };
-    
-    var getDeps = function(objs) {
-        objs.forEach(function(item) {
-            if(item.geometry) {
-                deps.geometries.push(item.geometry);
-            }
-            
-            if(item.material)
-            {
-                deps.materials.push(item.material);
-            }
-            
-            if(item.scripts && item.scripts.length) {
-                deps.scripts.push.apply(deps.scripts, item.scripts);
-            }
-            
-            if(item.gui) {
-                deps.gui.push(item.gui);
-            }
-            
-            if(item.children && item.children.length) {
-                getDeps(item.children);
-            }
+
+    var getMaterialDependencies = function(materials) {
+        return materials.filter(function(material) {
+            return material.map;
+        }).map(function(material) {
+           return material.map; 
+        });
+    };
+
+    var getTextureDependencies = function(textures) {
+        return textures.map(function(texture) {
+           return texture.image; 
         });
     };
     
-    getDeps([obj]);
-    
-    return deps;
-};
-
-var getMaterialDependencies = function(materials) {
-    return materials.filter(function(material) {
-        return material.map;
-    }).map(function(material) {
-       return material.map; 
-    });
-};
-
-var getTextureDependencies = function(textures) {
-    return textures.map(function(texture) {
-       return texture.image; 
-    });
-};
-
-var get = function(uuid) {
     var response = {};
+
     return db.getByAlias('scene', 'uuid', uuid).then(function(scene) {
         return objectDb.get(scene.object).then(function(obj) {
             response.scene = scene;
             scene.object = obj;
             
             var promises = [];
-            
             var objDeps = getObjDependencies(obj);
             
-            if(objDeps.geometries.length) {
-                promises.push(db.getMultiByAlias('geometry', 'uuid', objDeps.geometries));
-            } else {
-                promises.push([]);
-            }
-
-            if(objDeps.materials.length) {
-                promises.push(db.getMultiByAlias('material', 'uuid', objDeps.materials));
-            } else {
-                promises.push([]);
-            }
+            var resolveDeps = function(type) {
+                if(objDeps[type].length) {
+                    promises.push(db.getMultiByAlias(type, 'uuid', objDeps[type]));
+                } else {
+                    promises.push([]);
+                }
+            };
             
-            if(objDeps.gui.length) {
-                promises.push(db.getMultiByAlias('gui', 'uuid', objDeps.gui));
-            } else {
-                promises.push([]);
-            }
-            
-            if(objDeps.scripts.length) {
-                promises.push(db.getMultiByAlias('script', 'uuid', objDeps.scripts));
-            } else {
-                promises.push([]);
-            }
+            resolveDeps('geometry');
+            resolveDeps('material');
+            resolveDeps('gui');
+            resolveDeps('script');
             
             return promise.all(promises).then(function(results) {
                 scene.geometries = results[0];

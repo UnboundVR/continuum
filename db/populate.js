@@ -1,13 +1,14 @@
 'use strict';
 
+var json = require('./scene.json');
+
 var couchbase = require('couchbase');
 var promise = require('promise');
-var json = require('./scene.json');
-var db = require('../server/db/db');
+var traverse = require('../shared/TraverseTree');
 
+var db = require('../server/db/db');
 var sceneDb = require('../server/db/scene');
 var objectDb = require('../server/db/object');
-
 db.init(process.argv[2], process.argv[3], process.argv[4]);
 
 var createScene = function(json) {
@@ -32,29 +33,16 @@ var load = function(items, type) {
 var loadObjects = function(sceneObject) {    
     var promises = [];
     
-    var onlyUuid = function(obj) {
-        return obj.uuid;
-    };
-    
-    var doLoadObj = function(obj) {
+    traverse(sceneObject, function(obj) {
         if(obj.children && obj.children.length) {
-            obj.children = obj.children.map(onlyUuid);
+            obj.children = obj.children.map(function(child) {
+                return child.uuid;
+            });
         }
         
         promises.push(objectDb.create(obj));
-    };
+    });
     
-    var loadObjs = function(objs) {
-        objs.forEach(function(obj) {
-            if(obj.children && obj.children.length) {
-                loadObjs(obj.children);
-            }
-            
-            doLoadObj(obj);
-        });
-    };
-    
-    loadObjs([sceneObject]);
     return promise.all(promises);
 };
 
