@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
+define(['Three', 'Scene', 'PlayerSync', 'Loop'], function(THREE, scene, playerSync, loop) {
     var raycaster;
     var canJump = true;
     var moveForward = false;
@@ -8,7 +8,6 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
     var moveBackward = false;
     var moveLeft = false;
     var moveRight = false;
-    var prevTime = performance.now();
     var velocity = new THREE.Vector3();
 
     // This array should contain all objects we want to intersect with using the raycaster - for now we just care about the floor
@@ -86,10 +85,12 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
         document.addEventListener('keyup', onKeyUp, false);
         raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, -1, 0), 0, 10);
     };
+    
+    var getPosition = function() {
+        return controls.getObject().position;
+    };
 
-    var animate = function() {
-        var time = performance.now();
-
+    var animate = function(time) {
         var restrainPosition = function(obj) {
             if (obj.position.y < 0) {
                 velocity.y = 0;
@@ -120,7 +121,7 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
             raycaster.ray.origin.y -= 10;
             var intersections = raycaster.intersectObjects(collidableObjects);
             var isOnObject = intersections.length > 0;
-            var delta = (time - prevTime) / 1000;
+            var delta = time.delta / 1000;
             velocity.x -= velocity.x * 10.0 * delta;
             velocity.z -= velocity.z * 10.0 * delta;
             velocity.y -= 9.8 * 75.0 * delta; // 75.0 = mass
@@ -144,18 +145,13 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
 
             playerSync.playerMoved(obj.position);
         }
-
-        prevTime = time;
     };
-
-    var getPosition = function() {
-        return controls.getObject().position;
-    };
+    
+    loop.onLoop(animate);
 
     return {
         controls: controls,
         camera: camera,
-        animate: animate,
         init: init,
         getPosition: getPosition
     };

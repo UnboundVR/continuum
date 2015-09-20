@@ -1,11 +1,9 @@
 'use strict';
 
-define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'PlayerSync', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'ScriptsManager', 'Reticle', 'PointerLock', 'QueryString'],
-    function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader, scripts, reticle, pointerLock, queryString) {
+define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'PlayerSync', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'ScriptsManager', 'Reticle', 'ItemSelector', 'PointerLock', 'QueryString', 'Loop'],
+    function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader, scripts, reticle, itemSelector, pointerLock, queryString, loop) {
         var App = function() {
             var camera;
-            var prevTime;
-            var request;
 
             this.load = function(json) {
                 scene.setScene(objectLoader.parse(json.scene));
@@ -42,26 +40,16 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                 renderer.setSize(width, height);
             };
 
-            var animate = function(time) {
-                request = requestAnimationFrame(animate);
-                scripts.dispatchEvent(scripts.events.update, {time: time, delta: time - prevTime});
-                fpControls.animate();
-                reticle.loop(time);
-                renderer.render(scene, camera);
-                prevTime = time;
-            };
-
             this.play = function() {
                 scripts.addEventListeners();
 
-                request = requestAnimationFrame(animate);
-                prevTime = performance.now();
+                loop.start();
             };
 
             this.stop = function() {
                 scripts.removeEventListeners();
 
-                cancelAnimationFrame(request);
+                loop.stop();
             };
 
             this.init = function() {
@@ -75,12 +63,19 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                 remoteLoader.load(url, function(text) {
                     _this.load(JSON.parse(text));
                     _this.setSize(window.innerWidth, window.innerHeight);
-                    _this.play();
 
                     fpControls.init();
                     playerSync.init();
                     reticle.init();
+                    itemSelector.init();
                     pointerLock.init();
+                    scripts.init();
+                    
+                    loop.onLoop(function() {
+                       renderer.render(scene, camera); 
+                    });
+                    
+                    _this.play();
                     
                     container.appendChild(renderer.domElement);
 

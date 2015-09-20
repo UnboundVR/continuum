@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Scene'], function(scene) {
+define(['Scene', 'Loop'], function(scene, loop) {
     var scripts = {};
 
     var events = {
@@ -123,6 +123,12 @@ define(['Scene'], function(scene) {
         app = relevantApp;
     };
     
+    var init = function() {
+        loop.onLoop(function(time) {
+            dispatch(events.update, time);
+        });
+    };
+    
     return {
         events: events,
         getScript: getScript,
@@ -131,6 +137,7 @@ define(['Scene'], function(scene) {
         dispatchEvent: dispatch,
         addEventListeners: addEventListeners,
         removeEventListeners: removeEventListeners,
-        setApp: setApp
+        setApp: setApp,
+        init: init
     };
 });
