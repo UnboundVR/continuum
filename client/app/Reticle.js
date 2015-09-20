@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'FirstPersonControls', 'PointerLock', 'Tween', 'ItemSelector', 'Loop', 'World'], function(THREE, controls, pointerLock, tween, itemSelector, loop, world) {
+define(['Three', 'Camera', 'PointerLock', 'Tween', 'ItemSelector', 'Loop', 'World'], function(THREE, camera, pointerLock, tween, itemSelector, loop, world) {
     var currentTween;
     var mesh;
     var currentRadius;
@@ -10,7 +10,7 @@ define(['Three', 'FirstPersonControls', 'PointerLock', 'Tween', 'ItemSelector', 
         
         var reticleContainer = new THREE.Object3D();
         reticleContainer.add(mesh);
-        controls.camera.add(reticleContainer);
+        camera.add(reticleContainer);
         
         loop.onLoop(animate);
     };

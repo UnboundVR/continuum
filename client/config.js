@@ -25,5 +25,5 @@ var require = {
         Tween: '/node_modules/tween.js/src/Tween',
         shared: '../../shared'
     },
-    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'ScriptsManager']
+    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'ScriptsManager', 'Renderer']
 };

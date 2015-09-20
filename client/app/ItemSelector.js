@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'ScriptsManager', 'Editor', 'Loop', 'World'], function(THREE, scene, controls, pointerLock, scripts, editor, loop, world) {
+define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'ScriptsManager', 'Editor', 'Loop', 'World'], function(THREE, scene, controls, camera, pointerLock, scripts, editor, loop, world) {
     var isIntersecting = false;
     var lastIntersected;
 
@@ -25,7 +25,7 @@ define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'ScriptsManager'
         // FIXME This magic vector was taken from https://github.com/neuman/vreticle
         // It probably represents the position of the reticle.
         var vector = new THREE.Vector3(-0.0012499999999999734, -0.0053859964093356805, 0.5);
-        vector.unproject(controls.camera);
+        vector.unproject(camera);
         var raycaster = new THREE.Raycaster(controls.getPosition(), vector.sub(controls.getPosition()).normalize());
         var intersects = raycaster.intersectObjects(scene.getScene().children);
 

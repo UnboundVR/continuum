@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'PlayerSync', 'Loop', 'World'], function(THREE, scene, playerSync, loop, world) {
+define(['Three', 'Scene', 'PlayerSync', 'Loop', 'World', 'Camera'], function(THREE, scene, playerSync, loop, world, camera) {
     var raycaster;
     
     var move = {
@@ -18,8 +18,6 @@ define(['Three', 'Scene', 'PlayerSync', 'Loop', 'World'], function(THREE, scene,
 
     var collidableObjects = [];
 
-    var aspect = window.innerWidth / window.innerHeight;
-    var camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100000);
     var controls = new THREE.PointerLockControls(camera);
 
     var init = function() {
@@ -163,7 +161,6 @@ define(['Three', 'Scene', 'PlayerSync', 'Loop', 'World'], function(THREE, scene,
 
     return {
         controls: controls,
-        camera: camera,
         getPosition: getPosition
     };
 });
