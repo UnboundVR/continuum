@@ -1,6 +1,6 @@
 'use strict';
 
-define(['SocketIO', 'RTCMultiConnection'], function(io, rtc) {
+define(['SocketIO', 'RTCMultiConnection', 'World'], function(io, rtc, world) {
 
     var init = function() {
         var port = '1338';
@@ -44,7 +44,7 @@ define(['SocketIO', 'RTCMultiConnection'], function(io, rtc) {
         rtcMultiConnection.open('continuum');
     };
 
-    return {
-        init: init
-    }
+    world.onInit(init);
+
+    return {}
 });
