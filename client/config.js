@@ -10,7 +10,8 @@ var require = {
         StereoEffect: {deps: ['ThreeCore'], exports: 'THREE'},
         CSS3DRenderer: {deps: ['ThreeCore'], exports: 'THREE'},
         Detector: {exports: 'Detector'},
-        Stats: {exports: 'Stats'}
+        Stats: {exports: 'Stats'},
+        RTCMultiConnection: {deps: ['SocketIO'], exports: 'RTCMultiConnection'}
     },
     paths: {
         Three: '../lib/Three',
@@ -22,6 +23,7 @@ var require = {
         SocketIO: '/socket.io/socket.io',
         Detector: '../lib/Detector',
         Stats: '../lib/Stats.min',
-        Tween: '/node_modules/tween.js/src/Tween'
+        Tween: '/node_modules/tween.js/src/Tween',
+        RTCMultiConnection: '/node_modules/rtcmulticonnection-v3/RTCMultiConnection'
     }
 };
