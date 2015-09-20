@@ -24,6 +24,8 @@ var require = {
         Detector: '../lib/Detector',
         Stats: '../lib/Stats.min',
         Tween: '/node_modules/tween.js/src/Tween',
-        RTCMultiConnection: '/node_modules/rtcmulticonnection-v3/RTCMultiConnection'
-    }
+        RTCMultiConnection: '/node_modules/rtcmulticonnection-v3/RTCMultiConnection',
+        shared: '../../shared'
+    },
+    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'ScriptsManager', 'Renderer']
 };

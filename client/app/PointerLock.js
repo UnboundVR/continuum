@@ -1,7 +1,7 @@
 // Based on https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html and http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 'use strict';
 
-define(['FirstPersonControls', 'loaders/ScriptsLoader'], function(controls, scripts) {
+define(['FirstPersonControls', 'ScriptsManager', 'World'], function(controls, scripts, world) {
     var controlsEnabled = false;
 
     var init = function() {
@@ -10,7 +10,7 @@ define(['FirstPersonControls', 'loaders/ScriptsLoader'], function(controls, scri
         if (havePointerLock) {
             var element = document.body;
 
-            var pointerlockchange = function(event) {
+            var pointerLockChange = function(event) {
                 if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
                     controlsEnabled = true;
                     controls.controls.enabled = true;
@@ -22,8 +22,8 @@ define(['FirstPersonControls', 'loaders/ScriptsLoader'], function(controls, scri
                 }
             };
 
-            var pointerlockerror = function(event) {
-                // TODO do something meaninful, like allow the user to use the app without locking cursor (i.e. enable controls anyway)
+            var pointerLockError = function(event) {
+                // TODO do something meaningful, like allow the user to use the app without locking cursor (i.e. enable controls anyway)
                 console.log('pointer lock error');
             };
 
@@ -49,12 +49,12 @@ define(['FirstPersonControls', 'loaders/ScriptsLoader'], function(controls, scri
                 }
             };
 
-            document.addEventListener('pointerlockchange', pointerlockchange, false);
-            document.addEventListener('mozpointerlockchange', pointerlockchange, false);
-            document.addEventListener('webkitpointerlockchange', pointerlockchange, false);
-            document.addEventListener('pointerlockerror', pointerlockerror, false);
-            document.addEventListener('mozpointerlockerror', pointerlockerror, false);
-            document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
+            document.addEventListener('pointerlockchange', pointerLockChange, false);
+            document.addEventListener('mozpointerlockchange', pointerLockChange, false);
+            document.addEventListener('webkitpointerlockchange', pointerLockChange, false);
+            document.addEventListener('pointerlockerror', pointerLockError, false);
+            document.addEventListener('mozpointerlockerror', pointerLockError, false);
+            document.addEventListener('webkitpointerlockerror', pointerLockError, false);
             
             var togglePointerLock = function() {
                 if (controlsEnabled) {
@@ -80,17 +80,16 @@ define(['FirstPersonControls', 'loaders/ScriptsLoader'], function(controls, scri
             window.addEventListener('mousedown', onMouseDown, false);
             window.addEventListener('keydown', onKeyDown, false);
         } else {
-            // TODO do something meaninful, like allow the user to use the app without locking cursor (i.e. enable controls anyway)
+            // TODO do something meaningful, like allow the user to use the app without locking cursor (i.e. enable controls anyway)
             console.warn('Your browser doesn\'t seem to support Pointer Lock API');
         }
     };
-
-    var enabled = function() {
-        return controlsEnabled;
-    };
+    
+    world.onInit(init);
 
     return {
-        init: init,
-        enabled: enabled
+        enabled: function() {
+            return controlsEnabled;
+        }
     };
 });

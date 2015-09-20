@@ -3,11 +3,11 @@
 var players = {};
 
 var init = function(io) {
-    io.on('connection', function(socket) {
+    io.of('/sync').on('connection', function(socket) {
         socket.on('register', function(data) {
             for (var id in players) {
                 var player = players[id];
-                io.to(socket.id).emit('other connect', player);
+                socket.emit('other connect', player);
             }
 
             players[socket.id] = data;

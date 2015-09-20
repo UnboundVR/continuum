@@ -6,8 +6,12 @@
     <link href="client/assets/css/normalize.css" rel="stylesheet">
 
     <script src="client/config.js"></script>
-    <script data-main="../main" src="node_modules/requirejs/require.js"></script>
+    <script data-main="app" src="node_modules/requirejs/require.js"></script>
     <link rel="icon" type="image/x-icon" href="client/assets/img/favicon.png">
+	
+	<!-- Disable zoom -->
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, 
+	minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 </head>
 <body>
 	<div id="threejs-container"></div>
