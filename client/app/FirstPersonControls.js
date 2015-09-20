@@ -2,18 +2,20 @@
 
 define(['Three', 'Scene', 'PlayerSync', 'Loop', 'World'], function(THREE, scene, playerSync, loop, world) {
     var raycaster;
+    
+    var move = {
+        forward: false,
+        left: false,
+        right: false,
+        backward: false
+    };
+    
     var canJump = true;
-    var moveForward = false;
     var running = false;
-    var moveBackward = false;
-    var moveLeft = false;
-    var moveRight = false;
     var velocity = new THREE.Vector3();
     var lastPosition = new THREE.Vector3();
     var floor;
 
-    // This array should contain all objects we want to intersect with using the raycaster - for now we just care about the floor
-    // Later on we should probably use a richer collision detection mechanism, such as http://www.threejsgames.com/extensions/
     var collidableObjects = [];
 
     var aspect = window.innerWidth / window.innerHeight;
@@ -21,6 +23,8 @@ define(['Three', 'Scene', 'PlayerSync', 'Loop', 'World'], function(THREE, scene,
     var controls = new THREE.PointerLockControls(camera);
 
     var init = function() {
+        // If we stick to simple raycasting, collidable objects should contain all objects we want to intersect with using the raycaster
+        // for now we just care about the floor -- FIXME hardcoded
         floor = scene.getScene().getObjectByName('Floor');
         if (floor !== undefined) {
             collidableObjects.push(floor);
@@ -33,19 +37,19 @@ define(['Three', 'Scene', 'PlayerSync', 'Loop', 'World'], function(THREE, scene,
             switch (event.keyCode) {
                 case 38: // up
                 case 87: // w
-                    moveForward = true;
+                    move.forward = true;
                     break;
                 case 37: // left
                 case 65: // a
-                    moveLeft = true;
+                    move.left = true;
                     break;
                 case 40: // down
                 case 83: // s
-                    moveBackward = true;
+                    move.backward = true;
                     break;
                 case 39: // right
                 case 68: // d
-                    moveRight = true;
+                    move.right = true;
                     break;
                 case 32: // space
                     if (canJump === true) velocity.y += 350;
@@ -63,19 +67,19 @@ define(['Three', 'Scene', 'PlayerSync', 'Loop', 'World'], function(THREE, scene,
             switch (event.keyCode) {
                 case 38: // up
                 case 87: // w
-                    moveForward = false;
+                    move.forward = false;
                     break;
                 case 37: // left
                 case 65: // a
-                    moveLeft = false;
+                    move.left = false;
                     break;
                 case 40: // down
                 case 83: // s
-                    moveBackward = false;
+                    move.backward = false;
                     break;
                 case 39: // right
                 case 68: // d
-                    moveRight = false;
+                    move.right = false;
                     break;
                 case 16:
                     running = false;
@@ -128,10 +132,10 @@ define(['Three', 'Scene', 'PlayerSync', 'Loop', 'World'], function(THREE, scene,
 
             var speed = running ? 16000 : 4000;
 
-            if (moveForward) velocity.z -= speed * delta;
-            if (moveBackward) velocity.z += speed * delta;
-            if (moveLeft) velocity.x -= speed * delta;
-            if (moveRight) velocity.x += speed * delta;
+            if (move.forward) velocity.z -= speed * delta;
+            if (move.backward) velocity.z += speed * delta;
+            if (move.left) velocity.x -= speed * delta;
+            if (move.right) velocity.x += speed * delta;
             if (isOnObject) {
                 velocity.y = Math.max(0, velocity.y);
                 canJump = true;
