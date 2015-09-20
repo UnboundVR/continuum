@@ -1,8 +1,8 @@
 // Taken from https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js
 var traverse = function (obj, callback) {
-    callback(obj);
-
     var children = obj.children;
+
+    callback(obj);
 
     if(children && children.length) {
         children.forEach(function(child) {

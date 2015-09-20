@@ -5,7 +5,6 @@ var json = require('./scene.json');
 var couchbase = require('couchbase');
 var promise = require('promise');
 var traverse = require('../shared/TraverseTree');
-var extend = require('extend');
 
 var db = require('../server/db/db');
 var sceneDb = require('../server/db/scene');
@@ -35,16 +34,13 @@ var loadObjects = function(sceneObject) {
     var promises = [];
     
     traverse(sceneObject, function(obj) {
-        var target = obj;
-        
         if(obj.children && obj.children.length) {
-            target = extend(true, {}, obj);
-            target.children = target.children.map(function(child) {
+            obj.children = obj.children.map(function(child) {
                 return child.uuid;
             });
         }
         
-        promises.push(objectDb.create(target));
+        promises.push(objectDb.create(obj));
     });
     
     return promise.all(promises);
