@@ -6,6 +6,10 @@
             {  
                 "uuid": "9A4E4794-B019-4B58-9485-459D4FFB6F2A",
                 "image": "73928DB8-9696-443F-BF9A-B525DECFFA93"
+            },
+            {  
+                "uuid": "7A740252-C7D7-4761-8438-2049EF59964E",
+                "image": "E3ADDAA9-0D7D-4965-9285-0BFB41E94983"
             }
         ],
         
@@ -13,10 +17,25 @@
             {
                 "uuid": "73928DB8-9696-443F-BF9A-B525DECFFA93",
                 "url": "client/assets/img/galaxy-starfield.png"
+            },
+            {
+                "uuid": "E3ADDAA9-0D7D-4965-9285-0BFB41E94983",
+                "url": "client/assets/img/doge-moon.png"
             }
         ],
         
 		"geometries": [
+            {
+				"uuid": "56C1B9F6-6A57-4867-8AFE-F96828095657",
+				"type": "SphereGeometry",
+				"radius": 1500,
+				"widthSegments": 32,
+				"heightSegments": 16,
+				"phiStart": 0,
+				"phiLength": 6.283185307179586,
+				"thetaStart": 0,
+				"thetaLength": 3.141592653589793
+			},
 			{
 				"uuid": "46F4D8AF-47E1-4FD6-8687-9373FCF91C1C",
 				"type": "PlaneBufferGeometry",
@@ -28,7 +47,7 @@
 			{
 				"uuid": "FAE93433-E45A-4F81-B8EE-55B232701CEA",
 				"type": "SphereGeometry",
-				"radius": 20000,
+				"radius": 100000,
 				"widthSegments": 32,
 				"heightSegments": 32,
 				"phiStart": 0,
@@ -57,6 +76,13 @@
         ],
             
 		"materials": [
+            {
+				"uuid": "1456B4F9-0CD2-460B-B921-289157713DE3",
+				"type": "MeshBasicMaterial",
+                "map": "7A740252-C7D7-4761-8438-2049EF59964E",
+				"color": 8421504,
+				"side": 1
+			},
 			{
 				"uuid": "9A1BAC6E-AEDD-406D-97CA-73BA733FABBB",
 				"type": "MeshPhongMaterial",
@@ -96,6 +122,14 @@
 			"name": "Scene",
 			"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
 			"children": [
+                {
+					"uuid": "7AA9AEB4-9282-4496-8545-DCCAC280A115",
+					"type": "Mesh",
+					"name": "Moon",
+					"matrix": [1,0,0,0,0,1,0,0.3,0,0,1,0,0,10000,-10000,1],
+					"geometry": "56C1B9F6-6A57-4867-8AFE-F96828095657",
+					"material": "1456B4F9-0CD2-460B-B921-289157713DE3"
+				},
 				{
 					"uuid": "0C2EC231-41E4-4F71-B017-790340178843",
 					"type": "Mesh",
