@@ -3,10 +3,18 @@
 // Based on http://learningthreejs.com/blog/2013/04/30/closing-the-gap-between-html-and-webgl/
 define(['Three', 'Scene'], function(THREE, scene) {
 
-    var embedHtml = function(element, planeUUID, css3DScene) {
-        var plane = scene.getObjectByUUID(planeUUID);
+    var embedGUI = function(guiElement, planeUUID, css3DScene) {
+        if (guiElement.css) {
+            var cssNode = document.createElement('style');
+            cssNode.innerHTML = guiElement.css;
+            document.body.appendChild(cssNode);
+        }
+
+        var htmlNode = document.createElement('div');
+        htmlNode.innerHTML = guiElement.html;
         
-        var cssObject = new THREE.CSS3DObject(element);
+        var plane = scene.getObjectByUUID(planeUUID);
+        var cssObject = new THREE.CSS3DObject(htmlNode);
         cssObject.position.copy(plane.position);
         cssObject.rotation.copy(plane.rotation);
 
@@ -14,13 +22,12 @@ define(['Three', 'Scene'], function(THREE, scene) {
         material.color.set('black');
         material.opacity   = 0;
         material.blending  = THREE.NoBlending;
-
         plane.material = material;
 
         css3DScene.add(cssObject);
     };
 
     return {
-        embedHtml: embedHtml
+        embedGUI: embedGUI
     };
 });
