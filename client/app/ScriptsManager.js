@@ -22,6 +22,14 @@ define(['Scene', 'Loop'], function(scene, loop) {
     };
     
     var app;
+    
+    var init = function() {
+        loop.onLoop(update);
+    };
+    
+    var update = function(time) {
+        dispatch(events.update, time);
+    };
 
     var browserEvents = Object.keys(events).filter(function(key) {
         return events[key].isBrowserEvent;
@@ -121,12 +129,6 @@ define(['Scene', 'Loop'], function(scene, loop) {
     
     var setApp = function(relevantApp) {
         app = relevantApp;
-    };
-    
-    var init = function() {
-        loop.onLoop(function(time) {
-            dispatch(events.update, time);
-        });
     };
     
     return {

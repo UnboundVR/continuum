@@ -85,12 +85,10 @@ define(['FirstPersonControls', 'ScriptsManager'], function(controls, scripts) {
         }
     };
 
-    var enabled = function() {
-        return controlsEnabled;
-    };
-
     return {
         init: init,
-        enabled: enabled
+        enabled: function() {
+            return controlsEnabled;
+        }
     };
 });
