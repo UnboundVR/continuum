@@ -76,8 +76,8 @@ var get = function(uuid) {
             
             resolveDeps('geometry');
             resolveDeps('material');
-            resolveDeps('script');
             resolveDeps('gui');
+            resolveDeps('script');
             
             return promise.all(promises).then(function(results) {
                 scene.geometries = results[0];
