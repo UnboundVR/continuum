@@ -1,7 +1,7 @@
 'use strict';
 
 var init = function(io) {
-	io.on('connection', function(socket) {
+	io.of('/keyvr').on('connection', function(socket) {
 		socket.on('qrCodeScanned', function(data) {
 			socket.broadcast.to(data.keyboardId).emit('deviceConnected', {deviceId: socket.id});
 		});

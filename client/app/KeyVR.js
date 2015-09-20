@@ -1,5 +1,9 @@
-define(['Socket', 'QueryString', 'World'], function(socket, queryString, world) {
-	var init = function() {
+define(['SocketIO', 'QueryString', 'World'], function(io, queryString, world) {
+	var socket;
+    
+    var init = function() {
+        socket = io.connect(window.location.origin + '/keyvr');
+        
 		var onKeyUp = function(event) {
             switch (event.keyCode) {
                 case 118:
