@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'ScriptsManager', 'Editor', 'Loop'], function(THREE, scene, controls, pointerLock, scripts, editor, loop) {
+define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'ScriptsManager', 'Editor', 'Loop', 'World'], function(THREE, scene, controls, pointerLock, scripts, editor, loop, world) {
     var isIntersecting = false;
     var lastIntersected;
 
@@ -95,8 +95,9 @@ define(['Three', 'Scene', 'FirstPersonControls', 'PointerLock', 'ScriptsManager'
         scripts.dispatchEvent(scripts.events.select, null, obj.uuid);
     };
     
+    world.onInit(init);
+    
     return {
-        init: init,
         isIntersecting: function() {
             return isIntersecting;
         }

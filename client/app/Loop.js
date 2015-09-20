@@ -1,4 +1,4 @@
-define([], function() {
+define(['World'], function(world) {
     
     var loopCallbacks = [];
     var request;
@@ -25,6 +25,9 @@ define([], function() {
     var stop = function() {
         cancelAnimationFrame(request);
     };
+    
+    world.onStart(start);
+    world.onStop(stop);
     
     return {
         start: start,

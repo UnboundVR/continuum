@@ -24,5 +24,6 @@ var require = {
         Stats: '../lib/Stats.min',
         Tween: '/node_modules/tween.js/src/Tween',
         shared: '../../shared'
-    }
+    },
+    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'ScriptsManager']
 };

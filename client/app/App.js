@@ -1,7 +1,8 @@
 'use strict';
 
-define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'PlayerSync', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'ScriptsManager', 'Reticle', 'ItemSelector', 'PointerLock', 'QueryString', 'Loop'],
-    function(THREE, fpControls, renderer, container, scene, playerSync, objectLoader, guiLoader, scriptsLoader, scripts, reticle, itemSelector, pointerLock, queryString, loop) {
+define(['Three', 'Detector', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'QueryString', 'Loop', 'World'],
+    function(THREE, detector, fpControls, renderer, container, scene, objectLoader, guiLoader, scriptsLoader, queryString, loop, world) {
+        // TODO use same style as other objects
         var App = function() {
             var camera;
 
@@ -14,10 +15,9 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                 var relevantApp = {
                     setCamera: this.setCamera,
                     setSize: this.setSize,
-                    play: this.play,
-                    stop: this.stop,
-                    renderer: renderer,
-                    playerSync: playerSync
+                    play: world.play,
+                    stop: world.stop,
+                    renderer: renderer
                 };
 
                 scriptsLoader.load(json, relevantApp);
@@ -40,19 +40,12 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                 renderer.setSize(width, height);
             };
 
-            this.play = function() {
-                scripts.addEventListeners();
-
-                loop.start();
-            };
-
-            this.stop = function() {
-                scripts.removeEventListeners();
-
-                loop.stop();
-            };
-
             this.init = function() {
+                if (!detector.webgl) {
+                    detector.addGetWebGLMessage();
+                    return;
+                }
+    
                 var _this = this;
 
                 var remoteLoader = new THREE.XHRLoader();
@@ -64,21 +57,16 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                     _this.load(JSON.parse(text));
                     _this.setSize(window.innerWidth, window.innerHeight);
 
-                    fpControls.init();
-                    playerSync.init();
-                    reticle.init();
-                    itemSelector.init();
-                    pointerLock.init();
-                    scripts.init();
-                    
+                    // TODO move this to render
                     loop.onLoop(function() {
                        renderer.render(scene, camera); 
                     });
                     
-                    _this.play();
+                    world.start();
                     
                     container.appendChild(renderer.domElement);
 
+                    // TODO move this to render
                     window.addEventListener('resize', function() {
                         _this.setSize(window.innerWidth, window.innerHeight);
                     });
@@ -86,5 +74,5 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
             };
         };
 
-        return new App();
+        new App().init();
     });

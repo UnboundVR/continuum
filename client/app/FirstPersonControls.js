@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'PlayerSync', 'Loop'], function(THREE, scene, playerSync, loop) {
+define(['Three', 'Scene', 'PlayerSync', 'Loop', 'World'], function(THREE, scene, playerSync, loop, world) {
     var raycaster;
     var canJump = true;
     var moveForward = false;
@@ -10,6 +10,7 @@ define(['Three', 'Scene', 'PlayerSync', 'Loop'], function(THREE, scene, playerSy
     var moveRight = false;
     var velocity = new THREE.Vector3();
     var lastPosition = new THREE.Vector3();
+    var floor;
 
     // This array should contain all objects we want to intersect with using the raycaster - for now we just care about the floor
     // Later on we should probably use a richer collision detection mechanism, such as http://www.threejsgames.com/extensions/
@@ -20,9 +21,9 @@ define(['Three', 'Scene', 'PlayerSync', 'Loop'], function(THREE, scene, playerSy
     var controls = new THREE.PointerLockControls(camera);
 
     var init = function() {
-        this.floor = scene.getScene().getObjectByName('Floor');
-        if (this.floor !== undefined) {
-            collidableObjects.push(this.floor);
+        floor = scene.getScene().getObjectByName('Floor');
+        if (floor !== undefined) {
+            collidableObjects.push(floor);
         }
 
         controls.getObject().position.y = 15;
@@ -153,11 +154,12 @@ define(['Three', 'Scene', 'PlayerSync', 'Loop'], function(THREE, scene, playerSy
     var getPosition = function() {
         return controls.getObject().position;
     };
+    
+    world.onInit(init);
 
     return {
         controls: controls,
         camera: camera,
-        init: init,
         getPosition: getPosition
     };
 });

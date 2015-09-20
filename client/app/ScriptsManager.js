@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Scene', 'Loop'], function(scene, loop) {
+define(['Scene', 'Loop', 'World'], function(scene, loop, world) {
     var scripts = {};
 
     var events = {
@@ -30,6 +30,23 @@ define(['Scene', 'Loop'], function(scene, loop) {
     var update = function(time) {
         dispatch(events.update, time);
     };
+    
+    var start = function() {
+        browserEvents.forEach(function(browserEvent) {
+            var callback = function(event) {
+                dispatch(events[browserEvent], event);
+            };
+
+            events[browserEvent].callback = callback;
+            document.addEventListener(browserEvent, callback);
+        });
+    };
+    
+    var stop = function() {
+        browserEvents.forEach(function(browserEvent) {
+            document.removeEventListener(browserEvent, events[browserEvent].callback);
+        });
+    };
 
     var browserEvents = Object.keys(events).filter(function(key) {
         return events[key].isBrowserEvent;
@@ -42,23 +59,6 @@ define(['Scene', 'Loop'], function(scene, loop) {
                 array[i].func(payload);
             }
         }
-    };
-
-    var addEventListeners = function() {
-        browserEvents.forEach(function(browserEvent) {
-            var callback = function(event) {
-                dispatch(events[browserEvent], event);
-            };
-
-            events[browserEvent].callback = callback;
-            document.addEventListener(browserEvent, callback);
-        });
-    };
-
-    var removeEventListeners = function() {
-        browserEvents.forEach(function(browserEvent) {
-            document.removeEventListener(browserEvent, events[browserEvent].callback);
-        });
     };
 
     var unloadOldScript = function(script, uuid) {
@@ -131,15 +131,16 @@ define(['Scene', 'Loop'], function(scene, loop) {
         app = relevantApp;
     };
     
+    world.onInit(init);
+    world.onStart(start);
+    world.onStop(stop);
+    
     return {
         events: events,
         getScript: getScript,
         getScripts: getScripts,
         loadScript: loadScript,
         dispatchEvent: dispatch,
-        addEventListeners: addEventListeners,
-        removeEventListeners: removeEventListeners,
-        setApp: setApp,
-        init: init
+        setApp: setApp
     };
 });

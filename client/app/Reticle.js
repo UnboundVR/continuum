@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'FirstPersonControls', 'PointerLock', 'Tween', 'ItemSelector', 'Loop'], function(THREE, controls, pointerLock, tween, itemSelector, loop) {
+define(['Three', 'FirstPersonControls', 'PointerLock', 'Tween', 'ItemSelector', 'Loop', 'World'], function(THREE, controls, pointerLock, tween, itemSelector, loop, world) {
     var currentTween;
     var mesh;
     var currentRadius;
@@ -74,8 +74,11 @@ define(['Three', 'FirstPersonControls', 'PointerLock', 'Tween', 'ItemSelector', 
 	var showReticle = function() {
 		mesh.visible = true;
 	};
+    
+    world.onInit(init);
 
     return {
-        init: init
+        showReticle: showReticle,
+        hideReticle: hideReticle
     };
 });
