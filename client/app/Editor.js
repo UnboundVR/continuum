@@ -1,6 +1,6 @@
 'use strict';
 
-define(['loaders/ScriptsLoader'], function(scriptsLoader) {
+define(['ScriptsManager'], function(scripts) {
     var used = false;
 
     var rightClick = function(obj) {
@@ -15,9 +15,9 @@ define(['loaders/ScriptsLoader'], function(scriptsLoader) {
         document.getElementById('coding').style.display = 'block';
         document.getElementById('codingHeader').innerHTML = 'Now we\'re talking. I mean, coding.';
         document.getElementById('codingHelp').style.display = 'block';
-        document.getElementById('leCode').value = scriptsLoader.scripts[obj.uuid][scriptName];
+        document.getElementById('leCode').value = scripts.getScript(obj.uuid, scriptName);
         document.getElementById('doCode').onclick = function() {
-            scriptsLoader.loadScript({
+            scripts.loadScript({
                 name: scriptName,
                 source: document.getElementById('leCode').value},
                 obj.uuid

@@ -1,4 +1,4 @@
-define(['Socket', 'QueryString'], function(socket, queryString) {
+define(['Socket', 'QueryString', 'World'], function(socket, queryString, world) {
 	var init = function() {
 		var onKeyUp = function(event) {
             switch (event.keyCode) {
@@ -43,9 +43,10 @@ define(['Socket', 'QueryString'], function(socket, queryString) {
 		document.dispatchEvent(e);*/
 		
 		// check this? https://gist.github.com/termi/4654819
-	};	
-	
+	};
+    
+    world.onInit(init);
     return {
-		init: init
+		
 	};
 });

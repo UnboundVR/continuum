@@ -1,10 +1,14 @@
 'use strict';
 
 var express = require('express');
-var bodyParser = require('body-parser');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+
+var db = require('./server/db/db');
+
+// FIXME this data should go in a config/env file (use dotenv?)
+db.init('couchbase://127.0.0.1', 'metavrse', '111111');
 
 var playerSync = require('./server/socket/player-sync');
 playerSync.init(io);
@@ -12,10 +16,11 @@ playerSync.init(io);
 var keyVR = require('./server/socket/keyvr');
 keyVR.init(io);
 
-// Using body parser to parse JSON in for API calls
-app.use('/server/api', bodyParser.json());
+var apiRouter = require('./server/api/router');
+app.use('/api', apiRouter);
 
 app.use('/client', express.static('client'));
+app.use('/shared', express.static('shared'));
 app.use('/node_modules', express.static('node_modules'));
 app.use('/keyvr', express.static('keyvr'));
 

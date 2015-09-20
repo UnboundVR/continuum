@@ -22,6 +22,8 @@ var require = {
         SocketIO: '/socket.io/socket.io',
         Detector: '../lib/Detector',
         Stats: '../lib/Stats.min',
-        Tween: '/node_modules/tween.js/src/Tween'
-    }
+        Tween: '/node_modules/tween.js/src/Tween',
+        shared: '../../shared'
+    },
+    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'ScriptsManager', 'Renderer', 'KeyVR']
 };
