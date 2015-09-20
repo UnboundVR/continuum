@@ -31,7 +31,8 @@ define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/Objec
                 var sceneId = queryString.sceneId;
                 var url = sceneId ? 'api/scene/' + sceneId : 'api/scene';
                 
-                auth.getJson(url, function(json) {
+                auth.getJson(url).then(function(json) {
+                    console.log(json)
                     _this.load(json);
 
                     world.start();
