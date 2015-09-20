@@ -2,27 +2,47 @@ define([], function() {
     var startCallbacks = [];
     var stopCallbacks = [];
     var initCallbacks = [];
+    var loopCallbacks = [];
     
-    var firstTime = true;
+    var initialized = false;
+    var request;
+    var prevTime;
+    
+    var executeCallbacks = function(callbacks, payload) {
+        callbacks.forEach(function(callback) {
+            callback(payload);
+        });
+    }
     
     var start = function() {
-        if(firstTime) {
-            initCallbacks.forEach(function(callback) {
-                callback();
-            });
-            
-            firstTime = false;
+        if(!initialized) {
+            executeCallbacks(initCallbacks);
+            initialized = true;
         }
         
-        startCallbacks.forEach(function(callback) {
-            callback();
-        });
+        executeCallbacks(startCallbacks);
+        startLooping();
     };
     
     var stop = function() {
-        stopCallbacks.forEach(function(callback) {
-            callback();
-        });
+        stopLooping();
+        executeCallbacks(stopCallbacks);
+    };
+    
+    var loop = function(time) {
+        executeCallbacks(loopCallbacks, {time: time, delta: time - prevTime});
+        
+        prevTime = time;
+        request = requestAnimationFrame(loop);
+    };
+    
+    var startLooping = function() {
+        request = requestAnimationFrame(loop);
+        prevTime = performance.now();
+    };
+    
+    var stopLooping = function() {
+        cancelAnimationFrame(request);
     };
     
     var onStart = function(callback) {
@@ -37,10 +57,15 @@ define([], function() {
         initCallbacks.push(callback);
     };
     
+    var onLoop = function(callback) {
+        loopCallbacks.push(callback);
+    };
+    
     return {
         onStart: onInit,
         onStop: onStop,
         onInit: onInit,
+        onLoop: onLoop,
         start: start,
         stop: stop
     };

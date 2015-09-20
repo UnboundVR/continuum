@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'World', 'Loop', 'Scene', 'Camera'], function(THREE, world, loop, scene, camera) {
+define(['Three', 'World', 'Scene', 'Camera'], function(THREE, world, scene, camera) {
     // TODO externalize
     // TODO make some kind of auto-detect for Cardboard (i.e. Android) and eventually a switch/auto-detect for Oculus
     var vrMode = false;
@@ -62,7 +62,7 @@ define(['Three', 'World', 'Loop', 'Scene', 'Camera'], function(THREE, world, loo
     };
     
     world.onInit(init);
-    loop.onLoop(render);
+    world.onLoop(render);
 
     return {
         webGL: webGLRenderer,

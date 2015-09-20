@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Scene', 'Loop', 'World'], function(scene, loop, world) {
+define(['Scene', 'World'], function(scene, world) {
     var scripts = {};
 
     var events = {
@@ -13,6 +13,8 @@ define(['Scene', 'Loop', 'World'], function(scene, loop, world) {
         touchend: {list: [], isBrowserEvent: true},
         touchmove: {list: [], isBrowserEvent: true},
         update: {list: []},
+        start: {list: []},
+        stop: {list: []},
         unload: {list: []},
         starthover: {list: []},
         endhover: {list: []},
@@ -24,7 +26,7 @@ define(['Scene', 'Loop', 'World'], function(scene, loop, world) {
     var app;
     
     var init = function() {
-        loop.onLoop(update);
+        world.onLoop(update);
     };
     
     var update = function(time) {
@@ -40,12 +42,16 @@ define(['Scene', 'Loop', 'World'], function(scene, loop, world) {
             events[browserEvent].callback = callback;
             document.addEventListener(browserEvent, callback);
         });
+        
+        dispatch(events.start);
     };
     
     var stop = function() {
         browserEvents.forEach(function(browserEvent) {
             document.removeEventListener(browserEvent, events[browserEvent].callback);
         });
+        
+        dispatch(events.stop);
     };
 
     var browserEvents = Object.keys(events).filter(function(key) {

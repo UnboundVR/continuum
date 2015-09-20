@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'ScriptsManager', 'Editor', 'Loop', 'World'], function(THREE, scene, controls, camera, pointerLock, scripts, editor, loop, world) {
+define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'ScriptsManager', 'Editor', 'World'], function(THREE, scene, controls, camera, pointerLock, scripts, editor, world) {
     var isIntersecting = false;
     var lastIntersected;
 
@@ -12,7 +12,7 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'Scrip
         window.addEventListener('mousemove', onMouseMove, false);
         window.addEventListener('mousedown', onMouseDown, false);
         
-        loop.onLoop(animate);
+        world.onLoop(animate);
     };
     
     var animate = function() {

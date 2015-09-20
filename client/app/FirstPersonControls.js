@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'PlayerSync', 'Loop', 'World', 'Camera'], function(THREE, scene, playerSync, loop, world, camera) {
+define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera'], function(THREE, scene, playerSync, world, camera) {
     var raycaster;
     
     var move = {
@@ -89,7 +89,7 @@ define(['Three', 'Scene', 'PlayerSync', 'Loop', 'World', 'Camera'], function(THR
         document.addEventListener('keyup', onKeyUp, false);
         raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, -1, 0), 0, 10);
         
-        loop.onLoop(animate);
+        world.onLoop(animate);
     };
     
     var animate = function(time) {
