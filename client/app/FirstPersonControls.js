@@ -20,7 +20,8 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
     var controls = new THREE.PointerLockControls(camera);
 
     var init = function() {
-        this.floor = scene.getScene().getObjectByName('Floor');
+        this.floor = scene.getScene().getObjectByName('Terrain');
+        console.log(this.floor);
         if (this.floor !== undefined) {
             collidableObjects.push(this.floor);
         }
@@ -91,9 +92,9 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
         var time = performance.now();
 
         var restrainPosition = function(obj) {
-            if (obj.position.y < 0) {
+            if (obj.position.y < -30) {
                 velocity.y = 0;
-                obj.position.y = 0;
+                obj.position.y = -30;
                 canJump = true;
             }
 
