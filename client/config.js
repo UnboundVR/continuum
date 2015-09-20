@@ -10,7 +10,9 @@ var require = {
         StereoEffect: {deps: ['ThreeCore'], exports: 'THREE'},
         CSS3DRenderer: {deps: ['ThreeCore'], exports: 'THREE'},
         Detector: {exports: 'Detector'},
-        Stats: {exports: 'Stats'}
+        Stats: {exports: 'Stats'},
+        MTLLoader: {deps: ['ThreeCore'], exports: 'THREE'},
+        OBJMTLLoader: {deps: ['ThreeCore', 'MTLLoader'], exports: 'THREE'}
     },
     paths: {
         Three: '../lib/Three',
@@ -19,6 +21,8 @@ var require = {
         PointerLockControls: '../lib/controls/PointerLockControls',
         StereoEffect: '../lib/effects/StereoEffect',
         CSS3DRenderer: '../lib/renderers/CSS3DRenderer',
+        MTLLoader: '../lib/loaders/MTLLoader',
+        OBJMTLLoader: '../lib/loaders/OBJMTLLoader',
         SocketIO: '/socket.io/socket.io',
         Detector: '../lib/Detector',
         Stats: '../lib/Stats.min',

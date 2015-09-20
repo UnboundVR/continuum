@@ -50,7 +50,7 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
                     if (canJump === true) velocity.y += 350;
 
                     // Comment out this line and people can fly :D
-                    canJump = false;
+                    // canJump = false;
                     break;
                 case 16:
                     running = true;
@@ -97,7 +97,7 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
                 canJump = true;
             }
 
-            if (obj.position.x > 490) {
+            /*if (obj.position.x > 490) {
                 obj.position.x = 490;
             }
 
@@ -111,7 +111,7 @@ define(['Three', 'Scene', 'PlayerSync'], function(THREE, scene, playerSync) {
 
             if (obj.position.z < -490) {
                 obj.position.z = -490;
-            }
+            }*/
         };
 
         if (controls.enabled) {

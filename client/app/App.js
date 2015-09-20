@@ -82,6 +82,16 @@ define(['Three', 'FirstPersonControls', 'Renderer', 'DomContainer', 'Scene', 'Pl
                     reticle.init();
                     pointerLock.init();
                     
+                    var loader = new THREE.OBJMTLLoader();
+                    loader.load( 
+                    'client/assets/models/SnowTerrain/SnowTerrain.obj',
+                    'client/assets/models/SnowTerrain/SnowTerrain.mtl', 
+                    function ( object ) {
+                        scene.getScene().add(object);
+                        object.scale.set(5, 5, 5);
+                        object.position.y = -30;
+                    });
+                    
                     container.appendChild(renderer.domElement);
 
                     window.addEventListener('resize', function() {

@@ -28,7 +28,7 @@
 			{
 				"uuid": "FAE93433-E45A-4F81-B8EE-55B232701CEA",
 				"type": "SphereGeometry",
-				"radius": 20000,
+				"radius": 100000,
 				"widthSegments": 32,
 				"heightSegments": 32,
 				"phiStart": 0,
@@ -96,15 +96,6 @@
 			"name": "Scene",
 			"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
 			"children": [
-				{
-					"uuid": "0C2EC231-41E4-4F71-B017-790340178843",
-					"type": "Mesh",
-					"name": "Floor",
-                    "receiveShadow": true,
-					"geometry": "46F4D8AF-47E1-4FD6-8687-9373FCF91C1C",
-					"material": "9A1BAC6E-AEDD-406D-97CA-73BA733FABBB",
-					"matrix": [5,0,0,0,0,0.004003959242254496,-5.031365871429443,0,0,0.9999997019767761,0.0007957994239404798,0,0,0,0,1]
-				},
 				{
 					"uuid": "395C5D46-0DA0-4AB3-9908-CC5C0D9E803A",
 					"type": "DirectionalLight",
