@@ -1,22 +1,13 @@
 'use strict';
 
-define(['GUIManager', 'Scene'], function(gui, scene) {
-
-    var guiStore = {};
+define(['GUIManager', 'utils/DictFromArray'], function(gui, dictFromArray) {
 
     var parse = function(json) {
         var css3DScene = new THREE.Scene();
 
-        var guiDict = {};
-        json.gui.forEach(function(entry) {
-            guiDict[entry.uuid] = {
-                html: entry.html,
-                css: entry.css
-            };
-        });
+        var guiDict = dictFromArray(json.gui, 'uuid');
 
         var embedHtml = function(objUUID, guiUUID) {
-            var panel = scene.getObjectByUUID(objUUID);
             var guiElement = guiDict[guiUUID];
 
             if (guiElement.css) {
@@ -27,7 +18,7 @@ define(['GUIManager', 'Scene'], function(gui, scene) {
 
             var htmlNode = document.createElement('div');
             htmlNode.innerHTML = guiElement.html;
-            gui.embedHtml(htmlNode, panel, css3DScene);
+            gui.embedHtml(htmlNode, objUUID, css3DScene);
         };
 
         var loadGuiForObjects = function(objs) {

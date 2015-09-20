@@ -1,16 +1,10 @@
 'use strict';
 
-define(['ScriptsManager'], function(scriptsManager) {
+define(['ScriptsManager', 'utils/DictFromArray'], function(scriptsManager, dictFromArray) {
     var load = function(json, app) {
         scriptsManager.setApp(app);
         
-        var scriptDict = {};
-        json.scripts.forEach(function(entry) {
-            scriptDict[entry.uuid] = {
-                name: entry.name,
-                source: entry.source
-            };
-        });
+        var scriptDict = dictFromArray(json.scripts, 'uuid');
         
         var loadScripts = function(objs) {
             objs.forEach(function(obj) {
