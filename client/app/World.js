@@ -4,7 +4,6 @@ define([], function() {
     var initCallbacks = [];
     var loopCallbacks = [];
     
-    var initialized = false;
     var request;
     var prevTime;
     
@@ -14,12 +13,11 @@ define([], function() {
         });
     }
     
+    var init = function() {
+        executeCallbacks(initCallbacks);
+    };
+    
     var start = function() {
-        if(!initialized) {
-            executeCallbacks(initCallbacks);
-            initialized = true;
-        }
-        
         executeCallbacks(startCallbacks);
         startLooping();
     };
@@ -67,6 +65,7 @@ define([], function() {
         onInit: onInit,
         onLoop: onLoop,
         start: start,
-        stop: stop
+        stop: stop,
+        init: init
     };
 });

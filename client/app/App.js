@@ -36,7 +36,7 @@ define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/Objec
                 remoteLoader.load(url, function(text) {
                     _this.load(JSON.parse(text));
 
-                    world.start();
+                    world.init();
                     
                     container.appendChild(renderer.getDomElement());
                 });

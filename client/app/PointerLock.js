@@ -14,11 +14,11 @@ define(['FirstPersonControls', 'ScriptsManager', 'World'], function(controls, sc
                 if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
                     controlsEnabled = true;
                     controls.controls.enabled = true;
-                    scripts.dispatchEvent(scripts.events.pointerlock, null);
+                    world.start();
                 } else {
                     controlsEnabled = false;
                     controls.controls.enabled = false;
-                    scripts.dispatchEvent(scripts.events.pointerunlock, null);
+                    world.stop();
                 }
             };
 
