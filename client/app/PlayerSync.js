@@ -2,6 +2,7 @@
 
 define(['SocketIO', 'Scene'], function(io, scene) {
     return {
+        // FIXME this is not in the same style as the rest of the modules
         init: function() {
             var _this = this;
             

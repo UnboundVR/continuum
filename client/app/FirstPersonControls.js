@@ -9,6 +9,7 @@ define(['Three', 'Scene', 'PlayerSync', 'Loop'], function(THREE, scene, playerSy
     var moveLeft = false;
     var moveRight = false;
     var velocity = new THREE.Vector3();
+    var lastPosition = new THREE.Vector3();
 
     // This array should contain all objects we want to intersect with using the raycaster - for now we just care about the floor
     // Later on we should probably use a richer collision detection mechanism, such as http://www.threejsgames.com/extensions/
@@ -84,12 +85,10 @@ define(['Three', 'Scene', 'PlayerSync', 'Loop'], function(THREE, scene, playerSy
         document.addEventListener('keydown', onKeyDown, false);
         document.addEventListener('keyup', onKeyUp, false);
         raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, -1, 0), 0, 10);
+        
+        loop.onLoop(animate);
     };
     
-    var getPosition = function() {
-        return controls.getObject().position;
-    };
-
     var animate = function(time) {
         var restrainPosition = function(obj) {
             if (obj.position.y < 0) {
@@ -143,11 +142,17 @@ define(['Three', 'Scene', 'PlayerSync', 'Loop'], function(THREE, scene, playerSy
 
             restrainPosition(obj);
 
-            playerSync.playerMoved(obj.position);
+            if(!obj.position.equals(lastPosition)) {
+                playerSync.playerMoved(obj.position);
+            }
+            
+            lastPosition.copy(obj.position);
         }
     };
     
-    loop.onLoop(animate);
+    var getPosition = function() {
+        return controls.getObject().position;
+    };
 
     return {
         controls: controls,
