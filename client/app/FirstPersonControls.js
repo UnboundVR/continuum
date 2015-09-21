@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera'], function(THREE, scene, playerSync, world, camera) {
+define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(THREE, scene, playerSync, world, camera, keyVR) {
     var raycaster;
     
     var move = {
@@ -32,6 +32,8 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera'], function(THREE, scen
         scene.getScene().add(controls.getObject());
 
         var onKeyDown = function(event) {
+            console.log('down ' + event.keyCode)
+
             switch (event.keyCode) {
                 case 38: // up
                 case 87: // w
@@ -62,6 +64,8 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera'], function(THREE, scen
         };
 
         var onKeyUp = function(event) {
+            console.log('up ' + event.keyCode)
+
             switch (event.keyCode) {
                 case 38: // up
                 case 87: // w
@@ -87,6 +91,10 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera'], function(THREE, scen
 
         document.addEventListener('keydown', onKeyDown, false);
         document.addEventListener('keyup', onKeyUp, false);
+
+        keyVR.onKeyDown(onKeyDown);
+        keyVR.onKeyUp(onKeyUp);
+
         raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, -1, 0), 0, 10);
         
         world.onLoop(animate);
@@ -117,7 +125,7 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera'], function(THREE, scen
             }
         };
 
-        if (controls.enabled) {
+        if (true) {
             var obj = controls.getObject();
             raycaster.ray.origin.copy(obj.position);
             raycaster.ray.origin.y -= 10;

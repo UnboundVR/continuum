@@ -1,26 +1,15 @@
-define(['SocketIO', 'QueryString', 'World', 'Auth'], function(io, queryString, world, auth) {
+define(['SocketIO', 'QueryString', 'World', 'Auth', 'utils/ExecuteCallbacks'], function(io, queryString, world, auth, executeCallbacks) {
 	var socket;
+
+    var keydownCallbacks = [];
+    var keyupCallbacks = [];
     
     var init = function() {
         socket = io.connect(window.location.origin + '/keyvr', {
             query: 'token=' + auth.getToken()
         });
-        
-		var onKeyUp = function(event) {
-            switch (event.keyCode) {
-                case 118:
-					launchKeyVR();
-					break;
-            }
-        };
-
-        document.addEventListener('keyup', onKeyUp, false);
 		
 		parseSearchString();
-	};
-	
-	var launchKeyVR = function() {
-		location.href = 'keyvr?scene=<sceneNameHere>';
 	};
 	
 	var parseSearchString = function() {
@@ -30,29 +19,29 @@ define(['SocketIO', 'QueryString', 'World', 'Auth'], function(io, queryString, w
 	};
 	
 	var syncWithKeyboard = function(keyboardId) {
-		socket.on('keypress', function(data) {
-			console.log(data);
-			simulateKeyEvent(data.key);
+		socket.on('keydown', function(data) {
+            executeCallbacks(keydownCallbacks, {keyCode: data.key});
 		});
+
+        socket.on('keyup', function(data) {
+            executeCallbacks(keyupCallbacks, {keyCode: data.key});
+        });
 				
 		socket.emit('qrCodeScanned', {keyboardId: keyboardId});
 	};
-	
-	var simulateKeyEvent = function(keyCode) {
-		// nope
-		/*var event = document.createEvent( 'KeyboardEvent' );
-		event.initKeyboardEvent( 'keydown', true, false, null, 0, false, 0, false, keyCode, 0 );
-		document.dispatchEvent( event );*/
-		
-		// nope
-		/*var e = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "W", char : "W", shiftKey : true});
-		document.dispatchEvent(e);*/
-		
-		// check this? https://gist.github.com/termi/4654819
-	};
+
+    var onKeyDown = function(callback) {
+        keydownCallbacks.push(callback);
+    };
+
+    var onKeyUp = function(callback) {
+        keyupCallbacks.push(callback);
+    };
     
     world.onInit(init);
+
     return {
-		
+		onKeyDown: onKeyDown,
+        onKeyUp: onKeyUp
 	};
 });
