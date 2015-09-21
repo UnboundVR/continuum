@@ -9,7 +9,9 @@ var traverse = require('../shared/TraverseTree');
 var db = require('../server/db/db');
 var sceneDb = require('../server/db/scene');
 var objectDb = require('../server/db/object');
-db.init(process.argv[2], process.argv[3], process.argv[4]);
+
+require('dotenv').load();
+db.init(process.env.COUCHBASE_HOST, process.env.BUCKET_NAME, process.env.BUCKET_PASSWORD);
 
 var createScene = function(json) {
     var scene = {
@@ -58,7 +60,7 @@ createScene(json).then(function(res) {
         load(json.gui, 'gui')
     ]);
 }).then(function(res) {
-    console.log('Database at ' + process.argv[2] + ' populated with boilerplate scene!');
+    console.log('Database at ' + process.env.COUCHBASE_HOST + ' populated with boilerplate scene!');
     process.exit(); 
 }, function(error) {
     console.log(error);
