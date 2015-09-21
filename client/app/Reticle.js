@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Camera', 'PointerLock', 'Tween', 'ItemSelector', 'World'], function(THREE, camera, pointerLock, tween, itemSelector, world) {
+define(['Three', 'Camera', 'PointerLock', 'Tween', 'ItemSelector', 'World', 'Scene'], function(THREE, camera, pointerLock, tween, itemSelector, world, scene) {
     var currentTween;
     var mesh;
     var currentRadius;
@@ -64,7 +64,7 @@ define(['Three', 'Camera', 'PointerLock', 'Tween', 'ItemSelector', 'World'], fun
         mesh.position.x = 0;
         mesh.position.y = 0;
         mesh.position.z = -10;
-        
+		
         currentRadius = defaultRadius;
     };
 	

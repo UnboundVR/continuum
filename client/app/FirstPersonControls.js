@@ -94,9 +94,9 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera'], function(THREE, scen
     
     var animate = function(time) {
         var restrainPosition = function(obj) {
-            if (obj.position.y < 0) {
+            if (obj.position.y < 70) {
                 velocity.y = 0;
-                obj.position.y = 0;
+                obj.position.y = 70;
                 canJump = true;
             }
 
