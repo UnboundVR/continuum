@@ -1,18 +1,14 @@
-define(['SocketIO', 'QueryString', 'World', 'Auth', 'utils/ExecuteCallbacks'], function(io, queryString, world, auth, executeCallbacks) {
+define(['SocketIO', 'QueryString', 'World', 'Auth', 'utils/CallbackList'], function(io, queryString, world, auth, CallbackList) {
 	var socket;
 
-    var keydownCallbacks = [];
-    var keyupCallbacks = [];
+    var keyDownCallbacks = new CallbackList();
+    var keyUpCallbacks = new CallbackList();
     
     var init = function() {
         socket = io.connect(window.location.origin + '/keyvr', {
             query: 'token=' + auth.getToken()
         });
 		
-		parseSearchString();
-	};
-	
-	var parseSearchString = function() {
 		if(queryString.keyboardId) {
             syncWithKeyboard(queryString.keyboardId)
         }
@@ -20,28 +16,20 @@ define(['SocketIO', 'QueryString', 'World', 'Auth', 'utils/ExecuteCallbacks'], f
 	
 	var syncWithKeyboard = function(keyboardId) {
 		socket.on('keydown', function(data) {
-            executeCallbacks(keydownCallbacks, {keyCode: data.key});
+            keyDownCallbacks.execute({keyCode: data.key});
 		});
 
         socket.on('keyup', function(data) {
-            executeCallbacks(keyupCallbacks, {keyCode: data.key});
+            keyUpCallbacks.execute({keyCode: data.key});
         });
 				
 		socket.emit('qrCodeScanned', {keyboardId: keyboardId});
 	};
 
-    var onKeyDown = function(callback) {
-        keydownCallbacks.push(callback);
-    };
-
-    var onKeyUp = function(callback) {
-        keyupCallbacks.push(callback);
-    };
-    
     world.onInit(init);
 
     return {
-		onKeyDown: onKeyDown,
-        onKeyUp: onKeyUp
+		onKeyDown: keyDownCallbacks.push,
+        onKeyUp: keyUpCallbacks.push
 	};
 });
