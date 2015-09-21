@@ -6,6 +6,8 @@ require.extensions['.cer'] = function(module, filename) {
     module.exports = fs.readFileSync(filename, 'utf8');
 };
 
+require('dotenv').load();
+
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
@@ -13,7 +15,7 @@ var http = require('http').Server(app);
 var jwt = require('express-jwt');
 var jwtCheck = jwt({
     secret: require('./server/metavrse.cer'),
-    audience: 'XjqQOct27l6s9mJmkikqC9OPaCOkmM0S' // TODO take from .env file
+    audience: process.env.AUTH0_AUDIENCE
 });
 
 var io = require('socket.io')(http);
@@ -28,8 +30,7 @@ keyVR.init(io);
 
 var db = require('./server/db/db');
 
-// TODO take from .env file
-db.init('couchbase://127.0.0.1', 'metavrse', '111111');
+db.init(process.env.COUCHBASE_HOST, process.env.BUCKET_NAME, process.env.BUCKET_PASSWORD);
 
 var apiRouter = require('./server/api/router');
 app.use('/api', jwtCheck);

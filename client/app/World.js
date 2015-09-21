@@ -1,30 +1,46 @@
-define(['utils/ExecuteCallbacks'], function(executeCallbacks) {
-    var startCallbacks = [];
-    var stopCallbacks = [];
-    var initCallbacks = [];
-    var loopCallbacks = [];
+define(['utils/CallbackList', 'Stats'], function(CallbackList, Stats) {
+    var startCallbacks = new CallbackList();
+    var stopCallbacks = new CallbackList();
+    var initCallbacks = new CallbackList();
+    var loopCallbacks = new CallbackList();
     
     var initialized = false;
     var request;
     var prevTime;
+    var stats;
+    
+    var initStats = function() {
+        stats = new Stats();
+        stats.setMode(0);
+        
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.left = '0px';
+        stats.domElement.style.top = '0px';
+
+        document.body.appendChild( stats.domElement );
+    };
     
     var start = function() {
+        initStats();
+        
         if(!initialized) {
-            executeCallbacks(initCallbacks);
+            initCallbacks.execute();
             initialized = true;
         }
         
-        executeCallbacks(startCallbacks);
+        startCallbacks.execute();
         startLooping();
     };
     
     var stop = function() {
         stopLooping();
-        executeCallbacks(stopCallbacks);
+        stopCallbacks.execute();
     };
     
     var loop = function(time) {
-        executeCallbacks(loopCallbacks, {time: time, delta: time - prevTime});
+        stats.begin();
+        loopCallbacks.execute({time: time, delta: time - prevTime});
+        stats.end();
         
         prevTime = time;
         request = requestAnimationFrame(loop);
@@ -39,27 +55,11 @@ define(['utils/ExecuteCallbacks'], function(executeCallbacks) {
         cancelAnimationFrame(request);
     };
     
-    var onStart = function(callback) {
-        startCallbacks.push(callback);
-    };
-    
-    var onStop = function(callback) {
-        stopCallbacks.push(callback);
-    };
-    
-    var onInit = function(callback) {
-        initCallbacks.push(callback);
-    };
-    
-    var onLoop = function(callback) {
-        loopCallbacks.push(callback);
-    };
-    
     return {
-        onStart: onInit,
-        onStop: onStop,
-        onInit: onInit,
-        onLoop: onLoop,
+        onStart: startCallbacks.push,
+        onStop: stopCallbacks.push,
+        onInit: initCallbacks.push,
+        onLoop: loopCallbacks.push,
         start: start,
         stop: stop
     };
