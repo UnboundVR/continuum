@@ -26,7 +26,11 @@
 			<h1>Link your device</h1>
 			<p>Generate a QR code to link your keyboard to your VR-enabled mobile device.</p>
 		
-			<button id="dasButton" disabled>Generate!</button>
+            <form id="dasForm">
+                <input type="text" id="customAddress" placeholder="Specify custom address - leave blank to use current address"></input>
+                <input type="submit" id="dasButton" value="Generate!" disabled></button>
+            </form>
+            
 
 		</div>
 	
@@ -37,7 +41,9 @@
 			<p>Open your VR app in the mobile to scan the code. This will effectively link the keyboard to the app.</p>
 		
 			<div id="qrCode"></div>
-			
+            
+            <p>... or just <a id="localLink" target="_blank">enter here</a> for local testing in your machine.</p>
+            
 		</div>
 		
 		<div id="deviceLinked" class="notDisplaying">
