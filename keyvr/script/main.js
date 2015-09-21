@@ -5,7 +5,7 @@ var socket = io.connect(window.location.origin + '/keyvr', {
 
 // As soon as we connect to node, we get assigned an ID
 socket.on('connect', function() {
-	hookQRButton('http://192.168.0.103/world?keyboardId=' + this.id);
+	hookQRButton(window.location.origin + '/world?keyboardId=' + this.id);
 	
 	console.log(this.id);
 });
