@@ -55,11 +55,51 @@ socket.on('deviceConnected', function(data) {
             deviceId : data.deviceId
         });
     });
-	
+    
+    $(document).mousedown(function(event) {
+        socket.emit('mousedown', {
+            ts : new Date(), 
+            button: event.which,
+            deviceId : data.deviceId
+        });
+    });
+    
+    $(document).mouseup(function(event) {
+        socket.emit('mouseup', {
+            ts : new Date(), 
+            button: event.which,
+            deviceId : data.deviceId
+        });
+    });
+    
 	showScreen('deviceLinked');
-    
-    
 });
+
+// FIXME pointer lock stuff, which is repeated in PointerLock.js inside metavrse... should be abstracted somehow
+// Also, we're not handling the case where there is no pointer lock - I think it'll simply crash
+function requestPointerLock() {
+    var element = document.body;
+    
+    document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
+    element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
+    element.requestFullscreen = element.requestFullscreen || element.mozRequestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen;
+
+    if (/Firefox/i.test(navigator.userAgent)) {
+        var fullscreenchange = function(event) {
+            if (document.fullscreenElement === element || document.mozFullscreenElement === element || document.mozFullScreenElement === element) {
+                document.removeEventListener('fullscreenchange', fullscreenchange);
+                document.removeEventListener('mozfullscreenchange', fullscreenchange);
+                element.requestPointerLock();
+            }
+        };
+
+        document.addEventListener('fullscreenchange', fullscreenchange, false);
+        document.addEventListener('mozfullscreenchange', fullscreenchange, false);
+        element.requestFullscreen();
+    } else {
+        element.requestPointerLock();
+    }
+}
 
 // Simple function to display a div and hide others
 function showScreen(screen) {
