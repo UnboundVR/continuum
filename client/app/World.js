@@ -1,4 +1,4 @@
-define(['utils/CallbackList'], function(CallbackList) {
+define(['utils/CallbackList', 'Stats'], function(CallbackList, Stats) {
     var startCallbacks = new CallbackList();
     var stopCallbacks = new CallbackList();
     var initCallbacks = new CallbackList();
@@ -7,8 +7,22 @@ define(['utils/CallbackList'], function(CallbackList) {
     var initialized = false;
     var request;
     var prevTime;
+    var stats;
+    
+    var initStats = function() {
+        stats = new Stats();
+        stats.setMode(0);
+        
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.left = '0px';
+        stats.domElement.style.top = '0px';
+
+        document.body.appendChild( stats.domElement );
+    };
     
     var start = function() {
+        initStats();
+        
         if(!initialized) {
             initCallbacks.execute();
             initialized = true;
@@ -24,7 +38,9 @@ define(['utils/CallbackList'], function(CallbackList) {
     };
     
     var loop = function(time) {
+        stats.begin();
         loopCallbacks.execute({time: time, delta: time - prevTime});
+        stats.end();
         
         prevTime = time;
         request = requestAnimationFrame(loop);
