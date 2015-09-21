@@ -3,6 +3,7 @@ define(['SocketIO', 'QueryString', 'World', 'Auth', 'utils/CallbackList'], funct
 
     var keyDownCallbacks = new CallbackList();
     var keyUpCallbacks = new CallbackList();
+    var mouseMoveCallbacks = new CallbackList();
     
     var init = function() {
         socket = io.connect(window.location.origin + '/keyvr', {
@@ -22,6 +23,10 @@ define(['SocketIO', 'QueryString', 'World', 'Auth', 'utils/CallbackList'], funct
         socket.on('keyup', function(data) {
             keyUpCallbacks.execute({keyCode: data.key});
         });
+        
+        socket.on('mousemove', function(data) {
+            mouseMoveCallbacks.execute(data.movement);
+        });
 				
 		socket.emit('qrCodeScanned', {keyboardId: keyboardId});
 	};
@@ -30,6 +35,7 @@ define(['SocketIO', 'QueryString', 'World', 'Auth', 'utils/CallbackList'], funct
 
     return {
 		onKeyDown: keyDownCallbacks.push,
-        onKeyUp: keyUpCallbacks.push
+        onKeyUp: keyUpCallbacks.push,
+        onMouseMove: mouseMoveCallbacks.push
 	};
 });

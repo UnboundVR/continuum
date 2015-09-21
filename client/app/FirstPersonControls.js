@@ -90,6 +90,7 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(TH
 
         keyVR.onKeyDown(onKeyDown);
         keyVR.onKeyUp(onKeyUp);
+        keyVR.onMouseMove(controls.move);
 
         raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, -1, 0), 0, 10);
         

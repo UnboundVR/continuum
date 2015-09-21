@@ -23,12 +23,31 @@ function hookQRButton(payload) {
 // When a device scans the QR code, we hook the keypress events so we start sending socket.io messages whenever a key is pressed
 socket.on('deviceConnected', function(data) {
 	$('body').keydown(function(e) {
-		socket.emit('keydown', {ts : new Date(), key : e.which, deviceId : data.deviceId});
+		socket.emit('keydown', {
+            ts : new Date(), 
+            key : e.which, 
+            deviceId : data.deviceId
+        });
 	});
 
 	$('body').keyup(function(e) {
-		socket.emit('keyup', {ts : new Date(), key : e.which, deviceId : data.deviceId});
+		socket.emit('keyup', {
+            ts : new Date(), 
+            key : e.which, 
+            deviceId : data.deviceId
+        });
 	});
+    
+    $(document).mousemove(function(e) {
+        socket.emit('mousemove', {
+            ts : new Date(), 
+            movement : {
+                x: event.movementX || event.mozMovementX || event.webkitMovementX || 0, 
+                y: event.movementY || event.mozMovementY || event.webkitMovementY || 0
+            }, 
+            deviceId : data.deviceId
+        });
+    });
 	
 	showScreen('deviceLinked');
 });
