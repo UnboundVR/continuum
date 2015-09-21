@@ -1,5 +1,7 @@
 // Init Node.JS and listen to mobile device connection
-var socket = io.connect(window.location.origin + '/keyvr');
+var socket = io.connect(window.location.origin + '/keyvr', {
+    query: 'token=' + localStorage.getItem('id_token')
+});
 
 // As soon as we connect to node, we get assigned an ID
 socket.on('connect', function() {

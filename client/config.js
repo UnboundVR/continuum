@@ -14,7 +14,7 @@ var require = {
     },
     paths: {
         Three: '../lib/Three',
-        ThreeCore: '../lib/three/three.min',
+        ThreeCore: '../lib/three/three',
         OrbitControls: '../lib/controls/OrbitControls', // TODO change back to npm when the registry updates to r72
         PointerLockControls: '../lib/controls/PointerLockControls',
         StereoEffect: '../lib/effects/StereoEffect',

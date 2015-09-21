@@ -1,8 +1,10 @@
-define(['SocketIO', 'QueryString', 'World'], function(io, queryString, world) {
+define(['SocketIO', 'QueryString', 'World', 'Auth'], function(io, queryString, world, auth) {
 	var socket;
     
     var init = function() {
-        socket = io.connect(window.location.origin + '/keyvr');
+        socket = io.connect(window.location.origin + '/keyvr', {
+            query: 'token=' + auth.getToken()
+        });
         
 		var onKeyUp = function(event) {
             switch (event.keyCode) {

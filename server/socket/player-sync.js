@@ -4,9 +4,12 @@ var players = {};
 
 var init = function(io) {
     io.of('/sync').on('connection', function(socket) {
+        var identity = socket.request.decoded_token;
+        
         socket.on('register', function(data) {
             for (var id in players) {
                 var player = players[id];
+                player.name = identity.name;
                 socket.emit('other connect', player);
             }
 

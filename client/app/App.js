@@ -1,7 +1,7 @@
 'use strict';
 
-define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'QueryString', 'World'],
-    function(THREE, detector, renderer, container, scene, objectLoader, guiLoader, scriptsLoader, queryString, world) {
+define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'QueryString', 'World', 'API'],
+    function(THREE, detector, renderer, container, scene, objectLoader, guiLoader, scriptsLoader, queryString, world, api) {
         // TODO use same style as other objects
         var App = function() {
             this.load = function(json) {
@@ -28,13 +28,10 @@ define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/Objec
     
                 var _this = this;
 
-                var remoteLoader = new THREE.XHRLoader();
+                var sceneId = queryString['sceneId'];
                 
-                var sceneId = queryString.sceneId;
-                var url = sceneId ? 'api/scene/' + sceneId : 'api/scene';
-                
-                remoteLoader.load(url, function(text) {
-                    _this.load(JSON.parse(text));
+                api.getScene(sceneId).then(function(json) {
+                    _this.load(json);
 
                     world.start();
                     
