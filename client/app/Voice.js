@@ -4,7 +4,7 @@ define(['SocketIO', 'RTCMultiConnection', 'World'], function(io, rtc, world) {
 
     var init = function() {
         var connection = new rtc('continuum');
-        connection.socketURL = 'http://localhost:1337';
+        connection.socketURL = window.location.origin;
         
         connection.session = {
              audio:     true,
@@ -17,12 +17,11 @@ define(['SocketIO', 'RTCMultiConnection', 'World'], function(io, rtc, world) {
              broadcast: false
         };    
         
-/*
         connection.sdpConstraints.mandatory = {
             OfferToReceiveAudio: true,
             OfferToReceiveVideo: false
         };
-*/    
+   
         connection.join('hola');
     };
 
