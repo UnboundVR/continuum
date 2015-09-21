@@ -1,7 +1,7 @@
 'use strict';
 
-define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'QueryString', 'World', 'Auth'],
-    function(THREE, detector, renderer, container, scene, objectLoader, guiLoader, scriptsLoader, queryString, world, auth) {
+define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'QueryString', 'World', 'API'],
+    function(THREE, detector, renderer, container, scene, objectLoader, guiLoader, scriptsLoader, queryString, world, api) {
         // TODO use same style as other objects
         var App = function() {
             this.load = function(json) {
@@ -28,11 +28,9 @@ define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/Objec
     
                 var _this = this;
 
-                var sceneId = queryString.sceneId;
-                var url = sceneId ? 'api/scene/' + sceneId : 'api/scene';
+                var sceneId = queryString['sceneId'];
                 
-                auth.getJson(url).then(function(json) {
-                    console.log(json)
+                api.getScene(sceneId).then(function(json) {
                     _this.load(json);
 
                     world.start();
