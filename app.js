@@ -19,6 +19,7 @@ app.use('/api', apiRouter);
 app.use('/client', express.static('client'));
 app.use('/shared', express.static('shared'));
 app.use('/node_modules', express.static('node_modules'));
+app.use('/voicetest', express.static('voicetest'));
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');

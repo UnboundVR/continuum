@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Metavrse.io WebRTC test</title>
+    <link rel="icon" type="image/x-icon" href="client/assets/img/favicon.png">
+    <script src="../socket.io/socket.io.js"></script>
+    <script src="../node_modules/rtcmulticonnection-v3/RTCMultiConnection.js"></script>
+    
+    <script>
+    var connection = new RTCMultiConnection('continuum');
+    connection.socketURL = 'http://localhost:1338';
+    
+    connection.session = {
+         audio:     true,
+         video:     false, 
+         screen:    false,
+         
+         data:      false,
+         
+         oneway:    false,
+         broadcast: true
+    };
+    
+    connection.open('hola');
+    </script>
+</head>
+<body>
+</body>
+</html>
