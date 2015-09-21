@@ -32,8 +32,6 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(TH
         scene.getScene().add(controls.getObject());
 
         var onKeyDown = function(event) {
-            console.log('down ' + event.keyCode)
-
             switch (event.keyCode) {
                 case 38: // up
                 case 87: // w
@@ -64,8 +62,6 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(TH
         };
 
         var onKeyUp = function(event) {
-            console.log('up ' + event.keyCode)
-
             switch (event.keyCode) {
                 case 38: // up
                 case 87: // w
