@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+
+    <head>
+    
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+       
+        <title>Login to metavrse.io</title>
+        
+        <!-- Auth0Lock script | it's in node_modules too, but whatever -->
+        <script src="//cdn.auth0.com/js/lock-7.9.min.js"></script>
+
+        <!-- Setting the right viewport -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        
+    </head>
+
+    <body>
+
+        <input id="btn-login" class="btn-login" type="submit" value="Login" />
+        <input id="btn-logout" class="btn-logout" type="submit" value="Logout" />
+        <a href="world">Go to world</a>
+        <p>Name: <span id="name"></span></p>
+    
+        <script>
+            var lock = new Auth0Lock('XjqQOct27l6s9mJmkikqC9OPaCOkmM0S', 'metavrse.auth0.com');                    
+            
+            var userProfile = null;
+
+            document.getElementById('btn-login').addEventListener('click', function() {
+              lock.show({ authParams: { scope: 'openid profile' } });
+            });
+            
+            document.getElementById('btn-logout').addEventListener('click', function() {
+              localStorage.removeItem('id_token');
+              window.location.href = "/";
+            });
+            
+            var hash = lock.parseHash(window.location.hash);
+
+            if (hash && hash.id_token) {
+              //save the token in the session:
+              localStorage.setItem('id_token', hash.id_token);
+            }
+
+            if (hash && hash.error) {
+              alert('There was an error: ' + hash.error + '\n' + hash.error_description);
+            }
+            
+            var id_token = localStorage.getItem('id_token');
+            if (id_token) {
+              lock.getProfile(id_token, function (err, profile) {
+                if (err) {
+                  return alert('There was an error geting the profile: ' + err.message);
+                }
+                document.getElementById('name').textContent = profile.name;
+              });
+            }
+        </script>
+
+    </body>
+
+</html>
+
+
