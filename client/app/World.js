@@ -1,4 +1,4 @@
-define([], function() {
+define(['utils/ExecuteCallbacks'], function(executeCallbacks) {
     var startCallbacks = [];
     var stopCallbacks = [];
     var initCallbacks = [];
@@ -7,12 +7,6 @@ define([], function() {
     var initialized = false;
     var request;
     var prevTime;
-    
-    var executeCallbacks = function(callbacks, payload) {
-        callbacks.forEach(function(callback) {
-            callback(payload);
-        });
-    }
     
     var start = function() {
         if(!initialized) {
