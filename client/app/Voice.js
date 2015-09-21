@@ -4,7 +4,7 @@ define(['SocketIO', 'RTCMultiConnection', 'World'], function(io, rtc, world) {
 
     var init = function() {
         var connection = new rtc('continuum');
-        connection.socketURL = 'http://localhost:1338';
+        connection.socketURL = 'http://localhost:1337';
         
         connection.session = {
              audio:     true,

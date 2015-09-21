@@ -8,6 +8,7 @@
     
     <script>
     var connection = new RTCMultiConnection('continuum');
+    connection.socketURL = 'http://localhost:1337';
     
     connection.session = {
          audio:     true,
