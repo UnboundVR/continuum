@@ -53,7 +53,7 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(TH
                     if (canJump === true) velocity.y += 350;
 
                     // Comment out this line and people can fly :D
-                    canJump = false;
+                    //canJump = false;
                     break;
                 case 16:
                     running = true;
@@ -104,7 +104,7 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(TH
                 canJump = true;
             }
 
-            if (obj.position.x > 490) {
+            /*if (obj.position.x > 490) {
                 obj.position.x = 490;
             }
 
@@ -118,7 +118,7 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(TH
 
             if (obj.position.z < -490) {
                 obj.position.z = -490;
-            }
+            }*/
         };
 
         if (true) {
