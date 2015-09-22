@@ -34,7 +34,7 @@ define(['Three', 'World', 'Scene', 'Camera'], function(THREE, world, scene, came
             webGLRenderer.eyeSeparation = 10;
         }
 
-        setCamera(camera)
+        setCamera(camera);
 
         window.addEventListener('resize', function() {
             setSize(window.innerWidth, window.innerHeight);

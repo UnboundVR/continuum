@@ -28,7 +28,7 @@ define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/Objec
 
                 var _this = this;
 
-                var sceneId = queryString['sceneId'];
+                var sceneId = queryString.sceneId;
 
                 api.getScene(sceneId).then(function(json) {
                     _this.load(json);

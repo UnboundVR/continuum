@@ -13,7 +13,7 @@ define(['SocketIO', 'QueryString', 'World', 'Auth', 'utils/CallbackList'], funct
         });
 
         if (queryString.keyboardId) {
-            syncWithKeyboard(queryString.keyboardId)
+            syncWithKeyboard(queryString.keyboardId);
         }
     };
 

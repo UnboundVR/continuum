@@ -39,7 +39,7 @@ socket.on('deviceConnected', function(data) {
             var payload = $.extend(defaultObj, dataCallback(e));
             socket.emit(eventName, payload);
         });
-    }
+    };
 
     var keyboardDataCallback = function(e) {
         return {

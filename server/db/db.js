@@ -45,7 +45,7 @@ var getMultiByAlias = function(type, prop, aliases) {
     var append = function(prefix) {
         return function(stuff) {
             return prefix + stuff;
-        }
+        };
     };
 
     var _this = this;

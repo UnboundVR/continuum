@@ -17,7 +17,7 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'Scrip
 
     var isEnabled = function() {
         return pointerLock.enabled();
-    }
+    };
 
     var animate = function() {
         if (!isEnabled()) {
