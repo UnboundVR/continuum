@@ -21,6 +21,7 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'Scrip
 
     var animate = function() {
         if (!isEnabled()) {
+            isIntersecting = false;
             return;
         }
 
