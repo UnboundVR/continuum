@@ -1,6 +1,14 @@
 'use strict';
 
+var sioJwt = require('socketio-jwt');
+var certificate = require('../metavrse.cer');
+
 var init = function(io) {
+    io.of('/keyvr').use(sioJwt.authorize({
+        secret: certificate,
+        handshake: true
+    }));
+
     io.of('/keyvr').on('connection', function(socket) {
         socket.on('qrCodeScanned', function(data) {
             socket.broadcast.to(data.keyboardId).emit('deviceConnected', {deviceId: socket.id});
