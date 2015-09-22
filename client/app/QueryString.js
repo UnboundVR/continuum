@@ -8,6 +8,6 @@ define([], function() {
         pair = pair.split('=');
         result[pair[0]] = decodeURIComponent(pair[1] || '');
     });
-    
+
     return result;
 });

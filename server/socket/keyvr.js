@@ -1,21 +1,25 @@
 'use strict';
 
 var init = function(io) {
-	io.of('/keyvr').on('connection', function(socket) {
-		socket.on('qrCodeScanned', function(data) {
-			socket.broadcast.to(data.keyboardId).emit('deviceConnected', {deviceId: socket.id});
-		});
-		
-		socket.on('keydown', function(data) {
-			socket.broadcast.to(data.deviceId).emit('keydown', {'key' : data.key, 'ts' : data.ts});
-		});
+    io.of('/keyvr').on('connection', function(socket) {
+        socket.on('qrCodeScanned', function(data) {
+            socket.broadcast.to(data.keyboardId).emit('deviceConnected', {deviceId: socket.id});
+        });
 
-		socket.on('keyup', function(data) {
-			socket.broadcast.to(data.deviceId).emit('keyup', {'key' : data.key, 'ts' : data.ts});
-		});
-	});
+        var forward = function(eventName) {
+            socket.on(eventName, function(data) {
+                socket.broadcast.to(data.deviceId).emit(eventName, data);
+            });
+        };
+
+        forward('keydown');
+        forward('keyup');
+        forward('mousemove');
+        forward('mousedown');
+        forward('mouseup');
+    });
 };
 
 module.exports = {
-	init: init
+    init: init
 };

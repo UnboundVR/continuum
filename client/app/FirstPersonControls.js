@@ -2,14 +2,14 @@
 
 define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(THREE, scene, playerSync, world, camera, keyVR) {
     var raycaster;
-    
+
     var move = {
         forward: false,
         left: false,
         right: false,
         backward: false
     };
-    
+
     var canJump = true;
     var running = false;
     var velocity = new THREE.Vector3();
@@ -90,12 +90,13 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(TH
 
         keyVR.onKeyDown(onKeyDown);
         keyVR.onKeyUp(onKeyUp);
+        keyVR.onMouseMove(controls.move);
 
         raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, -1, 0), 0, 10);
-        
+
         world.onLoop(animate);
     };
-    
+
     var animate = function(time) {
         var restrainPosition = function(obj) {
             if (obj.position.y < 0) {
@@ -149,18 +150,18 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(TH
 
             restrainPosition(obj);
 
-            if(!obj.position.equals(lastPosition)) {
+            if (!obj.position.equals(lastPosition)) {
                 playerSync.playerMoved(obj.position);
             }
-            
+
             lastPosition.copy(obj.position);
         }
     };
-    
+
     var getPosition = function() {
         return controls.getObject().position;
     };
-    
+
     world.onInit(init);
 
     return {

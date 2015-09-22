@@ -1,3 +1,7 @@
 .notDisplaying {
 	display: none;
 }
+
+#customAddress {
+    width: 400px;
+}
