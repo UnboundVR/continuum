@@ -6,6 +6,7 @@ define(['SocketIO', 'QueryString', 'World', 'Auth', 'utils/CallbackList'], funct
     var mouseMoveCallbacks = new CallbackList();
     var mouseDownCallbacks = new CallbackList();
     var mouseUpCallbacks = new CallbackList();
+    var enabled = false;
 
     var init = function() {
         socket = io.connect(window.location.origin + '/keyvr', {
@@ -14,6 +15,7 @@ define(['SocketIO', 'QueryString', 'World', 'Auth', 'utils/CallbackList'], funct
 
         if (queryString.keyboardId) {
             syncWithKeyboard(queryString.keyboardId);
+            enabled = true;
         }
     };
 
@@ -48,6 +50,9 @@ define(['SocketIO', 'QueryString', 'World', 'Auth', 'utils/CallbackList'], funct
         onKeyUp: keyUpCallbacks.push,
         onMouseMove: mouseMoveCallbacks.push,
         onMouseDown: mouseDownCallbacks.push,
-        onMouseUp: mouseUpCallbacks.push
+        onMouseUp: mouseUpCallbacks.push,
+        enabled: function(argument) {
+            return enabled;
+        }
     };
 });

@@ -16,7 +16,7 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'Scrip
     };
 
     var isEnabled = function() {
-        return pointerLock.enabled();
+        return pointerLock.enabled() || keyVR.enabled();
     };
 
     var animate = function() {

@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Camera', 'PointerLock', 'Tween', 'ItemSelector', 'World'], function(THREE, camera, pointerLock, tween, itemSelector, world) {
+define(['Three', 'Camera', 'PointerLock', 'Tween', 'ItemSelector', 'World', 'KeyVR'], function(THREE, camera, pointerLock, tween, itemSelector, world, keyVR) {
     var currentTween;
     var mesh;
     var currentRadius;
@@ -16,7 +16,7 @@ define(['Three', 'Camera', 'PointerLock', 'Tween', 'ItemSelector', 'World'], fun
     };
 
     var animate = function(time) {
-        if (!pointerLock.enabled()) {
+        if (!pointerLock.enabled() && !keyVR.enabled()) {
             hideReticle();
             return;
         }
