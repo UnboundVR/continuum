@@ -22,17 +22,17 @@ define(['Scene', 'World'], function(scene, world) {
         pointerlock: {list: []},
         pointerunlock: {list: []}
     };
-    
+
     var app;
-    
+
     var init = function() {
         world.onLoop(update);
     };
-    
+
     var update = function(time) {
         dispatch(events.update, time);
     };
-    
+
     var start = function() {
         browserEvents.forEach(function(browserEvent) {
             var callback = function(event) {
@@ -42,15 +42,15 @@ define(['Scene', 'World'], function(scene, world) {
             events[browserEvent].callback = callback;
             document.addEventListener(browserEvent, callback);
         });
-        
+
         dispatch(events.start);
     };
-    
+
     var stop = function() {
         browserEvents.forEach(function(browserEvent) {
             document.removeEventListener(browserEvent, events[browserEvent].callback);
         });
-        
+
         dispatch(events.stop);
     };
 
@@ -76,30 +76,30 @@ define(['Scene', 'World'], function(scene, world) {
             });
         }
     };
-    
+
     var loadScript = function(script, uuid) {
         var scriptExists = function() {
-            if(!scripts[uuid]) {
+            if (!scripts[uuid]) {
                 return false;
             }
-            
+
             return scripts[uuid].hasOwnProperty(script.name);
         };
-        
+
         var storeScript = function() {
-            if(!scripts[uuid]) {
+            if (!scripts[uuid]) {
                 scripts[uuid] = {};
             }
-            
+
             scripts[uuid][script.name] = script.source;
         };
-        
-        if(scriptExists()) {
+
+        if (scriptExists()) {
             unloadOldScript(script, uuid);
         }
-        
+
         storeScript();
-        
+
         var object = scene.getObjectByUUID(uuid);
         var params = 'app, scene, ' + Object.keys(events).join(', ');
         var source = script.source + '\nreturn {' + Object.keys(events).map(function(key) {
@@ -128,19 +128,19 @@ define(['Scene', 'World'], function(scene, world) {
     var getScript = function(objUUID, scriptName) {
         return scripts[objUUID][scriptName];
     };
-    
+
     var getScripts = function(objUUID) {
         return scripts[objUUID];
     };
-    
+
     var setApp = function(relevantApp) {
         app = relevantApp;
     };
-    
+
     world.onInit(init);
     world.onStart(start);
     world.onStop(stop);
-    
+
     return {
         events: events,
         getScript: getScript,

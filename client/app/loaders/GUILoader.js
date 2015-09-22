@@ -8,11 +8,11 @@ define(['GUIManager', 'utils/DictFromArray', 'shared/TraverseTree'], function(gu
         var guiDict = dictFromArray(json.gui, 'uuid');
 
         traverse(json.scene.object, function(obj) {
-            if(obj.gui) {
+            if (obj.gui) {
                 gui.embedGUI(guiDict[obj.gui], obj.uuid, css3DScene);
             }
         });
-        
+
         return css3DScene;
     };
 

@@ -2,7 +2,7 @@ define(['Auth', 'Three'], function(auth, THREE) {
     var remoteLoader = new THREE.XHRLoader();
     var token = auth.getToken();
 
-    if(token) {
+    if (token) {
         remoteLoader.authorizationHeader = 'bearer ' + token;
     }
 
@@ -11,6 +11,7 @@ define(['Auth', 'Three'], function(auth, THREE) {
             remoteLoader.load(url, function(text) {
                 resolve(JSON.parse(text));
             }, undefined, function(err) {
+
                 reject(err);
             });
         });

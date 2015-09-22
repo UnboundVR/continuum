@@ -8,7 +8,7 @@ define(['ScriptsManager'], function(scripts) {
         if (obj.name !== 'DevCube' || used) {
             return;
         }
-        
+
         // FIXME this is hardcoded to only work with 'coderCube' script for now...
         var scriptName = 'coderCube';
 

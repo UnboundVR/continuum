@@ -3,12 +3,12 @@
 define(['SocketIO', 'Scene', 'World', 'Auth'], function(io, scene, world, auth) {
     var socket;
     var players;
-    
+
     var init = function() {
         socket = io.connect(window.location.origin + '/sync', {
             query: 'token=' + auth.getToken()
         });
-        
+
         players = {
             me: {
                 name: 'YO',
@@ -16,7 +16,7 @@ define(['SocketIO', 'Scene', 'World', 'Auth'], function(io, scene, world, auth) 
             },
             others: {}
         };
-        
+
         socket.on('connect', function() {
             players.me.id = this.id;
             socket.emit('register', players.me);
@@ -41,11 +41,11 @@ define(['SocketIO', 'Scene', 'World', 'Auth'], function(io, scene, world, auth) 
             }
         });
     };
-    
+
     var removePlayerAvatar = function(player) {
         scene.getScene().remove(player.mesh);
     };
-    
+
     var addPlayerAvatar = function(player) {
         var geometry = new THREE.BoxGeometry(40, 40, 40);
         var texture = THREE.ImageUtils.loadTexture('client/assets/img/grass.jpg');
@@ -58,14 +58,14 @@ define(['SocketIO', 'Scene', 'World', 'Auth'], function(io, scene, world, auth) 
 
         scene.getScene().add(mesh);
     };
-    
+
     var playerMoved = function(position) {
         players.me.position = position;
         socket.emit('change', players.me);
     };
-    
+
     world.onInit(init);
-    
+
     return {
         playerMoved: playerMoved
     };

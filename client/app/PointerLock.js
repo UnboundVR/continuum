@@ -55,7 +55,7 @@ define(['FirstPersonControls', 'ScriptsManager', 'World'], function(controls, sc
             document.addEventListener('pointerlockerror', pointerLockError, false);
             document.addEventListener('mozpointerlockerror', pointerLockError, false);
             document.addEventListener('webkitpointerlockerror', pointerLockError, false);
-            
+
             var togglePointerLock = function() {
                 if (controlsEnabled) {
                     document.exitPointerLock();
@@ -63,18 +63,18 @@ define(['FirstPersonControls', 'ScriptsManager', 'World'], function(controls, sc
                     requestPointerLock();
                 }
             };
-            
+
             // FIXME for some reason, using mouse events to toggle pointer lock causes the tab to flash when alt-tabbing if you leave pointer lock by pressing <esc>.
             var onMouseDown = function(event) {
                 if (event.button === 1) {
                     togglePointerLock();
                 }
             };
-            
+
             var onKeyDown = function(event) {
-                if(event.keyCode == '115') {
+                if (event.keyCode == '115') {
                     togglePointerLock();
-                }  
+                }
             };
 
             window.addEventListener('mousedown', onMouseDown, false);
@@ -84,7 +84,7 @@ define(['FirstPersonControls', 'ScriptsManager', 'World'], function(controls, sc
             console.warn('Your browser doesn\'t seem to support Pointer Lock API');
         }
     };
-    
+
     world.onInit(init);
 
     return {

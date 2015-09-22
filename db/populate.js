@@ -18,33 +18,33 @@ var createScene = function(json) {
         uuid: json.scene.uuid,
         object: json.scene.object.uuid
     };
-    
+
     return sceneDb.create(scene);
 };
 
 var load = function(items, type) {
     var promises = [];
-    
+
     items.forEach(function(item) {
         promises.push(db.createByAlias(type, 'uuid', item));
     });
-    
+
     return promise.all(promises);
 };
 
-var loadObjects = function(sceneObject) {    
+var loadObjects = function(sceneObject) {
     var promises = [];
-    
+
     traverse(sceneObject, function(obj) {
-        if(obj.children && obj.children.length) {
+        if (obj.children && obj.children.length) {
             obj.children = obj.children.map(function(child) {
                 return child.uuid;
             });
         }
-        
+
         promises.push(objectDb.create(obj));
     });
-    
+
     return promise.all(promises);
 };
 
@@ -61,8 +61,9 @@ createScene(json).then(function(res) {
     ]);
 }).then(function(res) {
     console.log('Database at ' + process.env.COUCHBASE_HOST + ' populated with boilerplate scene!');
-    process.exit(); 
+    process.exit();
 }, function(error) {
+
     console.log(error);
     process.exit(1);
 });

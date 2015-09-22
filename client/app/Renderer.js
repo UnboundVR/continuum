@@ -6,18 +6,18 @@ define(['Three', 'World', 'Scene', 'Camera'], function(THREE, world, scene, came
     var vrMode = false;
     var webGLRenderer;
     var css3DRenderer;
-    
+
     var init = function() {
         webGLRenderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
-    
+
         webGLRenderer.setClearColor(0x00ff00, 0.0);
         webGLRenderer.setPixelRatio(window.devicePixelRatio);
-        
+
         webGLRenderer.domElement.style.position = 'absolute';
         webGLRenderer.domElement.style.zIndex = 1;
         webGLRenderer.domElement.style.top = 0;
         webGLRenderer.domElement.style.pointerEvents = 'none';
-        
+
         webGLRenderer.shadowMap.enabled = true;
         webGLRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
@@ -33,13 +33,13 @@ define(['Three', 'World', 'Scene', 'Camera'], function(THREE, world, scene, came
             webGLRenderer = new THREE.StereoEffect(webGLRenderer);
             webGLRenderer.eyeSeparation = 10;
         }
-        
+
         setCamera(camera)
-        
+
         window.addEventListener('resize', function() {
             setSize(window.innerWidth, window.innerHeight);
         });
-        
+
         setSize(window.innerWidth, window.innerHeight);
     };
 
@@ -51,16 +51,16 @@ define(['Three', 'World', 'Scene', 'Camera'], function(THREE, world, scene, came
     var setSize = function(width, height) {
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
-                
+
         webGLRenderer.setSize(width, height);
         css3DRenderer.setSize(width, height);
     };
-    
+
     var setCamera = function(cam) {
         camera = cam;
         setSize(window.innerWidth, window.innerHeight);
     };
-    
+
     world.onInit(init);
     world.onLoop(render);
 
