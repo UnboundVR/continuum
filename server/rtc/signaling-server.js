@@ -124,6 +124,7 @@ var init = function(io) {
                     onMessageCallback(message);
                     return;
                 }
+
                 shiftedModerationControls[message.sender] = message;
                 return;
             }
@@ -141,6 +142,7 @@ var init = function(io) {
                             allPublicUsers.push(user);
                         }
                     }
+
                     callback(allPublicUsers);
                     return;
                 }
