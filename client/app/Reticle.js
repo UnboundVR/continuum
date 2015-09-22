@@ -37,8 +37,8 @@ define(['Three', 'Camera', 'PointerLock', 'Tween', 'ItemSelector', 'World', 'Key
 
         if (!currentTween || currentTween.isIntersecting != isIntersecting) {
             currentTween = new tween.Tween({radius: currentRadius})
-            .to({radius: isIntersecting ? 0.15 : 0.05}, 750)
-            .easing(TWEEN.Easing.Sinusoidal.InOut)
+            .to({radius: isIntersecting ? 0.12 : 0.03}, 250)
+            .easing(TWEEN.Easing.Cubic.InOut)
             .onUpdate(function() {
                 var geometry = new THREE.CircleGeometry(this.radius, 32);
                 geometry.vertices.shift();
@@ -56,8 +56,9 @@ define(['Three', 'Camera', 'PointerLock', 'Tween', 'ItemSelector', 'World', 'Key
         var geometry = new THREE.CircleGeometry(defaultRadius, 32);
         geometry.vertices.shift();
 
-        var material = new THREE.LineBasicMaterial();
-        material.color.set(0x000000);
+        var material = new THREE.LineBasicMaterial({
+            color: 0x333333
+        });
 
         mesh = new THREE.Line(geometry, material);
         mesh.position.x = 0;
