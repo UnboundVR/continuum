@@ -19,8 +19,6 @@ var jwtCheck = jwt({
 });
 
 var io = require('socket.io')(http);
-var authIO = require('./server/socket/auth');
-authIO.init(io);
 
 var playerSync = require('./server/socket/player-sync');
 playerSync.init(io);
