@@ -4,8 +4,11 @@ var players = {};
 
 var init = function(io) {
     io.of('/sync').on('connection', function(socket) {
+        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+
         var identity = socket.request.decoded_token;
-        
+
+        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
         socket.on('register', function(data) {
             for (var id in players) {
                 var player = players[id];

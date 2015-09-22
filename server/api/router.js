@@ -15,11 +15,11 @@ var sendJson = function(res) {
 };
 
 router.get('/scene', function(req, res) {
-   res.sendFile(path.resolve('db/scene.json'));
+    res.sendFile(path.resolve('db/scene.json'));
 });
-       
+
 router.get('/scene/:uuid', function(req, res, next) {
-   sceneDb.get(req.params.uuid).then(sendJson(res), next);
+    sceneDb.get(req.params.uuid).then(sendJson(res), next);
 });
 
 module.exports = router;

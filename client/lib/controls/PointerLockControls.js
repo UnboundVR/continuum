@@ -2,6 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
+// Modified to support calling a move function directly (for KeyVR)
 THREE.PointerLockControls = function ( camera ) {
 
 	var scope = this;
@@ -16,6 +17,15 @@ THREE.PointerLockControls = function ( camera ) {
 	yawObject.add( pitchObject );
 
 	var PI_2 = Math.PI / 2;
+    
+    var _this = this;
+    
+    this.move = function(movement) {
+        yawObject.rotation.y -= movement.x * 0.002;
+		pitchObject.rotation.x -= movement.y * 0.002;
+
+		pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, pitchObject.rotation.x ) );
+    };
 
 	var onMouseMove = function ( event ) {
 
@@ -24,10 +34,10 @@ THREE.PointerLockControls = function ( camera ) {
 		var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
 		var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
 
-		yawObject.rotation.y -= movementX * 0.002;
-		pitchObject.rotation.x -= movementY * 0.002;
-
-		pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, pitchObject.rotation.x ) );
+		_this.move({
+            x: movementX, 
+            y: movementY
+        });
 
 	};
 

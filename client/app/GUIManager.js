@@ -12,7 +12,7 @@ define(['Three', 'Scene'], function(THREE, scene) {
 
         var htmlNode = document.createElement('div');
         htmlNode.innerHTML = guiElement.html;
-        
+
         var plane = scene.getObjectByUUID(planeUUID);
         var cssObject = new THREE.CSS3DObject(htmlNode);
         cssObject.position.copy(plane.position);
