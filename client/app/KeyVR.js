@@ -1,4 +1,4 @@
-define(['SocketIO', 'QueryString', 'World', 'Auth', 'utils/CallbackList'], function(io, queryString, world, auth, CallbackList) {
+define(['SocketIO', 'utils/QueryString', 'World', 'Auth', 'utils/CallbackList'], function(io, queryString, world, auth, CallbackList) {
     var socket;
 
     var keyDownCallbacks = new CallbackList();

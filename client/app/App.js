@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'QueryString', 'World', 'API'],
+define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'utils/QueryString', 'World', 'API'],
     function(THREE, detector, renderer, container, scene, objectLoader, guiLoader, scriptsLoader, queryString, world, api) {
         // TODO use same style as other objects
         var App = function() {
