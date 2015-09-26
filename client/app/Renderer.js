@@ -1,9 +1,7 @@
 'use strict';
 
 define(['Three', 'World', 'Scene', 'Camera'], function(THREE, world, scene, camera) {
-    // TODO externalize
-    // TODO make some kind of auto-detect for Cardboard (i.e. Android) and eventually a switch/auto-detect for Oculus
-    var vrMode = false;
+    var vrMode = navigator.userAgent.match(/Android/i);
     var webGLRenderer;
     var css3DRenderer;
 
@@ -29,7 +27,7 @@ define(['Three', 'World', 'Scene', 'Camera'], function(THREE, world, scene, came
         css3DRenderer.domElement.appendChild(webGLRenderer.domElement);
 
         // Init stereo effect if we're in VR mode
-        if (vrMode.vr) {
+        if (vrMode) {
             webGLRenderer = new THREE.StereoEffect(webGLRenderer);
             webGLRenderer.eyeSeparation = 10;
         }
