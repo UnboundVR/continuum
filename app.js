@@ -66,5 +66,5 @@ switch (env) {
 }
 
 http.listen(port, function() {
-    console.log('Listeining at port ' + port + '!');
+    console.log('Listening at port ' + port + '!');
 });
