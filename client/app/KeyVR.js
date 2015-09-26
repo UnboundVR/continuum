@@ -21,11 +21,17 @@ define(['SocketIO', 'utils/QueryString', 'World', 'Auth', 'utils/CallbackList'],
 
     var syncWithKeyboard = function(keyboardId) {
         socket.on('keydown', function(data) {
-            keyDownCallbacks.execute({keyCode: data.key});
+            keyDownCallbacks.execute({
+                keyCode: data.key,
+                type: 'keydown'
+            });
         });
 
         socket.on('keyup', function(data) {
-            keyUpCallbacks.execute({keyCode: data.key});
+            keyUpCallbacks.execute({
+                keyCode: data.key,
+                type: 'keyup'
+            });
         });
 
         socket.on('mousemove', function(data) {

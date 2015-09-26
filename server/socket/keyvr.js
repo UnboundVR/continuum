@@ -1,13 +1,9 @@
 'use strict';
 
-var sioJwt = require('socketio-jwt');
-var certificate = require('../metavrse.cer');
+var auth = require('./auth');
 
 var init = function(io) {
-    io.of('/keyvr').use(sioJwt.authorize({
-        secret: certificate,
-        handshake: true
-    }));
+    io.of('/keyvr').use(auth);
 
     io.of('/keyvr').on('connection', function(socket) {
         socket.on('qrCodeScanned', function(data) {

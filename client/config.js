@@ -28,5 +28,5 @@ var require = {
         shared: '../../shared',
         GlobalSocketIO: '../lib/GlobalSocketIO'
     },
-    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'ScriptsManager', 'Renderer', 'KeyVR', 'Voice']
+    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'ScriptsManager', 'Renderer', 'KeyVR', '2DUI', 'Voice']
 };

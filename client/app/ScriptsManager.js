@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Scene', 'World'], function(scene, world) {
+define(['Scene', 'World', 'PointerLock'], function(scene, world, pointerLock) {
     var scripts = {};
 
     var events = {
@@ -27,6 +27,14 @@ define(['Scene', 'World'], function(scene, world) {
 
     var init = function() {
         world.onLoop(update);
+
+        pointerLock.onChange(function(locked) {
+            if (locked) {
+                dispatch(events.pointerlock, null);
+            } else {
+                dispatch(events.pointerunlock, null);
+            }
+        });
     };
 
     var update = function(time) {
