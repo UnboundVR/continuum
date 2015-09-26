@@ -58,9 +58,13 @@ define(['World', 'PointerLock', 'Auth'], function(world, pointerLock, auth) {
         domElement.style.display = 'none';
     };
 
+    var addElement = function(element) {
+        domElement.appendChild(element);
+    };
+
     world.onInit(init);
 
     return {
-
+        addElement: addElement
     };
 });
