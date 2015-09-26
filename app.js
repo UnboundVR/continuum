@@ -1,13 +1,18 @@
 'use strict';
 
+var DEV_ENVIRONMENT = 'dev';
+
 // Allow requiring .cer files as text
 var fs = require('fs');
 require.extensions['.cer'] = function(module, filename) {
     module.exports = fs.readFileSync(filename, 'utf8');
 };
 
+var env = process.env.NODE_ENV || DEV_ENVIRONMENT;
+console.log('Loading in ' + env + ' environment');
 require('dotenv').load();
 
+var port = process.env.PORT;
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
@@ -46,24 +51,6 @@ app.get('/', function(req, res) {
 app.get('/world', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
-
-var env = process.env.NODE_ENV;
-var port;
-
-switch (env) {
-    case 'production':
-        port = 1337;
-        break;
-    case 'dev':
-        port = 1338;
-        break;
-    case 'test':
-        port = 1339;
-        break;
-    default:
-        throw 'Environment not recognized.';
-        break;
-}
 
 http.listen(port, function() {
     console.log('Listening at port ' + port + '!');
