@@ -4,7 +4,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var router = express.Router();
 var path = require('path');
-router.use('/', bodyParser.json());
+var auth = require('./auth');
+
+router.use(bodyParser.json());
 
 var sceneDb = require('../db/scene');
 
@@ -19,7 +21,10 @@ router.get('/scene', function(req, res) {
 });
 
 router.get('/scene/:uuid', function(req, res, next) {
+    // Later we will check here if the user has permission to access that scene
     sceneDb.get(req.params.uuid).then(sendJson(res), next);
 });
+
+router.use(auth);
 
 module.exports = router;

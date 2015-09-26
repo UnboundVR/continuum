@@ -1,8 +1,9 @@
 // Based on https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html and http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 'use strict';
 
-define(['FirstPersonControls', 'ScriptsManager', 'World'], function(controls, scripts, world) {
-    var controlsEnabled = false;
+define(['World', 'utils/CallbackList'], function(world, CallbackList) {
+    var enabled = false;
+    var changeCallbacks = new CallbackList();
 
     var init = function() {
         var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
@@ -12,19 +13,17 @@ define(['FirstPersonControls', 'ScriptsManager', 'World'], function(controls, sc
 
             var pointerLockChange = function(event) {
                 if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
-                    controlsEnabled = true;
-                    controls.controls.enabled = true;
-                    scripts.dispatchEvent(scripts.events.pointerlock, null);
+                    enabled = true;
+                    changeCallbacks.execute(true);
                 } else {
-                    controlsEnabled = false;
-                    controls.controls.enabled = false;
-                    scripts.dispatchEvent(scripts.events.pointerunlock, null);
+                    enabled = false;
+                    changeCallbacks.execute(false);
                 }
             };
 
             var pointerLockError = function(event) {
                 // TODO do something meaningful, like allow the user to use the app without locking cursor (i.e. enable controls anyway)
-                console.log('pointer lock error');
+                console.warn('pointer lock error');
             };
 
             document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
@@ -57,7 +56,7 @@ define(['FirstPersonControls', 'ScriptsManager', 'World'], function(controls, sc
             document.addEventListener('webkitpointerlockerror', pointerLockError, false);
 
             var togglePointerLock = function() {
-                if (controlsEnabled) {
+                if (enabled) {
                     document.exitPointerLock();
                 } else {
                     requestPointerLock();
@@ -66,12 +65,14 @@ define(['FirstPersonControls', 'ScriptsManager', 'World'], function(controls, sc
 
             // FIXME for some reason, using mouse events to toggle pointer lock causes the tab to flash when alt-tabbing if you leave pointer lock by pressing <esc>.
             var onMouseDown = function(event) {
+                // Mid mouse button
                 if (event.button === 1) {
                     togglePointerLock();
                 }
             };
 
             var onKeyDown = function(event) {
+                // F4 key
                 if (event.keyCode == '115') {
                     togglePointerLock();
                 }
@@ -85,11 +86,14 @@ define(['FirstPersonControls', 'ScriptsManager', 'World'], function(controls, sc
         }
     };
 
+    var isEnabled = function() {
+        return enabled;
+    };
+
     world.onInit(init);
 
     return {
-        enabled: function() {
-            return controlsEnabled;
-        }
+        enabled: isEnabled,
+        onChange: changeCallbacks.push
     };
 });
