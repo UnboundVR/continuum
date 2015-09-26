@@ -1,6 +1,6 @@
 'use strict';
 
-define(['SocketIO', 'RTCMultiConnection', 'World'], function(io, RTCMultiConnection, world) {
+define(['SocketIO', 'RTCMultiConnection', 'World', '2DUI'], function(io, RTCMultiConnection, world, ui) {
 
     var init = function() {
         var connection = new RTCMultiConnection('continuum');
@@ -14,12 +14,16 @@ define(['SocketIO', 'RTCMultiConnection', 'World'], function(io, RTCMultiConnect
             data:      false,
 
             oneway:    false,
-            broadcast: false
+            broadcast: true
         };
 
         connection.sdpConstraints.mandatory = {
             OfferToReceiveAudio: true,
             OfferToReceiveVideo: false
+        };
+
+        connection.onstream = function(e) {
+            ui.addElement(e.mediaElement);
         };
 
         connection.join('hola');

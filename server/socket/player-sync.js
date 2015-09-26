@@ -1,15 +1,11 @@
 'use strict';
 
-var sioJwt = require('socketio-jwt');
-var certificate = require('../metavrse.cer');
+var auth = require('./auth');
 
 var players = {};
 
 var init = function(io) {
-    io.of('/sync').use(sioJwt.authorize({
-        secret: certificate,
-        handshake: true
-    }));
+    io.of('/sync').use(auth);
 
     io.of('/sync').on('connection', function(socket) {
         // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
