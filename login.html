@@ -26,7 +26,10 @@
             var userProfile = null;
 
             document.getElementById('btn-login').addEventListener('click', function() {
-                lock.show({ authParams: { scope: 'openid profile' } });
+                lock.show({
+                    authParams: {scope: 'openid profile'},
+                    connections: ['google-oauth2']
+                });
             });
 
             var hash = lock.parseHash(window.location.hash);

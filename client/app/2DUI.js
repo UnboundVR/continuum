@@ -27,6 +27,8 @@ define(['World', 'PointerLock', 'Auth'], function(world, pointerLock, auth) {
         // TODO take from HTML and CSS files brought via requirejs text plugin
         var profileImage = document.createElement('img');
         profileImage.src = profile.picture;
+        profileImage.style.width = '128px';
+        profileImage.style.height = '128px';
         domElement.appendChild(profileImage);
 
         var name = document.createElement('span');
