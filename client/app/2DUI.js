@@ -41,7 +41,7 @@ define(['World', 'PointerLock', 'Auth'], function(world, pointerLock, auth) {
         designButton.innerHTML = 'I love this design';
         domElement.appendChild(designButton);
         designButton.onclick = function() {
-            alert('You are lying.');
+            alert('You are lying, ' + (profile.gender == 'male' ? 'gentleman' : 'lady') + '.');
         };
 
         var logoutButton = document.createElement('button');
