@@ -2,11 +2,7 @@
 
 var DEV_ENVIRONMENT = 'dev';
 
-// Allow requiring .cer files as text
-var fs = require('fs');
-require.extensions['.cer'] = function(module, filename) {
-    module.exports = fs.readFileSync(filename, 'utf8');
-};
+require('./server/certificate-extension.js')();
 
 var env = process.env.NODE_ENV || DEV_ENVIRONMENT;
 console.log('Loading in ' + env + ' environment');
