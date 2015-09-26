@@ -14,24 +14,16 @@ var app = express();
 var http = require('http').Server(app);
 
 var io = require('socket.io')(http);
-
-var playerSync = require('./server/socket/player-sync');
-playerSync.init(io);
-
-var keyVR = require('./server/socket/keyvr');
-keyVR.init(io);
+require('./server/socket/player-sync').init(io);
+require('./server/socket/keyvr').init(io);
 
 var db = require('./server/db/db');
-
 db.init(process.env.COUCHBASE_HOST, process.env.BUCKET_NAME, process.env.BUCKET_PASSWORD);
 
 var apiRouter = require('./server/api/router');
 app.use('/api', apiRouter);
 
-app.use('/client', express.static('client'));
-app.use('/shared', express.static('shared'));
-app.use('/node_modules', express.static('node_modules'));
-app.use('/keyvr', express.static('keyvr'));
+require('./static-routes')(app);
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/login.html');
