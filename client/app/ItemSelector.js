@@ -32,28 +32,26 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'Scrip
         var raycaster = new THREE.Raycaster(controls.getPosition(), vector.sub(controls.getPosition()).normalize());
         var intersects = raycaster.intersectObjects(scene.getScene().children);
 
+        intersects = intersects.filter(function(item) {
+            return excludedObjects.indexOf(item.object.name) == -1;
+        });
+
         isIntersecting = false;
 
         // TODO refactor below
         if (intersects.length) {
             var obj = intersects[0].object;
 
-            var isNotExcluded = !excludedObjects.some(function(exc) {
-                return exc == obj.name;
-            });
-
-            if (isNotExcluded) {
-                if (lastIntersected != null && lastIntersected != obj) {
-                    onStopIntersect(lastIntersected);
-                }
-
-                if (obj != lastIntersected) {
-                    onIntersect(obj);
-                }
-
-                lastIntersected = obj;
-                isIntersecting = true;
+            if (lastIntersected != null && lastIntersected != obj) {
+                onStopIntersect(lastIntersected);
             }
+
+            if (obj != lastIntersected) {
+                onIntersect(obj);
+            }
+
+            lastIntersected = obj;
+            isIntersecting = true;
         }
 
         if (!isIntersecting) {
