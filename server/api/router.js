@@ -4,7 +4,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var router = express.Router();
 var path = require('path');
-router.use('/', bodyParser.json());
+router.use(bodyParser.json());
 
 var sceneDb = require('../db/scene');
 
