@@ -1,13 +1,18 @@
 'use strict';
 
+var DEV_ENVIRONMENT = 'dev';
+
 // Allow requiring .cer files as text
 var fs = require('fs');
 require.extensions['.cer'] = function(module, filename) {
     module.exports = fs.readFileSync(filename, 'utf8');
 };
 
+var env = process.env.NODE_ENV || DEV_ENVIRONMENT;
+console.log('Loading in ' + env + ' environment');
 require('dotenv').load();
 
+var port = process.env.PORT;
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
@@ -19,8 +24,6 @@ var jwtCheck = jwt({
 });
 
 var io = require('socket.io')(http);
-var authIO = require('./server/socket/auth');
-authIO.init(io);
 
 var playerSync = require('./server/socket/player-sync');
 playerSync.init(io);
@@ -49,7 +52,6 @@ app.get('/world', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
-var port = 1337;
 http.listen(port, function() {
-    console.log('Listeining at port ' + port + '!');
+    console.log('Listening at port ' + port + '!');
 });
