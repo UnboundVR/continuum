@@ -122,40 +122,38 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(TH
             }
         };
 
-        if (true) {
-            var obj = controls.getObject();
-            raycaster.ray.origin.copy(obj.position);
-            raycaster.ray.origin.y -= 10;
-            var intersections = raycaster.intersectObjects(collidableObjects);
-            var isOnObject = intersections.length > 0;
-            var delta = time.delta / 1000;
-            velocity.x -= velocity.x * 10.0 * delta;
-            velocity.z -= velocity.z * 10.0 * delta;
-            velocity.y -= 9.8 * 75.0 * delta; // 75.0 = mass
+        var obj = controls.getObject();
+        raycaster.ray.origin.copy(obj.position);
+        raycaster.ray.origin.y -= 10;
+        var intersections = raycaster.intersectObjects(collidableObjects);
+        var isOnObject = intersections.length > 0;
+        var delta = time.delta / 1000;
+        velocity.x -= velocity.x * 10.0 * delta;
+        velocity.z -= velocity.z * 10.0 * delta;
+        velocity.y -= 9.8 * 75.0 * delta; // 75.0 = mass
 
-            var speed = running ? 16000 : 4000;
+        var speed = running ? 16000 : 4000;
 
-            if (move.forward) velocity.z -= speed * delta;
-            if (move.backward) velocity.z += speed * delta;
-            if (move.left) velocity.x -= speed * delta;
-            if (move.right) velocity.x += speed * delta;
-            if (isOnObject) {
-                velocity.y = Math.max(0, velocity.y);
-                canJump = true;
-            }
-
-            obj.translateX(velocity.x * delta);
-            obj.translateY(velocity.y * delta);
-            obj.translateZ(velocity.z * delta);
-
-            restrainPosition(obj);
-
-            if (!obj.position.equals(lastPosition)) {
-                playerSync.playerMoved(obj.position);
-            }
-
-            lastPosition.copy(obj.position);
+        if (move.forward) velocity.z -= speed * delta;
+        if (move.backward) velocity.z += speed * delta;
+        if (move.left) velocity.x -= speed * delta;
+        if (move.right) velocity.x += speed * delta;
+        if (isOnObject) {
+            velocity.y = Math.max(0, velocity.y);
+            canJump = true;
         }
+
+        obj.translateX(velocity.x * delta);
+        obj.translateY(velocity.y * delta);
+        obj.translateZ(velocity.z * delta);
+
+        restrainPosition(obj);
+
+        if (!obj.position.equals(lastPosition)) {
+            playerSync.playerMoved(obj.position);
+        }
+
+        lastPosition.copy(obj.position);
     };
 
     var getPosition = function() {
