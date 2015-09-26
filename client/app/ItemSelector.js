@@ -6,7 +6,7 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'Scrip
 
     // TODO take this from a serious place (e.g. excluded objects could have a flag in scene.json?)
     var excludedObjects = ['Floor', 'Skybox'];
-    var mouse = {};
+    var raycaster = new THREE.Raycaster();
 
     var init = function() {
         window.addEventListener('mousedown', onMouseDown, false);
@@ -25,12 +25,12 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'Scrip
             return;
         }
 
-        // FIXME This magic vector was taken from https://github.com/neuman/vreticle
-        // It probably represents the position of the reticle.
-        var vector = new THREE.Vector3(-0.0012499999999999734, -0.0053859964093356805, 0.5);
-        vector.unproject(camera);
-        var raycaster = new THREE.Raycaster(controls.getPosition(), vector.sub(controls.getPosition()).normalize());
+        raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
         var intersects = raycaster.intersectObjects(scene.getScene().children);
+
+        intersects = intersects.filter(function(item) {
+            return excludedObjects.indexOf(item.object.name) == -1;
+        });
 
         isIntersecting = false;
 
@@ -38,22 +38,16 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'Scrip
         if (intersects.length) {
             var obj = intersects[0].object;
 
-            var isNotExcluded = !excludedObjects.some(function(exc) {
-                return exc == obj.name;
-            });
-
-            if (isNotExcluded) {
-                if (lastIntersected != null && lastIntersected != obj) {
-                    onStopIntersect(lastIntersected);
-                }
-
-                if (obj != lastIntersected) {
-                    onIntersect(obj);
-                }
-
-                lastIntersected = obj;
-                isIntersecting = true;
+            if (lastIntersected != null && lastIntersected != obj) {
+                onStopIntersect(lastIntersected);
             }
+
+            if (obj != lastIntersected) {
+                onIntersect(obj);
+            }
+
+            lastIntersected = obj;
+            isIntersecting = true;
         }
 
         if (!isIntersecting) {
