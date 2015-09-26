@@ -47,7 +47,24 @@ app.get('/world', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
-var port = 1337;
+var env = process.env.NODE_ENV;
+var port;
+
+switch (env) {
+    case 'production':
+        port = 1337;
+        break;
+    case 'dev':
+        port = 1338;
+        break;
+    case 'test':
+        port = 1339;
+        break;
+    default:
+        throw 'Environment not recognized.';
+        break;
+}
+
 http.listen(port, function() {
     console.log('Listeining at port ' + port + '!');
 });
