@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(THREE, scene, playerSync, world, camera, keyVR) {
+define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock'], function(THREE, scene, playerSync, world, camera, keyVR, pointerLock) {
     var raycaster;
 
     var move = {
@@ -21,6 +21,10 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(TH
     var controls = new THREE.PointerLockControls(camera);
 
     var init = function() {
+        pointerLock.onChange(function(locked) {
+            controls.enabled = locked;
+        });
+
         // If we stick to simple raycasting, collidable objects should contain all objects we want to intersect with using the raycaster
         // for now we just care about the floor -- FIXME hardcoded
         floor = scene.getScene().getObjectByName('Floor');
@@ -31,65 +35,46 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(TH
         controls.getObject().position.y = 15;
         scene.getScene().add(controls.getObject());
 
-        var onKeyDown = function(event) {
+        var onKeyEvent = function(event) {
+            var keyDown = event.type == 'keydown';
+
             switch (event.keyCode) {
                 case 38: // up
                 case 87: // w
-                    move.forward = true;
+                    move.forward = keyDown;
                     break;
                 case 37: // left
                 case 65: // a
-                    move.left = true;
+                    move.left = keyDown;
                     break;
                 case 40: // down
                 case 83: // s
-                    move.backward = true;
+                    move.backward = keyDown;
                     break;
                 case 39: // right
                 case 68: // d
-                    move.right = true;
+                    move.right = keyDown;
                     break;
                 case 32: // space
-                    if (canJump === true) velocity.y += 350;
+                    if (keyDown && canJump && pointerLock.enabled()) {
+                        velocity.y += 350;
 
-                    // Comment out this line and people can fly :D
-                    canJump = false;
+                        // Comment out this line and people can fly :D
+                        canJump = false;
+                    }
+
                     break;
                 case 16:
-                    running = true;
+                    running = keyDown;
                     break;
             }
         };
 
-        var onKeyUp = function(event) {
-            switch (event.keyCode) {
-                case 38: // up
-                case 87: // w
-                    move.forward = false;
-                    break;
-                case 37: // left
-                case 65: // a
-                    move.left = false;
-                    break;
-                case 40: // down
-                case 83: // s
-                    move.backward = false;
-                    break;
-                case 39: // right
-                case 68: // d
-                    move.right = false;
-                    break;
-                case 16:
-                    running = false;
-                    break;
-            }
-        };
+        document.addEventListener('keydown', onKeyEvent, false);
+        document.addEventListener('keyup', onKeyEvent, false);
 
-        document.addEventListener('keydown', onKeyDown, false);
-        document.addEventListener('keyup', onKeyUp, false);
-
-        keyVR.onKeyDown(onKeyDown);
-        keyVR.onKeyUp(onKeyUp);
+        keyVR.onKeyDown(onKeyEvent);
+        keyVR.onKeyUp(onKeyEvent);
         keyVR.onMouseMove(controls.move);
 
         raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, -1, 0), 0, 10);
@@ -134,10 +119,13 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR'], function(TH
 
         var speed = running ? 16000 : 4000;
 
-        if (move.forward) velocity.z -= speed * delta;
-        if (move.backward) velocity.z += speed * delta;
-        if (move.left) velocity.x -= speed * delta;
-        if (move.right) velocity.x += speed * delta;
+        if (pointerLock.enabled()) {
+            if (move.forward) velocity.z -= speed * delta;
+            if (move.backward) velocity.z += speed * delta;
+            if (move.left) velocity.x -= speed * delta;
+            if (move.right) velocity.x += speed * delta;
+        }
+
         if (isOnObject) {
             velocity.y = Math.max(0, velocity.y);
             canJump = true;
