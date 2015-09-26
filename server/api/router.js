@@ -25,6 +25,6 @@ router.get('/scene/:uuid', function(req, res, next) {
     sceneDb.get(req.params.uuid).then(sendJson(res), next);
 });
 
-router.use('/scene/:uuid', auth);
+router.use(auth);
 
 module.exports = router;
