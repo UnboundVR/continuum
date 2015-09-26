@@ -13,12 +13,6 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 
-var jwt = require('express-jwt');
-var jwtCheck = jwt({
-    secret: require('./server/metavrse.cer'),
-    audience: process.env.AUTH0_AUDIENCE
-});
-
 var io = require('socket.io')(http);
 
 var playerSync = require('./server/socket/player-sync');
@@ -32,7 +26,6 @@ var db = require('./server/db/db');
 db.init(process.env.COUCHBASE_HOST, process.env.BUCKET_NAME, process.env.BUCKET_PASSWORD);
 
 var apiRouter = require('./server/api/router');
-app.use('/api', jwtCheck);
 app.use('/api', apiRouter);
 
 app.use('/client', express.static('client'));
