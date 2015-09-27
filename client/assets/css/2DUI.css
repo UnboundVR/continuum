@@ -11,27 +11,33 @@
     font-family: 'Lato', sans-serif;
 }
 
-#profilePicture {
+#profileContainer .profilePicture {
     width: 48px;
     height: 48px;
     float: left;
 }
 
-#role {
+#profileContainer .role {
     width: 16px;
     height: 16px;
     margin: -16px -16px 0 0;
 }
-#role.user {background-image: url('../img/user.png');}
-#role.admin {background-image: url('../img/admin.png');}
 
-#userInfo {
+#profileContainer .userName {
+    display: block;
+    color: white;
+}
+#profileContainer .role.user {background-image: url('../img/user.png');}
+#profileContainer .role.admin {background-image: url('../img/admin.png');}
+
+#profileContainer .userInfo {
     float: right;
     font-size: 12px;
     opacity: 0.8;
     color: white;
 }
 
-#userInfo span {
+#profileContainer .userInfo span {
     display: block;
+    color: white;
 }

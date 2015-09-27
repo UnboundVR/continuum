@@ -1,6 +1,6 @@
 'use strict';
 
-define(['World', 'PointerLock', 'Auth', 'Constants', 'text!assets/html/2DUI.html', 'text!assets/css/2DUI.css', 'i18n!nls/2DUI'], function(world, pointerLock, auth, constants, html, css, i18n) {
+define(['World', 'PointerLock', 'Auth', 'Constants', 'utils/BuildHTMLNode', 'text!assets/html/2DUI.html', 'text!assets/css/2DUI.css', 'i18n!nls/2DUI'], function(world, pointerLock, auth, constants, buildHTMLNode, html, css, i18n) {
 
     var profile = auth.getProfile();
     var container;
@@ -20,34 +20,30 @@ define(['World', 'PointerLock', 'Auth', 'Constants', 'text!assets/html/2DUI.html
 
     var initUI = function() {
         container = document.getElementById(constants.ui.UI_CONTAINER);
-        var element = document.createElement(constants.html.DIV);
-        element.innerHTML = html;
+        var element = buildHTMLNode(html, css);
         container.appendChild(element);
-        var style = document.createElement(constants.html.STYLE);
-        style.innerHTML = css;
-        document.body.appendChild(style);
     };
 
     var hookUI = function() {
-        var profileImage = document.getElementById(constants.ui.PROFILE_PICTURE);
+        var profileImage = container.getElementsByClassName(constants.ui.PROFILE_PICTURE)[0];
         profileImage.src = profile.picture;
 
-        var name = document.getElementById(constants.ui.USER_NAME);
+        var name = container.getElementsByClassName(constants.ui.USER_NAME)[0];
         name.innerHTML = profile.name;
 
-        var mail = document.getElementById(constants.ui.MAIL);
+        var mail = container.getElementsByClassName(constants.ui.MAIL)[0];
         mail.innerHTML = profile.email;
 
-        var role = document.getElementById(constants.ui.ROLE);
+        var role = container.getElementsByClassName(constants.ui.ROLE)[0];
         role.innerHTML = i18n.yourRoleIs + ' ' + i18n.roles[profile.role || constants.auth.roles.USER] + '.';
 
         // TODO remove once design is decent :P
-        var designButton = document.getElementById('designButton');
+        var designButton = container.getElementsByClassName('designButton')[0];
         designButton.onclick = function() {
             alert('You are lying, ' + auth.getVocative() + '.');
         };
 
-        var logoutButton = document.getElementById(constants.ui.LOGOUT_BUTTON);
+        var logoutButton = container.getElementsByClassName(constants.ui.LOGOUT_BUTTON)[0];
         logoutButton.innerHTML = i18n.logout;
         logoutButton.onclick = auth.logout;
     };
