@@ -11,7 +11,11 @@ define(['Auth', 'Three', 'Constants'], function(auth, THREE, constants) {
     var getJSON = function(url) {
         var promise = new Promise(function(resolve, reject) {
             remoteLoader.load(url, function(text) {
-                resolve(JSON.parse(text));
+                try {
+                    resolve(JSON.parse(text));
+                } catch (err) {
+                    reject(err);
+                }
             }, undefined, function(err) {
 
                 reject(err);

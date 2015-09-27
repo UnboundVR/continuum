@@ -33,5 +33,7 @@ define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/Objec
 
         api.getScene(sceneId).then(function(json) {
             load(json);
+        }, function(err) {
+            console.log(err);
         });
     });
