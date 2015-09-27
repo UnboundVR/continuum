@@ -1,26 +1,37 @@
-#profileStuff {
-    background-color: black;
+@import url('http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic|Montserrat:700|Merriweather:400italic');
+
+#profileContainer {
+    background-color: rgba(0,0,0,0.2);
     text-align: center;
-    float: right;
+    margin: 0 auto;
     pointer-events: all;
+    width: 200px;
+    padding: 8px;
+    margin-top: 8px;
+    font-family: 'Lato', sans-serif;
 }
 
 #profilePicture {
-    width: 128px;
-    height: 128px;
-}
-
-#userName {
-    display: block;
-    color: white;
-}
-
-#mail {
-    display: block;
-    color: white;
+    width: 48px;
+    height: 48px;
+    float: left;
 }
 
 #role {
-    display: block;
+    width: 16px;
+    height: 16px;
+    margin: -16px -16px 0 0;
+}
+#role.user {background-image: url('../img/user.png');}
+#role.admin {background-image: url('../img/admin.png');}
+
+#userInfo {
+    float: right;
+    font-size: 12px;
+    opacity: 0.8;
     color: white;
+}
+
+#userInfo span {
+    display: block;
 }
