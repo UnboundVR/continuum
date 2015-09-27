@@ -1,6 +1,6 @@
 'use strict';
 
-define(['GUIManager', 'utils/DictFromArray', 'shared/TraverseTree', 'Constants'], function(gui, dictFromArray, traverse, constants) {
+define(['GUIManager', 'utils/DictFromArray', 'shared/TraverseTree', 'utils/BuildHTMLNode', 'Constants'], function(gui, dictFromArray, traverse, buildHTMLNode, constants) {
 
     var parse = function(json) {
         var css3DScene = new THREE.Scene();
@@ -9,7 +9,9 @@ define(['GUIManager', 'utils/DictFromArray', 'shared/TraverseTree', 'Constants']
 
         traverse(json.scene.object, function(obj) {
             if (obj.gui) {
-                gui.embedGUI(guiDict[obj.gui], obj.uuid, css3DScene);
+                var guiObj = guiDict[obj.gui];
+                var htmlNode = buildHTMLNode(guiObj.html, guiObj.css);
+                gui.embedGUI(htmlNode, obj.uuid, css3DScene);
             }
         });
 

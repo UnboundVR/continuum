@@ -2,7 +2,7 @@
 
 // Based on http://learningthreejs.com/blog/2013/04/30/closing-the-gap-between-html-and-webgl/
 // TODO stop receiving css 3d scene as a param, take it from scene obj
-define(['Three', 'Scene', 'Constants', 'utils/BuildHTMLNode'], function(THREE, scene, constants, buildHTMLNode) {
+define(['Three', 'Scene', 'Constants'], function(THREE, scene, constants) {
 
     var dict = {};
 
@@ -25,8 +25,7 @@ define(['Three', 'Scene', 'Constants', 'utils/BuildHTMLNode'], function(THREE, s
         dict[planeUUID] = cssObj.uuid;
     };
 
-    var embedGUI = function(guiElement, planeUUID, css3DScene) {
-        var htmlNode = buildHTMLNode(guiElement.html, guiElement.css);
+    var embedGUI = function(htmlNode, planeUUID, css3DScene) {
         var plane = scene.getObjectByUUID(planeUUID);
         var cssObj = insertGUI(htmlNode, plane, css3DScene);
 
