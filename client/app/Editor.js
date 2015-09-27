@@ -14,10 +14,10 @@ define(['ScriptsManager', 'Constants', 'GUIManager', 'Scene', 'utils/BuildHTMLNo
 
         var codingHtml = buildHTMLNode(html, css);
 
-        var updateButton = codingHtml.getElementsByClassName(constants.coding.UPDATE)[0];
+        var updateButton = codingHtml.getElementsByClassName(constants.coding.UPDATE_BUTTON)[0];
         updateButton.innerHTML = i18n.update;
 
-        var cancelButton = codingHtml.getElementsByClassName(constants.coding.CANCEL)[0];
+        var cancelButton = codingHtml.getElementsByClassName(constants.coding.CLOSE_BUTTON)[0];
         cancelButton.innerHTML = i18n.cancel;
 
         var codeTextArea = codingHtml.getElementsByClassName(constants.coding.CODE_TEXTAREA)[0];

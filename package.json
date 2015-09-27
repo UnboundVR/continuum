@@ -4,7 +4,6 @@
   "license": "MIT",
   "description": "all your base are belong to us",
   "dependencies": {
-    "auth0-js": "^6.7.1",
     "auth0-lock": "^7.9.4",
     "body-parser": "^1.13.3",
     "codemirror": "^5.6.0",

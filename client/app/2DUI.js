@@ -2,10 +2,12 @@
 
 define(['World', 'PointerLock', 'Auth', 'Constants', 'utils/BuildHTMLNode', 'text!assets/html/2DUI.html', 'text!assets/css/2DUI.css', 'i18n!nls/2DUI'], function(world, pointerLock, auth, constants, buildHTMLNode, html, css, i18n) {
 
-    var profile = auth.getProfile();
+    var profile;
     var container;
 
     var init = function() {
+        profile = auth.getProfile();
+
         initUI();
         hookUI();
 

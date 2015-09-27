@@ -5,12 +5,12 @@
     <head>
 
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
-        
+
         <link rel="icon" type="image/x-icon" href="client/assets/img/favicon.png">
 
         <title>Login to metavrse.io</title>
 
-        <!-- Auth0Lock script | it's in node_modules too, but whatever -->
+        <!-- Auth0Lock script | it's in node_modules too, TODO pick it from there, not cdn -->
         <script src="//cdn.auth0.com/js/lock-7.9.min.js"></script>
 
         <script src="shared/constants.js"></script>
@@ -25,39 +25,16 @@
         <input id="btn-login" class="btn-login" type="submit" value="Login" />
 
         <script>
-            // TODO take from constants or something
             var lock = new Auth0Lock(constants.auth.AUTH0_AUDIENCE, constants.auth.AUTH0_DOMAIN);
-
-            var userProfile = null;
 
             document.getElementById('btn-login').addEventListener('click', function() {
                 lock.show({
+                    callbackURL: window.location.origin + constants.routes.WORLD,
+                    responseType: 'token',
                     authParams: {scope: constants.auth.LOGIN_SCOPE},
                     connections: constants.auth.CONNECTIONS
                 });
             });
-
-            var hash = lock.parseHash(window.location.hash);
-
-            if (hash && hash[constants.auth.ID_TOKEN]) {
-                localStorage.setItem(constants.auth.ID_TOKEN, hash[constants.auth.ID_TOKEN]);
-            }
-
-            if (hash && hash.error) {
-                alert('There was an error: ' + hash.error + '\n' + hash.error_description);
-            }
-
-            var id_token = localStorage.getItem(constants.auth.ID_TOKEN);
-            if (id_token) {
-                lock.getProfile(id_token, function (err, profile) {
-                    if (err) {
-                        return alert('There was an error geting the profile: ' + err.message);
-                    }
-
-                    localStorage.setItem(constants.auth.AUTH0_PROFILE, JSON.stringify(profile));
-                    window.location.href = constants.routes.WORLD;
-              });
-            }
         </script>
 
     </body>

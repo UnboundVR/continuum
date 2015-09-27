@@ -2,28 +2,62 @@
 
 define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n) {
 
+    var idToken;
+    var userProfile;
+
     var returnToLoginScreen = function() {
         window.location.href = constants.routes.LOGIN_SCREEN;
     };
 
-    var getToken = function() {
-        var idToken = localStorage.getItem(constants.auth.ID_TOKEN);
+    var processIdToken = function() {
+        var auth0 = new Auth0({
+            domain: constants.auth.AUTH0_DOMAIN,
+            clientID: constants.auth.AUTH0_AUDIENCE,
+            callbackURL: window.location.origin + constants.routes.WORLD
+        });
 
-        if (idToken) {
-            return idToken;
-        } else {
-            returnToLoginScreen();
-        }
+        return new Promise(function(resolve, reject) {
+            idToken = localStorage.getItem(constants.auth.ID_TOKEN);
+            var hash = auth0.parseHash(window.location.hash);
+
+            if (!idToken && hash && hash[constants.auth.ID_TOKEN]) {
+                idToken = hash[constants.auth.ID_TOKEN];
+                localStorage.setItem(constants.auth.ID_TOKEN, idToken);
+            }
+
+            if (hash && hash.error) {
+                // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+
+                reject('There was an error: ' + hash.error + '\n' + hash.error_description);
+
+                // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+
+                return;
+            }
+
+            if (!idToken) {
+                returnToLoginScreen();
+            }
+
+            auth0.getProfile(idToken, function(err, profile) {
+                if (err) {
+                    reject('There was an error geting the profile: ' + err.message);
+                    return;
+                }
+
+                userProfile = profile;
+
+                resolve();
+            });
+        });
+    };
+
+    var getToken = function() {
+        return idToken;
     };
 
     var getProfile = function() {
-        var profile = localStorage.getItem(constants.auth.AUTH0_PROFILE);
-
-        if (profile) {
-            return JSON.parse(profile);
-        } else {
-            returnToLoginScreen();
-        }
+        return userProfile;
     };
 
     var logout = function() {
@@ -50,6 +84,7 @@ define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n)
         getToken: getToken,
         getProfile: getProfile,
         logout: logout,
-        getVocative: getVocative
+        getVocative: getVocative,
+        processIdToken: processIdToken
     };
 });

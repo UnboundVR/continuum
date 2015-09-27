@@ -12,7 +12,6 @@ var constants = {
         BEARER: 'bearer',
         TOKEN_PARAM: 'token',
         ID_TOKEN: 'id_token',
-        AUTH0_PROFILE: 'auth0_profile',
         GENDER_MALE: 'male',
         GENDER_FEMALE: 'female',
         AUTH0_AUDIENCE: 'XjqQOct27l6s9mJmkikqC9OPaCOkmM0S',
@@ -31,7 +30,7 @@ var constants = {
     coding: {
         CODE_TEXTAREA: 'leCode',
         UPDATE_BUTTON: 'update',
-        CANCEL_BUTTON: 'cancel'
+        CLOSE_BUTTON: 'close'
     },
     html: {
         DIV: 'div',
