@@ -44,9 +44,8 @@ define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n)
                     reject('There was an error geting the profile: ' + err.message);
                     return;
                 }
-
+                
                 userProfile = profile;
-
                 resolve();
             });
         });

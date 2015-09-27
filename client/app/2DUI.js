@@ -38,16 +38,16 @@ define(['World', 'PointerLock', 'Auth', 'Constants', 'utils/BuildHTMLNode', 'tex
 
         var role = container.getElementsByClassName(constants.ui.ROLE)[0];
         role.className += ' ' + (profile.role || constants.auth.roles.USER);
-        role.alt = i18n.yourRoleIs + ' ' + i18n.roles[profile.role || constants.auth.roles.USER] + '.';
+        role.setAttribute('title', i18n.yourRoleIs + ' ' + i18n.roles[profile.role || constants.auth.roles.USER]);
 
-        // TODO remove once design is decent :P
-        var designButton = container.getElementsByClassName('designButton')[0];
+        var designButton = container.getElementsByClassName(constants.ui.LOVE_BUTTON)[0];
+        designButton.setAttribute('title', i18n.love);
         designButton.onclick = function() {
-            alert('You are lying, ' + auth.getVocative() + '.');
+            //TODO: Log that user likes demo.
         };
 
         var logoutButton = container.getElementsByClassName(constants.ui.LOGOUT_BUTTON)[0];
-        logoutButton.innerHTML = i18n.logout;
+        logoutButton.setAttribute('title', i18n.logout);
         logoutButton.onclick = auth.logout;
     };
 

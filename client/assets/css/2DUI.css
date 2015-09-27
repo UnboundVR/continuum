@@ -37,6 +37,7 @@
     opacity: 0.8;
     color: white;
     margin-left: 16px;
+    margin-top: 8px;
 }
 
 #profileContainer .userInfo span {
@@ -47,5 +48,29 @@
 #actionsContainer {
     position: absolute;
     right: 0;
-    bottom: 0;
+    top: 0;
+    margin: 8px 8px 0 0;
+}
+
+#actionsContainer .button {
+    display: block;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    pointer-events: all;
+    margin: 6px;
+    opacity: 0.8;
+    float: right;
+}
+#actionsContainer .button.love {background-image: url('client/assets/img/love.png');}
+#actionsContainer .button.logout {background-image: url('client/assets/img/logout.png');}
+
+#actionsContainer .button {
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#actionsContainer .button:hover {
+    opacity: 1;
 }

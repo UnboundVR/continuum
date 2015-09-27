@@ -25,7 +25,8 @@ var constants = {
         USER_NAME: 'userName',
         MAIL: 'mail',
         ROLE: 'role',
-        LOGOUT_BUTTON: 'logoutButton'
+        LOGOUT_BUTTON: 'logout button',
+        LOVE_BUTTON: 'love button'
     },
     coding: {
         CODE_TEXTAREA: 'leCode',
