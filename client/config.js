@@ -26,7 +26,9 @@ var require = {
         Tween: '/node_modules/tween.js/src/Tween',
         RTCMultiConnection: '/node_modules/rtcmulticonnection-v3/RTCMultiConnection',
         shared: '../../shared',
-        GlobalSocketIO: '../lib/GlobalSocketIO'
+        GlobalSocketIO: '../lib/GlobalSocketIO',
+        Text: '../lib/requirejs/Text',
+        assets: '../assets'
     },
     deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'ScriptsManager', 'Renderer', 'KeyVR', '2DUI', 'Voice']
 };

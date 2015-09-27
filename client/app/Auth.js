@@ -33,9 +33,23 @@ define(['Three'], function(THREE) {
         returnToLoginScreen();
     };
 
+    var getVocative = function() {
+        var profile = getProfile();
+
+        var vocative = 'human';
+        if (profile.gender == 'male') {
+            vocative = 'gentleman';
+        } else if (profile.gender == 'female') {
+            vocative = 'lady';
+        }
+
+        return vocative;
+    };
+
     return {
         getToken: getToken,
         getProfile: getProfile,
-        logout: logout
+        logout: logout,
+        getVocative: getVocative
     };
 });
