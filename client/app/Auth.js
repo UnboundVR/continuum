@@ -1,13 +1,13 @@
 'use strict';
 
-define(['Three'], function(THREE) {
+define(['Three', 'Constants'], function(THREE, constants) {
 
     var returnToLoginScreen = function() {
-        window.location.href = '/';
+        window.location.href = constants.routes.LOGIN_SCREEN;
     };
 
     var getToken = function() {
-        var idToken = localStorage.getItem('id_token');
+        var idToken = localStorage.getItem(constants.auth.ID_TOKEN);
 
         if (idToken) {
             return idToken;
@@ -17,7 +17,7 @@ define(['Three'], function(THREE) {
     };
 
     var getProfile = function() {
-        var profile = localStorage.getItem('auth0_profile');
+        var profile = localStorage.getItem(constants.auth.AUTH0_PROFILE);
 
         if (profile) {
             return JSON.parse(profile);
@@ -27,8 +27,8 @@ define(['Three'], function(THREE) {
     };
 
     var logout = function() {
-        localStorage.removeItem('id_token');
-        localStorage.removeItem('auth0_profile');
+        localStorage.removeItem(constants.auth.ID_TOKEN);
+        localStorage.removeItem(constants.auth.AUTH0_PROFILE);
 
         returnToLoginScreen();
     };
@@ -37,9 +37,9 @@ define(['Three'], function(THREE) {
         var profile = getProfile();
 
         var vocative = 'human';
-        if (profile.gender == 'male') {
+        if (profile.gender == constants.auth.GENDER_MALE) {
             vocative = 'gentleman';
-        } else if (profile.gender == 'female') {
+        } else if (profile.gender == constants.auth.GENDER_FEMALE) {
             vocative = 'lady';
         }
 

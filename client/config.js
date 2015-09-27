@@ -16,7 +16,7 @@ var require = {
     paths: {
         Three: '../lib/Three',
         ThreeCore: '../lib/three/three',
-        OrbitControls: '../lib/controls/OrbitControls', // TODO change back to npm when the registry updates to r72
+        OrbitControls: '../lib/controls/OrbitControls',
         PointerLockControls: '../lib/controls/PointerLockControls',
         StereoEffect: '../lib/effects/StereoEffect',
         CSS3DRenderer: '../lib/renderers/CSS3DRenderer',
@@ -28,7 +28,8 @@ var require = {
         shared: '../../shared',
         GlobalSocketIO: '../lib/GlobalSocketIO',
         Text: '../lib/requirejs/Text',
+        Constants: '../../shared/constants',
         assets: '../assets'
     },
-    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'ScriptsManager', 'Renderer', 'KeyVR', '2DUI', 'Voice']
+    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'ScriptsManager', 'Renderer', 'KeyVR', '2DUI', 'RTC']
 };

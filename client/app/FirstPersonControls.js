@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock'], function(THREE, scene, playerSync, world, camera, keyVR, pointerLock) {
+define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock', 'Constants'], function(THREE, scene, playerSync, world, camera, keyVR, pointerLock, constants) {
     var raycaster;
 
     var move = {
@@ -28,50 +28,50 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock
         // If we stick to simple raycasting, collidable objects should contain all objects we want to intersect with using the raycaster
         // for now we just care about the floor -- FIXME hardcoded
         floor = scene.getScene().getObjectByName('Floor');
-        if (floor !== undefined) {
+        if (floor) {
             collidableObjects.push(floor);
         }
 
-        controls.getObject().position.y = 15;
+        controls.getObject().position.y = constants.firstPerson.INITIAL_Y;
         scene.getScene().add(controls.getObject());
 
         var onKeyEvent = function(event) {
-            var keyDown = event.type == 'keydown';
+            var keyDown = event.type == constants.events.KEY_DOWN;
 
             switch (event.keyCode) {
-                case 38: // up
-                case 87: // w
+                case constants.keyboard.UP:
+                case constants.keyboard.W:
                     move.forward = keyDown;
                     break;
-                case 37: // left
-                case 65: // a
+                case constants.keyboard.LEFT:
+                case constants.keyboard.A:
                     move.left = keyDown;
                     break;
-                case 40: // down
-                case 83: // s
+                case constants.keyboard.DOWN:
+                case constants.keyboard.S:
                     move.backward = keyDown;
                     break;
-                case 39: // right
-                case 68: // d
+                case constants.keyboard.RIGHT:
+                case constants.keyboard.D:
                     move.right = keyDown;
                     break;
-                case 32: // space
-                    if (keyDown && canJump && pointerLock.enabled()) {
-                        velocity.y += 350;
+                case constants.keyboard.SPACE:
+                    if (keyDown && canJump && (pointerLock.enabled() || keyVR.enabled())) {
+                        velocity.y += constants.firstPerson.JUMP_SPEED;
 
                         // Comment out this line and people can fly :D
                         canJump = false;
                     }
 
                     break;
-                case 16:
+                case constants.keyboard.SHIFT:
                     running = keyDown;
                     break;
             }
         };
 
-        document.addEventListener('keydown', onKeyEvent, false);
-        document.addEventListener('keyup', onKeyEvent, false);
+        document.addEventListener(constants.events.KEY_DOWN, onKeyEvent, false);
+        document.addEventListener(constants.events.KEY_UP, onKeyEvent, false);
 
         keyVR.onKeyDown(onKeyEvent);
         keyVR.onKeyUp(onKeyEvent);
@@ -84,12 +84,13 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock
 
     var animate = function(time) {
         var restrainPosition = function(obj) {
-            if (obj.position.y < 0) {
+            if (obj.position.y < constants.firstPerson.LOWEST_Y) {
                 velocity.y = 0;
-                obj.position.y = 0;
+                obj.position.y = constants.firstPerson.LOWEST_Y;
                 canJump = true;
             }
 
+            // FIXME this is hardcoded, should be replaced by a real physics boundary
             if (obj.position.x > 490) {
                 obj.position.x = 490;
             }
@@ -113,13 +114,13 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock
         var intersections = raycaster.intersectObjects(collidableObjects);
         var isOnObject = intersections.length > 0;
         var delta = time.delta / 1000;
-        velocity.x -= velocity.x * 10.0 * delta;
-        velocity.z -= velocity.z * 10.0 * delta;
-        velocity.y -= 9.8 * 75.0 * delta; // 75.0 = mass
+        velocity.x -= velocity.x * constants.firstPerson.DECELERATION * delta;
+        velocity.z -= velocity.z * constants.firstPerson.DECELERATION * delta;
+        velocity.y -= constants.firstPerson.GRAVITY * constants.firstPerson.PLAYER_MASS * delta;
 
-        var speed = running ? 16000 : 4000;
+        var speed = running ? constants.firstPerson.RUNNING_SPEED : constants.firstPerson.WALKING_SPEED;
 
-        if (pointerLock.enabled()) {
+        if (pointerLock.enabled() || keyVR.enabled()) {
             if (move.forward) velocity.z -= speed * delta;
             if (move.backward) velocity.z += speed * delta;
             if (move.left) velocity.x -= speed * delta;

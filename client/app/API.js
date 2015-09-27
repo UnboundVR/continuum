@@ -1,10 +1,12 @@
-define(['utils/Requests'], function(req) {
-    var baseDir = 'api/';
+'use strict';
+
+define(['utils/Requests', 'Constants'], function(req, constants) {
+    var baseUrl = constants.routes.api.BASE.substring(1);
 
     var getScene = function(sceneId) {
-        var url = baseDir + 'scene';
+        var url = baseUrl + constants.routes.api.SCENE;
         if (sceneId) {
-            url += '/' + sceneId;
+            url += SLASH + sceneId;
         }
 
         return req.getJSON(url);

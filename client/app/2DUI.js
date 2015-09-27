@@ -1,6 +1,9 @@
-define(['World', 'PointerLock', 'Auth', 'Text!assets/html/2DUI.html', 'Text!assets/css/2DUI.css'], function(world, pointerLock, auth, html, css) {
+'use strict';
+
+define(['World', 'PointerLock', 'Auth', 'Constants', 'Text!assets/html/2DUI.html', 'Text!assets/css/2DUI.css'], function(world, pointerLock, auth, constants, html, css) {
 
     var profile = auth.getProfile();
+    var container;
 
     var init = function() {
         initUI();
@@ -16,31 +19,32 @@ define(['World', 'PointerLock', 'Auth', 'Text!assets/html/2DUI.html', 'Text!asse
     };
 
     var initUI = function() {
-        container = document.getElementById('ui-container');
-        var element = document.createElement('div');
+        container = document.getElementById(constants.ui.UI_CONTAINER);
+        var element = document.createElement(constants.html.DIV);
         element.innerHTML = html;
         container.appendChild(element);
-        var style = document.createElement('style');
+        var style = document.createElement(constants.html.STYLE);
         style.innerHTML = css;
         document.body.appendChild(style);
     };
 
     var hookUI = function() {
-        var profileImage = document.getElementById('profilePicture');
+        var profileImage = document.getElementById(constants.ui.PROFILE_PICTURE);
         profileImage.src = profile.picture;
 
-        var name = document.getElementById('userName');
+        var name = document.getElementById(constants.ui.USER_NAME);
         name.innerHTML = profile.name;
 
-        var mail = document.getElementById('mail');
+        var mail = document.getElementById(constants.ui.MAIL);
         mail.innerHTML = profile.email;
 
+        // TODO remove once design is decent :P
         var designButton = document.getElementById('designButton');
         designButton.onclick = function() {
             alert('You are lying, ' + auth.getVocative() + '.');
         };
 
-        var logoutButton = document.getElementById('logoutButton');
+        var logoutButton = document.getElementById(constants.ui.LOGOUT_BUTTON);
         logoutButton.onclick = auth.logout;
     };
 
@@ -49,7 +53,7 @@ define(['World', 'PointerLock', 'Auth', 'Text!assets/html/2DUI.html', 'Text!asse
     };
 
     var disableUI = function() {
-        container.style.display = 'none';
+        container.style.display = constants.html.DISPLAY_NONE;
     };
 
     var addElement = function(element) {

@@ -1,10 +1,10 @@
 'use strict';
 
-define(['ScriptsManager', 'utils/DictFromArray', 'shared/TraverseTree'], function(scriptsManager, dictFromArray, traverse) {
+define(['ScriptsManager', 'utils/DictFromArray', 'shared/TraverseTree', 'Constants'], function(scriptsManager, dictFromArray, traverse, constants) {
     var load = function(json, app) {
         scriptsManager.setApp(app);
 
-        var scriptDict = dictFromArray(json.scripts, 'uuid');
+        var scriptDict = dictFromArray(json.scripts, constants.properties.UUID);
 
         traverse(json.scene.object, function(obj) {
             if (obj.scripts && obj.scripts.length) {

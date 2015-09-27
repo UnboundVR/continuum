@@ -3,6 +3,7 @@
 var db = require('./db');
 var objectDb = require('./object');
 var promise = require('promise');
+var constants = require('../../shared/constants');
 
 var get = function(uuid) {
     var getObjDependencies = function(obj) {
@@ -58,7 +59,7 @@ var get = function(uuid) {
 
     var response = {};
 
-    return db.getByAlias('scene', 'uuid', uuid).then(function(scene) {
+    return db.getByAlias(constants.db.SCENE, constants.properties.UUID, uuid).then(function(scene) {
         return objectDb.get(scene.object).then(function(obj) {
             response.scene = scene;
             scene.object = obj;
@@ -68,16 +69,16 @@ var get = function(uuid) {
 
             var resolveDeps = function(type) {
                 if (objDeps[type].length) {
-                    promises.push(db.getMultiByAlias(type, 'uuid', objDeps[type]));
+                    promises.push(db.getMultiByAlias(type, constants.properties.UUID, objDeps[type]));
                 } else {
                     promises.push([]);
                 }
             };
 
-            resolveDeps('geometry');
-            resolveDeps('material');
-            resolveDeps('gui');
-            resolveDeps('script');
+            resolveDeps(constants.objects.GEOMETRY);
+            resolveDeps(constants.objects.MATERIAL);
+            resolveDeps(constants.objects.GUI);
+            resolveDeps(constants.objects.SCRIPT);
 
             return promise.all(promises).then(function(results) {
                 scene.geometries = results[0];
@@ -87,9 +88,9 @@ var get = function(uuid) {
 
                 var matDeps = getMaterialDependencies(scene.materials);
                 if (matDeps.length) {
-                    return db.getMultiByAlias('texture', 'uuid', matDeps).then(function(textures) {
+                    return db.getMultiByAlias(constants.objects.TEXTURE, constants.properties.UUID, matDeps).then(function(textures) {
                         scene.textures = textures;
-                        return db.getMultiByAlias('image', 'uuid', getTextureDependencies(textures)).then(function(images) {
+                        return db.getMultiByAlias(constants.objects.IMAGE, constants.properties.UUID, getTextureDependencies(textures)).then(function(images) {
                             scene.images = images;
                             return response;
                         });
@@ -103,7 +104,7 @@ var get = function(uuid) {
 };
 
 var create = function(scene) {
-    return db.createByAlias('scene', 'uuid', scene);
+    return db.createByAlias(constants.db.SCENE, constants.properties.UUID, scene);
 };
 
 module.exports = {

@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'ScriptsManager', 'Editor', 'World', 'KeyVR'], function(THREE, scene, controls, camera, pointerLock, scripts, editor, world, keyVR) {
+define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'ScriptsManager', 'Editor', 'World', 'KeyVR', 'Constants'], function(THREE, scene, controls, camera, pointerLock, scripts, editor, world, keyVR, constants) {
     var isIntersecting = false;
     var lastIntersected;
 
@@ -9,7 +9,7 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'Scrip
     var raycaster = new THREE.Raycaster();
 
     var init = function() {
-        window.addEventListener('mousedown', onMouseDown, false);
+        window.addEventListener(constants.events.MOUSE_DOWN, onMouseDown, false);
         keyVR.onMouseDown(onMouseDown);
 
         world.onLoop(animate);
@@ -62,10 +62,10 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'Scrip
     var onMouseDown = function(event) {
         if (isIntersecting) {
             switch (event.button) {
-                case 0:
+                case constants.mouse.LEFT_BUTTON:
                     onSelect(lastIntersected);
                     break;
-                case 2:
+                case constants.mouse.RIGHT_BUTTON:
                     editor.rightClick(lastIntersected);
                     break;
             }

@@ -1,7 +1,8 @@
 // Based on https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html and http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 'use strict';
 
-define(['World', 'utils/CallbackList'], function(world, CallbackList) {
+// TODO separate toggle logic from pointer lock, put pointer lock in utils and use constants
+define(['World', 'utils/CallbackList', 'Constants'], function(world, CallbackList, constants) {
     var enabled = false;
     var changeCallbacks = new CallbackList();
 
@@ -65,21 +66,19 @@ define(['World', 'utils/CallbackList'], function(world, CallbackList) {
 
             // FIXME for some reason, using mouse events to toggle pointer lock causes the tab to flash when alt-tabbing if you leave pointer lock by pressing <esc>.
             var onMouseDown = function(event) {
-                // Mid mouse button
-                if (event.button === 1) {
+                if (event.button === constants.mouse.MID_BUTTON) {
                     togglePointerLock();
                 }
             };
 
             var onKeyDown = function(event) {
-                // F4 key
-                if (event.keyCode == '115') {
+                if (event.keyCode == constants.keyboard.F4) {
                     togglePointerLock();
                 }
             };
 
-            window.addEventListener('mousedown', onMouseDown, false);
-            window.addEventListener('keydown', onKeyDown, false);
+            window.addEventListener(constants.events.MOUSE_DOWN, onMouseDown, false);
+            window.addEventListener(constants.events.KEY_DOWN, onKeyDown, false);
         } else {
             // TODO do something meaningful, like allow the user to use the app without locking cursor (i.e. enable controls anyway)
             console.warn('Your browser doesn\'t seem to support Pointer Lock API');
