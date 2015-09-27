@@ -6,6 +6,7 @@
     margin: 0 auto;
     pointer-events: all;
     width: 200px;
+    height: 50px;
     padding: 8px;
     margin-top: 8px;
     font-family: 'Lato', sans-serif;
@@ -20,24 +21,31 @@
 #profileContainer .role {
     width: 16px;
     height: 16px;
-    margin: -16px -16px 0 0;
-}
-
-#profileContainer .userName {
+    left: 0;
+    top: 0;
     display: block;
-    color: white;
+    margin: 32px 0 0 -16px;
+    float: left;
+    opacity: 0.8;
 }
-#profileContainer .role.user {background-image: url('../img/user.png');}
-#profileContainer .role.admin {background-image: url('../img/admin.png');}
+#profileContainer .role.user {background-image: url('client/assets/img/user.png');}
+#profileContainer .role.admin {background-image: url('client/assets/img/admin.png');}
 
 #profileContainer .userInfo {
-    float: right;
+    float: left;
     font-size: 12px;
     opacity: 0.8;
     color: white;
+    margin-left: 16px;
 }
 
 #profileContainer .userInfo span {
     display: block;
     color: white;
+}
+
+#actionsContainer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }

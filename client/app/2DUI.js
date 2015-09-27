@@ -35,7 +35,8 @@ define(['World', 'PointerLock', 'Auth', 'Constants', 'utils/BuildHTMLNode', 'tex
         mail.innerHTML = profile.email;
 
         var role = container.getElementsByClassName(constants.ui.ROLE)[0];
-        role.innerHTML = i18n.yourRoleIs + ' ' + i18n.roles[profile.role || constants.auth.roles.USER] + '.';
+        role.className += ' ' + (profile.role || constants.auth.roles.USER);
+        role.alt = i18n.yourRoleIs + ' ' + i18n.roles[profile.role || constants.auth.roles.USER] + '.';
 
         // TODO remove once design is decent :P
         var designButton = container.getElementsByClassName('designButton')[0];
