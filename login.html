@@ -30,6 +30,7 @@
             document.getElementById('btn-login').addEventListener('click', function() {
                 lock.show({
                     callbackURL: window.location.origin + constants.routes.WORLD,
+                    responseType: 'token',
                     authParams: {scope: constants.auth.LOGIN_SCOPE},
                     connections: constants.auth.CONNECTIONS
                 });
