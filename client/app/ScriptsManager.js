@@ -135,7 +135,10 @@ define(['Scene', 'World', 'PointerLock', 'Constants'], function(scene, world, po
     };
 
     var getScript = function(objUUID, scriptName) {
-        return scripts[objUUID][scriptName];
+        var objScripts = getScripts(objUUID);
+        if (objScripts) {
+            return objScripts[scriptName];
+        }
     };
 
     var getScripts = function(objUUID) {

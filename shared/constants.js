@@ -28,6 +28,11 @@ var constants = {
         ROLE: 'role',
         LOGOUT_BUTTON: 'logoutButton'
     },
+    coding: {
+        CODE_TEXTAREA: 'leCode',
+        UPDATE_BUTTON: 'update',
+        CANCEL_BUTTON: 'cancel'
+    },
     html: {
         DIV: 'div',
         STYLE: 'style',
