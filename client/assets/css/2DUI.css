@@ -1,26 +1,26 @@
-#profileStuff {
+.profileStuff {
     background-color: black;
     text-align: center;
     float: right;
     pointer-events: all;
 }
 
-#profilePicture {
+.profilePicture {
     width: 128px;
     height: 128px;
 }
 
-#userName {
+.userName {
     display: block;
     color: white;
 }
 
-#mail {
+.mail {
     display: block;
     color: white;
 }
 
-#role {
+.role {
     display: block;
     color: white;
 }

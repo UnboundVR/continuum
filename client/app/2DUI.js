@@ -29,25 +29,25 @@ define(['World', 'PointerLock', 'Auth', 'Constants', 'text!assets/html/2DUI.html
     };
 
     var hookUI = function() {
-        var profileImage = document.getElementById(constants.ui.PROFILE_PICTURE);
+        var profileImage = container.getElementsByClassName(constants.ui.PROFILE_PICTURE)[0];
         profileImage.src = profile.picture;
 
-        var name = document.getElementById(constants.ui.USER_NAME);
+        var name = container.getElementsByClassName(constants.ui.USER_NAME)[0];
         name.innerHTML = profile.name;
 
-        var mail = document.getElementById(constants.ui.MAIL);
+        var mail = container.getElementsByClassName(constants.ui.MAIL)[0];
         mail.innerHTML = profile.email;
 
-        var role = document.getElementById(constants.ui.ROLE);
+        var role = container.getElementsByClassName(constants.ui.ROLE)[0];
         role.innerHTML = i18n.yourRoleIs + ' ' + i18n.roles[profile.role || constants.auth.roles.USER] + '.';
 
         // TODO remove once design is decent :P
-        var designButton = document.getElementById('designButton');
+        var designButton = container.getElementsByClassName('designButton')[0];
         designButton.onclick = function() {
             alert('You are lying, ' + auth.getVocative() + '.');
         };
 
-        var logoutButton = document.getElementById(constants.ui.LOGOUT_BUTTON);
+        var logoutButton = container.getElementsByClassName(constants.ui.LOGOUT_BUTTON)[0];
         logoutButton.innerHTML = i18n.logout;
         logoutButton.onclick = auth.logout;
     };
