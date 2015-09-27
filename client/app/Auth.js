@@ -1,6 +1,7 @@
 'use strict';
 
-define(['Three', 'Constants', 'i18n!nls/Auth', 'Auth0'], function(THREE, constants, i18n, Auth0) {
+define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n) {
+
     var idToken;
     var userProfile;
 
@@ -15,7 +16,7 @@ define(['Three', 'Constants', 'i18n!nls/Auth', 'Auth0'], function(THREE, constan
             callbackURL: window.location.origin + constants.routes.WORLD
         });
 
-        return new Promise(function(resolve, reject){
+        return new Promise(function(resolve, reject) {
             idToken = localStorage.getItem(constants.auth.ID_TOKEN);
             var hash = auth0.parseHash(window.location.hash);
 
@@ -29,11 +30,11 @@ define(['Three', 'Constants', 'i18n!nls/Auth', 'Auth0'], function(THREE, constan
                 return;
             }
 
-            if(!idToken){
+            if (!idToken){
                 returnToLoginScreen();
             }
 
-            auth0.getProfile(idToken, function (err, profile) {
+            auth0.getProfile(idToken, function(err, profile) {
                 if (err) {
                     reject('There was an error geting the profile: ' + err.message);
                     return;
