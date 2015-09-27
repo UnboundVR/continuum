@@ -1,0 +1,21 @@
+#profileStuff {
+    background-color: black;
+    text-align: center;
+    float: right;
+    pointer-events: all;
+}
+
+#profilePicture {
+    width: 128px;
+    height: 128px;
+}
+
+#userName {
+    display: block;
+    color: white;
+}
+
+#mail {
+    display: block;
+    color: white;
+}

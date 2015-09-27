@@ -11,6 +11,8 @@
         <!-- Auth0Lock script | it's in node_modules too, but whatever -->
         <script src="//cdn.auth0.com/js/lock-7.9.min.js"></script>
 
+        <script src="shared/constants.js"></script>
+
         <!-- Setting the right viewport -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
@@ -21,36 +23,37 @@
         <input id="btn-login" class="btn-login" type="submit" value="Login" />
 
         <script>
-            var lock = new Auth0Lock('XjqQOct27l6s9mJmkikqC9OPaCOkmM0S', 'metavrse.auth0.com');
+            // TODO take from constants or something
+            var lock = new Auth0Lock(constants.auth.AUTH0_AUDIENCE, constants.auth.AUTH0_DOMAIN);
 
             var userProfile = null;
 
             document.getElementById('btn-login').addEventListener('click', function() {
                 lock.show({
-                    authParams: {scope: 'openid profile'},
-                    connections: ['google-oauth2']
+                    authParams: {scope: constants.auth.LOGIN_SCOPE},
+                    connections: constants.auth.CONNECTIONS
                 });
             });
 
             var hash = lock.parseHash(window.location.hash);
 
-            if (hash && hash.id_token) {
-                localStorage.setItem('id_token', hash.id_token);
+            if (hash && hash[constants.auth.ID_TOKEN]) {
+                localStorage.setItem(constants.auth.ID_TOKEN, hash[constants.auth.ID_TOKEN]);
             }
 
             if (hash && hash.error) {
                 alert('There was an error: ' + hash.error + '\n' + hash.error_description);
             }
 
-            var id_token = localStorage.getItem('id_token');
+            var id_token = localStorage.getItem(constants.auth.ID_TOKEN);
             if (id_token) {
                 lock.getProfile(id_token, function (err, profile) {
                     if (err) {
                         return alert('There was an error geting the profile: ' + err.message);
                     }
 
-                    localStorage.setItem('auth0_profile', JSON.stringify(profile));
-                    window.location.href = "/world";
+                    localStorage.setItem(constants.auth.AUTH0_PROFILE, JSON.stringify(profile));
+                    window.location.href = constants.routes.WORLD;
               });
             }
         </script>

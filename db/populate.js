@@ -10,7 +10,12 @@ var db = require('../server/db/db');
 var sceneDb = require('../server/db/scene');
 var objectDb = require('../server/db/object');
 
+var constants = require('../shared/constants');
+
+var env = process.env.NODE_ENV || DEV_ENVIRONMENT;
+console.log('Populating DB in ' + env + ' environment');
 require('dotenv').load();
+
 db.init(process.env.COUCHBASE_HOST, process.env.BUCKET_NAME, process.env.BUCKET_PASSWORD);
 
 var createScene = function(json) {
@@ -26,7 +31,7 @@ var load = function(items, type) {
     var promises = [];
 
     items.forEach(function(item) {
-        promises.push(db.createByAlias(type, 'uuid', item));
+        promises.push(db.createByAlias(type, constants.properties.UUID, item));
     });
 
     return promise.all(promises);
@@ -52,12 +57,12 @@ var scene = json.scene;
 createScene(json).then(function(res) {
     return promise.all([
         loadObjects(scene.object),
-        load(scene.textures, 'texture'),
-        load(scene.images, 'image'),
-        load(scene.geometries, 'geometry'),
-        load(scene.materials, 'material'),
-        load(json.scripts, 'script'),
-        load(json.gui, 'gui')
+        load(scene.textures, constants.objects.TEXTURE),
+        load(scene.images, constants.objects.IMAGE),
+        load(scene.geometries, constants.objects.GEOMETRY),
+        load(scene.materials, constants.objects.MATERIAL),
+        load(json.scripts, constants.objects.SCRIPT),
+        load(json.gui, constants.objects.GUI)
     ]);
 }).then(function(res) {
     console.log('Database at ' + process.env.COUCHBASE_HOST + ' populated with boilerplate scene!');

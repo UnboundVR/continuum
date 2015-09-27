@@ -1,16 +1,21 @@
 'use strict';
 
-define(['Three', 'World', 'Scene', 'Camera'], function(THREE, world, scene, camera) {
-    var vrMode = navigator.userAgent.match(/Android/i);
+define(['Three', 'World', 'Scene', 'Camera', 'Constants'], function(THREE, world, scene, camera, constants) {
+    var vrMode = navigator.userAgent.match(constants.mobile.ANDROID_REGEX);
     var webGLRenderer;
     var css3DRenderer;
 
     var init = function() {
-        webGLRenderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+        webGLRenderer = new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: true
+        });
 
-        webGLRenderer.setClearColor(0x00ff00, 0.0);
+        webGLRenderer.setClearColor(constants.renderer.CLEAR_COLOR, 0.0);
         webGLRenderer.setPixelRatio(window.devicePixelRatio);
 
+        // TODO use the css file, instead of inline styles here
+        // webGLRenderer.id = 'webGLRenderer';
         webGLRenderer.domElement.style.position = 'absolute';
         webGLRenderer.domElement.style.zIndex = 1;
         webGLRenderer.domElement.style.top = 0;
@@ -34,7 +39,7 @@ define(['Three', 'World', 'Scene', 'Camera'], function(THREE, world, scene, came
 
         setCamera(camera);
 
-        window.addEventListener('resize', function() {
+        window.addEventListener(constants.events.RESIZE, function() {
             setSize(window.innerWidth, window.innerHeight);
         });
 

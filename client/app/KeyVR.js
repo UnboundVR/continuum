@@ -1,4 +1,6 @@
-define(['SocketIO', 'utils/QueryString', 'World', 'Auth', 'utils/CallbackList'], function(io, queryString, world, auth, CallbackList) {
+'use strict';
+
+define(['SocketIO', 'utils/QueryString', 'World', 'Auth', 'utils/CallbackList', 'Constants'], function(io, queryString, world, auth, CallbackList, constants) {
     var socket;
 
     var keyDownCallbacks = new CallbackList();
@@ -9,44 +11,44 @@ define(['SocketIO', 'utils/QueryString', 'World', 'Auth', 'utils/CallbackList'],
     var enabled = false;
 
     var init = function() {
-        socket = io.connect(window.location.origin + '/keyvr', {
-            query: 'token=' + auth.getToken()
+        socket = io.connect(window.location.origin + constants.socket.keyvr.NAMESPACE, {
+            query: constants.auth.TOKEN_PARAM + '=' + auth.getToken()
         });
 
         if (queryString.keyboardId) {
-            syncWithKeyboard(queryString.keyboardId);
+            syncWithKeyboard(queryString[constants.socket.keyvr.KEYBOARD_ID]);
             enabled = true;
         }
     };
 
     var syncWithKeyboard = function(keyboardId) {
-        socket.on('keydown', function(data) {
+        socket.on(constants.events.KEY_DOWN, function(data) {
             keyDownCallbacks.execute({
                 keyCode: data.key,
-                type: 'keydown'
+                type: constants.events.KEY_DOWN
             });
         });
 
-        socket.on('keyup', function(data) {
+        socket.on(constants.events.KEY_UP, function(data) {
             keyUpCallbacks.execute({
                 keyCode: data.key,
-                type: 'keyup'
+                type: constants.events.KEY_UP
             });
         });
 
-        socket.on('mousemove', function(data) {
+        socket.on(constants.events.MOUSE_MOVE, function(data) {
             mouseMoveCallbacks.execute(data.movement);
         });
 
-        socket.on('mousedown', function(data) {
+        socket.on(constants.events.MOUSE_DOWN, function(data) {
             mouseDownCallbacks.execute({button: data.button});
         });
 
-        socket.on('mouseup', function(data) {
+        socket.on(constants.events.MOUSE_UP, function(data) {
             mouseUpCallbacks.execute({button: data.button});
         });
 
-        socket.emit('qrCodeScanned', {keyboardId: keyboardId});
+        socket.emit(constants.socket.keyvr.QR_CODE_SCANNED, {keyboardId: keyboardId});
     };
 
     world.onInit(init);

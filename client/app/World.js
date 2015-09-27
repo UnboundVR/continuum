@@ -1,3 +1,5 @@
+'use strict';
+
 define(['utils/CallbackList', 'Stats'], function(CallbackList, Stats) {
     var startCallbacks = new CallbackList();
     var stopCallbacks = new CallbackList();

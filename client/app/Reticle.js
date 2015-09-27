@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Camera', 'PointerLock', 'Tween', 'ItemSelector', 'World', 'KeyVR'], function(THREE, camera, pointerLock, tween, itemSelector, world, keyVR) {
+define(['Three', 'Camera', 'PointerLock', 'Tween', 'ItemSelector', 'World', 'KeyVR', 'Constants'], function(THREE, camera, pointerLock, tween, itemSelector, world, keyVR, constants) {
     var currentTween;
     var mesh;
     var currentRadius;
@@ -37,10 +37,10 @@ define(['Three', 'Camera', 'PointerLock', 'Tween', 'ItemSelector', 'World', 'Key
 
         if (!currentTween || currentTween.isIntersecting != isIntersecting) {
             currentTween = new tween.Tween({radius: currentRadius})
-            .to({radius: isIntersecting ? 0.12 : 0.03}, 250)
+            .to({radius: isIntersecting ? constants.reticle.LARGE_RADIUS : constants.reticle.SMALL_RADIUS}, constants.reticle.TWEEN_TIME)
             .easing(TWEEN.Easing.Cubic.InOut)
             .onUpdate(function() {
-                var geometry = new THREE.CircleGeometry(this.radius, 32);
+                var geometry = new THREE.CircleGeometry(this.radius, constants.reticle.SEGMENTS);
                 geometry.vertices.shift();
                 mesh.geometry = geometry;
                 currentRadius = this.radius;
@@ -51,21 +51,19 @@ define(['Three', 'Camera', 'PointerLock', 'Tween', 'ItemSelector', 'World', 'Key
     };
 
     var createReticle = function() {
-        var defaultRadius = 0.05;
-
-        var geometry = new THREE.CircleGeometry(defaultRadius, 32);
+        var geometry = new THREE.CircleGeometry(constants.reticle.SMALL_RADIUS, constants.reticle.SEGMENTS);
         geometry.vertices.shift();
 
         var material = new THREE.LineBasicMaterial({
-            color: 0x333333
+            color: constants.reticle.COLOR
         });
 
         mesh = new THREE.Line(geometry, material);
         mesh.position.x = 0;
         mesh.position.y = 0;
-        mesh.position.z = -10;
+        mesh.position.z = constants.reticle.Z_POSITION;
 
-        currentRadius = defaultRadius;
+        currentRadius = constants.reticle.SMALL_RADIUS;
     };
 
     var hideReticle = function() {

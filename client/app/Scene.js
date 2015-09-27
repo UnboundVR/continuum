@@ -1,6 +1,6 @@
 'use strict';
 
-define([], function() {
+define(['Constants'], function(constants) {
     return {
         setScene: function(value) {
             this.scene = value;
@@ -11,7 +11,7 @@ define([], function() {
         },
 
         getObjectByUUID: function(uuid) {
-            return this.scene.getObjectByProperty('uuid', uuid, true);
+            return this.scene.getObjectByProperty(constants.properties.UUID, uuid, true);
         },
 
         setCSS3DScene: function(value) {

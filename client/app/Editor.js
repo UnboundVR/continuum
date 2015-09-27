@@ -1,6 +1,6 @@
 'use strict';
 
-define(['ScriptsManager'], function(scripts) {
+define(['ScriptsManager', 'Constants'], function(scripts, constants) {
     var used = false;
 
     var rightClick = function(obj) {
@@ -12,9 +12,9 @@ define(['ScriptsManager'], function(scripts) {
         // FIXME this is hardcoded to only work with 'coderCube' script for now...
         var scriptName = 'coderCube';
 
-        document.getElementById('coding').style.display = 'block';
+        document.getElementById('coding').style.display = constants.html.DISPLAY_BLOCK;
         document.getElementById('codingHeader').innerHTML = 'Now we\'re talking. I mean, coding.';
-        document.getElementById('codingHelp').style.display = 'block';
+        document.getElementById('codingHelp').style.display = constants.html.DISPLAY_BLOCK;
         document.getElementById('leCode').value = scripts.getScript(obj.uuid, scriptName);
         document.getElementById('doCode').onclick = function() {
             scripts.loadScript({

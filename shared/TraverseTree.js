@@ -1,3 +1,5 @@
+'use strict';
+
 // Taken from https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js
 var traverse = function(obj, callback) {
     var children = obj.children;
@@ -18,4 +20,6 @@ if (typeof define === 'function' && define.amd) {
     });
 } else if (typeof exports === 'object') {
     module.exports = traverse;
+} else {
+    window.traverseTree = traverse;
 }

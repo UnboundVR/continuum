@@ -5,23 +5,24 @@
     <link rel="icon" type="image/x-icon" href="client/assets/img/favicon.png">
     <script src="../socket.io/socket.io.js"></script>
     <script src="../client/lib/RTCMultiConnection.js"></script>
-    
+    <script src="../shared/constants.js"></script>
+
     <script>
-    var connection = new RTCMultiConnection('continuum');
-    connection.socketURL = window.location.origin + ':1337';
-    
+    var connection = new RTCMultiConnection(constants.rtc.CHANNEL);
+    connection.socketURL = window.location.origin;
+
     connection.session = {
          audio:     true,
-         video:     false, 
+         video:     false,
          screen:    false,
-         
+
          data:      false,
-         
+
          oneway:    false,
          broadcast: true
     };
-    
-    connection.join('hola');
+
+    connection.join(constants.rtc.DEFAULT_ROOM);
     </script>
 </head>
 <body>

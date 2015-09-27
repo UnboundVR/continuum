@@ -1,9 +1,11 @@
-define(['Auth', 'Three'], function(auth, THREE) {
+'use strict';
+
+define(['Auth', 'Three', 'Constants'], function(auth, THREE, constants) {
     var remoteLoader = new THREE.XHRLoader();
     var token = auth.getToken();
 
     if (token) {
-        remoteLoader.authorizationHeader = 'bearer ' + token;
+        remoteLoader.authorizationHeader = constants.auth.BEARER + ' ' + token;
     }
 
     var getJSON = function(url) {

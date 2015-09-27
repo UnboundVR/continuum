@@ -1,18 +1,13 @@
-define(['World', 'PointerLock', 'Auth'], function(world, pointerLock, auth) {
+'use strict';
 
-    var domElement;
+define(['World', 'PointerLock', 'Auth', 'Constants', 'Text!assets/html/2DUI.html', 'Text!assets/css/2DUI.css'], function(world, pointerLock, auth, constants, html, css) {
+
     var profile = auth.getProfile();
+    var container;
 
     var init = function() {
-        domElement = document.getElementById('2dui');
-
-        // TODO put in css file
-        domElement.style.position = 'absolute';
-        domElement.style.zIndex = 2;
-        domElement.style.backgroundColor = 'black';
-        domElement.style.textAlign = 'center';
-
-        drawUI();
+        initUI();
+        hookUI();
 
         pointerLock.onChange(function(locked) {
             if (!locked) {
@@ -23,43 +18,46 @@ define(['World', 'PointerLock', 'Auth'], function(world, pointerLock, auth) {
         });
     };
 
-    var drawUI = function() {
-        // TODO take from HTML and CSS files brought via requirejs text plugin
-        var profileImage = document.createElement('img');
+    var initUI = function() {
+        container = document.getElementById(constants.ui.UI_CONTAINER);
+        var element = document.createElement(constants.html.DIV);
+        element.innerHTML = html;
+        container.appendChild(element);
+        var style = document.createElement(constants.html.STYLE);
+        style.innerHTML = css;
+        document.body.appendChild(style);
+    };
+
+    var hookUI = function() {
+        var profileImage = document.getElementById(constants.ui.PROFILE_PICTURE);
         profileImage.src = profile.picture;
-        profileImage.style.width = '128px';
-        profileImage.style.height = '128px';
-        domElement.appendChild(profileImage);
 
-        var name = document.createElement('span');
+        var name = document.getElementById(constants.ui.USER_NAME);
         name.innerHTML = profile.name;
-        name.style.display = 'block';
-        name.style.color = 'white';
-        domElement.appendChild(name);
 
-        var designButton = document.createElement('button');
-        designButton.innerHTML = 'I love this design';
-        domElement.appendChild(designButton);
+        var mail = document.getElementById(constants.ui.MAIL);
+        mail.innerHTML = profile.email;
+
+        // TODO remove once design is decent :P
+        var designButton = document.getElementById('designButton');
         designButton.onclick = function() {
-            alert('You are lying, ' + (profile.gender == 'male' ? 'gentleman' : 'lady') + '.');
+            alert('You are lying, ' + auth.getVocative() + '.');
         };
 
-        var logoutButton = document.createElement('button');
-        logoutButton.innerHTML = 'Logout';
-        domElement.appendChild(logoutButton);
+        var logoutButton = document.getElementById(constants.ui.LOGOUT_BUTTON);
         logoutButton.onclick = auth.logout;
     };
 
     var enableUI = function() {
-        domElement.style.display = '';
+        container.style.display = '';
     };
 
     var disableUI = function() {
-        domElement.style.display = 'none';
+        container.style.display = constants.html.DISPLAY_NONE;
     };
 
     var addElement = function(element) {
-        domElement.appendChild(element);
+        container.appendChild(element);
     };
 
     world.onInit(init);
