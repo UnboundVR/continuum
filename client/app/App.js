@@ -21,12 +21,36 @@ define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/Objec
                 world.start();
 
                 container.appendChild(renderer.getDomElement());
+
+                loadRoom();
             });
         };
 
         if (!detector.webgl) {
             detector.addGetWebGLMessage();
             return;
+        }
+
+        var loadRoom = function() {
+            var request = new XMLHttpRequest();
+            request.open('GET', 'http://metavrse.io/public/continuumroom.scene-json/continuumroom.json', true);
+
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 400) {
+                    var obj = JSON.parse(request.responseText);
+                    var threeObj = objectLoader.parse(obj, function(parsed) {
+                        scene.getScene().add(parsed);
+                    });
+                } else {
+                    console.log('Boom');
+                }
+            };
+
+            request.onerror = function() {
+                // There was a connection error of some sort
+            };
+
+            request.send();
         }
 
         var sceneId = queryString.sceneId;
