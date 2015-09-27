@@ -11,7 +11,8 @@ var require = {
         CSS3DRenderer: {deps: ['ThreeCore'], exports: 'THREE'},
         Detector: {exports: 'Detector'},
         Stats: {exports: 'Stats'},
-        RTCMultiConnection: {deps: ['GlobalSocketIO'], exports: 'RTCMultiConnection'}
+        RTCMultiConnection: {deps: ['GlobalSocketIO'], exports: 'RTCMultiConnection'},
+        Auth0: {exports: 'Auth0'}
     },
     paths: {
         Three: '../lib/Three',
@@ -25,6 +26,7 @@ var require = {
         Stats: '../lib/Stats.min',
         Tween: '/node_modules/tween.js/src/Tween',
         RTCMultiConnection: '/node_modules/rtcmulticonnection-v3/RTCMultiConnection',
+        Auth0: '/node_modules/auth0-js/index',
         shared: '../../shared',
         GlobalSocketIO: '../lib/GlobalSocketIO',
         text: '../lib/requirejs/Text',

@@ -1,7 +1,7 @@
 'use strict';
 
-define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'utils/QueryString', 'World', 'API'],
-    function(THREE, detector, renderer, container, scene, objectLoader, guiLoader, scriptsLoader, queryString, world, api) {
+define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'utils/QueryString', 'World', 'API', 'Auth'],
+    function(THREE, detector, renderer, container, scene, objectLoader, guiLoader, scriptsLoader, queryString, world, api, auth) {
         var load = function(json) {
             objectLoader.parse(json.scene, function(object) {
                 scene.setScene(object);
@@ -31,7 +31,9 @@ define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/Objec
 
         var sceneId = queryString.sceneId;
 
-        api.getScene(sceneId).then(function(json) {
-            load(json);
+        auth.processIdToken().then(function(){
+            api.getScene(sceneId).then(function(json) {
+                load(json);
+            });
         });
     });
