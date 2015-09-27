@@ -5,6 +5,10 @@ var constants = {
         UUID: 'uuid'
     },
     auth: {
+        roles: {
+            ADMIN: 'admin',
+            USER: 'user'
+        },
         BEARER: 'bearer',
         TOKEN_PARAM: 'token',
         ID_TOKEN: 'id_token',
@@ -21,6 +25,7 @@ var constants = {
         PROFILE_PICTURE: 'profilePicture',
         USER_NAME: 'userName',
         MAIL: 'mail',
+        ROLE: 'role',
         LOGOUT_BUTTON: 'logoutButton'
     },
     html: {
