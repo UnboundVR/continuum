@@ -27,7 +27,8 @@ var require = {
         RTCMultiConnection: '/node_modules/rtcmulticonnection-v3/RTCMultiConnection',
         shared: '../../shared',
         GlobalSocketIO: '../lib/GlobalSocketIO',
-        Text: '../lib/requirejs/Text',
+        text: '../lib/requirejs/Text',
+        i18n: '../lib/requirejs/i18n',
         Constants: '../../shared/constants',
         assets: '../assets'
     },
