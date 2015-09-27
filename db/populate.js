@@ -12,7 +12,7 @@ var objectDb = require('../server/db/object');
 
 var constants = require('../shared/constants');
 
-var env = process.env.NODE_ENV || DEV_ENVIRONMENT;
+var env = process.env.NODE_ENV || constants.environments.DEV;
 console.log('Populating DB in ' + env + ' environment');
 require('dotenv').load();
 

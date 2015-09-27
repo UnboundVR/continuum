@@ -6,7 +6,7 @@ define(['utils/Requests', 'Constants'], function(req, constants) {
     var getScene = function(sceneId) {
         var url = baseUrl + constants.routes.api.SCENE;
         if (sceneId) {
-            url += SLASH + sceneId;
+            url += '/' + sceneId;
         }
 
         return req.getJSON(url);
