@@ -1,6 +1,6 @@
 'use strict';
 
-define(['World', 'PointerLock', 'Auth', 'Constants', 'Text!assets/html/2DUI.html', 'Text!assets/css/2DUI.css'], function(world, pointerLock, auth, constants, html, css) {
+define(['World', 'PointerLock', 'Auth', 'Constants', 'text!assets/html/2DUI.html', 'text!assets/css/2DUI.css', 'i18n!nls/2DUI'], function(world, pointerLock, auth, constants, html, css, i18n) {
 
     var profile = auth.getProfile();
     var container;
@@ -45,6 +45,7 @@ define(['World', 'PointerLock', 'Auth', 'Constants', 'Text!assets/html/2DUI.html
         };
 
         var logoutButton = document.getElementById(constants.ui.LOGOUT_BUTTON);
+        logoutButton.innerHTML = i18n.logout;
         logoutButton.onclick = auth.logout;
     };
 
