@@ -1,6 +1,6 @@
 'use strict';
 
-define(['ScriptsManager', 'Constants', 'GUIManager', 'Scene', 'text!assets/html/Coding.html', 'text!assets/css/Coding.css'], function(scripts, constants, gui, scene, html, css) {
+define(['ScriptsManager', 'Constants', 'GUIManager', 'Scene', 'utils/BuildHTMLNode', 'text!assets/html/Coding.html', 'text!assets/css/Coding.css'], function(scripts, constants, gui, scene, buildHTMLNode, html, css) {
     var rightClick = function(obj) {
         // FIXME this is hardcoded to only work with 'coderCube' script and a specific panel
         var scriptName = 'coderCube';
@@ -12,12 +12,7 @@ define(['ScriptsManager', 'Constants', 'GUIManager', 'Scene', 'text!assets/html/
             return;
         }
 
-        var codingHtml = document.createElement(constants.html.DIV);
-        codingHtml.innerHTML = html;
-
-        var cssNode = document.createElement(constants.html.STYLE);
-        cssNode.innerHTML = css;
-        codingHtml.appendChild(cssNode);
+        var codingHtml = buildHTMLNode(html, css);
 
         var codeTextArea = codingHtml.getElementsByClassName(constants.coding.CODE_TEXTAREA)[0];
         codeTextArea.value = script;

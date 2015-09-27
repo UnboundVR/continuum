@@ -1,6 +1,6 @@
 'use strict';
 
-define(['World', 'PointerLock', 'Auth', 'Constants', 'text!assets/html/2DUI.html', 'text!assets/css/2DUI.css', 'i18n!nls/2DUI'], function(world, pointerLock, auth, constants, html, css, i18n) {
+define(['World', 'PointerLock', 'Auth', 'Constants', 'utils/BuildHTMLNode', 'text!assets/html/2DUI.html', 'text!assets/css/2DUI.css', 'i18n!nls/2DUI'], function(world, pointerLock, auth, constants, buildHTMLNode, html, css, i18n) {
 
     var profile = auth.getProfile();
     var container;
@@ -20,12 +20,8 @@ define(['World', 'PointerLock', 'Auth', 'Constants', 'text!assets/html/2DUI.html
 
     var initUI = function() {
         container = document.getElementById(constants.ui.UI_CONTAINER);
-        var element = document.createElement(constants.html.DIV);
-        element.innerHTML = html;
+        var element = buildHTMLNode(html, css);
         container.appendChild(element);
-        var style = document.createElement(constants.html.STYLE);
-        style.innerHTML = css;
-        element.appendChild(style);
     };
 
     var hookUI = function() {
