@@ -10,3 +10,15 @@ canvas {
     z-index: 2;
     pointer-events: none;
 }
+
+#webGLRenderer {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    pointer-events: none;
+}
+
+#css3dRenderer {
+    position: absolute;
+    top: 0;
+}
