@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Constants'], function(THREE, constants) {
+define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n) {
 
     var returnToLoginScreen = function() {
         window.location.href = constants.routes.LOGIN_SCREEN;
@@ -36,11 +36,11 @@ define(['Three', 'Constants'], function(THREE, constants) {
     var getVocative = function() {
         var profile = getProfile();
 
-        var vocative = 'human';
+        var vocative = i18n.vocatives.human;
         if (profile.gender == constants.auth.GENDER_MALE) {
-            vocative = 'gentleman';
+            vocative = i18n.vocatives.gentleman;
         } else if (profile.gender == constants.auth.GENDER_FEMALE) {
-            vocative = 'lady';
+            vocative = i18n.vocatives.lady;
         }
 
         return vocative;
