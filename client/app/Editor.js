@@ -1,30 +1,27 @@
 'use strict';
 
-define(['ScriptsManager', 'Constants'], function(scripts, constants) {
-    var used = false;
-
+define(['ScriptsManager', 'Constants', 'GUIManager', 'text!assets/html/Coding.html', 'text!assets/css/Coding.css'], function(scripts, constants, gui, html, css) {
     var rightClick = function(obj) {
-        // FIXME for now this is hardcoded to only work with the cube, and only change once
-        if (obj.name !== 'DevCube' || used) {
-            return;
-        }
-
-        // FIXME this is hardcoded to only work with 'coderCube' script for now...
+        // FIXME this is hardcoded to only work with 'coderCube' script and a specific panel
         var scriptName = 'coderCube';
+        var panel = 'B122616D-D2F4-4D4C-AC6C-899A7C03D473';
+        var script = scripts.getScript(obj.uuid, scriptName);
 
-        document.getElementById('coding').style.display = constants.html.DISPLAY_BLOCK;
-        document.getElementById('codingHeader').innerHTML = 'Now we\'re talking. I mean, coding.';
-        document.getElementById('codingHelp').style.display = constants.html.DISPLAY_BLOCK;
-        document.getElementById('leCode').value = scripts.getScript(obj.uuid, scriptName);
-        document.getElementById('doCode').onclick = function() {
+        var codingHtml = document.createElement('div');
+        codingHtml.innerHTML = html;
+
+        var codeTextArea = codingHtml.getElementsByClassName('leCode')[0];
+        codeTextArea.value = script;
+
+        var codeButton = codingHtml.getElementsByClassName('update')[0];
+        codeButton.onclick = function() {
             scripts.loadScript({
                 name: scriptName,
-                source: document.getElementById('leCode').value},
-                obj.uuid
-            );
+                source: codeTextArea.value
+            }, obj.uuid);
         };
 
-        used = true;
+        gui.beam(codingHtml, panel);
     };
 
     return {

@@ -3,6 +3,10 @@
 // Based on http://learningthreejs.com/blog/2013/04/30/closing-the-gap-between-html-and-webgl/
 define(['Three', 'Scene', 'Constants'], function(THREE, scene, constants) {
 
+    var beam = function(html, plane) {
+        
+    };
+
     var embedGUI = function(guiElement, planeUUID, css3DScene) {
         if (guiElement.css) {
             var cssNode = document.createElement(constants.html.STYLE);
@@ -28,6 +32,7 @@ define(['Three', 'Scene', 'Constants'], function(THREE, scene, constants) {
     };
 
     return {
-        embedGUI: embedGUI
+        embedGUI: embedGUI,
+        beam: beam
     };
 });

@@ -1,21 +1,21 @@
 {
 	"scene": {
         "uuid": "9A758311-FE42-4A67-81FF-91FD7A0FC4DA",
-        
+
         "textures": [
-            {  
+            {
                 "uuid": "9A4E4794-B019-4B58-9485-459D4FFB6F2A",
                 "image": "73928DB8-9696-443F-BF9A-B525DECFFA93"
             }
         ],
-        
+
         "images": [
             {
                 "uuid": "73928DB8-9696-443F-BF9A-B525DECFFA93",
                 "url": "client/assets/img/galaxy-starfield.png"
             }
         ],
-        
+
 		"geometries": [
 			{
 				"uuid": "46F4D8AF-47E1-4FD6-8687-9373FCF91C1C",
@@ -55,7 +55,7 @@
 				"depthSegments": 1
 			}
         ],
-            
+
 		"materials": [
 			{
 				"uuid": "9A1BAC6E-AEDD-406D-97CA-73BA733FABBB",
@@ -89,7 +89,7 @@
 				"shininess": 30
 			}
         ],
-        
+
 		"object": {
 			"uuid": "31517222-A9A7-4EAF-B5F6-60751C0BABA3",
 			"type": "Scene",
@@ -168,8 +168,8 @@
         },
         {
             "uuid": "EA9B9C85-99ED-4908-9BB4-139F81CF0319",
-            "html": "<h1 id=\"codingHeader\">Right click the cube to change its code</h1><h2 id=\"codingHelp\">Unlock cursor to acces this textarea.</h2><div id=\"coding\"><textarea id=\"leCode\"></textarea><br><button id=\"doCode\">Update</button></div>",
-            "css": "#leCode {width: 600px; height: 150px;}\n#coding {display:none;}\n#codingHelp {display:none;}"
+            "html": "<h1 id=\"codingHeader\">Right click the cube to change its code</h1>",
+            "css": "#leCode {width: 600px; height: 150px;}"
         }
     ]
 }
