@@ -38,6 +38,9 @@ define(['World', 'PointerLock', 'Auth', 'Constants', 'text!assets/html/2DUI.html
         var mail = document.getElementById(constants.ui.MAIL);
         mail.innerHTML = profile.email;
 
+        var role = document.getElementById(constants.ui.ROLE);
+        role.innerHTML = i18n.yourRoleIs + ' ' + i18n.roles[profile.role || constants.auth.roles.USER] + '.';
+
         // TODO remove once design is decent :P
         var designButton = document.getElementById('designButton');
         designButton.onclick = function() {
