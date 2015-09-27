@@ -13,25 +13,16 @@ define(['Three', 'World', 'Scene', 'Camera', 'Constants'], function(THREE, world
 
         webGLRenderer.setClearColor(constants.renderer.CLEAR_COLOR, 0.0);
         webGLRenderer.setPixelRatio(window.devicePixelRatio);
-
-        // TODO use the css file, instead of inline styles here
-        // webGLRenderer.id = 'webGLRenderer';
-        webGLRenderer.domElement.style.position = 'absolute';
-        webGLRenderer.domElement.style.zIndex = 1;
-        webGLRenderer.domElement.style.top = 0;
-        webGLRenderer.domElement.style.pointerEvents = 'none';
-
         webGLRenderer.shadowMap.enabled = true;
         webGLRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        webGLRenderer.domElement.id = 'webGLRenderer';
 
-        // FIXME CSS3D renderer doesn't work with Cardboard - we're dealing with this in a branch.
-        // For now, no stereo effect for embedded HTML.
         css3DRenderer = new THREE.CSS3DRenderer();
-        css3DRenderer.domElement.style.position = 'absolute';
-        css3DRenderer.domElement.style.top = 0;
+        css3DRenderer.domElement.id = 'css3dRenderer';
         css3DRenderer.domElement.appendChild(webGLRenderer.domElement);
 
         // Init stereo effect if we're in VR mode
+        // FIXME CSS3D renderer doesn't work with Cardboard, so for now HTML renders awkward in VR mode.
         if (vrMode) {
             webGLRenderer = new THREE.StereoEffect(webGLRenderer);
             webGLRenderer.eyeSeparation = 10;
