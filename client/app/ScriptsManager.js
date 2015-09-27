@@ -3,6 +3,7 @@
 define(['Scene', 'World', 'PointerLock', 'Constants'], function(scene, world, pointerLock, constants) {
     var scripts = {};
 
+    // TODO put the name of these events in constants file
     var events = {
         keydown: {list: [], isBrowserEvent: true},
         keyup: {list: [], isBrowserEvent: true},
