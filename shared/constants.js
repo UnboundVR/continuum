@@ -30,7 +30,7 @@ var constants = {
     coding: {
         CODE_TEXTAREA: 'leCode',
         UPDATE_BUTTON: 'update',
-        CANCEL_BUTTON: 'cancel'
+        CLOSE_BUTTON: 'close'
     },
     html: {
         DIV: 'div',

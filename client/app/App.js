@@ -31,7 +31,7 @@ define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/Objec
 
         var sceneId = queryString.sceneId;
 
-        auth.processIdToken().then(function(){
+        auth.processIdToken().then(function() {
             api.getScene(sceneId).then(function(json) {
                 load(json);
             });

@@ -26,11 +26,16 @@ define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n)
             }
 
             if (hash && hash.error) {
+                // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+
                 reject('There was an error: ' + hash.error + '\n' + hash.error_description);
+
+                // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+
                 return;
             }
 
-            if (!idToken){
+            if (!idToken) {
                 returnToLoginScreen();
             }
 
@@ -39,6 +44,9 @@ define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n)
                     reject('There was an error geting the profile: ' + err.message);
                     return;
                 }
+
+                userProfile = profile;
+
                 resolve();
             });
         });
