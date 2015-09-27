@@ -5,22 +5,22 @@
     pointer-events: all;
 }
 
-.profilePicture {
+.profileStuff .profilePicture {
     width: 128px;
     height: 128px;
 }
 
-.userName {
+.profileStuff .userName {
     display: block;
     color: white;
 }
 
-.mail {
+.profileStuff .mail {
     display: block;
     color: white;
 }
 
-.role {
+.profileStuff .role {
     display: block;
     color: white;
 }
