@@ -8,11 +8,16 @@ define(['ScriptsManager', 'Constants', 'GUIManager', 'Scene', 'text!assets/html/
         var script = scripts.getScript(obj.uuid, scriptName);
 
         if (!script) {
+            // No script named like that
             return;
         }
 
         var codingHtml = document.createElement(constants.html.DIV);
         codingHtml.innerHTML = html;
+
+        var cssNode = document.createElement(constants.html.STYLE);
+        cssNode.innerHTML = css;
+        codingHtml.appendChild(cssNode);
 
         var codeTextArea = codingHtml.getElementsByClassName(constants.coding.CODE_TEXTAREA)[0];
         codeTextArea.value = script;

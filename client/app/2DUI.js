@@ -25,7 +25,7 @@ define(['World', 'PointerLock', 'Auth', 'Constants', 'text!assets/html/2DUI.html
         container.appendChild(element);
         var style = document.createElement(constants.html.STYLE);
         style.innerHTML = css;
-        document.body.appendChild(style);
+        element.appendChild(style);
     };
 
     var hookUI = function() {

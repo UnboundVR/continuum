@@ -21,21 +21,19 @@ define(['Three', 'Scene', 'Constants'], function(THREE, scene, constants) {
         var previousGUI = css3DScene.getObjectByProperty(constants.properties.UUID, dict[planeUUID], true);
         css3DScene.remove(previousGUI);
 
-        // TODO remove css too!
-
         var cssObj = insertGUI(htmlNode, plane, css3DScene);
         dict[planeUUID] = cssObj.uuid;
     };
 
     var embedGUI = function(guiElement, planeUUID, css3DScene) {
+        var htmlNode = document.createElement(constants.html.DIV);
+        htmlNode.innerHTML = guiElement.html;
+
         if (guiElement.css) {
             var cssNode = document.createElement(constants.html.STYLE);
             cssNode.innerHTML = guiElement.css;
-            document.body.appendChild(cssNode);
+            htmlNode.appendChild(cssNode);
         }
-
-        var htmlNode = document.createElement(constants.html.DIV);
-        htmlNode.innerHTML = guiElement.html;
 
         var plane = scene.getObjectByUUID(planeUUID);
 
