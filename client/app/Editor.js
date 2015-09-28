@@ -4,9 +4,9 @@ define(['ScriptsManager', 'Constants', 'GUIManager', 'Scene', 'utils/BuildHTMLNo
     var rightClick = function(obj) {
         // FIXME this is hardcoded to only work with a specific panel
         var panel = 'B122616D-D2F4-4D4C-AC6C-899A7C03D473';
+
         var objScripts = scripts.getScripts(obj.uuid);
         var script;
-
         var scriptNames = Object.keys(objScripts);
         switch (scriptNames.length) {
             case 0:
