@@ -40,11 +40,12 @@ define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n)
             }
 
             auth0.getProfile(idToken, function(err, profile) {
+                window.location.hash = '';
                 if (err) {
                     reject('There was an error geting the profile: ' + err.message);
                     return;
                 }
-                
+
                 userProfile = profile;
                 resolve();
             });
