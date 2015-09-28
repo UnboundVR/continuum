@@ -21,7 +21,8 @@ db.init(process.env.COUCHBASE_HOST, process.env.BUCKET_NAME, process.env.BUCKET_
 var createScene = function(json) {
     var scene = {
         uuid: json.scene.uuid,
-        object: json.scene.object.uuid
+        object: json.scene.object.uuid,
+        remote: json.remote
     };
 
     return sceneDb.create(scene);

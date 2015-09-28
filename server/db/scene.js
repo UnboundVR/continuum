@@ -60,8 +60,11 @@ var get = function(uuid) {
     var response = {};
 
     return db.getByAlias(constants.db.SCENE, constants.properties.UUID, uuid).then(function(scene) {
+        response.scene = scene;
+        response.remote = scene.remote;
+        delete scene.remote;
+
         return objectDb.get(scene.object).then(function(obj) {
-            response.scene = scene;
             scene.object = obj;
 
             var promises = [];
