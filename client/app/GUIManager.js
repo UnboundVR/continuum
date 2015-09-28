@@ -16,30 +16,38 @@ define(['Three', 'Scene', 'Constants'], function(THREE, scene, constants) {
     };
 
     var beam = function(htmlNode, planeUUID, css3DScene) {
+        css3DScene.remove(dict[planeUUID].current);
+
         var plane = scene.getObjectByUUID(planeUUID);
+        dict[planeUUID].current = insertGUI(htmlNode, plane, css3DScene);
+    };
 
-        var previousGUI = css3DScene.getObjectByProperty(constants.properties.UUID, dict[planeUUID], true);
-        css3DScene.remove(previousGUI);
+    var cancel = function(planeUUID, css3DScene) {
+        css3DScene.remove(dict[planeUUID].current);
+        css3DScene.add(dict[planeUUID].original);
 
-        var cssObj = insertGUI(htmlNode, plane, css3DScene);
-        dict[planeUUID] = cssObj.uuid;
+        dict[planeUUID].current = dict[planeUUID].original;
     };
 
     var embedGUI = function(htmlNode, planeUUID, css3DScene) {
         var plane = scene.getObjectByUUID(planeUUID);
         var cssObj = insertGUI(htmlNode, plane, css3DScene);
 
-        dict[planeUUID] = cssObj.uuid;
+        dict[planeUUID] = {
+            original: cssObj,
+            current: cssObj
+        };
 
         var material = new THREE.MeshBasicMaterial();
         material.color.set(constants.html.COLOR_BLACK);
-        material.opacity   = 0;
-        material.blending  = THREE.NoBlending;
+        material.opacity = 0;
+        material.blending = THREE.NoBlending;
         plane.material = material;
     };
 
     return {
         embedGUI: embedGUI,
-        beam: beam
+        beam: beam,
+        cancel: cancel
     };
 });

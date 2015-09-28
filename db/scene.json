@@ -168,8 +168,7 @@
         },
         {
             "uuid": "EA9B9C85-99ED-4908-9BB4-139F81CF0319",
-            "html": "<h1 id=\"codingHeader\">Right click the cube to change its code</h1>",
-            "css": "#leCode {width: 600px; height: 150px;}"
+            "html": "<h1 id=\"codingHeader\">Right click the cube to change its code</h1>"
         }
     ]
 }

@@ -60,7 +60,7 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock
                         velocity.y += constants.firstPerson.JUMP_SPEED;
 
                         // Comment out this line and people can fly :D
-                        //canJump = false;
+                        canJump = false;
                     }
 
                     break;
@@ -89,24 +89,6 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock
                 obj.position.y = constants.firstPerson.LOWEST_Y;
                 canJump = true;
             }
-
-            // FIXME this is hardcoded, should be replaced by a real physics boundary
-            /*if (obj.position.x > 490) {
-            if (obj.position.x > 490) {
-                obj.position.x = 490;
-            }
-
-            if (obj.position.x < -490) {
-                obj.position.x = -490;
-            }
-
-            if (obj.position.z > 490) {
-                obj.position.z = 490;
-            }
-
-            if (obj.position.z < -490) {
-                obj.position.z = -490;
-            }*/
         };
 
         var obj = controls.getObject();

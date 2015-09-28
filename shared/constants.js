@@ -31,7 +31,8 @@ var constants = {
     coding: {
         CODE_TEXTAREA: 'leCode',
         UPDATE_BUTTON: 'update',
-        CLOSE_BUTTON: 'close'
+        CLOSE_BUTTON: 'close',
+        CODING_HEADER: 'codingHeader'
     },
     html: {
         DIV: 'div',
