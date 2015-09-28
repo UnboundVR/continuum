@@ -132,8 +132,8 @@ var constants = {
             BASE: '/api',
             SCENE: '/scene'
         },
-        LOGIN_SCREEN: '/',
-        WORLD: '/world',
+        LOGIN_SCREEN: '/login',
+        WORLD: '/',
         CLIENT: '/client',
         SHARED: '/shared',
         NODE_MODULES: '/node_modules',
