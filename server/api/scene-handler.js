@@ -21,13 +21,11 @@ var getScene = function(uuid) {
         }
     };
 
-    // FIXME remotes are not populated into db yet
     return doGetScene(uuid).then(function(scene) {
         if (!scene.remote || !scene.remote.length) {
             return scene;
         }
 
-        // TODO make actual call to request
         var fetchRemoteScene = function(url) {
             return new Promise(function(resolve, reject) {
                 request(url, function(err, res, body) {
@@ -47,7 +45,7 @@ var getScene = function(uuid) {
 
         var copyObjects = function(what, where) {
             what.forEach(function(value, index) {
-                where[index].push(value);
+                where.push(value);
             })
         };
 
@@ -57,7 +55,7 @@ var getScene = function(uuid) {
             results.forEach(function(res) {
                 var parsed = JSON.parse(res);
                 copyObjects(
-                    [parsed.textures, parsed.images, parsed.geometries, parsed.materials, parsed.object],
+                    [parsed.textures, parsed.images, parsed.geometries, parsed.materials, [parsed.object]],
                     [scene.scene.textures, scene.scene.images, scene.scene.geometries, scene.scene.materials, scene.scene.object.children]);
             });
 
