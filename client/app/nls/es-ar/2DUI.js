@@ -1,6 +1,7 @@
 define({
     logout: 'Desloguear',
-    love: 'Me encanta este demo',
+    love: 'Me encanta esto',
+    lockCursor: 'Capturar cursor',
     yourRoleIs: 'Tu rol es',
     roles: {
         admin: 'Administrador',
