@@ -45,14 +45,20 @@ var getScene = function(uuid) {
             promises.push(fetchRemoteScene(url));
         });
 
+        var copyObjects = function(what, where) {
+            what.forEach(function(value, index) {
+                where[index].push(value);
+            })
+        };
+
         return Promise.all(promises).then(function(results) {
             delete scene.remote;
 
-            // TODO expand remote objects into scene
-            // iterate results, merge each one into scene.scene
-
-            results.forEach(function() {
-                scene.scene.push()
+            results.forEach(function(res) {
+                var parsed = JSON.parse(res);
+                copyObjects(
+                    [parsed.textures, parsed.images, parsed.geometries, parsed.materials, parsed.object],
+                    [scene.scene.textures, scene.scene.images, scene.scene.geometries, scene.scene.materials, scene.scene.object.children]);
             });
 
             return scene;
