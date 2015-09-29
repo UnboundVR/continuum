@@ -19,8 +19,8 @@ router.get(constants.routes.api.SCENE, function(req, res, next) {
     sceneHandler.getScene().then(sendJson(res), next);
 });
 
-router.get(constants.routes.api.SCENE + '/:' + constants.properties.UUID, function(req, res, next) {
-    sceneHandler.getScene(req.params[constants.properties.UUID]).then(sendJson(res), next);
+router.get(constants.routes.api.SCENE + '/:uuid', function(req, res, next) {
+    sceneHandler.getScene(req.params.uuid).then(sendJson(res), next);
 });
 
 router.use(auth);

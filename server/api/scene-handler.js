@@ -27,15 +27,33 @@ var getScene = function(uuid) {
             return scene;
         }
 
+        // TODO make actual call to request
+        var fetchRemoteScene = function(url) {
+            return new Promise(function(resolve, reject) {
+                request(url, function(err, res, body) {
+                    if (!err && res.statusCode == 200) {
+                        resolve(body);
+                    } else {
+                        reject(err);
+                    }
+                });
+            });
+        };
+
         var promises = [];
         scene.remote.forEach(function(url) {
-            promises.push(readFile(url));
+            promises.push(fetchRemoteScene(url));
         });
 
         return Promise.all(promises).then(function(results) {
             delete scene.remote;
 
             // TODO expand remote objects into scene
+            // iterate results, merge each one into scene.scene
+
+            results.forEach(function() {
+                scene.scene.push()
+            });
 
             return scene;
         });
