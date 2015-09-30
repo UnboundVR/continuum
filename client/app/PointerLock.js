@@ -6,6 +6,8 @@ define(['World', 'utils/CallbackList', 'Constants'], function(world, CallbackLis
     var enabled = false;
     var changeCallbacks = new CallbackList();
 
+    var requestPointerLock;
+
     var init = function() {
         var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
@@ -31,7 +33,7 @@ define(['World', 'utils/CallbackList', 'Constants'], function(world, CallbackLis
             element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
             element.requestFullscreen = element.requestFullscreen || element.mozRequestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen;
 
-            var requestPointerLock = function() {
+            requestPointerLock = function() {
                 if (/Firefox/i.test(navigator.userAgent)) {
                     var fullscreenchange = function(event) {
                         if (document.fullscreenElement === element || document.mozFullscreenElement === element || document.mozFullScreenElement === element) {
@@ -71,14 +73,7 @@ define(['World', 'utils/CallbackList', 'Constants'], function(world, CallbackLis
                 }
             };
 
-            var onKeyDown = function(event) {
-                if (event.keyCode == constants.keyboard.F4) {
-                    togglePointerLock();
-                }
-            };
-
             window.addEventListener(constants.events.MOUSE_DOWN, onMouseDown, false);
-            window.addEventListener(constants.events.KEY_DOWN, onKeyDown, false);
         } else {
             // TODO do something meaningful, like allow the user to use the app without locking cursor (i.e. enable controls anyway)
             console.warn('Your browser doesn\'t seem to support Pointer Lock API');
@@ -93,6 +88,9 @@ define(['World', 'utils/CallbackList', 'Constants'], function(world, CallbackLis
 
     return {
         enabled: isEnabled,
-        onChange: changeCallbacks.push
+        onChange: changeCallbacks.push,
+        lockCursor: function() {
+            requestPointerLock();
+        }
     };
 });

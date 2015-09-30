@@ -40,10 +40,16 @@ define(['World', 'PointerLock', 'Auth', 'Constants', 'utils/BuildHTMLNode', 'tex
         role.className += ' ' + (profile.role || constants.auth.roles.USER);
         role.setAttribute('title', i18n.yourRoleIs + ' ' + i18n.roles[profile.role || constants.auth.roles.USER]);
 
-        var designButton = container.getElementsByClassName(constants.ui.LOVE_BUTTON)[0];
-        designButton.setAttribute('title', i18n.love);
-        designButton.onclick = function() {
+        var loveButton = container.getElementsByClassName(constants.ui.LOVE_BUTTON)[0];
+        loveButton.setAttribute('title', i18n.love);
+        loveButton.onclick = function() {
             //TODO: Log that user likes demo.
+        };
+
+        var pointerLockButton = container.getElementsByClassName(constants.ui.POINTER_LOCK_BUTTON)[0];
+        pointerLockButton.setAttribute('title', i18n.lockCursor);
+        pointerLockButton.onclick = function() {
+            pointerLock.lockCursor();
         };
 
         var logoutButton = container.getElementsByClassName(constants.ui.LOGOUT_BUTTON)[0];
