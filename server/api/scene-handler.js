@@ -45,8 +45,8 @@ var getScene = function(uuid) {
 
         var copyObjects = function(what, where) {
             what.forEach(function(value, index) {
-                where.push(value);
-            })
+                where[index].push.apply(where[index], value);
+            });
         };
 
         return Promise.all(promises).then(function(results) {
