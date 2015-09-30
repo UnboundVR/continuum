@@ -1,11 +1,11 @@
 @import url('http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic|Montserrat:700|Merriweather:400italic');
 
 #profileContainer {
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0,0,0,0.4);
     text-align: center;
     margin: 0 auto;
     pointer-events: all;
-    width: 200px;
+    width: 250px;
     height: 50px;
     padding: 8px;
     margin-top: 8px;
@@ -32,11 +32,10 @@
 #profileContainer .role.admin {background-image: url('client/assets/img/admin.png');}
 
 #profileContainer .userInfo {
-    float: left;
     font-size: 12px;
     opacity: 0.8;
     color: white;
-    margin-left: 16px;
+    margin: auto;
     margin-top: 8px;
 }
 
