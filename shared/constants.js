@@ -134,7 +134,7 @@ var constants = {
             BASE: '/api',
             SCENE: '/scene'
         },
-        LOGIN_SCREEN: '/login',
+        LOGIN_SCREEN: 'http://continuum.unboundvr.com',
         WORLD: '/',
         CLIENT: '/client',
         SHARED: '/shared',
