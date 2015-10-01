@@ -64,6 +64,7 @@
 #actionsContainer .button.love {background-image: url('client/assets/img/love.png');}
 #actionsContainer .button.logout {background-image: url('client/assets/img/logout.png');}
 #actionsContainer .button.lockCursor {background-image: url('client/assets/img/pointerLock.png');}
+#actionsContainer .button.help {background-image: url('client/assets/img/help.png');}
 
 #actionsContainer .button {
   -webkit-transition: opacity 0.5s ease-in-out;

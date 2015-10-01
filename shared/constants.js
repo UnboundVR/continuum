@@ -27,6 +27,7 @@ var constants = {
         ROLE: 'role',
         LOGOUT_BUTTON: 'logout button',
         LOVE_BUTTON: 'love button',
+        HELP_BUTTON: 'help button',
         POINTER_LOCK_BUTTON: 'lockCursor button'
     },
     coding: {
@@ -134,7 +135,8 @@ var constants = {
             BASE: '/api',
             SCENE: '/scene'
         },
-        LOGIN_SCREEN: 'http://continuum.unboundvr.com',
+        LOGIN_SCREEN: '/login',
+        CONTINUUM_SITE: 'http://continuum.unboundvr.com',
         WORLD: '/',
         CLIENT: '/client',
         SHARED: '/shared',

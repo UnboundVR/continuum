@@ -6,7 +6,7 @@ define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n)
     var userProfile;
 
     var returnToLoginScreen = function() {
-        window.location.href = constants.routes.LOGIN_SCREEN;
+        window.location.href = constants.routes.CONTINUUM_SITE;
     };
 
     var processIdToken = function() {
