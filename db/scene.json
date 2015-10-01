@@ -178,6 +178,6 @@
         }
     ],
     "remote": [
-        "http://metavrse.io/public/continuumroom.scene-json/continuumroom.json"
+        "http://metavrse.io/public/continuumroom-scene/continuumroom.json"
     ]
 }
