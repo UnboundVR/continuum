@@ -171,7 +171,5 @@
             "html": "<h1 id=\"codingHeader\">Right click the cube to change its code</h1>"
         }
     ],
-    "remote": [
-        "http://metavrse.io/public/continuumroom.scene-json/continuumroom.json"
-    ]
+    "remote": []
 }
