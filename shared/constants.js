@@ -28,7 +28,9 @@ var constants = {
         LOGOUT_BUTTON: 'logout button',
         LOVE_BUTTON: 'love button',
         HELP_BUTTON: 'help button',
-        POINTER_LOCK_BUTTON: 'lockCursor button'
+        POINTER_LOCK_BUTTON: 'lockCursor button',
+		CLOSE_BUTTON: 'closeButton',
+		HELP_PANEL: 'helpPanel'
     },
     coding: {
         CODE_TEXTAREA: 'leCode',
