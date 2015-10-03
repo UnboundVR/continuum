@@ -16,6 +16,12 @@ var constants = {
         LOGIN_SCOPE: 'openid profile',
         CONNECTIONS: ['google-oauth2']
     },
+    help: {
+		CLOSE_BUTTON: 'closeButton',
+		HELP_PANEL: 'helpPanel',
+        LOCK_CURSOR: 'helpText-lockCursor',
+        KEYS: 'helpText-keys'
+    },
     ui: {
         UI_CONTAINER: 'ui-container',
         PROFILE_PICTURE: 'profilePicture',
@@ -26,8 +32,6 @@ var constants = {
         LOVE_BUTTON: 'love button',
         HELP_BUTTON: 'help button',
         POINTER_LOCK_BUTTON: 'lockCursor button',
-		CLOSE_BUTTON: 'closeButton',
-		HELP_PANEL: 'helpPanel'
     },
     coding: {
         CODE_TEXTAREA: 'leCode',
