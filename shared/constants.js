@@ -13,6 +13,8 @@ var constants = {
         GENDER_FEMALE: 'female',
         AUTH0_AUDIENCE: 'XjqQOct27l6s9mJmkikqC9OPaCOkmM0S',
         AUTH0_DOMAIN: 'metavrse.auth0.com',
+        AUTH0_API: '/api/v2',
+        AUTH0_USERS: '/users',
         LOGIN_SCOPE: 'openid profile',
         CONNECTIONS: ['google-oauth2']
     },
