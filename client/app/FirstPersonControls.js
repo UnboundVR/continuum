@@ -122,8 +122,7 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock
         restrainPosition(obj);
 
         if (!obj.position.equals(lastPosition)) {
-            // TODO reintegrate once critical player sync bugs are fixed
-            // playerSync.playerMoved(obj.position);
+            playerSync.playerMoved(obj.position);
         }
 
         lastPosition.copy(obj.position);
