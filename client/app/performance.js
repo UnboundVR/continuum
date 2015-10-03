@@ -1,15 +1,30 @@
 define(['World'], function(world) {
+    var fpsList = [];
+    var fps = 0;
+
     var init = function() {
         world.onLoop(loop);
+
+        setInterval(calculateFps, 1000);
+    };
+
+    var calculateFps = function() {
+        var sum = function(a, b) {
+          return a + b;
+        };
+        fps = fpsList.reduce(sum) / fpsList.length;
+        fpsList.length = 0;
     };
 
     var loop = function(time) {
-        // TODO measure FPS
+        fpsList.push(1000.0 / time.delta);
     };
 
     world.onInit(init);
 
     return {
-
+        currentFps: function() {
+            return fps;
+        }
     };
 });
