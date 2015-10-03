@@ -12,7 +12,7 @@ define(['World'], function(world) {
         var sum = function(a, b) {
           return a + b;
         };
-        fps = fpsList.reduce(sum) / fpsList.length;
+        fps = fpList.length ? fpsList.reduce(sum) / fpsList.length : 0;
         fpsList.length = 0;
     };
 
