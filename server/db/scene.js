@@ -59,7 +59,7 @@ var get = function(uuid) {
 
     var response = {};
 
-    return db.getByAlias(constants.db.SCENE, constants.properties.UUID, uuid).then(function(scene) {
+    return db.getByAlias(constants.db.SCENE, 'uuid', uuid).then(function(scene) {
         response.scene = scene;
         response.remote = scene.remote;
         delete scene.remote;
@@ -72,7 +72,7 @@ var get = function(uuid) {
 
             var resolveDeps = function(type) {
                 if (objDeps[type].length) {
-                    promises.push(db.getMultiByAlias(type, constants.properties.UUID, objDeps[type]));
+                    promises.push(db.getMultiByAlias(type, 'uuid', objDeps[type]));
                 } else {
                     promises.push([]);
                 }
@@ -91,9 +91,9 @@ var get = function(uuid) {
 
                 var matDeps = getMaterialDependencies(scene.materials);
                 if (matDeps.length) {
-                    return db.getMultiByAlias(constants.objects.TEXTURE, constants.properties.UUID, matDeps).then(function(textures) {
+                    return db.getMultiByAlias(constants.objects.TEXTURE, 'uuid', matDeps).then(function(textures) {
                         scene.textures = textures;
-                        return db.getMultiByAlias(constants.objects.IMAGE, constants.properties.UUID, getTextureDependencies(textures)).then(function(images) {
+                        return db.getMultiByAlias(constants.objects.IMAGE, 'uuid', getTextureDependencies(textures)).then(function(images) {
                             scene.images = images;
                             return response;
                         });
@@ -107,7 +107,7 @@ var get = function(uuid) {
 };
 
 var create = function(scene) {
-    return db.createByAlias(constants.db.SCENE, constants.properties.UUID, scene);
+    return db.createByAlias(constants.db.SCENE, 'uuid', scene);
 };
 
 module.exports = {

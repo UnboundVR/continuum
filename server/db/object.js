@@ -5,11 +5,11 @@ var promise = require('promise');
 var constants = require('../../shared/constants');
 
 var create = function(obj) {
-    return db.createByAlias(constants.db.OBJECT, constants.properties.UUID, obj);
+    return db.createByAlias(constants.db.OBJECT, 'uuid', obj);
 };
 
 var getMulti = function(uuids) {
-    return db.getMultiByAlias(constants.db.OBJECT, constants.properties.UUID, uuids).then(function(objects) {
+    return db.getMultiByAlias(constants.db.OBJECT, 'uuid', uuids).then(function(objects) {
         var promises = [];
 
         objects.forEach(function(obj) {

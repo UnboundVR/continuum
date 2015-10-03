@@ -1,9 +1,6 @@
 'use strict';
 
 var constants = {
-    properties: {
-        UUID: 'uuid'
-    },
     auth: {
         roles: {
             ADMIN: 'admin',
@@ -78,8 +75,8 @@ var constants = {
     },
     firstPerson: {
         JUMP_SPEED: 350,
-        INITIAL_Y: 600,
-        LOWEST_Y: 600,
+        INITIAL_Y: 15,
+        LOWEST_Y: 15,
         GRAVITY: 9.8,
         PLAYER_MASS: 75.0,
         WALKING_SPEED: 12000,
