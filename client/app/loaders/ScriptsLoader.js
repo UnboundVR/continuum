@@ -4,7 +4,7 @@ define(['ScriptsManager', 'utils/DictFromArray', 'shared/TraverseTree', 'Constan
     var load = function(json, app) {
         scriptsManager.setApp(app);
 
-        var scriptDict = dictFromArray(json.scripts, constants.properties.UUID);
+        var scriptDict = dictFromArray(json.scripts, 'uuid');
 
         traverse(json.scene.object, function(obj) {
             if (obj.scripts && obj.scripts.length) {

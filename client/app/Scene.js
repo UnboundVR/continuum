@@ -11,7 +11,7 @@ define(['Constants'], function(constants) {
         },
 
         getObjectByUUID: function(uuid) {
-            return this.scene.getObjectByProperty(constants.properties.UUID, uuid, true);
+            return this.scene.getObjectByProperty('uuid', uuid, true);
         },
 
         setCSS3DScene: function(value) {

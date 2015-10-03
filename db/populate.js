@@ -32,7 +32,7 @@ var load = function(items, type) {
     var promises = [];
 
     items.forEach(function(item) {
-        promises.push(db.createByAlias(type, constants.properties.UUID, item));
+        promises.push(db.createByAlias(type, 'uuid', item));
     });
 
     return promise.all(promises);

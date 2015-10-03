@@ -5,7 +5,7 @@ define(['GUIManager', 'utils/DictFromArray', 'shared/TraverseTree', 'utils/Build
     var parse = function(json) {
         var css3DScene = new THREE.Scene();
 
-        var guiDict = dictFromArray(json.gui, constants.properties.UUID);
+        var guiDict = dictFromArray(json.gui, 'uuid');
 
         traverse(json.scene.object, function(obj) {
             if (obj.gui) {

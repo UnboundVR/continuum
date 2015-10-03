@@ -1,9 +1,6 @@
 'use strict';
 
 var constants = {
-    properties: {
-        UUID: 'uuid'
-    },
     auth: {
         roles: {
             ADMIN: 'admin',
