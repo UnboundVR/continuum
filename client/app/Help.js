@@ -1,6 +1,6 @@
 'use strict';
 
-define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHTMLNode', 'i18n!nls/Help'], function(html, css, buildHTMLNode, i18n) {
+define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHTMLNode', 'i18n!nls/Help', 'API'], function(html, css, buildHTMLNode, i18n, api) {
     var container;
     var helpPanel;
 
@@ -11,6 +11,15 @@ define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHT
 	var hide = function() {
 		helpPanel.style.display = 'none';
 	};
+
+    var showAtStart = function(value) {
+        var payload = {
+            user_metadata: {
+                displayHelpAtStartup: value
+            }
+        };
+        api.changeUserMetadata(payload);
+    };
 
     var init = function() {
         container = document.getElementById(constants.ui.UI_CONTAINER);

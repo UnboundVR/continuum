@@ -68,6 +68,7 @@ define(['World', 'PointerLock', 'Help', 'Auth', 'Constants', 'utils/BuildHTMLNod
 
     var disableUI = function() {
         container.style.display = constants.html.DISPLAY_NONE;
+        help.hide();
     };
 
     var addElement = function(element) {
