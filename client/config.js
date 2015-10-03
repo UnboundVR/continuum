@@ -32,5 +32,5 @@ var require = {
         Constants: '../../shared/constants',
         assets: '../assets'
     },
-    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'ScriptsManager', 'Renderer', 'KeyVR', '2DUI', 'RTC']
+    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'ScriptsManager', 'Renderer', 'KeyVR', '2DUI', 'RTC', 'Performance']
 };
