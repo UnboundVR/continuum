@@ -66,7 +66,8 @@ define(['SocketIO', 'Scene', 'World', 'Auth', 'Constants'], function(io, scene, 
         socket.emit(constants.socket.playerSync.change, players.me);
     };
 
-    world.onInit(init);
+    // TODO reintegrate once critical player sync bugs are fixed
+    // world.onInit(init);
 
     return {
         playerMoved: playerMoved
