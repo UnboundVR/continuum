@@ -23,7 +23,7 @@ define(['World', 'PointerLock', 'Help', 'Auth', 'Constants', 'utils/BuildHTMLNod
     var initUI = function() {
         container = document.getElementById(constants.ui.UI_CONTAINER);
         var element = buildHTMLNode(html, css);
-        container.appendChild(element);
+        addElement(element);
     };
 
     var hookUI = function() {
@@ -59,9 +59,7 @@ define(['World', 'PointerLock', 'Help', 'Auth', 'Constants', 'utils/BuildHTMLNod
         var helpButton = container.getElementsByClassName(constants.ui.HELP_BUTTON)[0];
         helpButton.setAttribute('title', i18n.help);
         helpButton.onclick = help.show;
-		
-		var closeButton = container.getElementsByClassName(constants.ui.CLOSE_BUTTON)[0];
-		closeButton.onclick = help.hide;
+        help.init();
     };
 
     var enableUI = function() {
