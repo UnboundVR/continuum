@@ -1,86 +1,15 @@
 'use strict';
 
-define(['Scenes', 'World', 'PointerLock', 'Constants'], function(scenes, world, pointerLock, constants) {
+define(['Scenes', 'Constants', './Events'], function(scenes, constants, events) {
     var scripts = {};
-
-    // TODO put the name of these events in constants file
-    var events = {
-        keydown: {list: [], isBrowserEvent: true},
-        keyup: {list: [], isBrowserEvent: true},
-        mousedown: {list: [], isBrowserEvent: true},
-        mouseup: {list: [], isBrowserEvent: true},
-        mousemove: {list: [], isBrowserEvent: true},
-        touchstart: {list: [], isBrowserEvent: true},
-        touchend: {list: [], isBrowserEvent: true},
-        touchmove: {list: [], isBrowserEvent: true},
-        update: {list: []},
-        start: {list: []},
-        stop: {list: []},
-        unload: {list: []},
-        starthover: {list: []},
-        endhover: {list: []},
-        select: {list: []},
-        pointerlock: {list: []},
-        pointerunlock: {list: []}
-    };
 
     var app;
 
-    var init = function() {
-        world.onLoop(update);
-
-        pointerLock.onChange(function(locked) {
-            if (locked) {
-                dispatch(events.pointerlock, null);
-            } else {
-                dispatch(events.pointerunlock, null);
-            }
-        });
-    };
-
-    var update = function(time) {
-        dispatch(events.update, time);
-    };
-
-    var start = function() {
-        browserEvents.forEach(function(browserEvent) {
-            var callback = function(event) {
-                dispatch(events[browserEvent], event);
-            };
-
-            events[browserEvent].callback = callback;
-            document.addEventListener(browserEvent, callback);
-        });
-
-        dispatch(events.start);
-    };
-
-    var stop = function() {
-        browserEvents.forEach(function(browserEvent) {
-            document.removeEventListener(browserEvent, events[browserEvent].callback);
-        });
-
-        dispatch(events.stop);
-    };
-
-    var browserEvents = Object.keys(events).filter(function(key) {
-        return events[key].isBrowserEvent;
-    });
-
-    var dispatch = function(obj, payload, uuid) {
-        var array = obj.list;
-        for (var i = 0, l = array.length; i < l; i++) {
-            if (uuid === undefined || uuid === array[i].uuid) {
-                array[i].func(payload);
-            }
-        }
-    };
-
     var unloadOldScript = function(script, uuid) {
-        dispatch(events.unload, null, uuid);
+        events.dispatch(events.list.unload, null, uuid);
 
         for (var name in events) {
-            events[name].list = events[name].list.filter(function(handler) {
+            events.list[name].list = events.list[name].list.filter(function(handler) {
                 return handler.uuid !== uuid || handler.scriptName !== script.name;
             });
         }
@@ -110,8 +39,8 @@ define(['Scenes', 'World', 'PointerLock', 'Constants'], function(scenes, world, 
         storeScript();
 
         var object = scenes.getObjectByUUID(uuid);
-        var params = constants.scripts.APP_PARAM + ', ' + constants.scripts.SCENE_PARAM + ', ' + Object.keys(events).join(', ');
-        var source = script.source + '\nreturn {' + Object.keys(events).map(function(key) {
+        var params = constants.scripts.APP_PARAM + ', ' + constants.scripts.SCENE_PARAM + ', ' + Object.keys(events.list).join(', ');
+        var source = script.source + '\nreturn {' + Object.keys(events.list).map(function(key) {
             return key + ': ' + key;
         }).join(', ') + '};';
         var functions = (new Function(params, source).bind(object))(app, scenes.getScene());
@@ -121,12 +50,12 @@ define(['Scenes', 'World', 'PointerLock', 'Constants'], function(scenes, world, 
                 continue;
             }
 
-            if (!events[name]) {
+            if (!events.list[name]) {
                 console.warn('Event type not supported (', name, ')');
                 continue;
             }
 
-            events[name].list.push({
+            events.list[name].list.push({
                 func: functions[name].bind(object),
                 uuid: object.uuid,
                 scriptName: script.name
@@ -149,16 +78,10 @@ define(['Scenes', 'World', 'PointerLock', 'Constants'], function(scenes, world, 
         app = relevantApp;
     };
 
-    world.onInit(init);
-    world.onStart(start);
-    world.onStop(stop);
-
     return {
-        events: events,
         getScript: getScript,
         getScripts: getScripts,
         loadScript: loadScript,
-        dispatchEvent: dispatch,
         setApp: setApp
     };
 });

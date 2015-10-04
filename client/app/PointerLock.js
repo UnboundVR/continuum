@@ -2,13 +2,21 @@
 'use strict';
 
 // TODO separate toggle logic from pointer lock, put pointer lock in utils and use constants
-define(['World', 'utils/CallbackList', 'Constants'], function(world, CallbackList, constants) {
+define(['World', 'utils/CallbackList', 'Constants', 'scripting/Events'], function(world, CallbackList, constants, events) {
     var enabled = false;
     var changeCallbacks = new CallbackList();
 
     var requestPointerLock;
 
     var init = function() {
+        changeCallbacks.push(function(locked) {
+            if (locked) {
+                events.dispatch(events.list.pointerlock, null);
+            } else {
+                events.dispatch(events.list.pointerunlock, null);
+            }
+        });
+
         var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
         if (havePointerLock) {

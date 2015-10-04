@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scenes', 'FirstPersonControls', 'Camera', 'PointerLock', 'scripting/Manager', 'Editor', 'World', 'KeyVR', 'Constants'], function(THREE, scenes, controls, camera, pointerLock, scripts, editor, world, keyVR, constants) {
+define(['Three', 'Scenes', 'FirstPersonControls', 'Camera', 'PointerLock', 'scripting/Events', 'Editor', 'World', 'KeyVR', 'Constants'], function(THREE, scenes, controls, camera, pointerLock, events, editor, world, keyVR, constants) {
     var isIntersecting = false;
     var lastIntersected;
 
@@ -74,15 +74,15 @@ define(['Three', 'Scenes', 'FirstPersonControls', 'Camera', 'PointerLock', 'scri
 
     var onIntersect = function(obj) {
         lastIntersected = obj;
-        scripts.dispatchEvent(scripts.events.starthover, null, obj.uuid);
+        events.dispatch(events.list.starthover, null, obj.uuid);
     };
 
     var onStopIntersect = function(obj) {
-        scripts.dispatchEvent(scripts.events.endhover, null, obj.uuid);
+        events.dispatch(events.list.endhover, null, obj.uuid);
     };
 
     var onSelect = function(obj) {
-        scripts.dispatchEvent(scripts.events.select, null, obj.uuid);
+        events.dispatch(events.list.select, null, obj.uuid);
     };
 
     world.onInit(init);
