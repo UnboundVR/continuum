@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Scenes', 'Constants', './Events'], function(scenes, constants, events) {
+define(['Scenes', 'Constants', 'Events'], function(scenes, constants, events) {
     var scripts = {};
 
     var app;
@@ -8,7 +8,7 @@ define(['Scenes', 'Constants', './Events'], function(scenes, constants, events) 
     var unloadOldScript = function(script, uuid) {
         events.dispatch(events.list.unload, null, uuid);
 
-        for (var name in events) {
+        for (var name in events.list) {
             events.list[name].list = events.list[name].list.filter(function(handler) {
                 return handler.uuid !== uuid || handler.scriptName !== script.name;
             });

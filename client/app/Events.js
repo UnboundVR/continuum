@@ -16,8 +16,7 @@ define(['World'], function(world) {
         starthover: {list: []},
         endhover: {list: []},
         select: {list: []},
-        pointerlock: {list: []},
-        pointerunlock: {list: []}
+        pointerlockchange: {list: []}
     };
 
     var init = function() {
@@ -54,12 +53,15 @@ define(['World'], function(world) {
     });
 
     var dispatch = function(obj, payload, uuid) {
-        var array = obj.list;
-        for (var i = 0, l = array.length; i < l; i++) {
-            if (uuid === undefined || uuid === array[i].uuid) {
-                array[i].func(payload);
+        obj.list.forEach(function(handler) {
+            if(!uuid || handler.uuid === uuid) {
+                handler.func(payload);
             }
-        }
+        });
+    };
+
+    var subscribe = function(event, callback) {
+        event.list.push({func: callback});
     };
 
     world.onInit(init);
@@ -68,6 +70,7 @@ define(['World'], function(world) {
 
     return {
         list: events,
-        dispatch: dispatch
+        dispatch: dispatch,
+        subscribe: subscribe
     }
 });
