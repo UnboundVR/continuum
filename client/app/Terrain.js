@@ -10,7 +10,6 @@ define(['Three', 'Scene', 'World'], function(THREE, scene, world) {
         THREE.ImageUtils.loadTexture('client/assets/img/sand1.jpg', undefined, function(t1) {
             t1.wrapS = t1.wrapT = THREE.RepeatWrapping;
             var sand = new THREE.Mesh(
-                //new THREE.PlaneBufferGeometry(16384 + 1024, 16384 + 1024, 64, 64),
                 new THREE.PlaneBufferGeometry(1024, 1024, 64, 64),
                 new THREE.MeshLambertMaterial({map: t1})
             );
