@@ -13,8 +13,12 @@ define(['utils/Requests', 'Constants', 'Auth'], function(req, constants, auth) {
         return req.get(url);
     };
 
-    var changeUserMetadata = function(payload) {
+    var changeUserMetadata = function(metadata) {
         var url = auth0Base + constants.auth.AUTH0_USERS + '/' + auth.getProfile().user_id;
+        var payload = {
+            user_metadata: metadata
+        };
+        
         return req.patch(url, payload);
     };
 
