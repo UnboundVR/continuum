@@ -16,7 +16,7 @@ define(['Three', 'Scene', 'World'], function(THREE, scene, world) {
 
             sand.position.y = -101;
             sand.rotation.x = -0.5 * Math.PI;
-            scene.getScene().add(sand);
+            //scene.getScene().add(sand);
             THREE.ImageUtils.loadTexture('client/assets/img/grass1.jpg', undefined, function(t2) {
                 t2.wrapS = t2.wrapT = THREE.RepeatWrapping;
                 THREE.ImageUtils.loadTexture('client/assets/img/stone1.jpg', undefined, function(t3) {
@@ -51,23 +51,20 @@ define(['Three', 'Scene', 'World'], function(THREE, scene, world) {
             texture: 'Blended',
             maxHeight: 100,
             minHeight: -100,
-            steps: 1,
             shading: THREE.FlatShading,
+            steps: 1,
             stretch: true,
             turbulent: false,
             useBufferGeometry: false,
             xSize: 1024,
             ySize: 1024,
-            xSegments: 20,
-            ySegments: 20,
-            _mesh: null
+            xSegments: 100,
+            ySegments: 100,
         };
 
         var terrain = THREE.Terrain(terrainSettings);
 
-        console.log(heightmapImage);
-
-        //terrain.scale.set(10, 10, 10);
+        terrain.scale.set(10, 10, 10);
         terrain.position.set(0, -1000, 0);
 
         scene.getScene().add(terrain);
