@@ -1,6 +1,6 @@
 'use strict';
 
-define(['ScriptsManager', 'Constants', 'GUIManager', 'Scenes', 'utils/BuildHTMLNode', 'text!assets/html/Coding.html', 'text!assets/css/Coding.css', 'i18n!nls/Coding'], function(scripts, constants, gui, scenes, buildHTMLNode, html, css, i18n) {
+define(['ScriptsManager', 'Constants', 'GUIManager', 'utils/BuildHTMLNode', 'text!assets/html/Coding.html', 'text!assets/css/Coding.css', 'i18n!nls/Coding'], function(scripts, constants, gui, buildHTMLNode, html, css, i18n) {
     var rightClick = function(obj) {
         // FIXME this is hardcoded to only work with a specific panel
         var panel = 'B122616D-D2F4-4D4C-AC6C-899A7C03D473';
@@ -43,10 +43,10 @@ define(['ScriptsManager', 'Constants', 'GUIManager', 'Scenes', 'utils/BuildHTMLN
         var cancelButton = codingHtml.getElementsByClassName(constants.coding.CLOSE_BUTTON)[0];
         cancelButton.innerHTML = i18n.cancel;
         cancelButton.onclick = function() {
-            gui.cancel(panel, scenes.getCSS3DScene());
+            gui.cancel(panel);
         };
 
-        gui.beam(codingHtml, panel, scenes.getCSS3DScene());
+        gui.beam(codingHtml, panel);
     };
 
     return {

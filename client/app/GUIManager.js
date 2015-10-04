@@ -6,32 +6,33 @@ define(['Three', 'Scenes', 'Constants'], function(THREE, scenes, constants) {
 
     var dict = {};
 
-    var insertGUI = function(htmlNode, plane, css3DScene) {
+    var insertGUI = function(htmlNode, plane) {
         var cssObject = new THREE.CSS3DObject(htmlNode);
         cssObject.position.copy(plane.position);
         cssObject.rotation.copy(plane.rotation);
-        css3DScene.add(cssObject);
+        scenes.getCSS3DScene().add(cssObject);
 
         return cssObject;
     };
 
     var beam = function(htmlNode, planeUUID, css3DScene) {
-        css3DScene.remove(dict[planeUUID].current);
+        scenes.getCSS3DScene().remove(dict[planeUUID].current);
 
         var plane = scenes.getObjectByUUID(planeUUID);
-        dict[planeUUID].current = insertGUI(htmlNode, plane, css3DScene);
+        dict[planeUUID].current = insertGUI(htmlNode, plane);
     };
 
-    var cancel = function(planeUUID, css3DScene) {
+    var cancel = function(planeUUID) {
+        var css3DScene = scenes.getCSS3DScene();
         css3DScene.remove(dict[planeUUID].current);
         css3DScene.add(dict[planeUUID].original);
 
         dict[planeUUID].current = dict[planeUUID].original;
     };
 
-    var embedGUI = function(htmlNode, planeUUID, css3DScene) {
+    var embedGUI = function(htmlNode, planeUUID) {
         var plane = scenes.getObjectByUUID(planeUUID);
-        var cssObj = insertGUI(htmlNode, plane, css3DScene);
+        var cssObj = insertGUI(htmlNode, plane);
 
         dict[planeUUID] = {
             original: cssObj,
