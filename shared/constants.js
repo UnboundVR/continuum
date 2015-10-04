@@ -22,7 +22,8 @@ var constants = {
 		CLOSE_BUTTON: 'closeButton',
 		HELP_PANEL: 'helpPanel',
         LOCK_CURSOR: 'helpText-lockCursor',
-        KEYS: 'helpText-keys'
+        KEYS: 'helpText-keys',
+        SHOW_AT_STARTUP_CHECKBOX: 'showAtStartup checkbox'
     },
     ui: {
         UI_CONTAINER: 'ui-container',
@@ -33,7 +34,7 @@ var constants = {
         LOGOUT_BUTTON: 'logout button',
         LOVE_BUTTON: 'love button',
         HELP_BUTTON: 'help button',
-        POINTER_LOCK_BUTTON: 'lockCursor button',
+        POINTER_LOCK_BUTTON: 'lockCursor button'
     },
     coding: {
         CODE_TEXTAREA: 'leCode',
