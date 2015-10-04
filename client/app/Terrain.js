@@ -67,7 +67,7 @@ define(['Three', 'Scenes', 'World'], function(THREE, scenes, world) {
         terrain.scale.set(2, 2, 2);
         terrain.position.set(0, -1000, 0);
 
-        //scenes.getScene().add(terrain);
+        scenes.getScene().add(terrain);
     };
 
     world.onInit(init);
