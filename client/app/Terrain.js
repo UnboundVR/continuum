@@ -2,22 +2,23 @@
 
 define(['Three', 'Scene', 'World'], function(THREE, scene, world) {
     var heightmapImage = new Image();
+    heightmapImage.src = 'client/assets/img/heightmap.png';
 
+    var blend;
     var init = function() {
-        heightmapImage.src = 'client/assets/img/heightmap.png';
 
-        var blend;
         THREE.ImageUtils.loadTexture('client/assets/img/sand1.jpg', undefined, function(t1) {
             t1.wrapS = t1.wrapT = THREE.RepeatWrapping;
             var sand = new THREE.Mesh(
-                new THREE.PlaneBufferGeometry(16384 + 1024, 16384 + 1024, 64, 64),
+                //new THREE.PlaneBufferGeometry(16384 + 1024, 16384 + 1024, 64, 64),
+                new THREE.PlaneBufferGeometry(1024, 1024, 64, 64),
                 new THREE.MeshLambertMaterial({map: t1})
             );
 
             sand.position.y = -101;
             sand.rotation.x = -0.5 * Math.PI;
             scene.getScene().add(sand);
-            /*THREE.ImageUtils.loadTexture('client/assets/img/grass1.jpg', undefined, function(t2) {
+            THREE.ImageUtils.loadTexture('client/assets/img/grass1.jpg', undefined, function(t2) {
                 t2.wrapS = t2.wrapT = THREE.RepeatWrapping;
                 THREE.ImageUtils.loadTexture('client/assets/img/stone1.jpg', undefined, function(t3) {
                     t3.wrapS = t3.wrapT = THREE.RepeatWrapping;
@@ -35,44 +36,40 @@ define(['Three', 'Scene', 'World'], function(THREE, scene, world) {
                             {texture: t3, glsl: 'slope > 0.7853981633974483 ? 0.2 : 1.0 - smoothstep(0.47123889803846897, 0.7853981633974483, slope) + 0.2'}
 
                         ]);
+
                         regenerate();
                     });
                 });
-            });*/
-
-            var terrainMaterial = THREE.Terrain.generateBlendedMaterial([
-                {texture: THREE.ImageUtils.loadTexture('client/assets/img/sand1.jpg')},
-                /*{texture: THREE.ImageUtils.loadTexture('assets/img/mud.jpg'), levels: [-80, -35, 20, 50]},
-                 {texture: THREE.ImageUtils.loadTexture('assets/img/grass.jpg'), levels: [-50, -20, 30, 80]},
-                 {texture: THREE.ImageUtils.loadTexture('assets/img/cliff.jpg'), glsl: 'slope > 0.7853981633974483 ? 0.2 : 1.0 - smoothstep(0.47123889803846897, 0.7853981633974483, slope) + 0.2'},*/
-            ]);
+            });
         });
     };
 
     var regenerate = function() {
         var terrainSettings = {
             easing: THREE.Terrain.EaseInOut,
-            heightmap: THREE.Terrain.DiamondSquare,
-            material: 'Grayscale',
+            heightmap: heightmapImage,
+            material: blend,
+            texture: 'Blended',
             maxHeight: 100,
             minHeight: -100,
             steps: 1,
+            shading: THREE.FlatShading,
             stretch: true,
             turbulent: false,
             useBufferGeometry: false,
             xSize: 1024,
             ySize: 1024,
-            xSegments: 100,
-            ySegments: 100,
+            xSegments: 20,
+            ySegments: 20,
             _mesh: null
         };
 
         var terrain = THREE.Terrain(terrainSettings);
 
-        console.log(terrain);
+        console.log(heightmapImage);
 
-        terrain.scale.set(100, 100, 100);
-        terrain.position.set(0, 10, 0);
+        //terrain.scale.set(10, 10, 10);
+        terrain.position.set(0, -1000, 0);
 
         scene.getScene().add(terrain);
     };
