@@ -23,7 +23,7 @@ var require = {
         SocketIO: '/socket.io/socket.io',
         Detector: '../lib/Detector',
         Stats: '../lib/Stats.min',
-        Tween: '/node_modules/tween.js/build/tween.min',
+        Tween: '/node_modules/tween.js/src/Tween',
         RTCMultiConnection: '/node_modules/rtcmulticonnection-v3/RTCMultiConnection.min',
         shared: '../../shared',
         GlobalSocketIO: '../lib/GlobalSocketIO',

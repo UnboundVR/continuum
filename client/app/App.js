@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'utils/QueryString', 'World', 'API', 'Auth'],
+define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scenes', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'utils/QueryString', 'World', 'API', 'Auth'],
     function(THREE, detector, renderer, container, scene, objectLoader, guiLoader, scriptsLoader, queryString, world, api, auth) {
         var load = function(json) {
             objectLoader.parse(json.scene, function(object) {

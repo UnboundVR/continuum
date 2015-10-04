@@ -1,6 +1,6 @@
 'use strict';
 
-define(['SocketIO', 'Scene', 'World', 'Auth', 'Constants'], function(io, scene, world, auth, constants) {
+define(['SocketIO', 'Scenes', 'World', 'Auth', 'Constants'], function(io, scenes, world, auth, constants) {
     var socket;
     var players;
 
@@ -44,7 +44,7 @@ define(['SocketIO', 'Scene', 'World', 'Auth', 'Constants'], function(io, scene, 
     };
 
     var removePlayerAvatar = function(player) {
-        scene.getScene().remove(player.mesh);
+        scenes.getScene().remove(player.mesh);
     };
 
     var addPlayerAvatar = function(player) {
@@ -58,7 +58,7 @@ define(['SocketIO', 'Scene', 'World', 'Auth', 'Constants'], function(io, scene, 
 
         player.mesh = mesh;
 
-        scene.getScene().add(mesh);
+        scenes.getScene().add(mesh);
     };
 
     var playerMoved = function(position) {
