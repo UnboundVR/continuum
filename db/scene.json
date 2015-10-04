@@ -162,6 +162,7 @@
 					"uuid": "22F7E49B-E4E0-43FF-BE28-B152AA33BED5",
 					"type": "Mesh",
 					"name": "Streaming panel",
+                    "scripts": ["CB23862C-858D-410F-878C-00DDBAB7BCB8"],
 					"gui": "59720E50-E41F-48F4-8BC7-84B85060FE61",
 					"matrix": [9.739999771118164,0,0,0,0,5.650000095367432,0,0,0,0,3.799999952316284,0,-285.59002685546875,557.5,-3934.545654296875,1],
 					"geometry": "6504C98B-C1DC-4214-80E4-582C6DB521C3",
@@ -170,7 +171,13 @@
             ]
 		}
 	},
-	"scripts": [],
+	"scripts": [
+        {
+            "uuid": "CB23862C-858D-410F-878C-00DDBAB7BCB8",
+            "name": "youtubePlayer",
+            "source": ""
+        }
+    ],
 	"gui": [
         {
             "uuid": "59720E50-E41F-48F4-8BC7-84B85060FE61",
