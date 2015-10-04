@@ -42,7 +42,6 @@ define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n)
 
             renewIdToken().then(function() {
                 auth0.getProfile(idToken, function(err, profile) {
-                    console.log(profile);
                     window.location.hash = '';
 
                     if (err) {
