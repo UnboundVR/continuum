@@ -22,7 +22,7 @@ define([], function() {
 
     var dispatch = function(obj, payload, uuid) {
         obj.list.forEach(function(handler) {
-            if(!uuid || handler.uuid === uuid) {
+            if (!uuid || handler.uuid === uuid) {
                 handler.func(payload);
             }
         });
@@ -49,5 +49,5 @@ define([], function() {
         dispatch: dispatch,
         subscribe: subscribe,
         unsubscribeScript: unsubscribeScript
-    }
+    };
 });

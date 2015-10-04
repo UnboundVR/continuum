@@ -10,8 +10,9 @@ define(['World'], function(world) {
 
     var calculateFps = function() {
         var sum = function(a, b) {
-          return a + b;
+            return a + b;
         };
+
         fps = fpsList.length ? fpsList.reduce(sum) / fpsList.length : 0;
         fpsList.length = 0;
     };

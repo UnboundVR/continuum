@@ -5,12 +5,12 @@ define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHT
     var helpPanel;
 
     var show = function() {
-	      helpPanel.style.display = 'block';
+        helpPanel.style.display = 'block';
     };
 
-  	var hide = function() {
-    		helpPanel.style.display = 'none';
-  	};
+    var hide = function() {
+        helpPanel.style.display = 'none';
+    };
 
     var showAtStart = function(value) {
         var payload = {
@@ -31,11 +31,11 @@ define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHT
         var keysHelp = container.getElementsByClassName(constants.help.KEYS)[0];
         keysHelp.innerHTML = i18n.keys;
 
-    		var closeButton = container.getElementsByClassName(constants.help.CLOSE_BUTTON)[0];
-    		closeButton.onclick = hide;
+        var closeButton = container.getElementsByClassName(constants.help.CLOSE_BUTTON)[0];
+        closeButton.onclick = hide;
 
         var showAtStartupCheckbox = document.getElementsByClassName(constants.help.SHOW_AT_STARTUP_CHECKBOX)[0];
-        showAtStartupCheckbox.checked = auth.getProfile().user_metadata.displayHelpAtStartup;
+        showAtStartupCheckbox.checked = auth.getProfile().displayHelpAtStartup;
         showAtStartupCheckbox.onchange = function(event) {
             showAtStart(showAtStartupCheckbox.checked);
         };
@@ -43,7 +43,7 @@ define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHT
 
     return {
         show: show,
-		hide: hide,
+        hide: hide,
         init: init
     };
 });

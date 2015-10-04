@@ -14,11 +14,15 @@ define(['utils/Requests', 'Constants', 'Auth'], function(req, constants, auth) {
     };
 
     var changeUserMetadata = function(metadata) {
+        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+
         var url = auth0Base + constants.auth.AUTH0_USERS + '/' + auth.getProfile().user_id;
         var payload = {
             user_metadata: metadata
         };
-        
+
+        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+
         return req.patch(url, payload);
     };
 
