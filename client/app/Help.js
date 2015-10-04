@@ -35,7 +35,13 @@ define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHT
         closeButton.onclick = hide;
 
         var showAtStartupCheckbox = document.getElementsByClassName(constants.help.SHOW_AT_STARTUP_CHECKBOX)[0];
-        showAtStartupCheckbox.checked = auth.getProfile().displayHelpAtStartup;
+
+        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+
+        showAtStartupCheckbox.checked = auth.getProfile().user_metadata.displayHelpAtStartup;
+
+        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+
         showAtStartupCheckbox.onchange = function(event) {
             showAtStart(showAtStartupCheckbox.checked);
         };
