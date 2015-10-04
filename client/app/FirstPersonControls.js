@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock', 'Constants'], function(THREE, scene, playerSync, world, camera, keyVR, pointerLock, constants) {
+define(['Three', 'Scenes', 'Events', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock', 'Constants'], function(THREE, scenes, events, playerSync, world, camera, keyVR, pointerLock, constants) {
     var raycaster;
 
     var move = {
@@ -21,19 +21,19 @@ define(['Three', 'Scene', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock
     var controls = new THREE.PointerLockControls(camera);
 
     var init = function() {
-        pointerLock.onChange(function(locked) {
+        events.subscribe(events.list.pointerlockchange, function(locked) {
             controls.enabled = locked;
         });
 
         // If we stick to simple raycasting, collidable objects should contain all objects we want to intersect with using the raycaster
         // for now we just care about the floor -- FIXME hardcoded
-        floor = scene.getScene().getObjectByName('Floor');
+        floor = scenes.getScene().getObjectByName('Floor');
         if (floor) {
             collidableObjects.push(floor);
         }
 
         controls.getObject().position.y = constants.firstPerson.INITIAL_Y;
-        scene.getScene().add(controls.getObject());
+        scenes.getScene().add(controls.getObject());
 
         var onKeyEvent = function(event) {
             var keyDown = event.type == constants.events.KEY_DOWN;

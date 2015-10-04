@@ -1,6 +1,6 @@
 'use strict';
 
-define(['ScriptsManager', 'utils/DictFromArray', 'shared/TraverseTree', 'Constants'], function(scriptsManager, dictFromArray, traverse, constants) {
+define(['./Manager', 'utils/DictFromArray', 'shared/TraverseTree', 'Constants'], function(scriptsManager, dictFromArray, traverse, constants) {
     var load = function(json, app) {
         scriptsManager.setApp(app);
 

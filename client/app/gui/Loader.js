@@ -1,9 +1,10 @@
 'use strict';
 
-define(['GUIManager', 'utils/DictFromArray', 'shared/TraverseTree', 'utils/BuildHTMLNode', 'Constants'], function(gui, dictFromArray, traverse, buildHTMLNode, constants) {
+define(['Scenes', './Manager', 'utils/DictFromArray', 'shared/TraverseTree', 'utils/BuildHTMLNode', 'Constants'], function(scenes, gui, dictFromArray, traverse, buildHTMLNode, constants) {
 
-    var parse = function(json) {
+    var load = function(json) {
         var css3DScene = new THREE.Scene();
+        scenes.setCSS3DScene(css3DScene);
 
         var guiDict = dictFromArray(json.gui, 'uuid');
 
@@ -11,7 +12,7 @@ define(['GUIManager', 'utils/DictFromArray', 'shared/TraverseTree', 'utils/Build
             if (obj.gui) {
                 var guiObj = guiDict[obj.gui];
                 var htmlNode = buildHTMLNode(guiObj.html, guiObj.css);
-                gui.embedGUI(htmlNode, obj.uuid, css3DScene);
+                gui.embedGUI(htmlNode, obj.uuid);
             }
         });
 
@@ -19,6 +20,6 @@ define(['GUIManager', 'utils/DictFromArray', 'shared/TraverseTree', 'utils/Build
     };
 
     return {
-        parse: parse
+        load: load
     };
 });

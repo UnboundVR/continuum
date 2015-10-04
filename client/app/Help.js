@@ -1,22 +1,20 @@
 'use strict';
 
-define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHTMLNode', 'i18n!nls/Help', 'API'], function(html, css, buildHTMLNode, i18n, api) {
+define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHTMLNode', 'i18n!nls/Help', 'API', 'Auth'], function(html, css, buildHTMLNode, i18n, api, auth) {
     var container;
     var helpPanel;
 
     var show = function() {
-	    helpPanel.style.display = 'block';
+        helpPanel.style.display = 'block';
     };
 
-	var hide = function() {
-		helpPanel.style.display = 'none';
-	};
+    var hide = function() {
+        helpPanel.style.display = 'none';
+    };
 
     var showAtStart = function(value) {
         var payload = {
-            user_metadata: {
-                displayHelpAtStartup: value
-            }
+            displayHelpAtStartup: value
         };
         api.changeUserMetadata(payload);
     };
@@ -33,13 +31,25 @@ define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHT
         var keysHelp = container.getElementsByClassName(constants.help.KEYS)[0];
         keysHelp.innerHTML = i18n.keys;
 
-		var closeButton = container.getElementsByClassName(constants.help.CLOSE_BUTTON)[0];
-		closeButton.onclick = hide;
+        var closeButton = container.getElementsByClassName(constants.help.CLOSE_BUTTON)[0];
+        closeButton.onclick = hide;
+
+        var showAtStartupCheckbox = document.getElementsByClassName(constants.help.SHOW_AT_STARTUP_CHECKBOX)[0];
+
+        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+
+        showAtStartupCheckbox.checked = auth.getProfile().user_metadata.displayHelpAtStartup;
+
+        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+
+        showAtStartupCheckbox.onchange = function(event) {
+            showAtStart(showAtStartupCheckbox.checked);
+        };
     };
 
     return {
         show: show,
-		hide: hide,
+        hide: hide,
         init: init
     };
 });

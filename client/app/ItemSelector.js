@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'ScriptsManager', 'Editor', 'World', 'KeyVR', 'Constants'], function(THREE, scene, controls, camera, pointerLock, scripts, editor, world, keyVR, constants) {
+define(['Three', 'Scenes', 'FirstPersonControls', 'Camera', 'PointerLock', 'Events', 'Editor', 'World', 'KeyVR', 'Constants'], function(THREE, scenes, controls, camera, pointerLock, events, editor, world, keyVR, constants) {
     var isIntersecting = false;
     var lastIntersected;
 
@@ -26,7 +26,7 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'Scrip
         }
 
         raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
-        var intersects = raycaster.intersectObjects(scene.getScene().children);
+        var intersects = raycaster.intersectObjects(scenes.getScene().children);
 
         intersects = intersects.filter(function(item) {
             return excludedObjects.indexOf(item.object.name) == -1;
@@ -74,15 +74,15 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'Scrip
 
     var onIntersect = function(obj) {
         lastIntersected = obj;
-        scripts.dispatchEvent(scripts.events.starthover, null, obj.uuid);
+        events.dispatch(events.list.starthover, null, obj.uuid);
     };
 
     var onStopIntersect = function(obj) {
-        scripts.dispatchEvent(scripts.events.endhover, null, obj.uuid);
+        events.dispatch(events.list.endhover, null, obj.uuid);
     };
 
     var onSelect = function(obj) {
-        scripts.dispatchEvent(scripts.events.select, null, obj.uuid);
+        events.dispatch(events.list.select, null, obj.uuid);
     };
 
     world.onInit(init);

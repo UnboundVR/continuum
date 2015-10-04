@@ -2,6 +2,7 @@
 
 define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n) {
 
+    var auth0;
     var idToken;
     var userProfile;
 
@@ -10,7 +11,7 @@ define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n)
     };
 
     var processIdToken = function() {
-        var auth0 = new Auth0({
+        auth0 = new Auth0({
             domain: constants.auth.AUTH0_DOMAIN,
             clientID: constants.auth.AUTH0_AUDIENCE,
             callbackURL: window.location.origin + constants.routes.WORLD
@@ -39,15 +40,33 @@ define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n)
                 returnToLoginScreen();
             }
 
-            auth0.getProfile(idToken, function(err, profile) {
-                window.location.hash = '';
+            renewIdToken().then(function() {
+                auth0.getProfile(idToken, function(err, profile) {
+                    console.log(profile);
+                    window.location.hash = '';
+
+                    if (err) {
+                        reject('There was an error geting the profile: ' + err.message);
+                        return;
+                    }
+
+                    userProfile = profile;
+                    resolve();
+                });
+            });
+        });
+    };
+
+    var renewIdToken = function() {
+        return new Promise(function(resolve, reject) {
+            auth0.renewIdToken(idToken, function(err, delegationResult) {
 
                 if (err) {
                     reject('There was an error geting the profile: ' + err.message);
                     return;
                 }
 
-                userProfile = profile;
+                idToken = delegationResult.id_token;
                 resolve();
             });
         });
