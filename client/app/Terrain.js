@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'World'], function(THREE, scene, world) {
+define(['Three', 'Scenes', 'World'], function(THREE, scenes, world) {
     var heightmapImage = new Image();
     heightmapImage.src = 'client/assets/img/heightmap.png';
 
@@ -58,16 +58,16 @@ define(['Three', 'Scene', 'World'], function(THREE, scene, world) {
             useBufferGeometry: false,
             xSize: 1024,
             ySize: 1024,
-            xSegments: 100,
-            ySegments: 100,
+            xSegments: 20,
+            ySegments: 20,
         };
 
         var terrain = THREE.Terrain(terrainSettings);
 
-        terrain.scale.set(10, 10, 10);
+        terrain.scale.set(2, 2, 2);
         terrain.position.set(0, -1000, 0);
 
-        scene.getScene().add(terrain);
+        //scenes.getScene().add(terrain);
     };
 
     world.onInit(init);
