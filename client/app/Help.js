@@ -38,9 +38,14 @@ define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHT
 
         // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 
-        showAtStartupCheckbox.checked = auth.getProfile().user_metadata.displayHelpAtStartup;
+        var displayAtStartup = auth.getProfile().user_metadata.displayHelpAtStartup;
 
         // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+
+        showAtStartupCheckbox.checked = displayAtStartup;
+        if(!displayAtStartup) {
+            hide();
+        }
 
         showAtStartupCheckbox.onchange = function(event) {
             showAtStart(showAtStartupCheckbox.checked);
