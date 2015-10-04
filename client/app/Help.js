@@ -14,9 +14,7 @@ define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHT
 
     var showAtStart = function(value) {
         var payload = {
-            user_metadata: {
-                displayHelpAtStartup: value
-            }
+            displayHelpAtStartup: value
         };
         api.changeUserMetadata(payload);
     };

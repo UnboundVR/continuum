@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'ScriptsManager', 'Editor', 'World', 'KeyVR', 'Constants'], function(THREE, scene, controls, camera, pointerLock, scripts, editor, world, keyVR, constants) {
+define(['Three', 'Scenes', 'FirstPersonControls', 'Camera', 'PointerLock', 'ScriptsManager', 'Editor', 'World', 'KeyVR', 'Constants'], function(THREE, scenes, controls, camera, pointerLock, scripts, editor, world, keyVR, constants) {
     var isIntersecting = false;
     var lastIntersected;
 
@@ -26,7 +26,7 @@ define(['Three', 'Scene', 'FirstPersonControls', 'Camera', 'PointerLock', 'Scrip
         }
 
         raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
-        var intersects = raycaster.intersectObjects(scene.getScene().children);
+        var intersects = raycaster.intersectObjects(scenes.getScene().children);
 
         intersects = intersects.filter(function(item) {
             return excludedObjects.indexOf(item.object.name) == -1;

@@ -1,11 +1,11 @@
 'use strict';
 
-define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scene', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'utils/QueryString', 'World', 'API', 'Auth'],
+define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scenes', 'loaders/ObjectLoader', 'loaders/GUILoader', 'loaders/ScriptsLoader', 'utils/QueryString', 'World', 'API', 'Auth'],
     function(THREE, detector, renderer, container, scene, objectLoader, guiLoader, scriptsLoader, queryString, world, api, auth) {
         var load = function(json) {
             objectLoader.parse(json.scene, function(object) {
                 scene.setScene(object);
-                scene.setCSS3DScene(guiLoader.parse(json));
+                guiLoader.load(json);
 
                 // Perhaps we could pass more things -- the most important thing is that later on we document which things we expose to scripts
                 // We can also pass other things like renderer directly as params (such as when we pass scene) but I think it's OK to pass just scene as a distinct param

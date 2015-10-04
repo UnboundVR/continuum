@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'World', 'Scene', 'Camera', 'Constants'], function(THREE, world, scene, camera, constants) {
+define(['Three', 'World', 'Scenes', 'Camera', 'Constants'], function(THREE, world, scenes, camera, constants) {
     var vrMode = navigator.userAgent.match(constants.mobile.ANDROID_REGEX);
     var webGLRenderer;
     var css3DRenderer;
@@ -38,8 +38,8 @@ define(['Three', 'World', 'Scene', 'Camera', 'Constants'], function(THREE, world
     };
 
     var render = function() {
-        webGLRenderer.render(scene.getScene(), camera);
-        css3DRenderer.render(scene.getCSS3DScene(), camera);
+        webGLRenderer.render(scenes.getScene(), camera);
+        css3DRenderer.render(scenes.getCSS3DScene(), camera);
     };
 
     var setSize = function(width, height) {

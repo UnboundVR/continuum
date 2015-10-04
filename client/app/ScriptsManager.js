@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Scene', 'World', 'PointerLock', 'Constants'], function(scene, world, pointerLock, constants) {
+define(['Scenes', 'World', 'PointerLock', 'Constants'], function(scenes, world, pointerLock, constants) {
     var scripts = {};
 
     // TODO put the name of these events in constants file
@@ -109,12 +109,12 @@ define(['Scene', 'World', 'PointerLock', 'Constants'], function(scene, world, po
 
         storeScript();
 
-        var object = scene.getObjectByUUID(uuid);
+        var object = scenes.getObjectByUUID(uuid);
         var params = constants.scripts.APP_PARAM + ', ' + constants.scripts.SCENE_PARAM + ', ' + Object.keys(events).join(', ');
         var source = script.source + '\nreturn {' + Object.keys(events).map(function(key) {
             return key + ': ' + key;
         }).join(', ') + '};';
-        var functions = (new Function(params, source).bind(object))(app, scene.getScene());
+        var functions = (new Function(params, source).bind(object))(app, scenes.getScene());
 
         for (var name in functions) {
             if (!functions[name]) {
