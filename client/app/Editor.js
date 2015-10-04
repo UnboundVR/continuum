@@ -1,6 +1,6 @@
 'use strict';
 
-define(['ScriptsManager', 'Constants', 'GUIManager', 'utils/BuildHTMLNode', 'text!assets/html/Coding.html', 'text!assets/css/Coding.css', 'i18n!nls/Coding'], function(scripts, constants, gui, buildHTMLNode, html, css, i18n) {
+define(['scripting/Manager', 'Constants', 'gui/Manager', 'utils/BuildHTMLNode', 'text!assets/html/Coding.html', 'text!assets/css/Coding.css', 'i18n!nls/Coding'], function(scripts, constants, gui, buildHTMLNode, html, css, i18n) {
     var rightClick = function(obj) {
         // FIXME this is hardcoded to only work with a specific panel
         var panel = 'B122616D-D2F4-4D4C-AC6C-899A7C03D473';

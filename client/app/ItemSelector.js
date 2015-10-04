@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scenes', 'FirstPersonControls', 'Camera', 'PointerLock', 'ScriptsManager', 'Editor', 'World', 'KeyVR', 'Constants'], function(THREE, scenes, controls, camera, pointerLock, scripts, editor, world, keyVR, constants) {
+define(['Three', 'Scenes', 'FirstPersonControls', 'Camera', 'PointerLock', 'scripting/Manager', 'Editor', 'World', 'KeyVR', 'Constants'], function(THREE, scenes, controls, camera, pointerLock, scripts, editor, world, keyVR, constants) {
     var isIntersecting = false;
     var lastIntersected;
 
