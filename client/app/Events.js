@@ -1,4 +1,4 @@
-define(['World'], function(world) {
+define([], function() {
     // TODO put the name of these events in constants file
     var events = {
         keydown: {list: [], isBrowserEvent: true},
@@ -9,6 +9,7 @@ define(['World'], function(world) {
         touchstart: {list: [], isBrowserEvent: true},
         touchend: {list: [], isBrowserEvent: true},
         touchmove: {list: [], isBrowserEvent: true},
+        init: {list: []},
         update: {list: []},
         start: {list: []},
         stop: {list: []},
@@ -19,39 +20,6 @@ define(['World'], function(world) {
         pointerlockchange: {list: []}
     };
 
-    var init = function() {
-        world.onLoop(update);
-    };
-
-    var update = function(time) {
-        dispatch(events.update, time);
-    };
-
-    var start = function() {
-        browserEvents.forEach(function(browserEvent) {
-            var callback = function(event) {
-                dispatch(events[browserEvent], event);
-            };
-
-            events[browserEvent].callback = callback;
-            document.addEventListener(browserEvent, callback);
-        });
-
-        dispatch(events.start);
-    };
-
-    var stop = function() {
-        browserEvents.forEach(function(browserEvent) {
-            document.removeEventListener(browserEvent, events[browserEvent].callback);
-        });
-
-        dispatch(events.stop);
-    };
-
-    var browserEvents = Object.keys(events).filter(function(key) {
-        return events[key].isBrowserEvent;
-    });
-
     var dispatch = function(obj, payload, uuid) {
         obj.list.forEach(function(handler) {
             if(!uuid || handler.uuid === uuid) {
@@ -60,17 +28,26 @@ define(['World'], function(world) {
         });
     };
 
-    var subscribe = function(event, callback) {
-        event.list.push({func: callback});
+    var subscribe = function(event, callback, uuid, scriptName) {
+        event.list.push({
+            func: callback,
+            uuid: uuid,
+            scriptName: scriptName
+        });
     };
 
-    world.onInit(init);
-    world.onStart(start);
-    world.onStop(stop);
+    var unsubscribeScript = function(uuid, scriptName) {
+        for (var name in events) {
+            events[name].list = events[name].list.filter(function(handler) {
+                return handler.uuid !== uuid || (scriptName && handler.scriptName !== scriptName);
+            });
+        }
+    };
 
     return {
         list: events,
         dispatch: dispatch,
-        subscribe: subscribe
+        subscribe: subscribe,
+        unsubscribeScript: unsubscribeScript
     }
 });

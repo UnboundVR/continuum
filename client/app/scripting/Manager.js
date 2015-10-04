@@ -7,12 +7,7 @@ define(['Scenes', 'Constants', 'Events'], function(scenes, constants, events) {
 
     var unloadOldScript = function(script, uuid) {
         events.dispatch(events.list.unload, null, uuid);
-
-        for (var name in events.list) {
-            events.list[name].list = events.list[name].list.filter(function(handler) {
-                return handler.uuid !== uuid || handler.scriptName !== script.name;
-            });
-        }
+        events.unsubscribeScript(uuid, script.name);
     };
 
     var loadScript = function(script, uuid) {
@@ -32,6 +27,27 @@ define(['Scenes', 'Constants', 'Events'], function(scenes, constants, events) {
             scripts[uuid][script.name] = script.source;
         };
 
+        var subscribeToEvents = function(object) {
+            var params = constants.scripts.APP_PARAM + ', ' + constants.scripts.SCENE_PARAM + ', ' + Object.keys(events.list).join(', ');
+            var source = script.source + '\nreturn {' + Object.keys(events.list).map(function(key) {
+                return key + ': ' + key;
+            }).join(', ') + '};';
+            var functions = (new Function(params, source).bind(object))(app, scenes.getScene());
+
+            for (var name in functions) {
+                if (!functions[name]) {
+                    continue;
+                }
+
+                if (!events.list[name]) {
+                    console.warn('Event type not supported (', name, ')');
+                    continue;
+                }
+
+                events.subscribe(events.list[name], functions[name].bind(object), object.uuid, script.name);
+            }
+        };
+
         if (scriptExists()) {
             unloadOldScript(script, uuid);
         }
@@ -39,28 +55,7 @@ define(['Scenes', 'Constants', 'Events'], function(scenes, constants, events) {
         storeScript();
 
         var object = scenes.getObjectByUUID(uuid);
-        var params = constants.scripts.APP_PARAM + ', ' + constants.scripts.SCENE_PARAM + ', ' + Object.keys(events.list).join(', ');
-        var source = script.source + '\nreturn {' + Object.keys(events.list).map(function(key) {
-            return key + ': ' + key;
-        }).join(', ') + '};';
-        var functions = (new Function(params, source).bind(object))(app, scenes.getScene());
-
-        for (var name in functions) {
-            if (!functions[name]) {
-                continue;
-            }
-
-            if (!events.list[name]) {
-                console.warn('Event type not supported (', name, ')');
-                continue;
-            }
-
-            events.list[name].list.push({
-                func: functions[name].bind(object),
-                uuid: object.uuid,
-                scriptName: script.name
-            });
-        }
+        subscribeToEvents(object);
     };
 
     var getScript = function(objUUID, scriptName) {
