@@ -18,23 +18,30 @@ var constants = {
         LOGIN_SCOPE: 'openid',
         CONNECTIONS: ['google-oauth2']
     },
-    help: {
-        CLOSE_BUTTON: 'closeButton',
-        HELP_PANEL: 'helpPanel',
-        LOCK_CURSOR: 'helpText-lockCursor',
-        KEYS: 'helpText-keys',
-        SHOW_AT_STARTUP_CHECKBOX: 'showAtStartup checkbox'
-    },
     ui: {
         UI_CONTAINER: 'ui-container',
-        PROFILE_PICTURE: 'profilePicture',
-        USER_NAME: 'userName',
-        MAIL: 'mail',
-        ROLE: 'role',
-        LOGOUT_BUTTON: 'logout button',
-        LOVE_BUTTON: 'love button',
-        HELP_BUTTON: 'help button',
-        POINTER_LOCK_BUTTON: 'lockCursor button'
+        coords: {
+            COORDS_TEXT: 'coordsText'
+        },
+        profile: {
+            PROFILE_PICTURE: 'profilePicture',
+            USER_NAME: 'userName',
+            MAIL: 'mail',
+            ROLE: 'role'
+        },
+        actions: {
+            LOGOUT_BUTTON: 'logout button',
+            LOVE_BUTTON: 'love button',
+            HELP_BUTTON: 'help button',
+            POINTER_LOCK_BUTTON: 'lockCursor button'
+        },
+        help: {
+            CLOSE_BUTTON: 'closeButton',
+            HELP_PANEL: 'helpPanel',
+            LOCK_CURSOR: 'helpText-lockCursor',
+            KEYS: 'helpText-keys',
+            SHOW_AT_STARTUP_CHECKBOX: 'showAtStartup checkbox'
+        }
     },
     coding: {
         CODE_TEXTAREA: 'leCode',
@@ -156,9 +163,6 @@ var constants = {
         COUNTERS: 'counters',
         OBJECT: 'object',
         SCENE: 'scene'
-    },
-    coords: {
-        COORDS_TEXT: 'coordsText'
     }
 };
 

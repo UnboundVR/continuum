@@ -1,4 +1,4 @@
-#ui-container #help {
+#ui-container .helpPanel {
 	width: 40%;
 	height: 40%;
 	margin: 0 auto;
@@ -11,14 +11,14 @@
 	pointer-events: all;
 }
 
-#ui-container #help span {
+#ui-container .helpPanel span {
 	display: inline-block;
 	width: 24px;
 	height: 24px;
 	background-size: 24px 24px;
 }
 
-#ui-container #help .closeButton {
+#ui-container .helpPanel .closeButton {
 	background-image: url('client/assets/img/close.png');
 	width: 16px;
 	height: 16px;
@@ -71,7 +71,7 @@
 /* end .showAtStartup */
 
 @media (max-width:768px) {
-	#ui-container #help {
+	#ui-container .helpPanel {
 		font-size: 12px;
 	}
 }

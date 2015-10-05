@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n) {
+define(['Three', 'Constants', 'i18n!nls/Auth', 'Events'], function(THREE, constants, i18n, events) {
 
     var auth0;
     var idToken;
@@ -40,32 +40,14 @@ define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n)
                 returnToLoginScreen();
             }
 
-            renewIdToken().then(function() {
-                auth0.getProfile(idToken, function(err, profile) {
-                    window.location.hash = '';
-
-                    if (err) {
-                        reject('There was an error geting the profile: ' + err.message);
-                        return;
-                    }
-
-                    userProfile = profile;
-                    resolve();
-                });
-            });
-        });
-    };
-
-    var renewIdToken = function() {
-        return new Promise(function(resolve, reject) {
-            auth0.renewIdToken(idToken, function(err, delegationResult) {
+            auth0.getProfile(idToken, function(err, profile) {
+                window.location.hash = '';
 
                 if (err) {
-                    reject('There was an error geting the profile: ' + err.message);
-                    return;
+                    logout();
                 }
 
-                idToken = delegationResult.id_token;
+                userProfile = profile;
                 resolve();
             });
         });
@@ -81,10 +63,11 @@ define(['Three', 'Constants', 'i18n!nls/Auth'], function(THREE, constants, i18n)
 
     var logout = function() {
         localStorage.removeItem(constants.auth.ID_TOKEN);
-        localStorage.removeItem(constants.auth.AUTH0_PROFILE);
 
         returnToLoginScreen();
     };
+
+    events.subscribe(events.list.logout, logout);
 
     var getVocative = function() {
         var profile = getProfile();
