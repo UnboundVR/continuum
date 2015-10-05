@@ -20,6 +20,7 @@ var constants = {
     },
     ui: {
         UI_CONTAINER: 'ui-container',
+        CLOSE_BUTTON: 'closeButton',
         coords: {
             COORDS_TEXT: 'coordsText'
         },
@@ -33,10 +34,10 @@ var constants = {
             LOGOUT_BUTTON: 'logout button',
             LOVE_BUTTON: 'love button',
             HELP_BUTTON: 'help button',
+            SETTINGS_BUTTON: 'settings button',
             POINTER_LOCK_BUTTON: 'lockCursor button'
         },
         help: {
-            CLOSE_BUTTON: 'closeButton',
             LOCK_CURSOR: 'helpText-lockCursor',
             KEYS: 'helpText-keys',
             SHOW_AT_STARTUP_CHECKBOX: 'showAtStartup checkbox'

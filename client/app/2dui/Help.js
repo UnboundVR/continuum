@@ -52,12 +52,14 @@ define(['html!Help', 'i18n!nls/Help', 'API', 'Auth', 'Events'], function(html, i
         var keysHelp = container.getElementsByClassName(constants.ui.help.KEYS)[0];
         keysHelp.innerHTML = i18n.keys;
 
-        var closeButton = container.getElementsByClassName(constants.ui.help.CLOSE_BUTTON)[0];
+        var closeButton = html.getElementsByClassName(constants.ui.CLOSE_BUTTON)[0];
         closeButton.onclick = hide;
 
         configShowAtStartup();
 
-        events.subscribe(events.list.showhelp, show);
+        events.subscribe(events.list.showhelp, function(display) {
+            (display ? show : hide)();
+        });
     };
 
     return {

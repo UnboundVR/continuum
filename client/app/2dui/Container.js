@@ -1,12 +1,12 @@
 'use strict';
 
-define(['World', 'Events', 'PointerLock', 'Constants', './Help', './Developer', './Profile', './Actions'], function(world, events, pointerLock, constants, help, developer, profile, actions) {
+define(['World', 'Events', 'PointerLock', 'Constants', './Help', './Developer', './Profile', './Actions', './Settings'], function(world, events, pointerLock, constants, help, developer, profile, actions, settings) {
 
     var container;
 
     var init = function() {
         container = document.getElementById(constants.ui.UI_CONTAINER);
-        initChildren(profile, help, developer, actions);
+        initChildren(profile, help, developer, actions, settings);
 
         events.subscribe(events.list.pointerlockchange, function(locked) {
             if (!locked) {
@@ -29,7 +29,8 @@ define(['World', 'Events', 'PointerLock', 'Constants', './Help', './Developer', 
 
     var disableUI = function() {
         container.style.display = constants.html.DISPLAY_NONE;
-        help.hide();
+        events.dispatch(events.list.showhelp, false);
+        events.dispatch(events.list.showsettings, false);
     };
 
     var addElement = function(element) {

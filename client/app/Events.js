@@ -20,7 +20,8 @@ define([], function() {
         pointerlockchange: {list: []},
         playermoved: {list: []},
         showhelp: {list: []},
-        logout: {list: []}
+        logout: {list: []},
+        showsettings: {list: []}
     };
 
     var dispatch = function(obj, payload, uuid) {

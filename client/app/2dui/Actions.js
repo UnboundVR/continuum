@@ -26,7 +26,15 @@ define(['html!Actions', 'i18n!nls/Actions', 'Events', 'PointerLock'], function(h
         var helpButton = container.getElementsByClassName(constants.ui.actions.HELP_BUTTON)[0];
         helpButton.setAttribute('title', i18n.help);
         helpButton.onclick = function() {
-            events.dispatch(events.list.showhelp);
+            events.dispatch(events.list.showhelp, true);
+            events.dispatch(events.list.showsettings, false);
+        };
+
+        var settingsButton = container.getElementsByClassName(constants.ui.actions.SETTINGS_BUTTON)[0];
+        settingsButton.setAttribute('title', i18n.settings);
+        settingsButton.onclick = function() {
+            events.dispatch(events.list.showsettings, true);
+            events.dispatch(events.list.showhelp, false);
         };
     };
 
