@@ -11,7 +11,8 @@ var require = {
         CSS3DRenderer: {deps: ['ThreeCore'], exports: 'THREE'},
         Detector: {exports: 'Detector'},
         Stats: {exports: 'Stats'},
-        RTCMultiConnection: {deps: ['GlobalSocketIO'], exports: 'RTCMultiConnection'}
+        RTCMultiConnection: {deps: ['GlobalSocketIO'], exports: 'RTCMultiConnection'},
+        THREETerrain: {deps: ['ThreeCore'], exports: 'THREE'}
     },
     paths: {
         Three: '../lib/Three',
@@ -30,7 +31,8 @@ var require = {
         text: '../lib/requirejs/Text',
         i18n: '../lib/requirejs/i18n',
         Constants: '../../shared/constants',
-        assets: '../assets'
+        assets: '../assets',
+        THREETerrain: '/node_modules/three.terrain.js/build/THREE.Terrain.min'
     },
-    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'ScriptsManager', 'Renderer', 'KeyVR', '2DUI', 'RTC', 'Performance']
+    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'Renderer', 'KeyVR', '2DUI', 'RTC', 'Performance', 'Terrain']
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scenes', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock', 'Constants'], function(THREE, scenes, playerSync, world, camera, keyVR, pointerLock, constants) {
+define(['Three', 'Scenes', 'Events', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock', 'Constants'], function(THREE, scenes, events, playerSync, world, camera, keyVR, pointerLock, constants) {
     var raycaster;
 
     var move = {
@@ -21,7 +21,7 @@ define(['Three', 'Scenes', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLoc
     var controls = new THREE.PointerLockControls(camera);
 
     var init = function() {
-        pointerLock.onChange(function(locked) {
+        events.subscribe(events.list.pointerlockchange, function(locked) {
             controls.enabled = locked;
         });
 

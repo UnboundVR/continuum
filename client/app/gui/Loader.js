@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Scenes', 'GUIManager', 'utils/DictFromArray', 'shared/TraverseTree', 'utils/BuildHTMLNode', 'Constants'], function(scenes, gui, dictFromArray, traverse, buildHTMLNode, constants) {
+define(['Scenes', './Manager', 'utils/DictFromArray', 'shared/TraverseTree', 'utils/BuildHTMLNode', 'Constants'], function(scenes, gui, dictFromArray, traverse, buildHTMLNode, constants) {
 
     var load = function(json) {
         var css3DScene = new THREE.Scene();

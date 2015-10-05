@@ -1,11 +1,6 @@
 'use strict';
 
-define(['utils/CallbackList', 'Stats'], function(CallbackList, Stats) {
-    var startCallbacks = new CallbackList();
-    var stopCallbacks = new CallbackList();
-    var initCallbacks = new CallbackList();
-    var loopCallbacks = new CallbackList();
-
+define(['utils/CallbackList', 'Stats', 'Events'], function(CallbackList, Stats, events) {
     var initialized = false;
     var request;
     var prevTime;
@@ -22,26 +17,43 @@ define(['utils/CallbackList', 'Stats'], function(CallbackList, Stats) {
         document.body.appendChild(stats.domElement);
     };
 
+    var browserEvents = Object.keys(events).filter(function(key) {
+        return events[key].isBrowserEvent;
+    });
+
     var start = function() {
+        browserEvents.forEach(function(browserEvent) {
+            var callback = function(event) {
+                dispatch(events[browserEvent], event);
+            };
+
+            events[browserEvent].callback = callback;
+            document.addEventListener(browserEvent, callback);
+        });
+
         initStats();
 
         if (!initialized) {
-            initCallbacks.execute();
+            events.dispatch(events.list.init);
             initialized = true;
         }
 
-        startCallbacks.execute();
+        events.dispatch(events.list.start);
         startLooping();
     };
 
     var stop = function() {
+        browserEvents.forEach(function(browserEvent) {
+            document.removeEventListener(browserEvent, events[browserEvent].callback);
+        });
+
         stopLooping();
-        stopCallbacks.execute();
+        events.dispatch(events.list.stop);
     };
 
     var loop = function(time) {
         stats.begin();
-        loopCallbacks.execute({time: time, delta: time - prevTime});
+        events.dispatch(events.list.update, {time: time, delta: time - prevTime});
         stats.end();
 
         prevTime = time;
@@ -57,11 +69,27 @@ define(['utils/CallbackList', 'Stats'], function(CallbackList, Stats) {
         cancelAnimationFrame(request);
     };
 
+    var onStart = function(callback) {
+        events.subscribe(events.list.start, callback);
+    };
+
+    var onStop = function(callback) {
+        events.subscribe(events.list.stop, callback);
+    };
+
+    var onInit = function(callback) {
+        events.subscribe(events.list.init, callback);
+    };
+
+    var onLoop = function(callback) {
+        events.subscribe(events.list.update, callback);
+    };
+
     return {
-        onStart: startCallbacks.push,
-        onStop: stopCallbacks.push,
-        onInit: initCallbacks.push,
-        onLoop: loopCallbacks.push,
+        onStart: onStart,
+        onStop: onStop,
+        onInit: onInit,
+        onLoop: onLoop,
         start: start,
         stop: stop
     };

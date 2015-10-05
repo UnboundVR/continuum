@@ -1,6 +1,6 @@
 'use strict';
 
-define(['World', 'PointerLock', 'Help', 'Auth', 'Constants', 'utils/BuildHTMLNode', 'text!assets/html/2DUI.html', 'text!assets/css/2DUI.css', 'i18n!nls/2DUI'], function(world, pointerLock, help, auth, constants, buildHTMLNode, html, css, i18n) {
+define(['World', 'Events', 'PointerLock', 'Help', 'Auth', 'Constants', 'utils/BuildHTMLNode', 'text!assets/html/2DUI.html', 'text!assets/css/2DUI.css', 'i18n!nls/2DUI'], function(world, events, pointerLock, help, auth, constants, buildHTMLNode, html, css, i18n) {
 
     var profile;
     var container;
@@ -11,7 +11,7 @@ define(['World', 'PointerLock', 'Help', 'Auth', 'Constants', 'utils/BuildHTMLNod
         initUI();
         hookUI();
 
-        pointerLock.onChange(function(locked) {
+        events.subscribe(events.list.pointerlockchange, function(locked) {
             if (!locked) {
                 enableUI();
             } else {
