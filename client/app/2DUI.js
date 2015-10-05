@@ -1,6 +1,6 @@
 'use strict';
 
-define(['World', 'Events', 'PointerLock', 'Help', 'Auth', 'Constants', 'utils/BuildHTMLNode', 'text!assets/html/2DUI.html', 'text!assets/css/2DUI.css', 'i18n!nls/2DUI'], function(world, events, pointerLock, help, auth, constants, buildHTMLNode, html, css, i18n) {
+define(['World', 'Events', 'PointerLock', 'Help', 'Auth', 'Constants', 'utils/BuildHTMLNode', 'text!assets/html/2DUI.html', 'text!assets/css/2DUI.css', 'i18n!nls/2DUI', 'Developer'], function(world, events, pointerLock, help, auth, constants, buildHTMLNode, html, css, i18n, developer) {
 
     var profile;
     var container;
@@ -60,6 +60,7 @@ define(['World', 'Events', 'PointerLock', 'Help', 'Auth', 'Constants', 'utils/Bu
         helpButton.setAttribute('title', i18n.help);
         helpButton.onclick = help.show;
         help.init();
+        developer.init();
     };
 
     var enableUI = function() {
