@@ -70,6 +70,6 @@ define(['Three', 'Scenes', 'World'], function(THREE, scenes, world) {
         scenes.getScene().add(terrain);
     };
 
-    world.onInit(init);
+    // world.onInit(init);
 
 });
