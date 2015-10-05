@@ -38,9 +38,8 @@ var getScene = function(uuid) {
             });
         };
 
-        var promises = [];
-        scene.remote.forEach(function(url) {
-            promises.push(fetchRemoteScene(url));
+        var promises = scene.remote.map(function(url) {
+            return fetchRemoteScene(url);
         });
 
         var copyObjects = function(what, where) {

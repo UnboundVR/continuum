@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Scenes', 'Constants', 'Events'], function(scenes, constants, events) {
+define(['Scenes', 'Constants', 'Events', 'utils/LoadExternalScript'], function(scenes, constants, events, loadExternal) {
     var scripts = {};
 
     var app;
@@ -54,8 +54,18 @@ define(['Scenes', 'Constants', 'Events'], function(scenes, constants, events) {
 
         storeScript();
 
-        var object = scenes.getObjectByUUID(uuid);
-        subscribeToEvents(object);
+        subscribeToEvents(scenes.getObjectByUUID(uuid));
+
+        if(script.dependencies) {
+            var promises = script.dependencies.map(function(dependency) {
+                return loadExternal(dependency);
+            });
+            return Promise.all(promises);
+        } else {
+            return new Promise(function(resolve, reject) {
+                resolve();
+            });
+        }
     };
 
     var getScript = function(objUUID, scriptName) {

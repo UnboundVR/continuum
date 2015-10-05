@@ -16,11 +16,10 @@ define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scenes', 'ObjectLoader
                     renderer: renderer.webGL
                 };
 
-                scriptsLoader.load(json, relevantApp);
-
-                world.start();
-
-                container.appendChild(renderer.getDomElement());
+                scriptsLoader.load(json, relevantApp).then(function() {
+                    world.start();
+                    container.appendChild(renderer.getDomElement());
+                });
             });
         };
 

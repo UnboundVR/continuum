@@ -10,13 +10,11 @@ var create = function(obj) {
 
 var getMulti = function(uuids) {
     return db.getMultiByAlias(constants.db.OBJECT, 'uuid', uuids).then(function(objects) {
-        var promises = [];
-
-        objects.forEach(function(obj) {
+        var promises = objects.map(function(obj) {
             if (obj.children && obj.children.length) {
-                promises.push(getMulti(obj.children));
+                return getMulti(obj.children);
             } else {
-                promises.push([]);
+                return [];
             }
         });
 
