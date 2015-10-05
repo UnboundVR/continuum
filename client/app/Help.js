@@ -36,14 +36,21 @@ define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHT
 
         var showAtStartupCheckbox = document.getElementsByClassName(constants.help.SHOW_AT_STARTUP_CHECKBOX)[0];
 
+        var displayAtStartup = true;
+        var profile = auth.getProfile();
+
         // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 
-        var profile = auth.getProfile();
-        if (profile.user_metadata) {
-            showAtStartupCheckbox.checked = profile.user_metadata.displayHelpAtStartup;
+        if (profile.user_metadata && profile.user_metadata.displayHelpAtStartup !== undefined) {
+            displayAtStartup = profile.user_metadata.displayHelpAtStartup;
         };
 
         // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+
+        showAtStartupCheckbox.checked = displayAtStartup;
+        if(!displayAtStartup) {
+            hide();
+        }
 
         showAtStartupCheckbox.onchange = function(event) {
             showAtStart(showAtStartupCheckbox.checked);

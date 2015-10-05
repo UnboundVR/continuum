@@ -6,13 +6,18 @@ define(['./Manager', 'utils/DictFromArray', 'shared/TraverseTree', 'Constants'],
 
         var scriptDict = dictFromArray(json.scripts, 'uuid');
 
+        var allPromises = [];
+
         traverse(json.scene.object, function(obj) {
             if (obj.scripts && obj.scripts.length) {
-                obj.scripts.forEach(function(scriptUUID) {
-                    scriptsManager.loadScript(scriptDict[scriptUUID], obj.uuid);
+                var promises = obj.scripts.map(function(scriptUUID) {
+                    return scriptsManager.loadScript(scriptDict[scriptUUID], obj.uuid);
                 });
+                allPromises.push(Promise.all(promises));
             }
         });
+
+        return Promise.all(allPromises);
     };
 
     return {

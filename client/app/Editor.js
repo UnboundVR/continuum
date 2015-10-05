@@ -7,10 +7,11 @@ define(['scripting/Manager', 'Constants', 'gui/Manager', 'utils/BuildHTMLNode', 
 
         var objScripts = scripts.getScripts(obj.uuid);
         var script;
-        var scriptNames = Object.keys(objScripts);
+        var scriptNames = objScripts ? Object.keys(objScripts) : [];
+
         switch (scriptNames.length) {
             case 0:
-                alert('Objects has no scripts - only edition objects with exactly one script is supported'); // TODO handle
+                console.warn('Objects has no scripts - only edition objects with exactly one script is supported'); // TODO handle
                 return;
             case 1:
                 script = {
@@ -19,7 +20,7 @@ define(['scripting/Manager', 'Constants', 'gui/Manager', 'utils/BuildHTMLNode', 
                 };
                 break;
             default:
-                alert('Objects has more than one script - only edition objects with exactly one script is supported'); // TODO handle
+                console.warn('Objects has more than one script - only edition objects with exactly one script is supported'); // TODO handle
                 return;
         }
 

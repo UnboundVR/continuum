@@ -29,10 +29,8 @@ var createScene = function(json) {
 };
 
 var load = function(items, type) {
-    var promises = [];
-
-    items.forEach(function(item) {
-        promises.push(db.createByAlias(type, 'uuid', item));
+    var promises = items.map(function(item) {
+        return db.createByAlias(type, 'uuid', item);
     });
 
     return promise.all(promises);
