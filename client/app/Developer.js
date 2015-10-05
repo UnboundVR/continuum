@@ -14,7 +14,6 @@ define(['text!assets/html/Developer.html', 'text!assets/css/Developer.css', 'uti
     };
 
     var updateCoords = function(position) {
-        console.log(coords);
         coords.innerHTML = 'X: ' + position.x;
     };
 
