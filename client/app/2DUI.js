@@ -60,7 +60,7 @@ define(['World', 'Events', 'PointerLock', 'Help', 'Auth', 'Constants', 'utils/Bu
         helpButton.setAttribute('title', i18n.help);
         helpButton.onclick = help.show;
         help.init();
-        developer.init();
+        //developer.init();
     };
 
     var enableUI = function() {
