@@ -39,7 +39,7 @@ define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHT
         // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 
         var profile = auth.getProfile();
-        if(profile.user_metadata) {
+        if (profile.user_metadata) {
             showAtStartupCheckbox.checked = profile.user_metadata.displayHelpAtStartup;
         };
 
