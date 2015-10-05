@@ -1,10 +1,9 @@
 'use strict';
 
-define(['text!assets/html/Profile.html', 'text!assets/css/Profile.css', 'utils/BuildHTMLNode', 'i18n!nls/Profile', 'Auth'], function(html, css, buildHTMLNode, i18n, auth) {
+define(['html!Profile', 'i18n!nls/Profile', 'Auth'], function(html, i18n, auth) {
     var init = function() {
         var container = document.getElementById(constants.ui.UI_CONTAINER);
-        var element = buildHTMLNode(html, css);
-        container.appendChild(element);
+        container.appendChild(html);
 
         var profile = auth.getProfile();
 

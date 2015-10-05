@@ -37,7 +37,6 @@ var constants = {
         },
         help: {
             CLOSE_BUTTON: 'closeButton',
-            HELP_PANEL: 'helpPanel',
             LOCK_CURSOR: 'helpText-lockCursor',
             KEYS: 'helpText-keys',
             SHOW_AT_STARTUP_CHECKBOX: 'showAtStartup checkbox'

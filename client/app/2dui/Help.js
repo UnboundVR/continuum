@@ -1,14 +1,14 @@
 'use strict';
 
-define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHTMLNode', 'i18n!nls/Help', 'API', 'Auth', 'Events'], function(html, css, buildHTMLNode, i18n, api, auth, events) {
+define(['html!Help', 'i18n!nls/Help', 'API', 'Auth', 'Events'], function(html, i18n, api, auth, events) {
     var helpPanel;
 
     var show = function() {
-        helpPanel.style.display = 'block';
+        html.style.display = 'block';
     };
 
     var hide = function() {
-        helpPanel.style.display = 'none';
+        html.style.display = 'none';
     };
 
     var showAtStart = function(value) {
@@ -44,9 +44,7 @@ define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHT
 
     var init = function() {
         var container = document.getElementById(constants.ui.UI_CONTAINER);
-        var element = buildHTMLNode(html, css);
-        container.appendChild(element);
-        helpPanel = container.getElementsByClassName(constants.ui.help.HELP_PANEL)[0];
+        container.appendChild(html);
 
         var lockCursorHelp = container.getElementsByClassName(constants.ui.help.LOCK_CURSOR)[0];
         lockCursorHelp.innerHTML = i18n.lockCursor;

@@ -28,6 +28,7 @@ var require = {
         shared: '../../shared',
         GlobalSocketIO: '../lib/GlobalSocketIO',
         text: '../lib/requirejs/Text',
+        html: '../lib/requirejs/HTML',
         i18n: '../lib/requirejs/i18n',
         Constants: '../../shared/constants',
         assets: '../assets'

@@ -1,10 +1,9 @@
 'use strict';
 
-define(['text!assets/html/Actions.html', 'text!assets/css/Actions.css', 'utils/BuildHTMLNode', 'i18n!nls/Actions', 'Events', 'PointerLock'], function(html, css, buildHTMLNode, i18n, events, pointerLock) {
+define(['html!Actions', 'i18n!nls/Actions', 'Events', 'PointerLock'], function(html, i18n, events, pointerLock) {
     var init = function() {
         var container = document.getElementById(constants.ui.UI_CONTAINER);
-        var element = buildHTMLNode(html, css);
-        container.appendChild(element);
+        container.appendChild(html);
 
         var loveButton = container.getElementsByClassName(constants.ui.actions.LOVE_BUTTON)[0];
         loveButton.setAttribute('title', i18n.love);
