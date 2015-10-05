@@ -15,7 +15,7 @@ var constants = {
         AUTH0_DOMAIN: 'metavrse.auth0.com',
         AUTH0_API: '/api/v2',
         AUTH0_USERS: '/users',
-        LOGIN_SCOPE: 'openid profile',
+        LOGIN_SCOPE: 'openid',
         CONNECTIONS: ['google-oauth2']
     },
     help: {
