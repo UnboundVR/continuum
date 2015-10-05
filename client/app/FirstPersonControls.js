@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Three', 'Scenes', 'Events', 'PlayerSync', 'World', 'Camera', 'KeyVR', 'PointerLock', 'Constants'], function(THREE, scenes, events, playerSync, world, camera, keyVR, pointerLock, constants) {
+define(['Three', 'Scenes', 'Events', 'World', 'Camera', 'KeyVR', 'PointerLock', 'Constants'], function(THREE, scenes, events, world, camera, keyVR, pointerLock, constants) {
     var raycaster;
 
     var move = {
@@ -122,7 +122,7 @@ define(['Three', 'Scenes', 'Events', 'PlayerSync', 'World', 'Camera', 'KeyVR', '
         restrainPosition(obj);
 
         if (!obj.position.equals(lastPosition)) {
-            playerSync.playerMoved(obj.position);
+            events.dispatch(events.list.playermoved, obj.position);
         }
 
         lastPosition.copy(obj.position);

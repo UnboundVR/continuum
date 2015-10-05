@@ -19,8 +19,8 @@ var constants = {
         CONNECTIONS: ['google-oauth2']
     },
     help: {
-		CLOSE_BUTTON: 'closeButton',
-		HELP_PANEL: 'helpPanel',
+        CLOSE_BUTTON: 'closeButton',
+        HELP_PANEL: 'helpPanel',
         LOCK_CURSOR: 'helpText-lockCursor',
         KEYS: 'helpText-keys',
         SHOW_AT_STARTUP_CHECKBOX: 'showAtStartup checkbox'
@@ -156,6 +156,9 @@ var constants = {
         COUNTERS: 'counters',
         OBJECT: 'object',
         SCENE: 'scene'
+    },
+    coords: {
+        COORDS_TEXT: 'coordsText'
     }
 };
 

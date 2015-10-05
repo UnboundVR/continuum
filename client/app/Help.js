@@ -41,7 +41,7 @@ define(['text!assets/html/Help.html', 'text!assets/css/Help.css', 'utils/BuildHT
 
         // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 
-        if(profile.user_metadata && profile.user_metadata.displayHelpAtStartup !== undefined) {
+        if (profile.user_metadata && profile.user_metadata.displayHelpAtStartup !== undefined) {
             displayAtStartup = profile.user_metadata.displayHelpAtStartup;
         };
 

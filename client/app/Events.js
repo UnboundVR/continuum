@@ -17,7 +17,8 @@ define([], function() {
         starthover: {list: []},
         endhover: {list: []},
         select: {list: []},
-        pointerlockchange: {list: []}
+        pointerlockchange: {list: []},
+        playermoved: {list: []}
     };
 
     var dispatch = function(obj, payload, uuid) {
