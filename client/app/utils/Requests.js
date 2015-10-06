@@ -2,6 +2,9 @@
 
 define(['auth/Token', 'Constants'], function(auth, constants) {
     var toJSON = function(res) {
+        if(!res.ok) {
+            throw res.statusText;
+        }
         return res.json();
     };
 
