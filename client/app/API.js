@@ -1,8 +1,7 @@
 'use strict';
 
-define(['utils/Requests', 'Constants', 'Auth'], function(req, constants, auth) {
+define(['utils/Requests', 'Constants'], function(req, constants) {
     var baseUrl = constants.routes.api.BASE.substring(1);
-    var auth0Base = 'https://' + constants.auth.AUTH0_DOMAIN + constants.auth.AUTH0_API;
 
     var getScene = function(sceneId) {
         var url = baseUrl + constants.routes.api.SCENE;
@@ -13,21 +12,7 @@ define(['utils/Requests', 'Constants', 'Auth'], function(req, constants, auth) {
         return req.get(url);
     };
 
-    var changeUserMetadata = function(metadata) {
-        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-
-        var url = auth0Base + constants.auth.AUTH0_USERS + '/' + auth.getProfile().user_id;
-        var payload = {
-            user_metadata: metadata
-        };
-
-        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
-
-        return req.patch(url, payload);
-    };
-
     return {
-        getScene: getScene,
-        changeUserMetadata: changeUserMetadata
+        getScene: getScene
     };
 });

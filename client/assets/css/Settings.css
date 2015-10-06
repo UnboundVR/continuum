@@ -1,4 +1,4 @@
-#ui-container .helpPanel {
+#ui-container .settingsPanel {
 	width: 40%;
 	height: 40%;
 	margin: 0 auto;
@@ -11,14 +11,14 @@
 	pointer-events: all;
 }
 
-#ui-container .helpPanel span {
+#ui-container .settingsPanel span {
 	display: inline-block;
 	width: 24px;
 	height: 24px;
 	background-size: 24px 24px;
 }
 
-#ui-container .helpPanel .closeButton {
+#ui-container .settingsPanel .closeButton {
 	background-image: url('client/assets/img/close.png');
 	width: 16px;
 	height: 16px;
@@ -32,17 +32,17 @@
 	cursor: pointer;
 }
 
-/* .showAtStartup */
-.showAtStartup {
+/* .iAmDev */
+.iAmDev {
 	margin: 0 auto;
 	margin-top: 10px;
 	width: 148px;
 }
-.showAtStartup label {
+.iAmDev label {
 	float: left;
 	cursor: pointer;
 }
-.showAtStartup label:after {
+.iAmDev label:after {
   content: '';
   width: 9px;
   height: 5px;
@@ -58,20 +58,20 @@
       -ms-transform: rotate(-45deg);
           transform: rotate(-45deg);
 }
-.showAtStartup label:hover::after {
+.iAmDev label:hover::after {
   opacity: 0.4;
 }
-.showAtStartup input[type=checkbox] {
+.iAmDev input[type=checkbox] {
   visibility: hidden;
 }
-.showAtStartup input[type=checkbox]:checked + label:after {
+.iAmDev input[type=checkbox]:checked + label:after {
   opacity: 1;
 }
 
 /* end .showAtStartup */
 
 @media (max-width:768px) {
-	#ui-container .helpPanel {
+	#ui-container .settingsPanel {
 		font-size: 12px;
 	}
 }

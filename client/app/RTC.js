@@ -1,6 +1,6 @@
 'use strict';
 
-define(['SocketIO', 'RTCMultiConnection', 'World', '2DUI', 'Constants'], function(io, RTCMultiConnection, world, ui, constants) {
+define(['SocketIO', 'RTCMultiConnection', 'World', '2dui/Container', 'Constants'], function(io, RTCMultiConnection, world, ui, constants) {
 
     var init = function() {
         var connection = new RTCMultiConnection(constants.rtc.channel);

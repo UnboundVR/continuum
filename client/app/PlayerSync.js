@@ -1,6 +1,6 @@
 'use strict';
 
-define(['SocketIO', 'Scenes', 'World', 'Auth', 'Constants', 'Events'], function(io, scenes, world, auth, constants, events) {
+define(['SocketIO', 'Scenes', 'World', 'auth/Token', 'Constants', 'Events'], function(io, scenes, world, auth, constants, events) {
     var socket;
     var players;
 

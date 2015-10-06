@@ -18,23 +18,42 @@ var constants = {
         LOGIN_SCOPE: 'openid',
         CONNECTIONS: ['google-oauth2']
     },
-    help: {
-        CLOSE_BUTTON: 'closeButton',
-        HELP_PANEL: 'helpPanel',
-        LOCK_CURSOR: 'helpText-lockCursor',
-        KEYS: 'helpText-keys',
-        SHOW_AT_STARTUP_CHECKBOX: 'showAtStartup checkbox'
-    },
     ui: {
         UI_CONTAINER: 'ui-container',
-        PROFILE_PICTURE: 'profilePicture',
-        USER_NAME: 'userName',
-        MAIL: 'mail',
-        ROLE: 'role',
-        LOGOUT_BUTTON: 'logout button',
-        LOVE_BUTTON: 'love button',
-        HELP_BUTTON: 'help button',
-        POINTER_LOCK_BUTTON: 'lockCursor button'
+        CLOSE_BUTTON: 'closeButton',
+        coords: {
+            COORDS_TEXT: 'coordsText'
+        },
+        profile: {
+            PROFILE_PICTURE: 'profilePicture',
+            USER_NAME: 'userName',
+            MAIL: 'mail',
+            ROLE: 'role'
+        },
+        actions: {
+            LOGOUT_BUTTON: 'logout button',
+            HELP_BUTTON: 'help button',
+            SETTINGS_BUTTON: 'settings button',
+            POINTER_LOCK_BUTTON: 'lockCursor button'
+        },
+        help: {
+            LOCK_CURSOR: 'helpText-lockCursor',
+            KEYS: 'helpText-keys',
+            SHOW_AT_STARTUP_CHECKBOX: 'showAtStartup checkbox'
+        },
+        settings: {
+            IS_DEVELOPER_CHECKBOX: 'iAmDev checkbox'
+        }
+    },
+    settings: {
+        DISPLAY_HELP_AT_STARTUP: {
+            name: 'displayHelpAtStartup',
+            defaultValue: true
+        },
+        IS_DEVELOPER: {
+            name: 'isDeveloper',
+            defaultValue: false
+        }
     },
     coding: {
         CODE_TEXTAREA: 'leCode',
@@ -156,9 +175,6 @@ var constants = {
         COUNTERS: 'counters',
         OBJECT: 'object',
         SCENE: 'scene'
-    },
-    coords: {
-        COORDS_TEXT: 'coordsText'
     }
 };
 

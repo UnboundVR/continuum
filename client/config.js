@@ -29,10 +29,11 @@ var require = {
         shared: '../../shared',
         GlobalSocketIO: '../lib/GlobalSocketIO',
         text: '../lib/requirejs/Text',
+        html: '../lib/requirejs/HTML',
         i18n: '../lib/requirejs/i18n',
         Constants: '../../shared/constants',
         assets: '../assets',
         THREETerrain: '/node_modules/three.terrain.js/build/THREE.Terrain.min'
     },
-    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'Renderer', 'KeyVR', '2DUI', 'RTC', 'Performance', 'Terrain']
+    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'Renderer', 'KeyVR', '2dui/Container', 'RTC', 'Performance', 'Terrain']
 };

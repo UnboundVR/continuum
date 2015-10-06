@@ -18,7 +18,11 @@ define([], function() {
         endhover: {list: []},
         select: {list: []},
         pointerlockchange: {list: []},
-        playermoved: {list: []}
+        playermoved: {list: []},
+        showhelp: {list: []},
+        logout: {list: []},
+        showsettings: {list: []},
+        settingchanged: {list: []}
     };
 
     var dispatch = function(obj, payload, uuid) {
