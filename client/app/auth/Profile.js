@@ -18,7 +18,7 @@ define(['Constants', 'i18n!nls/Auth', 'utils/Requests', 'Events'], function(cons
         return req.patch(url, payload).then(function(response) {
             profile = response;
             events.dispatch(events.list.settingchanged, metadata);
-        });
+        }, logout);
     };
 
     var getProfile = function() {
