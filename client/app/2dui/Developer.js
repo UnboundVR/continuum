@@ -12,8 +12,12 @@ define(['html!Developer', 'Events'], function(html, events) {
         events.subscribe(events.list.playermoved, updateCoords);
     };
 
+    var roundCoord = function(coord) {
+        return parseFloat(Math.round(coord * 100) / 100).toFixed(3);
+    };
+
     var updateCoords = function(position) {
-        coords.innerHTML = 'X: ' + position.x;
+        coords.innerHTML = 'X: ' +  roundCoord(position.x) + '<br/> Y: ' + roundCoord(position.y) + '<br/> Z: ' + roundCoord(position.z);
     };
 
     return {

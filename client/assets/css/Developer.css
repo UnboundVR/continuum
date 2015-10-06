@@ -1,8 +1,9 @@
 .coordsContainer .coordsText {
-    width: 1000px;
-    height: 16px;
+    width: 70px;
+    height: 45px;
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 2px;
     color: #FFFFFF;
+    font-size: 12px;
 }
