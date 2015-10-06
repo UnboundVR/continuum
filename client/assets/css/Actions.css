@@ -17,7 +17,6 @@
     opacity: 0.8;
     float: right;
 }
-#ui-container .love {background-image: url('client/assets/img/love.png'); display: none !important;}
 #ui-container .logout {background-image: url('client/assets/img/logout.png');}
 #ui-container .lockCursor {background-image: url('client/assets/img/pointerLock.png');}
 #ui-container .help {background-image: url('client/assets/img/help.png');}

@@ -32,7 +32,6 @@ var constants = {
         },
         actions: {
             LOGOUT_BUTTON: 'logout button',
-            LOVE_BUTTON: 'love button',
             HELP_BUTTON: 'help button',
             SETTINGS_BUTTON: 'settings button',
             POINTER_LOCK_BUTTON: 'lockCursor button'

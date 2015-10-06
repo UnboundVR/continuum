@@ -5,12 +5,6 @@ define(['html!Actions', 'i18n!nls/Actions', 'Events', 'PointerLock'], function(h
         var container = document.getElementById(constants.ui.UI_CONTAINER);
         container.appendChild(html);
 
-        var loveButton = container.getElementsByClassName(constants.ui.actions.LOVE_BUTTON)[0];
-        loveButton.setAttribute('title', i18n.love);
-        loveButton.onclick = function() {
-            //TODO: Log that user likes demo.
-        };
-
         var pointerLockButton = container.getElementsByClassName(constants.ui.actions.POINTER_LOCK_BUTTON)[0];
         pointerLockButton.setAttribute('title', i18n.lockCursor);
         pointerLockButton.onclick = function() {
