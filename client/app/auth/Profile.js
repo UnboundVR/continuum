@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Constants', 'i18n!nls/Auth', 'utils/Requests'], function(constants, i18n, req) {
+define(['Constants', 'i18n!nls/Auth', 'utils/Requests', 'Events'], function(constants, i18n, req, events) {
 
     var profile;
     var auth0Base = 'https://' + constants.auth.AUTH0_DOMAIN + constants.auth.AUTH0_API;
@@ -17,6 +17,7 @@ define(['Constants', 'i18n!nls/Auth', 'utils/Requests'], function(constants, i18
 
         return req.patch(url, payload).then(function(response) {
             profile = response;
+            events.dispatch(events.list.settingchanged, metadata);
         });
     };
 

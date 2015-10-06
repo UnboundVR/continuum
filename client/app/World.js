@@ -1,10 +1,18 @@
 'use strict';
 
-define(['utils/CallbackList', 'Stats', 'Events'], function(CallbackList, Stats, events) {
+define(['utils/CallbackList', 'Stats', 'Events', 'Constants', 'utils/Settings'], function(CallbackList, Stats, events, constants, settings) {
     var initialized = false;
     var request;
     var prevTime;
     var stats;
+
+    var showStats = function() {
+        stats.domElement.style.display = 'block';
+    };
+
+    var hideStats = function() {
+        stats.domElement.style.display = 'none';
+    };
 
     var initStats = function() {
         stats = new Stats();
@@ -15,6 +23,13 @@ define(['utils/CallbackList', 'Stats', 'Events'], function(CallbackList, Stats, 
         stats.domElement.style.top = '0px';
 
         document.body.appendChild(stats.domElement);
+
+        if(!settings.get(constants.settings.IS_DEVELOPER)) {
+            hideStats();
+        }
+        settings.onChange(constants.settings.IS_DEVELOPER, function(display) {
+            (display ? showStats : hideStats)();
+        });
     };
 
     var browserEvents = Object.keys(events).filter(function(key) {

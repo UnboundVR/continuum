@@ -1,6 +1,6 @@
 'use strict';
 
-define(['auth/Profile'], function(auth, api) {
+define(['auth/Profile', 'Events'], function(auth, events) {
     var get = function(setting) {
         var value = auth.getMetadataField(setting.name);
 
@@ -17,8 +17,17 @@ define(['auth/Profile'], function(auth, api) {
         return auth.changeUserMetadata(payload);
     };
 
+    var onChange = function onChange(setting, callback) {
+        events.subscribe(events.list.settingchanged, function(change) {
+            if(change[setting.name] !== undefined) {
+                callback(change[setting.name]);
+            }
+        });
+    };
+
     return {
         get: get,
-        set: set
+        set: set,
+        onChange: onChange
     };
 });

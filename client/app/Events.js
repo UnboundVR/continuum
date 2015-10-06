@@ -21,7 +21,8 @@ define([], function() {
         playermoved: {list: []},
         showhelp: {list: []},
         logout: {list: []},
-        showsettings: {list: []}
+        showsettings: {list: []},
+        settingchanged: {list: []}
     };
 
     var dispatch = function(obj, payload, uuid) {
