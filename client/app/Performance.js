@@ -4,8 +4,7 @@ define(['World'], function(world) {
 
     var init = function() {
         world.onLoop(loop);
-
-        setInterval(calculateFps, 1000);
+        world.onLoop(calculateFps, 1000);
     };
 
     var calculateFps = function() {

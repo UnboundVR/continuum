@@ -96,8 +96,12 @@ define(['utils/CallbackList', 'Stats', 'Events', 'Constants', 'utils/Settings'],
         events.subscribe(events.list.init, callback);
     };
 
-    var onLoop = function(callback) {
-        events.subscribe(events.list.update, callback);
+    var onLoop = function(callback, interval) {
+        if(interval === undefined) {
+            events.subscribe(events.list.update, callback);
+        } else {
+            setInterval(callback, interval);
+        }
     };
 
     return {

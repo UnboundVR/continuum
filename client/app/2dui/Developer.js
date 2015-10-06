@@ -1,8 +1,9 @@
 'use strict';
 
-define(['html!Developer', 'Events', 'utils/Settings', 'Constants'], function(html, events, settings, constants) {
+define(['html!Developer', 'Events', 'utils/Settings', 'Constants', 'World'], function(html, events, settings, constants, world) {
     var container;
     var coords;
+    var position;
 
     var show = function() {
         html.style.display = 'block';
@@ -18,6 +19,7 @@ define(['html!Developer', 'Events', 'utils/Settings', 'Constants'], function(htm
         coords = container.getElementsByClassName(constants.ui.coords.COORDS_TEXT)[0];
 
         events.subscribe(events.list.playermoved, updateCoords);
+        world.onLoop(displayUpdatedCoords, 1000);
 
         if(!settings.get(constants.settings.IS_DEVELOPER)) {
             hide();
@@ -31,8 +33,14 @@ define(['html!Developer', 'Events', 'utils/Settings', 'Constants'], function(htm
         return parseFloat(Math.round(coord * 100) / 100).toFixed(3);
     };
 
-    var updateCoords = function(position) {
-        coords.innerHTML = 'X: ' +  roundCoord(position.x) + '<br/> Y: ' + roundCoord(position.y) + '<br/> Z: ' + roundCoord(position.z);
+    var updateCoords = function(val) {
+        position = val;
+    };
+
+    var displayUpdatedCoords = function() {
+        if(position) {
+            coords.innerHTML = 'X: ' +  roundCoord(position.x) + '<br/> Y: ' + roundCoord(position.y) + '<br/> Z: ' + roundCoord(position.z);
+        }
     };
 
     return {
