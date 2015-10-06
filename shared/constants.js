@@ -40,6 +40,19 @@ var constants = {
             LOCK_CURSOR: 'helpText-lockCursor',
             KEYS: 'helpText-keys',
             SHOW_AT_STARTUP_CHECKBOX: 'showAtStartup checkbox'
+        },
+        settings: {
+            IS_DEVELOPER_CHECKBOX: 'iAmDev checkbox'
+        }
+    },
+    settings: {
+        DISPLAY_HELP_AT_STARTUP: {
+            name: 'displayHelpAtStartup',
+            defaultValue: true
+        },
+        IS_DEVELOPER: {
+            name: 'isDeveloper',
+            defaultValue: false
         }
     },
     coding: {

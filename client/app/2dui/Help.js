@@ -1,7 +1,8 @@
 'use strict';
 
-define(['html!Help', 'i18n!nls/Help', 'API', 'Auth', 'Events'], function(html, i18n, api, auth, events) {
+define(['html!Help', 'i18n!nls/Help', 'utils/Settings', 'Events'], function(html, i18n, settings, events) {
     var helpPanel;
+    var container;
 
     var show = function() {
         html.style.display = 'block';
@@ -11,39 +12,22 @@ define(['html!Help', 'i18n!nls/Help', 'API', 'Auth', 'Events'], function(html, i
         html.style.display = 'none';
     };
 
-    var showAtStart = function(value) {
-        var payload = {
-            displayHelpAtStartup: value
-        };
-        api.changeUserMetadata(payload);
-    };
-
     var configShowAtStartup = function() {
-        var displayAtStartup = true;
-        var profile = auth.getProfile();
+        var displayAtStartup = settings.get(constants.settings.DISPLAY_HELP_AT_STARTUP);
 
-        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-
-        if (profile.user_metadata && profile.user_metadata.displayHelpAtStartup !== undefined) {
-            displayAtStartup = profile.user_metadata.displayHelpAtStartup;
+        var showAtStartupCheckbox = container.getElementsByClassName(constants.ui.help.SHOW_AT_STARTUP_CHECKBOX)[0];
+        showAtStartupCheckbox.checked = displayAtStartup;
+        showAtStartupCheckbox.onchange = function(event) {
+            settings.set(constants.settings.DISPLAY_HELP_AT_STARTUP, showAtStartupCheckbox.checked);
         };
 
-        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
-
-        var showAtStartupCheckbox = document.getElementsByClassName(constants.ui.help.SHOW_AT_STARTUP_CHECKBOX)[0];
-
-        showAtStartupCheckbox.checked = displayAtStartup;
         if(!displayAtStartup) {
             hide();
         }
-
-        showAtStartupCheckbox.onchange = function(event) {
-            showAtStart(showAtStartupCheckbox.checked);
-        };
     }
 
     var init = function() {
-        var container = document.getElementById(constants.ui.UI_CONTAINER);
+        container = document.getElementById(constants.ui.UI_CONTAINER);
         container.appendChild(html);
 
         var lockCursorHelp = container.getElementsByClassName(constants.ui.help.LOCK_CURSOR)[0];
