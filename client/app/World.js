@@ -34,16 +34,16 @@ define(['utils/CallbackList', 'Stats', 'Events', 'Constants', 'utils/Settings'],
     };
 
     var browserEvents = Object.keys(events.list).filter(function(key) {
-        return events[key].isBrowserEvent;
+        return events.list[key].isBrowserEvent;
     });
 
     var start = function() {
         browserEvents.forEach(function(browserEvent) {
             var callback = function(event) {
-                dispatch(events[browserEvent], event);
+                events.dispatch(events.list[browserEvent], event);
             };
 
-            events[browserEvent].callback = callback;
+            events.list[browserEvent].callback = callback;
             document.addEventListener(browserEvent, callback);
         });
 
@@ -60,7 +60,7 @@ define(['utils/CallbackList', 'Stats', 'Events', 'Constants', 'utils/Settings'],
 
     var stop = function() {
         browserEvents.forEach(function(browserEvent) {
-            document.removeEventListener(browserEvent, events[browserEvent].callback);
+            document.removeEventListener(browserEvent, events.list[browserEvent].callback);
         });
 
         stopLooping();
