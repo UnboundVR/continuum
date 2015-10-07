@@ -3,6 +3,6 @@
 define(['Constants'], function(constants) {
     return function() {
         localStorage.removeItem(constants.auth.ID_TOKEN);
-        window.location.href = constants.routes.LOGIN_SCREEN;
+        window.location.href = constants.routes.CONTINUUM_SITE;
     };
 });

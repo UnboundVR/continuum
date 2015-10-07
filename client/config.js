@@ -14,10 +14,11 @@ var require = {
         MaskPass: {deps: ['ThreeCore'], exports: 'THREE'},
         CopyShader: {deps: ['ThreeCore'], exports: 'THREE'},
         SSAOShader: {deps: ['ThreeCore'], exports: 'THREE'},
+        THREETerrain: {deps: ['ThreeCore'], exports: 'THREE'},
         SocketIO: {exports: 'io'},
         Detector: {exports: 'Detector'},
         Stats: {exports: 'Stats'},
-        RTCMultiConnection: {deps: ['GlobalSocketIO'], exports: 'RTCMultiConnection'}
+        RTCMultiConnection: {deps: ['GlobalSocketIO'], exports: 'RTCMultiConnection'},
     },
     paths: {
         // Three.js
@@ -33,6 +34,7 @@ var require = {
         RenderPass: '../lib/postprocessing/RenderPass',
         SSAOShader: '../lib/shaders/SSAOShader',
         CopyShader: '../lib/shaders/CopyShader',
+        THREETerrain: '/node_modules/three.terrain.js/build/THREE.Terrain.min',
 
         // Misc
         Detector: '../lib/Detector',
@@ -52,5 +54,5 @@ var require = {
         shared: '../../shared',
         assets: '../assets'
     },
-    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'Renderer', 'KeyVR', '2dui/Container', 'RTC', 'Performance']
+    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'Renderer', 'KeyVR', '2dui/Container', 'RTC', 'Performance', 'Terrain']
 };

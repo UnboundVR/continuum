@@ -5,14 +5,22 @@
         "textures": [
             {
                 "uuid": "9A4E4794-B019-4B58-9485-459D4FFB6F2A",
-                "image": "73928DB8-9696-443F-BF9A-B525DECFFA93"
+                "image": "77992DED-8BA5-40C0-8584-D5FE3EFDDF2E"
+            },
+            {
+                "uuid": "8A4E4794-B019-4B58-9485-459D4FFB6G2A",
+                "image": "73945DB8-9696-443F-BF9A-B525DECFFA93"
             }
         ],
 
         "images": [
             {
-                "uuid": "73928DB8-9696-443F-BF9A-B525DECFFA93",
+                "uuid": "77992DED-8BA5-40C0-8584-D5FE3EFDDF2E",
                 "url": "client/assets/img/galaxy-starfield.png"
+            },
+            {
+                "uuid": "73945DB8-9696-443F-BF9A-B525DECFFA93",
+                "url": "client/assets/img/lowpolyart.png"
             }
         ],
 
@@ -53,6 +61,22 @@
 				"widthSegments": 1,
 				"heightSegments": 1,
 				"depthSegments": 1
+			},
+			{
+				"uuid": "472FCB78-5711-4EC5-9F32-3DB75900DB6E",
+				"type": "PlaneGeometry",
+				"width": 200,
+				"height": 200,
+				"widthSegments": 1,
+				"heightSegments": 1
+			},
+			{
+				"uuid": "6504C98B-C1DC-4214-80E4-582C6DB521C3",
+				"type": "PlaneGeometry",
+				"width": 200,
+				"height": 200,
+				"widthSegments": 1,
+				"heightSegments": 1
 			}
         ],
 
@@ -87,6 +111,19 @@
 				"emissive": 0,
 				"specular": 1118481,
 				"shininess": 30
+			},
+			{
+				"uuid": "504618F1-E1E5-4B5B-AE0F-CBD4CC8FE591",
+				"map": "8A4E4794-B019-4B58-9485-459D4FFB6G2A",
+				"type": "MeshBasicMaterial",
+				"color": 16777215,
+				"side": 2
+			},
+			{
+				"uuid": "0D701989-9245-4AD4-8788-2FD969CA1D9A",
+				"type": "MeshBasicMaterial",
+				"name": "StreamingPanel",
+				"color": 0
 			}
         ],
 
@@ -96,15 +133,6 @@
 			"name": "Scene",
 			"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
 			"children": [
-				{
-					"uuid": "0C2EC231-41E4-4F71-B017-790340178843",
-					"type": "Mesh",
-					"name": "Floor",
-                    "receiveShadow": true,
-					"geometry": "46F4D8AF-47E1-4FD6-8687-9373FCF91C1C",
-					"material": "9A1BAC6E-AEDD-406D-97CA-73BA733FABBB",
-					"matrix": [5,0,0,0,0,0.004003959242254496,-5.031365871429443,0,0,0.9999997019767761,0.0007957994239404798,0,0,0,0,1]
-				},
 				{
 					"uuid": "395C5D46-0DA0-4AB3-9908-CC5C0D9E803A",
 					"type": "DirectionalLight",
@@ -123,53 +151,41 @@
 					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,712.280029296875,-1106.8399658203125,-321.17999267578125,1]
 				},
 				{
-					"uuid": "F57146D0-9296-4408-B753-0532A3B8AC2F",
+					"uuid": "77992DED-8BA5-40C0-8584-D5FE3EFDDF2E",
 					"type": "Mesh",
-					"name": "Info panel",
-                    "gui": "09C20E50-E41F-48F4-8BC7-84B85060FE61",
-					"geometry": "0440789E-D4A6-423A-86C9-0A15FA4B5D5A",
-					"material": "642C290C-38EB-49CE-9389-C4361F1B3865",
-					"matrix": [3.197934150695801,0,0,0,0,1.590786099433899,0,0,0,0,1,0,29.3294734954834,161.34609985351562,-657.7916259765625,1]
+					"name": "LowPolyArt",
+					"matrix": [3.2277493476867676,0,0,0,0,4.558780670166016,0,0,0,0,3.799999952316284,0,-2455.95166015625,557.5,-1983.23486328125,1],
+					"geometry": "472FCB78-5711-4EC5-9F32-3DB75900DB6E",
+					"material": "504618F1-E1E5-4B5B-AE0F-CBD4CC8FE591"
 				},
 				{
-					"uuid": "B122616D-D2F4-4D4C-AC6C-899A7C03D473",
+					"uuid": "22F7E49B-E4E0-43FF-BE28-B152AA33BED5",
 					"type": "Mesh",
-					"name": "Code panel",
-                    "gui": "EA9B9C85-99ED-4908-9BB4-139F81CF0319",
-					"geometry": "0440789E-D4A6-423A-86C9-0A15FA4B5D5A",
-					"material": "642C290C-38EB-49CE-9389-C4361F1B3865",
-					"matrix": [-0.31772440671920776,0,-3.1821117401123047,0,0,1.590786099433899,0,0,0.9950522780418396,0,-0.09935301542282104,0,-706.0553588867188,161.34609985351562,-35.17312240600586,1]
-				},
-				{
-					"uuid": "F5C66F19-25FA-4CB5-85C1-8BA584DDA369",
-					"type": "Mesh",
-					"name": "DevCube",
-                    "castShadow": true,
-					"geometry": "33FE8E02-741F-4705-8147-00015FAC7E79",
-					"material": "239DDF04-F3EB-4149-AD24-5114144AAF1C",
-                    "scripts": ["1F55E768-39E5-4E04-9FAC-790A88C16CB1"],
-					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-268.1260681152344,69.61237335205078,-283.8121337890625,1]
+					"name": "Streaming panel",
+                    "scripts": ["CB23862C-858D-410F-878C-00DDBAB7BCB8"],
+					"gui": "59720E50-E41F-48F4-8BC7-84B85060FE61",
+					"matrix": [9.739999771118164,0,0,0,0,5.650000095367432,0,0,0,0,3.799999952316284,0,-285.59002685546875,557.5,-3934.545654296875,1],
+					"geometry": "6504C98B-C1DC-4214-80E4-582C6DB521C3",
+					"material": "0D701989-9245-4AD4-8788-2FD969CA1D9A"
 				}
             ]
 		}
 	},
 	"scripts": [
         {
-            "uuid": "1F55E768-39E5-4E04-9FAC-790A88C16CB1",
-            "name": "coderCube",
-            "source": "function select() {\n    this.position.y += 3;\n}"
+            "uuid": "CB23862C-858D-410F-878C-00DDBAB7BCB8",
+            "name": "youtubePlayer",
+            "source": "var player;\nfunction initPlayer() {player = new YT.Player('player', {events:{onReady: function() {player.playVideo()}}});}\nfunction togglePlayerState(){var state = player.getPlayerState(); if(state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING){player.pauseVideo();} else {player.playVideo();}}\nfunction select() {if(!player){initPlayer();} else if(player.getPlayerState) {togglePlayerState();}}",
+            "dependencies" : ["https://www.youtube.com/iframe_api"]
         }
     ],
 	"gui": [
         {
-            "uuid": "09C20E50-E41F-48F4-8BC7-84B85060FE61",
-            "html": "<h1 class=\"header\">Welcome to the Metaverse \\m/</h1><h2>Press the mouse mid button or f4 to toggle pointer lock</h2>",
-            "css": ".header {color:red;}"
-        },
-        {
-            "uuid": "EA9B9C85-99ED-4908-9BB4-139F81CF0319",
-            "html": "<h1 id=\"codingHeader\">Right click the cube to change its code</h1>"
+            "uuid": "59720E50-E41F-48F4-8BC7-84B85060FE61",
+            "html": "<iframe id=\"player\" title=\"YouTube video player\" class=\"youtube-player\" type=\"text/html\" width=\"1940\" height=\"1080\" src=\"http://www.youtube.com/embed/LRhP4XAXoLI?enablejsapi=1&rel=0\" frameborder=\"0\" allowFullScreen></iframe>"
         }
     ],
-    "remote": []
+    "remote": [
+        "http://metavrse.io/public/continuum-room/continuumroom.json"
+    ]
 }
