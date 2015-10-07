@@ -21,9 +21,10 @@ define(['html!Developer', 'Events', 'utils/Settings', 'Constants', 'World'], fun
         events.subscribe(events.list.playermoved, updateCoords);
         world.onLoop(displayUpdatedCoords, 1000);
 
-        if(!settings.get(constants.settings.IS_DEVELOPER)) {
+        if (!settings.get(constants.settings.IS_DEVELOPER)) {
             hide();
         }
+
         settings.onChange(constants.settings.IS_DEVELOPER, function(display) {
             (display ? show : hide)();
         });
@@ -38,7 +39,7 @@ define(['html!Developer', 'Events', 'utils/Settings', 'Constants', 'World'], fun
     };
 
     var displayUpdatedCoords = function() {
-        if(position) {
+        if (position) {
             coords.innerHTML = 'X: ' +  roundCoord(position.x) + '<br/> Y: ' + roundCoord(position.y) + '<br/> Z: ' + roundCoord(position.z);
         }
     };

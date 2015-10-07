@@ -24,9 +24,10 @@ define(['utils/CallbackList', 'Stats', 'Events', 'Constants', 'utils/Settings'],
 
         document.body.appendChild(stats.domElement);
 
-        if(!settings.get(constants.settings.IS_DEVELOPER)) {
+        if (!settings.get(constants.settings.IS_DEVELOPER)) {
             hideStats();
         }
+
         settings.onChange(constants.settings.IS_DEVELOPER, function(display) {
             (display ? showStats : hideStats)();
         });
@@ -97,7 +98,7 @@ define(['utils/CallbackList', 'Stats', 'Events', 'Constants', 'utils/Settings'],
     };
 
     var onLoop = function(callback, interval) {
-        if(interval === undefined) {
+        if (interval === undefined) {
             events.subscribe(events.list.update, callback);
         } else {
             setInterval(callback, interval);
