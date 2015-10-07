@@ -1,6 +1,6 @@
 'use strict';
 
-define(['utils/CallbackList', 'Stats', 'Events', 'Constants', 'utils/Settings'], function(CallbackList, Stats, events, constants, settings) {
+define(['Stats', 'Events', 'Constants', 'utils/Settings'], function(Stats, events, constants, settings) {
     var initialized = false;
     var request;
     var prevTime;
@@ -33,43 +33,25 @@ define(['utils/CallbackList', 'Stats', 'Events', 'Constants', 'utils/Settings'],
         });
     };
 
-    var browserEvents = Object.keys(events.list).filter(function(key) {
-        return events.list[key].isBrowserEvent;
-    });
-
     var start = function() {
-        browserEvents.forEach(function(browserEvent) {
-            var callback = function(event) {
-                events.dispatch(events.list[browserEvent], event);
-            };
-
-            events.list[browserEvent].callback = callback;
-            document.addEventListener(browserEvent, callback);
-        });
-
-        initStats();
-
         if (!initialized) {
-            events.dispatch(events.list.init);
+            initStats();
+            events.dispatch(constants.events.INIT);
             initialized = true;
         }
 
-        events.dispatch(events.list.start);
+        events.dispatch(constants.events.START);
         startLooping();
     };
 
     var stop = function() {
-        browserEvents.forEach(function(browserEvent) {
-            document.removeEventListener(browserEvent, events.list[browserEvent].callback);
-        });
-
         stopLooping();
-        events.dispatch(events.list.stop);
+        events.dispatch(constants.events.STOP);
     };
 
     var loop = function(time) {
         stats.begin();
-        events.dispatch(events.list.update, {time: time, delta: time - prevTime});
+        events.dispatch(constants.events.UPDATE, {time: time, delta: time - prevTime});
         stats.end();
 
         prevTime = time;
@@ -86,20 +68,20 @@ define(['utils/CallbackList', 'Stats', 'Events', 'Constants', 'utils/Settings'],
     };
 
     var onStart = function(callback) {
-        events.subscribe(events.list.start, callback);
+        events.subscribe(constants.events.START, callback);
     };
 
     var onStop = function(callback) {
-        events.subscribe(events.list.stop, callback);
+        events.subscribe(constants.events.STOP, callback);
     };
 
     var onInit = function(callback) {
-        events.subscribe(events.list.init, callback);
+        events.subscribe(constants.events.INIT, callback);
     };
 
     var onLoop = function(callback, interval) {
         if (interval === undefined) {
-            events.subscribe(events.list.update, callback);
+            events.subscribe(constants.events.UPDATE, callback);
         } else {
             setInterval(callback, interval);
         }

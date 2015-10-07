@@ -1,6 +1,6 @@
 'use strict';
 
-define(['html!Help', 'i18n!nls/Help', 'utils/Settings', 'Events'], function(html, i18n, settings, events) {
+define(['html!Help', 'i18n!nls/Help', 'utils/Settings', 'Events', 'Constants'], function(html, i18n, settings, events, constants) {
     var helpPanel;
     var container;
 
@@ -41,7 +41,7 @@ define(['html!Help', 'i18n!nls/Help', 'utils/Settings', 'Events'], function(html
 
         configShowAtStartup();
 
-        events.subscribe(events.list.showhelp, function(display) {
+        events.subscribe(constants.events.SHOW_HELP, function(display) {
             (display ? show : hide)();
         });
     };

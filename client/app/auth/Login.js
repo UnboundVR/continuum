@@ -1,6 +1,6 @@
 'use strict';
 
-define(['Events', './Token', './Logout', './Profile', './Auth0'], function(events, token, logout, profile, auth0) {
+define(['Events', 'Constants', './Token', './Logout', './Profile', './Auth0'], function(events, constants, token, logout, profile, auth0) {
     return function() {
         var fetchProfile = function(idToken) {
             return new Promise(function(resolve, reject) {
@@ -17,7 +17,7 @@ define(['Events', './Token', './Logout', './Profile', './Auth0'], function(event
             });
         };
 
-        events.subscribe(events.list.logout, logout);
+        events.subscribe(constants.events.LOGOUT, logout);
 
         return token.processIdToken().then(function(idToken) {
             return fetchProfile(idToken);

@@ -1,6 +1,38 @@
 'use strict';
 
 var constants = {
+    events: {
+        browserEvents: {
+            'keydown': 'keyDown',
+            'keyup': 'keyUp',
+            'mousedown': 'mouseDown',
+            'mouseup': 'mouseUp',
+            'mousemove': 'mouseMove'
+        },
+        INIT: 'init',
+        UPDATE: 'update',
+        START: 'start',
+        STOP: 'stop',
+        UNLOAD: 'unload',
+        START_HOVER: 'startHover',
+        END_HOVER: 'endHover',
+        SELECT: 'select',
+        POINTER_LOCK_CHANGE: 'pointerLockChange',
+        PLAYER_MOVED: 'playerMoved',
+        SHOW_HELP: 'showHelp',
+        LOGOUT: 'logout',
+        SHOW_SETTINGS: 'showSettings',
+        SETTING_CHANGED: 'settingChanged',
+        PERFORMANCE_MODE: 'performanceMode'
+    },
+    browserEvents: {
+        KEY_DOWN: 'keydown',
+        KEY_UP: 'keyup',
+        MOUSE_DOWN: 'mousedown',
+        MOUSE_UP: 'mouseup',
+        MOUSE_MOVE: 'mousemove',
+        RESIZE: 'resize'
+    },
     auth: {
         roles: {
             ADMIN: 'admin',
@@ -67,14 +99,6 @@ var constants = {
         DISPLAY_NONE: 'none',
         DISPLAY_BLOCK: 'block',
         COLOR_BLACK: 'black'
-    },
-    events: {
-        KEY_DOWN: 'keydown',
-        KEY_UP: 'keyup',
-        MOUSE_DOWN: 'mousedown',
-        MOUSE_UP: 'mouseup',
-        MOUSE_MOVE: 'mousemove',
-        RESIZE: 'resize'
     },
     keyboard: {
         F4: 115,

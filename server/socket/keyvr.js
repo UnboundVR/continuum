@@ -17,11 +17,11 @@ var init = function(io) {
             });
         };
 
-        forward(constants.events.KEY_DOWN);
-        forward(constants.events.KEY_UP);
-        forward(constants.events.MOUSE_MOVE);
-        forward(constants.events.MOUSE_DOWN);
-        forward(constants.events.MOUSE_UP);
+        forward(constants.browserEvents.KEY_DOWN);
+        forward(constants.browserEvents.KEY_UP);
+        forward(constants.browserEvents.MOUSE_MOVE);
+        forward(constants.browserEvents.MOUSE_DOWN);
+        forward(constants.browserEvents.MOUSE_UP);
     });
 };
 

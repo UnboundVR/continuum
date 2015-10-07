@@ -18,7 +18,7 @@ define(['html!Developer', 'Events', 'utils/Settings', 'Constants', 'World'], fun
         container.appendChild(html);
         coords = container.getElementsByClassName(constants.ui.coords.COORDS_TEXT)[0];
 
-        events.subscribe(events.list.playermoved, updateCoords);
+        events.subscribe(constants.events.PLAYER_MOVED, updateCoords);
         world.onLoop(displayUpdatedCoords, 1000);
 
         if (!settings.get(constants.settings.IS_DEVELOPER)) {

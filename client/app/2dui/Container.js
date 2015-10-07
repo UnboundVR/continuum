@@ -8,7 +8,7 @@ define(['World', 'Events', 'PointerLock', 'Constants', './Help', './Developer', 
         container = document.getElementById(constants.ui.UI_CONTAINER);
         initChildren(profile, help, developer, actions, settings);
 
-        events.subscribe(events.list.pointerlockchange, function(locked) {
+        events.subscribe(constants.events.POINTER_LOCK_CHANGE, function(locked) {
             if (!locked) {
                 enableUI();
             } else {
@@ -29,8 +29,8 @@ define(['World', 'Events', 'PointerLock', 'Constants', './Help', './Developer', 
 
     var disableUI = function() {
         container.style.display = constants.html.DISPLAY_NONE;
-        events.dispatch(events.list.showhelp, false);
-        events.dispatch(events.list.showsettings, false);
+        events.dispatch(constants.events.SHOW_HELP, false);
+        events.dispatch(constants.events.SHOW_SETTINGS, false);
     };
 
     var addElement = function(element) {

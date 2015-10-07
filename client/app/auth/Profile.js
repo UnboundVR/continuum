@@ -17,7 +17,7 @@ define(['Constants', 'i18n!nls/Auth', 'utils/Requests', 'Events'], function(cons
 
         return req.patch(url, payload).then(function(response) {
             profile = response;
-            events.dispatch(events.list.settingchanged, metadata);
+            events.dispatch(constants.events.SETTING_CHANGED, metadata);
         }, logout);
     };
 

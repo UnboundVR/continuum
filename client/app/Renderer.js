@@ -30,7 +30,7 @@ define(['Three', 'World', 'Scenes', 'Camera', 'Constants', 'Events'], function(T
 
         setCamera(camera);
 
-        window.addEventListener(constants.events.RESIZE, function() {
+        window.addEventListener(constants.browserEvents.RESIZE, function() {
             setSize(window.innerWidth, window.innerHeight);
         });
 

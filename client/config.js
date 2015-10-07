@@ -40,5 +40,5 @@ var require = {
         shared: '../../shared',
         assets: '../assets'
     },
-    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'Renderer', 'KeyVR', '2dui/Container', 'RTC', 'Performance']
+    deps: ['PointerLock', 'FirstPersonControls', 'ItemSelector', 'PlayerSync', 'Reticle', 'Renderer', 'KeyVR', '2dui/Container', 'RTC', 'Performance', 'utils/BrowserEvents']
 };

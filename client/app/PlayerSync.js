@@ -42,7 +42,7 @@ define(['SocketIO', 'Scenes', 'World', 'auth/Token', 'Constants', 'Events'], fun
             }
         });
 
-        events.subscribe(events.list.playermoved, playerMoved);
+        events.subscribe(constants.events.PLAYER_MOVED, playerMoved);
     };
 
     var removePlayerAvatar = function(player) {

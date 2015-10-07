@@ -69,11 +69,11 @@ socket.on(constants.socket.keyvr.DEVICE_CONNECTED, function(data) {
         };
     };
 
-    hookEvent(constants.events.KEY_DOWN, keyboardDataCallback);
-    hookEvent(constants.events.KEY_UP, keyboardDataCallback);
-    hookEvent(constants.events.MOUSE_MOVE, mouseMoveDataCallback);
-    hookEvent(constants.events.MOUSE_DOWN, mouseButtonDataCallback);
-    hookEvent(constants.events.MOUSE_UP, mouseButtonDataCallback);
+    hookEvent(constants.browserEvents.KEY_DOWN, keyboardDataCallback);
+    hookEvent(constants.browserEvents.KEY_UP, keyboardDataCallback);
+    hookEvent(constants.browserEvents.MOUSE_MOVE, mouseMoveDataCallback);
+    hookEvent(constants.browserEvents.MOUSE_DOWN, mouseButtonDataCallback);
+    hookEvent(constants.browserEvents.MOUSE_UP, mouseButtonDataCallback);
 
     showScreen('deviceLinked');
 });

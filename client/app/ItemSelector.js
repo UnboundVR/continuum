@@ -9,7 +9,7 @@ define(['Three', 'Scenes', 'FirstPersonControls', 'Camera', 'PointerLock', 'Even
     var raycaster = new THREE.Raycaster();
 
     var init = function() {
-        window.addEventListener(constants.events.MOUSE_DOWN, onMouseDown, false);
+        window.addEventListener(constants.browserEvents.MOUSE_DOWN, onMouseDown, false);
         keyVR.onMouseDown(onMouseDown);
 
         world.onLoop(animate);
@@ -74,15 +74,15 @@ define(['Three', 'Scenes', 'FirstPersonControls', 'Camera', 'PointerLock', 'Even
 
     var onIntersect = function(obj) {
         lastIntersected = obj;
-        events.dispatch(events.list.starthover, null, obj.uuid);
+        events.dispatch(constants.events.START_HOVER, null, obj.uuid);
     };
 
     var onStopIntersect = function(obj) {
-        events.dispatch(events.list.endhover, null, obj.uuid);
+        events.dispatch(constants.events.END_HOVER, null, obj.uuid);
     };
 
     var onSelect = function(obj) {
-        events.dispatch(events.list.select, null, obj.uuid);
+        events.dispatch(constants.events.SELECT, null, obj.uuid);
     };
 
     world.onInit(init);

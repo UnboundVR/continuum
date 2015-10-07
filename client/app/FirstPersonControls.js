@@ -21,7 +21,7 @@ define(['Three', 'Scenes', 'Events', 'World', 'Camera', 'KeyVR', 'PointerLock', 
     var controls = new THREE.PointerLockControls(camera);
 
     var init = function() {
-        events.subscribe(events.list.pointerlockchange, function(locked) {
+        events.subscribe(constants.events.POINTER_LOCK_CHANGE, function(locked) {
             controls.enabled = locked;
         });
 
@@ -36,7 +36,7 @@ define(['Three', 'Scenes', 'Events', 'World', 'Camera', 'KeyVR', 'PointerLock', 
         scenes.getScene().add(controls.getObject());
 
         var onKeyEvent = function(event) {
-            var keyDown = event.type == constants.events.KEY_DOWN;
+            var keyDown = event.type == constants.browserEvents.KEY_DOWN;
 
             switch (event.keyCode) {
                 case constants.keyboard.UP:
@@ -70,8 +70,8 @@ define(['Three', 'Scenes', 'Events', 'World', 'Camera', 'KeyVR', 'PointerLock', 
             }
         };
 
-        document.addEventListener(constants.events.KEY_DOWN, onKeyEvent, false);
-        document.addEventListener(constants.events.KEY_UP, onKeyEvent, false);
+        document.addEventListener(constants.browserEvents.KEY_DOWN, onKeyEvent, false);
+        document.addEventListener(constants.browserEvents.KEY_UP, onKeyEvent, false);
 
         keyVR.onKeyDown(onKeyEvent);
         keyVR.onKeyUp(onKeyEvent);
@@ -122,7 +122,7 @@ define(['Three', 'Scenes', 'Events', 'World', 'Camera', 'KeyVR', 'PointerLock', 
         restrainPosition(obj);
 
         if (!obj.position.equals(lastPosition)) {
-            events.dispatch(events.list.playermoved, obj.position);
+            events.dispatch(constants.events.PLAYER_MOVED, obj.position);
         }
 
         lastPosition.copy(obj.position);

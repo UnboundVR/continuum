@@ -25,7 +25,7 @@ define(['html!Settings', 'Events', 'utils/Settings', 'Constants'], function(html
         container = document.getElementById(constants.ui.UI_CONTAINER);
         container.appendChild(html);
 
-        events.subscribe(events.list.showsettings, function(display) {
+        events.subscribe(constants.events.SHOW_SETTINGS, function(display) {
             (display ? show : hide)();
         });
 

@@ -15,10 +15,10 @@ define(['World', 'Constants', 'Events'], function(world, constants, events) {
             var pointerLockChange = function(event) {
                 if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
                     enabled = true;
-                    events.dispatch(events.list.pointerlockchange, true);
+                    events.dispatch(constants.events.POINTER_LOCK_CHANGE, true);
                 } else {
                     enabled = false;
-                    events.dispatch(events.list.pointerlockchange, false);
+                    events.dispatch(constants.events.POINTER_LOCK_CHANGE, false);
                 }
             };
 
@@ -71,7 +71,7 @@ define(['World', 'Constants', 'Events'], function(world, constants, events) {
                 }
             };
 
-            window.addEventListener(constants.events.MOUSE_DOWN, onMouseDown, false);
+            window.addEventListener(constants.browserEvents.MOUSE_DOWN, onMouseDown, false);
         } else {
             // TODO do something meaningful, like allow the user to use the app without locking cursor (i.e. enable controls anyway)
             console.warn('Your browser doesn\'t seem to support Pointer Lock API');

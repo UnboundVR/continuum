@@ -6,7 +6,7 @@ define(['Scenes', 'Constants', 'Events', 'utils/LoadExternalScript'], function(s
     var app;
 
     var unloadOldScript = function(script, uuid) {
-        events.dispatch(events.list.unload, null, uuid);
+        events.dispatch(constants.events.UNLOAD, null, uuid);
         events.unsubscribeScript(uuid, script.name);
     };
 
@@ -28,8 +28,8 @@ define(['Scenes', 'Constants', 'Events', 'utils/LoadExternalScript'], function(s
         };
 
         var subscribeToEvents = function(object) {
-            var params = constants.scripts.APP_PARAM + ', ' + constants.scripts.SCENE_PARAM + ', ' + Object.keys(events.list).join(', ');
-            var source = script.source + '\nreturn {' + Object.keys(events.list).map(function(key) {
+            var params = constants.scripts.APP_PARAM + ', ' + constants.scripts.SCENE_PARAM + ', ' + events.list().join(', ');
+            var source = script.source + '\nreturn {' + events.list().map(function(key) {
                 return key + ': ' + key;
             }).join(', ') + '};';
             var functions = (new Function(params, source).bind(object))(app, scenes.getScene());
@@ -39,12 +39,12 @@ define(['Scenes', 'Constants', 'Events', 'utils/LoadExternalScript'], function(s
                     continue;
                 }
 
-                if (!events.list[name]) {
+                if (events.list().indexOf(name) == -1) {
                     console.warn('Event type not supported (', name, ')');
                     continue;
                 }
 
-                events.subscribe(events.list[name], functions[name].bind(object), object.uuid, script.name);
+                events.subscribe(name, functions[name].bind(object), object.uuid, script.name);
             }
         };
 

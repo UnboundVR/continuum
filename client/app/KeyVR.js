@@ -22,29 +22,29 @@ define(['SocketIO', 'utils/QueryString', 'World', 'auth/Token', 'utils/CallbackL
     };
 
     var syncWithKeyboard = function(keyboardId) {
-        socket.on(constants.events.KEY_DOWN, function(data) {
+        socket.on(constants.browserEvents.KEY_DOWN, function(data) {
             keyDownCallbacks.execute({
                 keyCode: data.key,
-                type: constants.events.KEY_DOWN
+                type: constants.browserEvents.KEY_DOWN
             });
         });
 
-        socket.on(constants.events.KEY_UP, function(data) {
+        socket.on(constants.browserEvents.KEY_UP, function(data) {
             keyUpCallbacks.execute({
                 keyCode: data.key,
-                type: constants.events.KEY_UP
+                type: constants.browserEvents.KEY_UP
             });
         });
 
-        socket.on(constants.events.MOUSE_MOVE, function(data) {
+        socket.on(constants.browserEvents.MOUSE_MOVE, function(data) {
             mouseMoveCallbacks.execute(data.movement);
         });
 
-        socket.on(constants.events.MOUSE_DOWN, function(data) {
+        socket.on(constants.browserEvents.MOUSE_DOWN, function(data) {
             mouseDownCallbacks.execute({button: data.button});
         });
 
-        socket.on(constants.events.MOUSE_UP, function(data) {
+        socket.on(constants.browserEvents.MOUSE_UP, function(data) {
             mouseUpCallbacks.execute({button: data.button});
         });
 
