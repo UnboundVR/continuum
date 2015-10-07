@@ -1,9 +1,18 @@
 'use strict';
 
+// SSAO from https://github.com/mrdoob/three.js/blob/master/examples/webgl_postprocessing_ssao.html
+
 define(['Three', 'World', 'Scenes', 'Camera', 'Constants'], function(THREE, world, scenes, camera, constants) {
     var vrMode = navigator.userAgent.match(constants.mobile.ANDROID_REGEX);
     var webGLRenderer;
     var css3DRenderer;
+
+    var depthMaterial;
+    var effectComposer
+    var depthRenderTarget;
+	var ssaoPass;
+	var depthScale = 1.0;
+	var postprocessingEnabled = true;
 
     var init = function() {
         webGLRenderer = new THREE.WebGLRenderer({
@@ -21,7 +30,6 @@ define(['Three', 'World', 'Scenes', 'Camera', 'Constants'], function(THREE, worl
         css3DRenderer.domElement.id = 'css3dRenderer';
         css3DRenderer.domElement.appendChild(webGLRenderer.domElement);
 
-        // Init stereo effect if we're in VR mode
         // FIXME CSS3D renderer doesn't work with Cardboard, so for now HTML renders awkward in VR mode.
         if (vrMode) {
             webGLRenderer = new THREE.StereoEffect(webGLRenderer);
@@ -35,10 +43,47 @@ define(['Three', 'World', 'Scenes', 'Camera', 'Constants'], function(THREE, worl
         });
 
         setSize(window.innerWidth, window.innerHeight);
+
+        initPostprocessing(scenes.getScene(), webGLRenderer);
     };
 
+    function initPostprocessing(scene, renderer) {
+        var renderPass = new THREE.RenderPass( scene, camera );
+
+        var depthShader = THREE.ShaderLib[ "depthRGBA" ];
+        var depthUniforms = THREE.UniformsUtils.clone( depthShader.uniforms );
+        depthMaterial = new THREE.ShaderMaterial( { fragmentShader: depthShader.fragmentShader, vertexShader: depthShader.vertexShader,
+            uniforms: depthUniforms, blending: THREE.NoBlending } );
+        var pars = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter };
+        depthRenderTarget = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, pars );
+
+        ssaoPass = new THREE.ShaderPass( THREE.SSAOShader );
+        ssaoPass.renderToScreen = true;
+
+        ssaoPass.uniforms[ "tDepth" ].value = depthRenderTarget;
+        ssaoPass.uniforms[ 'size' ].value.set( window.innerWidth, window.innerHeight );
+        ssaoPass.uniforms[ 'cameraNear' ].value = camera.near;
+        ssaoPass.uniforms[ 'cameraFar' ].value = camera.far;
+        ssaoPass.uniforms[ 'onlyAO' ].value = false;
+        ssaoPass.uniforms[ 'aoClamp' ].value = 0.3;
+        ssaoPass.uniforms[ 'lumInfluence' ].value = 0.5;
+
+        effectComposer = new THREE.EffectComposer( renderer );
+        effectComposer.addPass( renderPass );
+        effectComposer.addPass( ssaoPass );
+    }
+
     var render = function() {
-        webGLRenderer.render(scenes.getScene(), camera);
+        if (postprocessingEnabled) {
+			scenes.getScene().overrideMaterial = depthMaterial;
+			webGLRenderer.render(scenes.getScene(), camera, depthRenderTarget, true);
+
+			scenes.getScene().overrideMaterial = null;
+			effectComposer.render();
+		} else {
+            webGLRenderer.render(scenes.getScene(), camera);
+		}
+
         css3DRenderer.render(scenes.getCSS3DScene(), camera);
     };
 
