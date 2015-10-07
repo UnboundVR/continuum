@@ -4,7 +4,7 @@ define(['auth/Profile', 'Events'], function(auth, events) {
     var get = function(setting) {
         var value = auth.getMetadataField(setting.name);
 
-        if(value === undefined) {
+        if (value === undefined) {
             return setting.defaultValue;
         }
 
@@ -19,7 +19,7 @@ define(['auth/Profile', 'Events'], function(auth, events) {
 
     var onChange = function onChange(setting, callback) {
         events.subscribe(events.list.settingchanged, function(change) {
-            if(change[setting.name] !== undefined) {
+            if (change[setting.name] !== undefined) {
                 callback(change[setting.name]);
             }
         });

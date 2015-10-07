@@ -21,10 +21,10 @@ define(['html!Help', 'i18n!nls/Help', 'utils/Settings', 'Events'], function(html
             settings.set(constants.settings.DISPLAY_HELP_AT_STARTUP, showAtStartupCheckbox.checked);
         };
 
-        if(!displayAtStartup) {
+        if (!displayAtStartup) {
             hide();
         }
-    }
+    };
 
     var init = function() {
         container = document.getElementById(constants.ui.UI_CONTAINER);

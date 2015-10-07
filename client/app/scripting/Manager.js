@@ -56,10 +56,11 @@ define(['Scenes', 'Constants', 'Events', 'utils/LoadExternalScript'], function(s
 
         subscribeToEvents(scenes.getObjectByUUID(uuid));
 
-        if(script.dependencies) {
+        if (script.dependencies) {
             var promises = script.dependencies.map(function(dependency) {
                 return loadExternal(dependency);
             });
+
             return Promise.all(promises);
         } else {
             return new Promise(function(resolve, reject) {

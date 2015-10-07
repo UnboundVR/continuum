@@ -13,6 +13,7 @@ define(['./Manager', 'utils/DictFromArray', 'shared/TraverseTree', 'Constants'],
                 var promises = obj.scripts.map(function(scriptUUID) {
                     return scriptsManager.loadScript(scriptDict[scriptUUID], obj.uuid);
                 });
+
                 allPromises.push(Promise.all(promises));
             }
         });
