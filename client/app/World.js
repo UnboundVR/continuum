@@ -33,7 +33,7 @@ define(['utils/CallbackList', 'Stats', 'Events', 'Constants', 'utils/Settings'],
         });
     };
 
-    var browserEvents = Object.keys(events).filter(function(key) {
+    var browserEvents = Object.keys(events.list).filter(function(key) {
         return events[key].isBrowserEvent;
     });
 

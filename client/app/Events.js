@@ -22,7 +22,8 @@ define([], function() {
         showhelp: {list: []},
         logout: {list: []},
         showsettings: {list: []},
-        settingchanged: {list: []}
+        settingchanged: {list: []},
+        performancemode: {list: []}
     };
 
     var dispatch = function(obj, payload, uuid) {
