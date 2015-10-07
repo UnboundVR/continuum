@@ -18,6 +18,7 @@ define(['World', 'Constants', 'Events'], function(world, constants, events) {
         callbacks.forEach(function(item) {
             document.removeEventListener(item.event, item.callback);
         });
+
         callbacks.length = 0;
     };
 

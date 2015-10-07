@@ -10,7 +10,8 @@ define(['Constants'], function(constants) {
                 list: []
             };
         };
-        if(typeof event === 'object') {
+
+        if (typeof event === 'object') {
             Object.keys(event).forEach(function(e) {
                 addEvent(event[e]);
             });
