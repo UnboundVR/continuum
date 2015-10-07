@@ -1,9 +1,13 @@
-.coordsContainer .coordsText {
-    width: 70px;
-    height: 45px;
+#ui-container .coordsContainer {
+    background-color: rgba(0,0,0,0.4);
+    pointer-events: all;
     position: absolute;
-    bottom: 0;
+    padding: 8px;
+    bottom: 2px;
     left: 2px;
+}
+
+#ui-container .coordsContainer .coordsText {
     color: #FFFFFF;
     font-size: 12px;
 }
