@@ -10,4 +10,23 @@ describe('TraverseTree', function () {
         expect(spy.calls.count()).toEqual(1);
         expect(spy).toHaveBeenCalledWith(obj);
     });
+
+    it('keeps iterating an objects children even if the callback modifies the children property', function() {
+        var list = [1,2,3];
+
+        var obj = {
+            children: list
+        };
+
+        var traversedList = [];
+
+        traverseTree(obj, function(item) {
+            if(item !== obj) {
+                traversedList.push(item);
+            }
+            delete obj.children;
+        });
+
+        expect(traversedList).toEqual(list);
+    })
 });
