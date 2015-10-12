@@ -10,4 +10,8 @@ describe('TraverseTree', function () {
         expect(spy.calls.count()).toEqual(1);
         expect(spy).toHaveBeenCalledWith(obj);
     });
+
+    it('should fail', function() {
+        expect(true).toEqual(false);
+    })
 });
