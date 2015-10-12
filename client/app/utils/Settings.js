@@ -1,5 +1,6 @@
 var auth = require('../auth/Profile');
 var events = require('../Events');
+var consts = require('../../../shared/constants');
 
 var get = function(setting) {
     var value = auth.getMetadataField(setting.name);

@@ -1,10 +1,10 @@
 var consts = require('../../../shared/Constants');
 var manager = require('./Manager');
 var dictFromArray = require('../utils/DictFromArray');
-var traverseTree = require('../../../shared/TraverseTree');
+var traverse = require('../../../shared/TraverseTree');
 
 var load = function(json, app) {
-    scriptsManager.setApp(app);
+    manager.setApp(app);
 
     var scriptDict = dictFromArray(json.scripts, 'uuid');
 
@@ -13,7 +13,7 @@ var load = function(json, app) {
     traverse(json.scene.object, function(obj) {
         if (obj.scripts && obj.scripts.length) {
             var promises = obj.scripts.map(function(scriptUUID) {
-                return scriptsManager.loadScript(scriptDict[scriptUUID], obj.uuid);
+                return manager.loadScript(scriptDict[scriptUUID], obj.uuid);
             });
 
             allPromises.push(Promise.all(promises));

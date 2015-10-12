@@ -2,8 +2,9 @@ var consts = require('../../../shared/Constants');
 var scenes = require('../Scenes');
 var manager = require('./Manager');
 var dictFromArray = require('../utils/DictFromArray');
-var traverseTree = require('../../../shared/TraverseTree');
+var traverse = require('../../../shared/TraverseTree');
 var buildHTMLNode = require('../utils/BuildHTMLNode');
+var three = require('three.js');
 
 var load = function(json) {
     var css3DScene = new three.Scene();
@@ -15,7 +16,7 @@ var load = function(json) {
         if (obj.gui) {
             var guiObj = guiDict[obj.gui];
             var htmlNode = buildHTMLNode(guiObj.html, guiObj.css);
-            gui.embedGUI(htmlNode, obj.uuid);
+            manager.embedGUI(htmlNode, obj.uuid);
         }
     });
 

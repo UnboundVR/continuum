@@ -1,6 +1,6 @@
 var consts = require('../../shared/Constants');
 var events = require('./Events');
-var stats = require('stats.js');
+var Stats = require('stats.js');
 var settings = require('./utils/Settings');
 
 var initialized = false;
@@ -25,7 +25,6 @@ var initStats = function() {
     stats.domElement.style.top = '0px';
 
     document.body.appendChild(stats.domElement);
-
     if (!settings.get(consts.settings.IS_DEVELOPER)) {
         hideStats();
     }

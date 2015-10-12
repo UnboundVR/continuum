@@ -1,5 +1,5 @@
 var auth = require('../auth/Token');
-var constants = require('../../../shared/constants');
+var consts = require('../../../shared/constants');
 
 var toJSON = function(res) {
     if (!res.ok) {

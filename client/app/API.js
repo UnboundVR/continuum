@@ -8,8 +8,7 @@ var getScene = function(sceneId) {
     if (sceneId) {
         url += '/' + sceneId;
     }
-
-    return req.get(url);
+    return requests.get(url);
 };
 
 module.exports = {

@@ -42,6 +42,7 @@ var init = function() {
 };
 
 var render = function() {
+    console.log('wow')
     webGLRenderer.render(scenes.getScene(), camera);
     css3DRenderer.render(scenes.getCSS3DScene(), camera);
 };
@@ -65,7 +66,6 @@ world.onLoop(render);
 module.exports = {
     webGL: webGLRenderer,
     css3D: css3DRenderer,
-    render: render,
     setSize: setSize,
     vrMode: vrMode,
     setCamera: setCamera,

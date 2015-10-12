@@ -12,8 +12,9 @@ var login = require('./auth/Login');
 var load = function(json) {
     var objectLoader = new three.ObjectLoader();
     objectLoader.parse(json.scene, function(object) {
-        scene.setScene(object);
+        scenes.setScene(object);
         guiLoader.load(json);
+
 
         // Perhaps we could pass more things -- the most important thing is that later on we document which things we expose to scripts
         // We can also pass other things like renderer directly as params (such as when we pass scene) but I think it's OK to pass just scene as a distinct param
@@ -23,6 +24,7 @@ var load = function(json) {
             stop: world.stop,
             renderer: renderer.webGL
         };
+
 
         scriptsLoader.load(json, relevantApp).then(function() {
             world.start();
@@ -38,7 +40,6 @@ var run = function() {
     }
 
     var sceneId = queryString.sceneId;
-
     login().then(function() {
         api.getScene(sceneId).then(function(json) {
             load(json);
