@@ -1,8 +1,7 @@
 var consts = require('../../../shared/Constants');
 var req = require('../utils/Requests');
 var events = require('../Events');
-
-// TODO migrate i18n
+var i18n = require('../translations/Polyglot');
 
 var profile;
 var auth0Base = 'https://' + consts.auth.AUTH0_DOMAIN + consts.auth.AUTH0_API;
@@ -32,11 +31,11 @@ var setProfile = function(val) {
 };
 
 var getVocative = function() {
-    var vocative = i18n.vocatives.human;
+    var vocative = i18n.t('vocatives.human');
     if (profile.gender === consts.auth.GENDER_MALE) {
-        vocative = i18n.vocatives.gentleman;
+        vocative = i18n.t('vocatives.gentleman');
     } else if (profile.gender === consts.auth.GENDER_FEMALE) {
-        vocative = i18n.vocatives.lady;
+        vocative = i18n.t('vocatives.lady');
     }
 
     return vocative;

@@ -3,24 +3,27 @@ var events = require('../Events');
 var settings = require('../utils/Settings');
 var world = require('../World');
 
-// TODO migrate html
+var buildHTMLNode = require('../utils/BuildHTMLNode');
+var html = require('../../../assets/html/Developer.html')
+var css = require('../../../assets/html/Developer.css');
+var htmlNode = buildHTMLNode(html, css);
 
-var container;
 var coords;
 var position;
 
 var show = function() {
-    html.style.display = 'block';
+    htmlNode.style.display = 'block';
 };
 
 var hide = function() {
-    html.style.display = 'none';
+    htmlNode.style.display = 'none';
 };
 
 var init = function() {
-    container = document.getElementById(consts.ui.UI_CONTAINER);
-    container.appendChild(html);
-    coords = container.getElementsByClassName(consts.ui.coords.COORDS_TEXT)[0];
+    var container = document.getElementById(consts.ui.UI_CONTAINER);
+    container.appendChild(htmlNode);
+
+    coords = htmlNode.getElementsByClassName(consts.ui.coords.COORDS_TEXT)[0];
 
     events.subscribe(consts.events.PLAYER_MOVED, updateCoords);
     world.onLoop(displayUpdatedCoords, 1000);

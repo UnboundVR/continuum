@@ -71,10 +71,12 @@ var consts = {
         help: {
             LOCK_CURSOR: 'helpText-lockCursor',
             KEYS: 'helpText-keys',
-            SHOW_AT_STARTUP_CHECKBOX: 'showAtStartup checkbox'
+            SHOW_AT_STARTUP_CHECKBOX: 'showAtStartup checkbox',
+            SHOW_AT_STARTUP_CHECKBOX_LABEL: 'showAtStartup-label'
         },
         settings: {
-            IS_DEVELOPER_CHECKBOX: 'iAmDev checkbox'
+            IS_DEVELOPER_CHECKBOX: 'iAmDev checkbox',
+            IS_DEVELOPER_CHECKBOX_LABEL: 'iAmDev-label'
         }
     },
     settings: {
