@@ -1,4 +1,4 @@
-var three = require('./three.js');
+var three = require('three.js');
 var consts = require('../../shared/Constants');
 
 var aspect = window.innerWidth / window.innerHeight;

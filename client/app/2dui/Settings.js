@@ -1,47 +1,46 @@
 var consts = require('../../../shared/constants');
 var events = require('../Events');
+var settings = require('../utils/Settings');
 
 // TODO migrate html
 
-define(['html!Settings', 'Events', 'utils/Settings', 'Constants'], function(html, events, settings, constants) {
-    var container;
+var container;
 
-    var show = function() {
-        html.style.display = 'block';
+var show = function() {
+    html.style.display = 'block';
+};
+
+var hide = function() {
+    html.style.display = 'none';
+};
+
+var configSettings = function() {
+    var isDeveloper = settings.get(consts.settings.IS_DEVELOPER);
+
+    var isDeveloperCheckbox = container.getElementsByClassName(consts.ui.settings.IS_DEVELOPER_CHECKBOX)[0];
+    isDeveloperCheckbox.checked = isDeveloper;
+    isDeveloperCheckbox.onchange = function(event) {
+        settings.set(consts.settings.IS_DEVELOPER, isDeveloperCheckbox.checked);
     };
+};
 
-    var hide = function() {
-        html.style.display = 'none';
-    };
+var init = function() {
+    container = document.getElementById(consts.ui.UI_CONTAINER);
+    container.appendChild(html);
 
-    var configSettings = function() {
-        var isDeveloper = settings.get(consts.settings.IS_DEVELOPER);
+    events.subscribe(consts.events.SHOW_SETTINGS, function(display) {
+        (display ? show : hide)();
+    });
 
-        var isDeveloperCheckbox = container.getElementsByClassName(consts.ui.settings.IS_DEVELOPER_CHECKBOX)[0];
-        isDeveloperCheckbox.checked = isDeveloper;
-        isDeveloperCheckbox.onchange = function(event) {
-            settings.set(consts.settings.IS_DEVELOPER, isDeveloperCheckbox.checked);
-        };
-    };
+    var closeButton = html.getElementsByClassName(consts.ui.CLOSE_BUTTON)[0];
+    closeButton.onclick = hide;
 
-    var init = function() {
-        container = document.getElementById(consts.ui.UI_CONTAINER);
-        container.appendChild(html);
+    hide();
+    configSettings();
+};
 
-        events.subscribe(consts.events.SHOW_SETTINGS, function(display) {
-            (display ? show : hide)();
-        });
-
-        var closeButton = html.getElementsByClassName(consts.ui.CLOSE_BUTTON)[0];
-        closeButton.onclick = hide;
-
-        hide();
-        configSettings();
-    };
-
-    return {
-        init: init,
-        show: show,
-        hide: hide
-    };
-});
+module.exports = {
+    init: init,
+    show: show,
+    hide: hide
+};
