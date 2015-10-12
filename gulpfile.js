@@ -15,6 +15,16 @@ var jscs = require('gulp-jscs');
 var uglify = require('gulp-uglify');
 var del = require('del');
 
+var jasmine = require('gulp-jasmine');
+var reporters = require('jasmine-reporters');
+
+gulp.task('test', function () {
+  return gulp.src('spec/**/*.js')
+    .pipe(jasmine({
+      reporter: new reporters.TerminalReporter()
+    }));
+});
+
 gulp.task('jscs', function() {
     return gulp.src(['client/main.js', 'client/app/**/*.js', 'db/populate.js', 'server/**/*.js'])
       .pipe(jscs({fix: true}))
