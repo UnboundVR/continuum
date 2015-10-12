@@ -4,7 +4,7 @@ var settings = require('../utils/Settings');
 var world = require('../World');
 
 var buildHTMLNode = require('../utils/BuildHTMLNode');
-var html = require('../../../assets/html/Developer.html')
+var html = require('../../../assets/html/Developer.html');
 var css = require('../../../assets/css/Developer.css');
 var htmlNode = buildHTMLNode(html, css);
 

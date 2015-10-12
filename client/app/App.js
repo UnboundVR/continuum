@@ -15,7 +15,6 @@ var load = function(json) {
         scenes.setScene(object);
         guiLoader.load(json);
 
-
         // Perhaps we could pass more things -- the most important thing is that later on we document which things we expose to scripts
         // We can also pass other things like renderer directly as params (such as when we pass scene) but I think it's OK to pass just scene as a distinct param
         var relevantApp = {
@@ -24,7 +23,6 @@ var load = function(json) {
             stop: world.stop,
             renderer: renderer.webGL
         };
-
 
         scriptsLoader.load(json, relevantApp).then(function() {
             world.start();

@@ -4,7 +4,7 @@ var settings = require('../utils/Settings');
 var i18n = require('../translations/Polyglot');
 
 var buildHTMLNode = require('../utils/BuildHTMLNode');
-var html = require('../../../assets/html/Help.html')
+var html = require('../../../assets/html/Help.html');
 var css = require('../../../assets/css/Help.css');
 var htmlNode = buildHTMLNode(html, css);
 

@@ -1,9 +1,9 @@
 module.exports = function(array, key) {
-   var dict = {};
+    var dict = {};
 
-   array.forEach(function(item) {
+    array.forEach(function(item) {
        dict[item[key]] = item;
    });
 
-   return dict;
+    return dict;
 };

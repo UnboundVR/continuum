@@ -85,6 +85,7 @@ module.exports = {
     enabled: function() {
         return enabled;
     },
+
     lockCursor: function() {
         requestPointerLock();
     }

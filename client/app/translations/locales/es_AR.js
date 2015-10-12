@@ -16,7 +16,7 @@ module.exports = {
         showAtStartup: 'Mostrar al inicio'
     },
     profile: {
-        yourRoleIs: 'Tu rol es %{role}',
+        yourRoleIs: 'Tu rol es %{role}'
     },
     settings: {
         dev: 'Soy programador/a'

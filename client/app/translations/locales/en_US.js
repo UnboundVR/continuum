@@ -16,10 +16,10 @@ module.exports = {
         showAtStartup: 'Show at startup'
     },
     profile: {
-        yourRoleIs: 'Your role is %{role}',
+        yourRoleIs: 'Your role is %{role}'
     },
     settings: {
-        dev: "I'm a dev"
+        dev: 'I\'m a dev'
     },
     roles: {
         admin: 'Admin',

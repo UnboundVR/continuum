@@ -4,7 +4,7 @@ var pointerLock = require('../PointerLock');
 var i18n = require('../translations/Polyglot');
 
 var buildHTMLNode = require('../utils/BuildHTMLNode');
-var html = require('../../../assets/html/Actions.html')
+var html = require('../../../assets/html/Actions.html');
 var css = require('../../../assets/css/Actions.css');
 var htmlNode = buildHTMLNode(html, css);
 

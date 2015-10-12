@@ -4,7 +4,7 @@ var gui = require('./gui/Manager');
 var i18n = require('./translations/Polyglot');
 
 var buildHTMLNode = require('./utils/BuildHTMLNode');
-var html = require('../../assets/html/Coding.html')
+var html = require('../../assets/html/Coding.html');
 var css = require('../../assets/css/Coding.css');
 var htmlNode = buildHTMLNode(html, css);
 

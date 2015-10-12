@@ -16,8 +16,12 @@ var uglify = require('gulp-uglify');
 var del = require('del');
 
 gulp.task('jscs', function() {
-    return gulp.src('client/app/*.js')
-        .pipe(jscs());
+    return gulp.src(['client/main.js', 'client/app/**/*.js', 'db/populate.js', 'server/**/*.js'])
+      .pipe(jscs({fix: true}))
+      .pipe(jscs.reporter())
+      .pipe(gulp.dest(function(file) {
+        return file.base;
+      }));
 });
 
 gulp.task('clean', function() {
