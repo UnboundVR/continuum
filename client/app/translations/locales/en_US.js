@@ -19,7 +19,7 @@ module.exports = {
         yourRoleIs: 'Your role is %{role}',
     },
     settings: {
-        dev: 'Soy programador/a'
+        dev: "I'm a dev"
     },
     roles: {
         admin: 'Admin',

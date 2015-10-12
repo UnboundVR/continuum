@@ -44,7 +44,7 @@ var updateTween = function(isIntersecting) {
     if (!currentTween || currentTween.isIntersecting != isIntersecting) {
         currentTween = new tween.Tween({radius: currentRadius})
         .to({radius: isIntersecting ? consts.reticle.LARGE_RADIUS : consts.reticle.SMALL_RADIUS}, consts.reticle.TWEEN_TIME)
-        .easing(TWEEN.Easing.Cubic.InOut)
+        .easing(tween.Easing.Cubic.InOut)
         .onUpdate(function() {
             var geometry = new three.CircleGeometry(this.radius, consts.reticle.SEGMENTS);
             geometry.vertices.shift();

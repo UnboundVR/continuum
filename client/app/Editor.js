@@ -1,8 +1,12 @@
 var consts = require('../../shared/Constants');
 var scripts = require('./scripting/Manager');
 var gui = require('./gui/Manager');
+var i18n = require('./translations/Polyglot');
 
-// TODO migrate html, i18n
+var buildHTMLNode = require('./utils/BuildHTMLNode');
+var html = require('../../assets/html/Coding.html')
+var css = require('../../assets/css/Coding.css');
+var htmlNode = buildHTMLNode(html, css);
 
 var rightClick = function(obj) {
     // FIXME this is hardcoded to only work with a specific panel
@@ -27,14 +31,14 @@ var rightClick = function(obj) {
             return;
     }
 
-    var codingHeader = html.getElementsByClassName(consts.coding.CODING_HEADER)[0];
+    var codingHeader = htmlNode.getElementsByClassName(consts.coding.CODING_HEADER)[0];
     codingHeader.innerHTML = obj.name + ' | ' + script.name;
 
-    var codeTextArea = html.getElementsByClassName(consts.coding.CODE_TEXTAREA)[0];
+    var codeTextArea = htmlNode.getElementsByClassName(consts.coding.CODE_TEXTAREA)[0];
     codeTextArea.value = script.source;
 
-    var updateButton = html.getElementsByClassName(consts.coding.UPDATE_BUTTON)[0];
-    updateButton.innerHTML = i18n.update;
+    var updateButton = htmlNode.getElementsByClassName(consts.coding.UPDATE_BUTTON)[0];
+    updateButton.innerHTML = i18n.t('update');
     updateButton.onclick = function() {
         scripts.loadScript({
             name: script.name,
@@ -42,13 +46,13 @@ var rightClick = function(obj) {
         }, obj.uuid);
     };
 
-    var cancelButton = html.getElementsByClassName(consts.coding.CLOSE_BUTTON)[0];
-    cancelButton.innerHTML = i18n.cancel;
+    var cancelButton = htmlNode.getElementsByClassName(consts.coding.CLOSE_BUTTON)[0];
+    cancelButton.innerHTML = i18n.t('cancel');
     cancelButton.onclick = function() {
         gui.cancel(panel);
     };
 
-    gui.beam(html, panel);
+    gui.beam(htmlNode, panel);
 };
 
 module.exports = {

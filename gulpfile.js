@@ -12,6 +12,7 @@ var strictify = require('strictify');
 var stringify = require('stringify');
 var browserifyShim = require('browserify-shim');
 var jscs = require('gulp-jscs');
+var uglify = require('gulp-uglify');
 
 gulp.task('jscs', function() {
     return gulp.src('client/app/*.js')
@@ -48,7 +49,8 @@ function bundle() {
     .pipe(buffer())
     // optional, remove if you dont want sourcemaps
     .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
-       // Add transformation tasks to the pipeline here.
+    // Add transformation tasks to the pipeline here.
+    .pipe(uglify())
     .pipe(sourcemaps.write('./')) // writes .map file
     .pipe(gulp.dest('./build'));
 }
