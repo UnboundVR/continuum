@@ -185,7 +185,8 @@ var consts = {
         LOGIN_SCREEN: '/login',
         CONTINUUM_SITE: 'http://continuum.unboundvr.com',
         WORLD: '/',
-        CLIENT: '/client',
+        BUILD: '/build',
+        ASSETS: '/assets',
         SHARED: '/shared',
         NODE_MODULES: '/node_modules',
         KEYVR: '/keyvr'
@@ -200,4 +201,13 @@ var consts = {
     }
 };
 
-module.exports = constants;
+// detect if we're using requirejs, if not export with module.exports :)
+if (typeof define === 'function' && define.amd) {
+    define([], function() {
+        return consts;
+    });
+} else if (typeof exports === 'object') {
+    module.exports = consts;
+} else {
+    window.traverseTree = consts;
+}
