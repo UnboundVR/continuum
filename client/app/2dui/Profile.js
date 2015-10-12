@@ -3,7 +3,7 @@ var auth = require('../auth/Profile');
 
 var buildHTMLNode = require('../utils/BuildHTMLNode');
 var html = require('../../../assets/html/Profile.html')
-var css = require('../../../assets/html/Profile.css');
+var css = require('../../../assets/css/Profile.css');
 var htmlNode = buildHTMLNode(html, css);
 
 var init = function() {
