@@ -1,11 +1,11 @@
 var consts = require('../../../shared/constants');
 
 module.exports = function(html, css) {
-    var htmlNode = document.createElement(consts.html.DIV);
+    var htmlNode = document.createElement('div');
     htmlNode.innerHTML = html;
 
     if (css) {
-        var cssNode = document.createElement(consts.html.STYLE);
+        var cssNode = document.createElement('style');
         cssNode.innerHTML = css;
         htmlNode.appendChild(cssNode);
     }

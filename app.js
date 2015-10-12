@@ -1,6 +1,6 @@
 'use strict';
 
-require('use-strict');
+// require('use-strict'); // uncomment when socket.io merges this PR => https://github.com/socketio/socket.io/pull/2136
 
 var consts = require('./shared/constants');
 

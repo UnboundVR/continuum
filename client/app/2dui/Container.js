@@ -31,11 +31,11 @@ var initChildren = function() {
 };
 
 var enableUI = function() {
-    container.style.display = '';
+    container.style.display = 'block';
 };
 
 var disableUI = function() {
-    container.style.display = consts.html.DISPLAY_NONE;
+    container.style.display = 'none';
     events.dispatch(consts.events.SHOW_HELP, false);
     events.dispatch(consts.events.SHOW_SETTINGS, false);
 };

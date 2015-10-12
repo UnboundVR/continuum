@@ -93,12 +93,8 @@ var consts = {
         CLOSE_BUTTON: 'close',
         CODING_HEADER: 'codingHeader'
     },
-    html: {
-        DIV: 'div',
-        STYLE: 'style',
-        DISPLAY_NONE: 'none',
-        DISPLAY_BLOCK: 'block',
-        COLOR_BLACK: 'black'
+    colors: {
+        BLACK: 'black'
     },
     keyboard: {
         F4: 115,

@@ -39,7 +39,7 @@ var embedGUI = function(htmlNode, planeUUID) {
     };
 
     var material = new three.MeshBasicMaterial();
-    material.color.set(consts.html.COLOR_BLACK);
+    material.color.set(consts.colors.BLACK);
     material.opacity = 0;
     material.blending = three.NoBlending;
     plane.material = material;
