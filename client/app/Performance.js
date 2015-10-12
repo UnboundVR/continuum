@@ -1,4 +1,4 @@
-var world = require('.World');
+var world = require('./World');
 
 var fpsList = [];
 var fps = 0;

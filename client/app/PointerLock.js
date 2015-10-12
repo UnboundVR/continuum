@@ -81,7 +81,7 @@ var init = function() {
 
 world.onInit(init);
 
-module.exports {
+module.exports = {
     enabled: function() {
         return enabled;
     },

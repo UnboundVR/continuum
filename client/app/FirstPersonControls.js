@@ -5,6 +5,7 @@ var world = require('./World');
 var keyVR = require('./KeyVR');
 var pointerLock = require('./PointerLock');
 var scenes = require('./Scenes');
+var camera = require('./Camera');
 
 var raycaster;
 
