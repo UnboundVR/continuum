@@ -2,14 +2,15 @@
 
 var watchify = require('watchify');
 var browserify = require('browserify');
+var strictify = require('strictify');
+var stringify = require('stringify');
+
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var gutil = require('gulp-util');
 var sourcemaps = require('gulp-sourcemaps');
 var assign = require('lodash.assign');
-var strictify = require('strictify');
-var stringify = require('stringify');
 var browserifyShim = require('browserify-shim');
 var jscs = require('gulp-jscs');
 var uglify = require('gulp-uglify');
@@ -33,7 +34,7 @@ var customOpts = {
   debug: false
 };
 var opts = assign({}, watchify.args, customOpts);
-var b = watchify(browserify(opts));
+var b = browserify(opts);
 
 b.transform(stringify({
   extensions: ['.html', '.css'],
@@ -44,22 +45,31 @@ b.transform(stringify({
 }));
 
 b.transform(strictify);
+b.on('log', gutil.log);
 
-gulp.task('js', ['clean'], bundle); // so you can run `gulp js` to build the file
-b.on('update', bundle); // on any dep update, runs the bundler
-b.on('log', gutil.log); // output build logs to terminal
+gulp.task('js', ['clean'], function() {
+    var bundle = function() {
+        return w.bundle()
+          .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+          .pipe(source('metavrse.js'))
+          .pipe(buffer())
+          .pipe(sourcemaps.init({loadMaps: true}))
+          .pipe(sourcemaps.write('./'))
+          .pipe(gulp.dest('./build'));
+    }
 
-function bundle() {
-  return b.bundle()
-    // log errors if they happen
-    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-    .pipe(source('metavrse.js'))
-    // optional, remove if you don't need to buffer file contents
-    .pipe(buffer())
-    // optional, remove if you dont want sourcemaps
-    .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
-    // Add transformation tasks to the pipeline here.
-    .pipe(uglify())
-    .pipe(sourcemaps.write('./')) // writes .map file
-    .pipe(gulp.dest('./build'));
-}
+    var w = watchify(b);
+    w.on('update', bundle);
+    return bundle();
+});
+
+gulp.task('default', ['clean'], function() {
+    return b.bundle()
+      .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+      .pipe(source('metavrse.js'))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({loadMaps: true}))
+      .pipe(uglify())
+      .pipe(sourcemaps.write('./'))
+      .pipe(gulp.dest('./build'));
+});
