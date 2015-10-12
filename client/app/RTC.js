@@ -1,8 +1,10 @@
 var io = require('socket.io-client');
-var RTCMultiConnection = require('rtcmulticonnection-v3');
 var world = require('./World');
 var ui = require('./2dui/Container');
 var consts = require('../../shared/Constants');
+
+window.io = io;
+require('rtcmulticonnection-v3/RTCMultiConnection.js');
 
 var init = function() {
     var connection = new RTCMultiConnection(consts.rtc.channel);
@@ -28,7 +30,13 @@ var init = function() {
         ui.addElement(e.mediaElement);
     };
 
-    connection.join(consts.rtc.DEFAULT_ROOM);
+    try {
+        connection.join(consts.rtc.DEFAULT_ROOM);
+    } catch(e) {
+        console.log(e)
+    }
+    console.log('init6')
+
 };
 
 world.onInit(init);
