@@ -1,9 +1,9 @@
-# metavrse.io by Unbound VR
+# metavrse.io by Unbound VR \m/
 
-Get dependencies => **npm install**
+Get dependencies => `npm install`
 
-Run => **node app.js**
+Run => `gulp js` (runs watchify) and navigate to http://localhost:1337.
 
-Navigate to http://localhost:1337
+Build minified => `gulp`.
 
-\m/
+Populate Couchbase DB with boilerplate scene => **npm run populate-db** (takes connection settings from .env file).
