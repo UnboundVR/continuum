@@ -1,5 +1,7 @@
 'use strict';
 
+require('use-strict');
+
 var constants = require('./shared/constants');
 
 require('./server/certificate-extension')();
