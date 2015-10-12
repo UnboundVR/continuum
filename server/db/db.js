@@ -1,7 +1,7 @@
 var couchbase = require('couchbase');
 var promise = require('promise');
 var extend = require('extend');
-var constants = require('../../shared/constants');
+var consts = require('../../shared/constants');
 
 var init = function(cluster, bucket, bucketPassword) {
     this._cluster = new couchbase.Cluster(cluster);
@@ -58,7 +58,7 @@ var getMultiByAlias = function(type, prop, aliases) {
 var createByAlias = function(type, prop, obj) {
     var _this = this;
 
-    return this.counter(constants.db.COUNTERS + '::' + type, 1, {initial: 1}).then(function(res) {
+    return this.counter(consts.db.COUNTERS + '::' + type, 1, {initial: 1}).then(function(res) {
         return _this.insert(type + '::' + res.value, obj).then(function() {
             return _this.insert(type + '::' + prop + '::' + obj[prop], res.value);
         });

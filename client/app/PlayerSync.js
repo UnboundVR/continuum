@@ -1,74 +1,75 @@
+var consts = require('../../shared/Constants');
+var events = require('./Events');
+var scenes = require('./Scenes');
+var auth = require('./auth/Token');
+var world = require('./World');
+var io = require('socket.io-client');
 
+var socket;
+var players;
 
-define(['SocketIO', 'Scenes', 'World', 'auth/Token', 'Constants', 'Events'], function(io, scenes, world, auth, constants, events) {
-    var socket;
-    var players;
+var init = function() {
+    socket = io.connect(window.location.origin + consts.socket.playerSync.NAMESPACE, {
+        query: consts.auth.TOKEN_PARAM + '=' + auth.getToken()
+    });
 
-    var init = function() {
-        socket = io.connect(window.location.origin + constants.socket.playerSync.NAMESPACE, {
-            query: constants.auth.TOKEN_PARAM + '=' + auth.getToken()
-        });
-
-        players = {
-            me: {
-                // FIXME un-hardcode, use real name...
-                name: 'YO',
-                position: new THREE.Vector3(0, constants.firstPerson.INITIAL_Y, 0)
-            },
-            others: {}
-        };
-
-        socket.on('connect', function() {
-            players.me.id = this.id;
-            socket.emit(constants.socket.playerSync.REGISTER, players.me);
-        });
-
-        socket.on(constants.socket.playerSync.OTHER_CONNECT, function(other) {
-            players.others[other.id] = other;
-            addPlayerAvatar(other);
-        });
-
-        socket.on(constants.socket.playerSync.OTHER_DISCONNECT, function(id) {
-            var player = players.others[id];
-            delete players.others[id];
-            removePlayerAvatar(player);
-        });
-
-        socket.on(constants.socket.playerSync.OTHER_CHANGE, function(data) {
-            var player = players.others[data.id];
-            if (player) {
-                player.position = data.position;
-                player.mesh.position.copy(data.position);
-            }
-        });
-
-        events.subscribe(constants.events.PLAYER_MOVED, playerMoved);
+    players = {
+        me: {
+            // FIXME un-hardcode, use real name...
+            name: 'YO',
+            position: new three.Vector3(0, consts.firstPerson.INITIAL_Y, 0)
+        },
+        others: {}
     };
 
-    var removePlayerAvatar = function(player) {
-        scenes.getScene().remove(player.mesh);
-    };
+    socket.on('connect', function() {
+        players.me.id = this.id;
+        socket.emit(consts.socket.playerSync.REGISTER, players.me);
+    });
 
-    var addPlayerAvatar = function(player) {
-        // TODO use decent player model
-        var geometry = new THREE.BoxGeometry(40, 40, 40);
-        var texture = THREE.ImageUtils.loadTexture('client/assets/img/grass.jpg');
-        var material = new THREE.MeshBasicMaterial({map: texture});
+    socket.on(consts.socket.playerSync.OTHER_CONNECT, function(other) {
+        players.others[other.id] = other;
+        addPlayerAvatar(other);
+    });
 
-        var mesh = new THREE.Mesh(geometry, material);
-        mesh.position.copy(player.position);
+    socket.on(consts.socket.playerSync.OTHER_DISCONNECT, function(id) {
+        var player = players.others[id];
+        delete players.others[id];
+        removePlayerAvatar(player);
+    });
 
-        player.mesh = mesh;
+    socket.on(consts.socket.playerSync.OTHER_CHANGE, function(data) {
+        var player = players.others[data.id];
+        if (player) {
+            player.position = data.position;
+            player.mesh.position.copy(data.position);
+        }
+    });
 
-        scenes.getScene().add(mesh);
-    };
+    events.subscribe(consts.events.PLAYER_MOVED, playerMoved);
+};
 
-    var playerMoved = function(position) {
-        players.me.position = position;
-        socket.emit(constants.socket.playerSync.change, players.me);
-    };
+var removePlayerAvatar = function(player) {
+    scenes.getScene().remove(player.mesh);
+};
 
-    world.onInit(init);
+var addPlayerAvatar = function(player) {
+    // TODO use decent player model
+    var geometry = new three.BoxGeometry(40, 40, 40);
+    var texture = three.ImageUtils.loadTexture('client/assets/img/grass.jpg');
+    var material = new three.MeshBasicMaterial({map: texture});
 
-    return {};
-});
+    var mesh = new three.Mesh(geometry, material);
+    mesh.position.copy(player.position);
+
+    player.mesh = mesh;
+
+    scenes.getScene().add(mesh);
+};
+
+var playerMoved = function(position) {
+    players.me.position = position;
+    socket.emit(consts.socket.playerSync.change, players.me);
+};
+
+world.onInit(init);

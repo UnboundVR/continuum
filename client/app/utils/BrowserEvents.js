@@ -4,9 +4,9 @@ define(['World', 'Constants', 'Events'], function(world, constants, events) {
     var callbacks = [];
 
     var hook = function() {
-        Object.keys(constants.events.browserEvents).forEach(function(browserEvent) {
+        Object.keys(consts.events.browserEvents).forEach(function(browserEvent) {
             var callback = function(e) {
-                events.dispatch(constants.events.browserEvents[browserEvent], e);
+                events.dispatch(consts.events.browserEvents[browserEvent], e);
             };
 
             callbacks.push({callback: callback, event: browserEvent});

@@ -2,11 +2,11 @@
 
 define([], function() {
     return function(html, css) {
-        var htmlNode = document.createElement(constants.html.DIV);
+        var htmlNode = document.createElement(consts.html.DIV);
         htmlNode.innerHTML = html;
 
         if (css) {
-            var cssNode = document.createElement(constants.html.STYLE);
+            var cssNode = document.createElement(consts.html.STYLE);
             cssNode.innerHTML = css;
             htmlNode.appendChild(cssNode);
         }

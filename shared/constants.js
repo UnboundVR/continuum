@@ -1,4 +1,4 @@
-var constants = {
+var consts = {
     events: {
         browserEvents: {
             'keydown': 'keyDown',
@@ -200,13 +200,4 @@ var constants = {
     }
 };
 
-// detect if we're using requirejs, if not export with module.exports :)
-if (typeof define === 'function' && define.amd) {
-    define([], function() {
-        return constants;
-    });
-} else if (typeof exports === 'object') {
-    module.exports = constants;
-} else {
-    window.constants = constants;
-}
+module.exports = constants;

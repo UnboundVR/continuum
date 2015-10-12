@@ -7,21 +7,21 @@
 
         <!-- Auth0Lock script | it's in node_modules too, TODO pick it from there, not cdn -->
         <script src="//cdn.auth0.com/js/lock-7.9.min.js"></script>
-        <script src="shared/constants.js"></script>
+        <script src="shared/consts.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     </head>
 
     <body>
         <input id="btn-login" class="btn-login" type="submit" value="Login" />
         <script>
-            var lock = new Auth0Lock(constants.auth.AUTH0_AUDIENCE, constants.auth.AUTH0_DOMAIN);
+            var lock = new Auth0Lock(consts.auth.AUTH0_AUDIENCE, consts.auth.AUTH0_DOMAIN);
 
             document.getElementById('btn-login').addEventListener('click', function() {
                 lock.show({
-                    callbackURL: window.location.origin + constants.routes.WORLD,
+                    callbackURL: window.location.origin + consts.routes.WORLD,
                     responseType: 'token',
-                    authParams: {scope: constants.auth.LOGIN_SCOPE},
-                    connections: constants.auth.CONNECTIONS
+                    authParams: {scope: consts.auth.LOGIN_SCOPE},
+                    connections: consts.auth.CONNECTIONS
                 });
             });
         </script>

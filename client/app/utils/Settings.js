@@ -18,7 +18,7 @@ define(['auth/Profile', 'Events'], function(auth, events) {
     };
 
     var onChange = function onChange(setting, callback) {
-        events.subscribe(constants.events.SETTING_CHANGED, function(change) {
+        events.subscribe(consts.events.SETTING_CHANGED, function(change) {
             if (change[setting.name] !== undefined) {
                 callback(change[setting.name]);
             }

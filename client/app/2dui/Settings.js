@@ -1,4 +1,7 @@
+var consts = require('../../../shared/constants');
+var events = require('../Events');
 
+// TODO migrate html
 
 define(['html!Settings', 'Events', 'utils/Settings', 'Constants'], function(html, events, settings, constants) {
     var container;
@@ -12,24 +15,24 @@ define(['html!Settings', 'Events', 'utils/Settings', 'Constants'], function(html
     };
 
     var configSettings = function() {
-        var isDeveloper = settings.get(constants.settings.IS_DEVELOPER);
+        var isDeveloper = settings.get(consts.settings.IS_DEVELOPER);
 
-        var isDeveloperCheckbox = container.getElementsByClassName(constants.ui.settings.IS_DEVELOPER_CHECKBOX)[0];
+        var isDeveloperCheckbox = container.getElementsByClassName(consts.ui.settings.IS_DEVELOPER_CHECKBOX)[0];
         isDeveloperCheckbox.checked = isDeveloper;
         isDeveloperCheckbox.onchange = function(event) {
-            settings.set(constants.settings.IS_DEVELOPER, isDeveloperCheckbox.checked);
+            settings.set(consts.settings.IS_DEVELOPER, isDeveloperCheckbox.checked);
         };
     };
 
     var init = function() {
-        container = document.getElementById(constants.ui.UI_CONTAINER);
+        container = document.getElementById(consts.ui.UI_CONTAINER);
         container.appendChild(html);
 
-        events.subscribe(constants.events.SHOW_SETTINGS, function(display) {
+        events.subscribe(consts.events.SHOW_SETTINGS, function(display) {
             (display ? show : hide)();
         });
 
-        var closeButton = html.getElementsByClassName(constants.ui.CLOSE_BUTTON)[0];
+        var closeButton = html.getElementsByClassName(consts.ui.CLOSE_BUTTON)[0];
         closeButton.onclick = hide;
 
         hide();

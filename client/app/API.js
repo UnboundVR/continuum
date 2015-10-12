@@ -1,16 +1,17 @@
-define(['utils/Requests', 'Constants'], function(req, constants) {
-    var baseUrl = constants.routes.api.BASE.substring(1);
+var requests = require('./utils/Requests');
+var consts = require('../../shared/Constants');
 
-    var getScene = function(sceneId) {
-        var url = baseUrl + constants.routes.api.SCENE;
-        if (sceneId) {
-            url += '/' + sceneId;
-        }
+var baseUrl = consts.routes.api.BASE.substring(1);
 
-        return req.get(url);
-    };
+var getScene = function(sceneId) {
+    var url = baseUrl + consts.routes.api.SCENE;
+    if (sceneId) {
+        url += '/' + sceneId;
+    }
 
-    return {
-        getScene: getScene
-    };
-});
+    return req.get(url);
+};
+
+module.exports = {
+    getScene: getScene
+};

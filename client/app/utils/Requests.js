@@ -12,7 +12,7 @@ define(['auth/Token', 'Constants'], function(auth, constants) {
     var get = function(url) {
         return fetch(url, {
             headers: {
-                authorization: constants.auth.BEARER + ' ' + auth.getToken()
+                authorization: consts.auth.BEARER + ' ' + auth.getToken()
             },
             method: 'GET'
         }).then(toJSON);
@@ -21,7 +21,7 @@ define(['auth/Token', 'Constants'], function(auth, constants) {
     var patch = function(url, payload) {
         return fetch(url, {
             headers: {
-                authorization: constants.auth.BEARER + ' ' + auth.getToken(),
+                authorization: consts.auth.BEARER + ' ' + auth.getToken(),
                 'content-type': 'application/json'
             },
             method: 'PATCH',

@@ -1,27 +1,28 @@
+var consts = require('../../../shared/Constants');
+var manager = require('./Manager');
+var dictFromArray = require('../utils/DictFromArray');
+var traverseTree = require('../../../shared/TraverseTree');
 
+var load = function(json, app) {
+    scriptsManager.setApp(app);
 
-define(['./Manager', 'utils/DictFromArray', 'shared/TraverseTree', 'Constants'], function(scriptsManager, dictFromArray, traverse, constants) {
-    var load = function(json, app) {
-        scriptsManager.setApp(app);
+    var scriptDict = dictFromArray(json.scripts, 'uuid');
 
-        var scriptDict = dictFromArray(json.scripts, 'uuid');
+    var allPromises = [];
 
-        var allPromises = [];
+    traverse(json.scene.object, function(obj) {
+        if (obj.scripts && obj.scripts.length) {
+            var promises = obj.scripts.map(function(scriptUUID) {
+                return scriptsManager.loadScript(scriptDict[scriptUUID], obj.uuid);
+            });
 
-        traverse(json.scene.object, function(obj) {
-            if (obj.scripts && obj.scripts.length) {
-                var promises = obj.scripts.map(function(scriptUUID) {
-                    return scriptsManager.loadScript(scriptDict[scriptUUID], obj.uuid);
-                });
+            allPromises.push(Promise.all(promises));
+        }
+    });
 
-                allPromises.push(Promise.all(promises));
-            }
-        });
+    return Promise.all(allPromises);
+};
 
-        return Promise.all(allPromises);
-    };
-
-    return {
-        load: load
-    };
-});
+module.exports = {
+    load: load
+};

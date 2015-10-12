@@ -1,25 +1,21 @@
+module.exports = {
+    setScene: function(value) {
+        this.scene = value;
+    },
 
+    getScene: function() {
+        return this.scene;
+    },
 
-define(['Constants'], function(constants) {
-    return {
-        setScene: function(value) {
-            this.scene = value;
-        },
+    getObjectByUUID: function(uuid) {
+        return this.scene.getObjectByProperty('uuid', uuid, true);
+    },
 
-        getScene: function() {
-            return this.scene;
-        },
+    setCSS3DScene: function(value) {
+        this.css3DScene = value;
+    },
 
-        getObjectByUUID: function(uuid) {
-            return this.scene.getObjectByProperty('uuid', uuid, true);
-        },
-
-        setCSS3DScene: function(value) {
-            this.css3DScene = value;
-        },
-
-        getCSS3DScene: function() {
-            return this.css3DScene;
-        }
-    };
-});
+    getCSS3DScene: function() {
+        return this.css3DScene;
+    }
+};

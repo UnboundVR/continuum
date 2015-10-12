@@ -2,11 +2,11 @@
 
 require('use-strict');
 
-var constants = require('./shared/constants');
+var consts = require('./shared/constants');
 
 require('./server/certificate-extension')();
 
-var env = process.env.NODE_ENV || constants.environments.DEV;
+var env = process.env.NODE_ENV || consts.environments.DEV;
 console.log('Loading in ' + env + ' environment');
 require('dotenv').load();
 
@@ -24,15 +24,15 @@ var db = require('./server/db/db');
 db.init(process.env.COUCHBASE_HOST, process.env.BUCKET_NAME, process.env.BUCKET_PASSWORD);
 
 var apiRouter = require('./server/api/router');
-app.use(constants.routes.api.BASE, apiRouter);
+app.use(consts.routes.api.BASE, apiRouter);
 
 require('./static-routes')(app);
 
-app.get(constants.routes.LOGIN_SCREEN, function(req, res) {
+app.get(consts.routes.LOGIN_SCREEN, function(req, res) {
     res.sendFile(__dirname + '/login.html');
 });
 
-app.get(constants.routes.WORLD, function(req, res) {
+app.get(consts.routes.WORLD, function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 

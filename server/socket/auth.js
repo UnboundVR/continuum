@@ -1,10 +1,10 @@
 var jwt = require('socketio-jwt');
 var certificate = require('../metavrse.cer');
-var constants = require('../../shared/constants');
+var consts = require('../../shared/constants');
 
 var authorize = jwt.authorize({
     secret: certificate,
-    audience: constants.auth.AUTH0_AUDIENCE,
+    audience: consts.auth.AUTH0_AUDIENCE,
     handshake: true
 });
 

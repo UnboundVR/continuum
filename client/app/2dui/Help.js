@@ -1,54 +1,56 @@
+var consts = require('../../../shared/constants');
+var events = require('../Events');
+var settings = require('../utils/Settings');
 
+// TODO migrate html, i18n
 
-define(['html!Help', 'i18n!nls/Help', 'utils/Settings', 'Events', 'Constants'], function(html, i18n, settings, events, constants) {
-    var helpPanel;
-    var container;
+var helpPanel;
+var container;
 
-    var show = function() {
-        html.style.display = 'block';
+var show = function() {
+    html.style.display = 'block';
+};
+
+var hide = function() {
+    html.style.display = 'none';
+};
+
+var configShowAtStartup = function() {
+    var displayAtStartup = settings.get(consts.settings.DISPLAY_HELP_AT_STARTUP);
+
+    var showAtStartupCheckbox = container.getElementsByClassName(consts.ui.help.SHOW_AT_STARTUP_CHECKBOX)[0];
+    showAtStartupCheckbox.checked = displayAtStartup;
+    showAtStartupCheckbox.onchange = function(event) {
+        settings.set(consts.settings.DISPLAY_HELP_AT_STARTUP, showAtStartupCheckbox.checked);
     };
 
-    var hide = function() {
-        html.style.display = 'none';
-    };
+    if (!displayAtStartup) {
+        hide();
+    }
+};
 
-    var configShowAtStartup = function() {
-        var displayAtStartup = settings.get(constants.settings.DISPLAY_HELP_AT_STARTUP);
+var init = function() {
+    container = document.getElementById(consts.ui.UI_CONTAINER);
+    container.appendChild(html);
 
-        var showAtStartupCheckbox = container.getElementsByClassName(constants.ui.help.SHOW_AT_STARTUP_CHECKBOX)[0];
-        showAtStartupCheckbox.checked = displayAtStartup;
-        showAtStartupCheckbox.onchange = function(event) {
-            settings.set(constants.settings.DISPLAY_HELP_AT_STARTUP, showAtStartupCheckbox.checked);
-        };
+    var lockCursorHelp = container.getElementsByClassName(consts.ui.help.LOCK_CURSOR)[0];
+    lockCursorHelp.innerHTML = i18n.lockCursor;
 
-        if (!displayAtStartup) {
-            hide();
-        }
-    };
+    var keysHelp = container.getElementsByClassName(consts.ui.help.KEYS)[0];
+    keysHelp.innerHTML = i18n.keys;
 
-    var init = function() {
-        container = document.getElementById(constants.ui.UI_CONTAINER);
-        container.appendChild(html);
+    var closeButton = html.getElementsByClassName(consts.ui.CLOSE_BUTTON)[0];
+    closeButton.onclick = hide;
 
-        var lockCursorHelp = container.getElementsByClassName(constants.ui.help.LOCK_CURSOR)[0];
-        lockCursorHelp.innerHTML = i18n.lockCursor;
+    configShowAtStartup();
 
-        var keysHelp = container.getElementsByClassName(constants.ui.help.KEYS)[0];
-        keysHelp.innerHTML = i18n.keys;
+    events.subscribe(consts.events.SHOW_HELP, function(display) {
+        (display ? show : hide)();
+    });
+};
 
-        var closeButton = html.getElementsByClassName(constants.ui.CLOSE_BUTTON)[0];
-        closeButton.onclick = hide;
-
-        configShowAtStartup();
-
-        events.subscribe(constants.events.SHOW_HELP, function(display) {
-            (display ? show : hide)();
-        });
-    };
-
-    return {
-        show: show,
-        hide: hide,
-        init: init
-    };
-});
+module.exports = {
+    show: show,
+    hide: hide,
+    init: init
+};

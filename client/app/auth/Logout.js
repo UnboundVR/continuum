@@ -1,8 +1,6 @@
+var consts = require('../../../shared/Constants');
 
-
-define(['Constants'], function(constants) {
-    return function() {
-        localStorage.removeItem(constants.auth.ID_TOKEN);
-        window.location.href = constants.routes.LOGIN_SCREEN;
-    };
-});
+module.exports = function() {
+    localStorage.removeItem(consts.auth.ID_TOKEN);
+    window.location.href = consts.routes.LOGIN_SCREEN;
+};
