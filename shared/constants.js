@@ -148,7 +148,8 @@ var consts = {
         }
     },
     renderer: {
-        CLEAR_COLOR: 0x00ff00
+        CLEAR_COLOR: 0x00ff00,
+        THREEJS_CONTAINER: 'threejs-container'
     },
     mobile: {
         ANDROID_REGEX: /Android/i

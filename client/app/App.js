@@ -8,6 +8,7 @@ var queryString = require('./utils/QueryString');
 var world = require('./World');
 var api = require('./API');
 var login = require('./auth/Login');
+var consts = require('../../shared/constants');
 
 var load = function(json) {
     var objectLoader = new three.ObjectLoader();
@@ -26,7 +27,7 @@ var load = function(json) {
 
         scriptsLoader.load(json, relevantApp).then(function() {
             world.start();
-            document.getElementById('threejs-container').appendChild(renderer.getDomElement());
+            document.getElementById(consts.renderer.THREEJS_CONTAINER).appendChild(renderer.getDomElement());
         });
     });
 };
