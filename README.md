@@ -1,5 +1,7 @@
 # metavrse.io by Unbound VR \m/
-[![Travis build](https://travis-ci.org/UnboundVR/metavrse.io.svg?branch=dev)](https://travis-ci.org/UnboundVR/metavrse.io)
+[![Travis build](https://travis-ci.org/UnboundVR/metavrse.io.svg?branch=dev)](https://travis-ci.org/UnboundVR/metavrse.io) 
+
+[![Slack Status](http://metavrse.io:3000/badge.svg)](http://metavrse.io)
 
 **Get dependencies**: `npm install`.
 
