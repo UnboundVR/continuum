@@ -1,9 +1,10 @@
-var consts = require('../../shared/Constants');
+var consts = require('../../shared/constants');
 var events = require('./Events');
 var scenes = require('./Scenes');
 var auth = require('./auth/Token');
 var world = require('./World');
 var io = require('socket.io-client');
+var three = require('three.js');
 
 var socket;
 var players;

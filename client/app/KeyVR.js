@@ -1,5 +1,5 @@
 var io = require('socket.io-client');
-var querystring = require('./utils/QueryString');
+var queryString = require('./utils/QueryString');
 var world = require('./World');
 var auth = require('./auth/Token');
 var consts = require('../../shared/constants');

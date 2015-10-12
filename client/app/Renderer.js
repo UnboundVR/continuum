@@ -42,7 +42,6 @@ var init = function() {
 };
 
 var render = function() {
-    console.log('wow')
     webGLRenderer.render(scenes.getScene(), camera);
     css3DRenderer.render(scenes.getCSS3DScene(), camera);
 };
