@@ -1,4 +1,4 @@
-'use strict';
+
 
 // Based on http://learningthreejs.com/blog/2013/04/30/closing-the-gap-between-html-and-webgl/
 // TODO stop receiving css 3d scene as a param, take it from scene obj

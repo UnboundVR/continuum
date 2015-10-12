@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['Stats', 'Events', 'Constants', 'utils/Settings'], function(Stats, events, constants, settings) {
     var initialized = false;

@@ -1,5 +1,3 @@
-'use strict';
-
 define(['Three', 'Detector', 'Renderer', 'DomContainer', 'Scenes', 'ObjectLoader', 'gui/Loader', 'scripting/Loader', 'utils/QueryString', 'World', 'API', 'auth/Login'],
     function(THREE, detector, renderer, container, scene, objectLoader, guiLoader, scriptsLoader, queryString, world, api, login) {
         var load = function(json) {

@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['Constants'], function(constants) {
     return function() {

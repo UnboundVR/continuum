@@ -1,4 +1,4 @@
-'use strict';
+
 
 define([], function() {
     // based on http://stackoverflow.com/questions/7718935/load-scripts-asynchronously

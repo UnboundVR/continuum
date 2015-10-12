@@ -1,4 +1,4 @@
-'use strict';
+
 
 var gulp = require('gulp');
 var jscs = require('gulp-jscs');

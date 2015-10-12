@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['Events', 'Constants', './Token', './Logout', './Profile', './Auth0'], function(events, constants, token, logout, profile, auth0) {
     return function() {

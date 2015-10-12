@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['Constants', 'i18n!nls/Auth', 'utils/Requests', 'Events'], function(constants, i18n, req, events) {
 

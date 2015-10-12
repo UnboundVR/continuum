@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['./Manager', 'utils/DictFromArray', 'shared/TraverseTree', 'Constants'], function(scriptsManager, dictFromArray, traverse, constants) {
     var load = function(json, app) {

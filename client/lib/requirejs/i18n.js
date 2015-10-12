@@ -35,7 +35,7 @@
  * for the nls/fr-fr/colors bundle to be that mixed in locale.
  */
 (function () {
-    'use strict';
+    
 
     //regexp for reconstructing the master bundle name from parts of the regexp match
     //nlsRegExp.exec('foo/bar/baz/nls/en-ca/foo') gives:

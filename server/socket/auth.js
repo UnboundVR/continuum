@@ -1,5 +1,3 @@
-'use strict';
-
 var jwt = require('socketio-jwt');
 var certificate = require('../metavrse.cer');
 var constants = require('../../shared/constants');

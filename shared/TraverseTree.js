@@ -1,5 +1,3 @@
-'use strict';
-
 // Taken from https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js
 var traverse = function(obj, callback) {
     var children = obj.children;

@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['Three', 'World', 'Scenes', 'Camera', 'Constants', 'Events'], function(THREE, world, scenes, camera, constants, events) {
     var vrMode = navigator.userAgent.match(constants.mobile.ANDROID_REGEX);

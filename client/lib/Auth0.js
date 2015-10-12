@@ -2725,7 +2725,7 @@ function plural(ms, n, name) {
 var JSON = {};
 
 (function () {
-    'use strict';
+    
 
     function f(n) {
         // Format integers to have at least two digits.

@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['SocketIO', 'Scenes', 'World', 'auth/Token', 'Constants', 'Events'], function(io, scenes, world, auth, constants, events) {
     var socket;

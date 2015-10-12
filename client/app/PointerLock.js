@@ -1,5 +1,5 @@
 // Based on https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html and http://www.html5rocks.com/en/tutorials/pointerlock/intro/
-'use strict';
+
 
 // TODO separate toggle logic from pointer lock, put pointer lock in utils and use constants
 define(['World', 'Constants', 'Events'], function(world, constants, events) {

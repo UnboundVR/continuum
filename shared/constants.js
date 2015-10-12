@@ -1,5 +1,3 @@
-'use strict';
-
 var constants = {
     events: {
         browserEvents: {

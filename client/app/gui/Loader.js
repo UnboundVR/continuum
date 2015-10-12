@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['Scenes', './Manager', 'utils/DictFromArray', 'shared/TraverseTree', 'utils/BuildHTMLNode', 'Constants'], function(scenes, gui, dictFromArray, traverse, buildHTMLNode, constants) {
 

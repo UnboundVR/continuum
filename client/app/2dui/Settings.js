@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['html!Settings', 'Events', 'utils/Settings', 'Constants'], function(html, events, settings, constants) {
     var container;

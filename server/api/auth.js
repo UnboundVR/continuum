@@ -1,5 +1,3 @@
-'use strict';
-
 var jwt = require('express-jwt');
 var certificate = require('../metavrse.cer');
 var constants = require('../../shared/constants');

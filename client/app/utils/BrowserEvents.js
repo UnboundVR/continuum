@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['World', 'Constants', 'Events'], function(world, constants, events) {
     var callbacks = [];

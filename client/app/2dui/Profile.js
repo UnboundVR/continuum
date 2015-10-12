@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['html!Profile', 'i18n!nls/Profile', 'auth/Profile'], function(html, i18n, auth) {
     var init = function() {

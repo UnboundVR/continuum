@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['Scenes', 'Constants', 'Events', 'utils/LoadExternalScript'], function(scenes, constants, events, loadExternal) {
     var scripts = {};

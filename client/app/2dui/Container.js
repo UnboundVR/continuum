@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['World', 'Events', 'PointerLock', 'Constants', './Help', './Developer', './Profile', './Actions', './Settings'], function(world, events, pointerLock, constants, help, developer, profile, actions, settings) {
 

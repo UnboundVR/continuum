@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['Constants', './Logout', './Auth0'], function(constants, logout, auth0) {
 

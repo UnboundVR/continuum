@@ -1,6 +1,3 @@
-'use strict';
-
-var couchbase = require('couchbase');
 var promise = require('promise');
 var extend = require('extend');
 var constants = require('../../shared/constants');

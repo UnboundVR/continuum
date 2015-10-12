@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['auth/Token', 'Constants'], function(auth, constants) {
     var toJSON = function(res) {

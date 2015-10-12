@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['Three', 'Scenes', 'Events', 'World', 'Camera', 'KeyVR', 'PointerLock', 'Constants'], function(THREE, scenes, events, world, camera, keyVR, pointerLock, constants) {
     var raycaster;

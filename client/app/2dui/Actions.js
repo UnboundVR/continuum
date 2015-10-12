@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['html!Actions', 'i18n!nls/Actions', 'Events', 'Constants', 'PointerLock'], function(html, i18n, events, constants, pointerLock) {
     var init = function() {

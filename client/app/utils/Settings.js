@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['auth/Profile', 'Events'], function(auth, events) {
     var get = function(setting) {

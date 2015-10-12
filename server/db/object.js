@@ -1,5 +1,3 @@
-'use strict';
-
 var db = require('./db');
 var promise = require('promise');
 var constants = require('../../shared/constants');

@@ -1,5 +1,3 @@
-'use strict';
-
 var db = require('./db');
 var objectDb = require('./object');
 var promise = require('promise');

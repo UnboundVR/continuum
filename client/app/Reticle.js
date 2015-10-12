@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['Three', 'Camera', 'PointerLock', 'Tween', 'ItemSelector', 'World', 'KeyVR', 'Constants'], function(THREE, camera, pointerLock, tween, itemSelector, world, keyVR, constants) {
     var currentTween;

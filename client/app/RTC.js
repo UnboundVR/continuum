@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['SocketIO', 'RTCMultiConnection', 'World', '2dui/Container', 'Constants'], function(io, RTCMultiConnection, world, ui, constants) {
 

@@ -1,6 +1,6 @@
 'use strict';
 
-// TODO refactor using something other than jQuery
+// TODO refactor using react
 
 // Init Node.JS and listen to mobile device connection
 var socket = io.connect(window.location.origin + constants.socket.keyvr.NAMESPACE, {

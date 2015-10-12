@@ -1,5 +1,3 @@
-'use strict';
-
 define(['scripting/Manager', 'Constants', 'gui/Manager', 'html!Coding', 'i18n!nls/Coding'], function(scripts, constants, gui, html, i18n) {
     var rightClick = function(obj) {
         // FIXME this is hardcoded to only work with a specific panel

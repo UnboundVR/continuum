@@ -1,5 +1,3 @@
-'use strict';
-
 var auth = require('./auth');
 var constants = require('../../shared/constants');
 

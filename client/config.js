@@ -1,5 +1,3 @@
-'use strict';
-
 var require = {
     baseUrl: 'client/app',
     shim: {

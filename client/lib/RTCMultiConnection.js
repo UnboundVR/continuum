@@ -3,7 +3,7 @@
 // ______________________________
 // RTCMultiConnection-v3.0 (Beta)
 
-'use strict';
+
 
 (function() {
 
@@ -2496,7 +2496,7 @@
     // DetectRTC.screenResolutions
 
     (function() {
-        'use strict';
+        
 
         function warn(log) {
             if (window.console && typeof window.console.warn !== 'undefined') {

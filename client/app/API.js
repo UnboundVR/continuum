@@ -1,5 +1,3 @@
-'use strict';
-
 define(['utils/Requests', 'Constants'], function(req, constants) {
     var baseUrl = constants.routes.api.BASE.substring(1);
 

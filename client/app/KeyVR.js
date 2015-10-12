@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['SocketIO', 'utils/QueryString', 'World', 'auth/Token', 'utils/CallbackList', 'Constants'], function(io, queryString, world, auth, CallbackList, constants) {
     var socket;

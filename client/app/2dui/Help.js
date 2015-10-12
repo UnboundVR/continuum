@@ -1,4 +1,4 @@
-'use strict';
+
 
 define(['html!Help', 'i18n!nls/Help', 'utils/Settings', 'Events', 'Constants'], function(html, i18n, settings, events, constants) {
     var helpPanel;
