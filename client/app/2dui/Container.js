@@ -13,7 +13,7 @@ var container;
 
 var init = function() {
     container = document.getElementById(consts.ui.UI_CONTAINER);
-    initChildren(profile, help, developer, actions, settings);
+    initChildren(profile, help, actions, settings, developer);
 
     events.subscribe(consts.events.POINTER_LOCK_CHANGE, function(locked) {
         if (!locked) {

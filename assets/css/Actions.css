@@ -15,10 +15,10 @@
     opacity: 0.8;
     float: right;
 }
-#ui-container .logout {background-image: url('client/assets/img/logout.png');}
-#ui-container .lockCursor {background-image: url('client/assets/img/pointerLock.png');}
-#ui-container .help {background-image: url('client/assets/img/help.png');}
-#ui-container .settings {background-image: url('client/assets/img/settings.png');}
+#ui-container .logout {background-image: url('assets/img/logout.png');}
+#ui-container .lockCursor {background-image: url('assets/img/pointerLock.png');}
+#ui-container .help {background-image: url('assets/img/help.png');}
+#ui-container .settings {background-image: url('assets/img/settings.png');}
 
 #ui-container .actionsContainer .button {
   -webkit-transition: opacity 0.5s ease-in-out;

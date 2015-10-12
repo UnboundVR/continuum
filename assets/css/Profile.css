@@ -28,8 +28,8 @@
     float: left;
     opacity: 0.8;
 }
-#ui-container .profileContainer .role.user {background-image: url('client/assets/img/user.png');}
-#ui-container .profileContainer .role.admin {background-image: url('client/assets/img/admin.png');}
+#ui-container .profileContainer .role.user {background-image: url('assets/img/user.png');}
+#ui-container .profileContainer .role.admin {background-image: url('assets/img/admin.png');}
 
 #ui-container .profileContainer .userInfo {
     font-size: 12px;

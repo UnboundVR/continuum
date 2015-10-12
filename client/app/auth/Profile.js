@@ -2,6 +2,7 @@ var consts = require('../../../shared/Constants');
 var req = require('../utils/Requests');
 var events = require('../Events');
 var i18n = require('../translations/Polyglot');
+var logout = require('../auth/Logout');
 
 var profile;
 var auth0Base = 'https://' + consts.auth.AUTH0_DOMAIN + consts.auth.AUTH0_API;

@@ -19,7 +19,7 @@
 }
 
 #ui-container .settingsPanel .closeButton {
-	background-image: url('client/assets/img/close.png');
+	background-image: url('assets/img/close.png');
 	width: 16px;
 	height: 16px;
 	float: right;

@@ -1,5 +1,6 @@
 var i18n = require('../translations/Polyglot');
 var auth = require('../auth/Profile');
+var consts = require('../../../shared/constants');
 
 var buildHTMLNode = require('../utils/BuildHTMLNode');
 var html = require('../../../assets/html/Profile.html')
@@ -11,7 +12,6 @@ var init = function() {
     container.appendChild(htmlNode);
 
     var profile = auth.getProfile();
-
     var profileImage = htmlNode.getElementsByClassName(consts.ui.profile.PROFILE_PICTURE)[0];
     profileImage.src = profile.picture;
 

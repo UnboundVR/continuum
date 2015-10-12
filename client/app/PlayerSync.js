@@ -57,7 +57,7 @@ var removePlayerAvatar = function(player) {
 var addPlayerAvatar = function(player) {
     // TODO use decent player model
     var geometry = new three.BoxGeometry(40, 40, 40);
-    var texture = three.ImageUtils.loadTexture('client/assets/img/grass.jpg');
+    var texture = three.ImageUtils.loadTexture('assets/img/grass.jpg');
     var material = new three.MeshBasicMaterial({map: texture});
 
     var mesh = new three.Mesh(geometry, material);
