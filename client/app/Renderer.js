@@ -1,4 +1,4 @@
-var consts = require('../../shared/Constants');
+var consts = require('../../shared/constants');
 var three = require('three.js');
 var world = require('./World');
 var scenes = require('./Scenes');

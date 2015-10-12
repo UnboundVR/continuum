@@ -1,4 +1,4 @@
-var consts = require('../../../shared/Constants');
+var consts = require('../../../shared/constants');
 var Auth0 = require('auth0-js');
 
 module.exports = new Auth0({

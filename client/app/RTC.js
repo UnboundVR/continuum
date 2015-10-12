@@ -1,7 +1,7 @@
 var io = require('socket.io-client');
 var world = require('./World');
 var ui = require('./2dui/Container');
-var consts = require('../../shared/Constants');
+var consts = require('../../shared/constants');
 
 window.io = io;
 require('rtcmulticonnection-v3/RTCMultiConnection.js'); // TODO use browserify-shim

@@ -1,4 +1,4 @@
-var consts = require('../../shared/Constants');
+var consts = require('../../shared/constants');
 
 var events = {};
 Object.keys(consts.events).forEach(function(event) {

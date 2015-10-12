@@ -1,4 +1,4 @@
-var consts = require('../../shared/Constants');
+var consts = require('../../shared/constants');
 var three = require('three.js');
 var camera = require('./Camera');
 var pointerLock = require('./PointerLock');

@@ -1,4 +1,4 @@
-var consts = require('../../../shared/Constants');
+var consts = require('../../../shared/constants');
 var scenes = require('../Scenes');
 var events = require('../Events');
 var loadExternal = require('../utils/LoadExternalScript');

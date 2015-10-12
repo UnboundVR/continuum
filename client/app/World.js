@@ -1,4 +1,4 @@
-var consts = require('../../shared/Constants');
+var consts = require('../../shared/constants');
 var events = require('./Events');
 var Stats = require('stats.js');
 var settings = require('./utils/Settings');

@@ -1,5 +1,5 @@
 // Based on http://learningthreejs.com/blog/2013/04/30/closing-the-gap-between-html-and-webgl/
-var consts = require('../../../shared/Constants');
+var consts = require('../../../shared/constants');
 var three = require('three.js');
 var scenes = require('../Scenes');
 

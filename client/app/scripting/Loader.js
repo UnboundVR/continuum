@@ -1,4 +1,4 @@
-var consts = require('../../../shared/Constants');
+var consts = require('../../../shared/constants');
 var manager = require('./Manager');
 var dictFromArray = require('../utils/DictFromArray');
 var traverse = require('../../../shared/TraverseTree');

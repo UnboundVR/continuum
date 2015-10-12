@@ -1,5 +1,5 @@
 var requests = require('./utils/Requests');
-var consts = require('../../shared/Constants');
+var consts = require('../../shared/constants');
 
 var baseUrl = consts.routes.api.BASE.substring(1);
 

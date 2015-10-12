@@ -1,4 +1,4 @@
-var consts = require('../../../shared/Constants');
+var consts = require('../../../shared/constants');
 var req = require('../utils/Requests');
 var events = require('../Events');
 var i18n = require('../translations/Polyglot');

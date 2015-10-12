@@ -1,4 +1,4 @@
-var consts = require('../../../shared/Constants');
+var consts = require('../../../shared/constants');
 var logout = require('./Logout');
 var auth0 = require('./Auth0');
 

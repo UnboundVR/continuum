@@ -1,5 +1,5 @@
 // Based on https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html and http://www.html5rocks.com/en/tutorials/pointerlock/intro/
-var consts = require('../../shared/Constants');
+var consts = require('../../shared/constants');
 var world = require('./World');
 var events = require('./Events');
 

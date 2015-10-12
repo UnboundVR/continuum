@@ -1,4 +1,4 @@
-var consts = require('../../shared/Constants');
+var consts = require('../../shared/constants');
 var scripts = require('./scripting/Manager');
 var gui = require('./gui/Manager');
 var i18n = require('./translations/Polyglot');

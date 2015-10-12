@@ -1,4 +1,4 @@
-var consts = require('../../../shared/Constants');
+var consts = require('../../../shared/constants');
 var events = require('../Events');
 var token = require('./Token');
 var logout = require('./Logout');
