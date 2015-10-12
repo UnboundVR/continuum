@@ -13,10 +13,15 @@ var stringify = require('stringify');
 var browserifyShim = require('browserify-shim');
 var jscs = require('gulp-jscs');
 var uglify = require('gulp-uglify');
+var del = require('del');
 
 gulp.task('jscs', function() {
     return gulp.src('client/app/*.js')
         .pipe(jscs());
+});
+
+gulp.task('clean', function() {
+    return del(['build/metavrse.js', 'build/metavrse.js.map'])
 });
 
 var customOpts = {
@@ -36,7 +41,7 @@ b.transform(stringify({
 
 b.transform(strictify);
 
-gulp.task('js', bundle); // so you can run `gulp js` to build the file
+gulp.task('js', ['clean'], bundle); // so you can run `gulp js` to build the file
 b.on('update', bundle); // on any dep update, runs the bundler
 b.on('log', gutil.log); // output build logs to terminal
 
