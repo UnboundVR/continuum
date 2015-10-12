@@ -11,7 +11,6 @@ var buffer = require('vinyl-buffer');
 var gutil = require('gulp-util');
 var sourcemaps = require('gulp-sourcemaps');
 var assign = require('lodash.assign');
-var browserifyShim = require('browserify-shim');
 var jscs = require('gulp-jscs');
 var uglify = require('gulp-uglify');
 var del = require('del');
