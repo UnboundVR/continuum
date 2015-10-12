@@ -16,12 +16,11 @@ var uglify = require('gulp-uglify');
 var del = require('del');
 
 var jasmine = require('gulp-jasmine');
-var reporters = require('jasmine-reporters');
 
 gulp.task('test', function () {
   return gulp.src('spec/**/*.js')
     .pipe(jasmine({
-      reporter: new reporters.TerminalReporter()
+      verbose: true
     }));
 });
 
@@ -72,7 +71,7 @@ gulp.task('js', ['clean'], function() {
     return bundle();
 });
 
-gulp.task('default', ['clean'], function() {
+gulp.task('default', ['test', 'clean'], function() {
     return b.bundle()
       .on('error', gutil.log.bind(gutil, 'Browserify Error'))
       .pipe(source('metavrse.js'))
