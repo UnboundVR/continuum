@@ -13,12 +13,7 @@ var traverse = function(obj, callback) {
     }
 };
 
-// detect if we're using requirejs, if not export with module.exports :)
-if (typeof define === 'function' && define.amd) {
-    define([], function() {
-        return traverse;
-    });
-} else if (typeof exports === 'object') {
+if (typeof exports === 'object') {
     module.exports = traverse;
 } else {
     window.traverseTree = traverse;

@@ -11,6 +11,32 @@ describe('TraverseTree', function () {
         expect(spy).toHaveBeenCalledWith(obj);
     });
 
+    it('recursively visits all children', function() {
+        var obj2 = {
+            children: [1,2,3]
+        };
+
+        var obj = {
+            children: [
+                'some string',
+                obj2
+            ]
+        };
+
+        var traversedList = [];
+
+        traverseTree(obj, function(item) {
+            traversedList.push(item);
+        });
+
+        expect(traversedList).toContain(obj);
+        expect(traversedList).toContain(obj2);
+        expect(traversedList).toContain('some string');
+        expect(traversedList).toContain(1);
+        expect(traversedList).toContain(2);
+        expect(traversedList).toContain(3);
+    });
+
     it('keeps iterating an objects children even if the callback modifies the children property', function() {
         var list = [1,2,3];
 
@@ -27,6 +53,8 @@ describe('TraverseTree', function () {
             delete obj.children;
         });
 
-        expect(traversedList).toEqual(list);
+        expect(traversedList).toContain(1);
+        expect(traversedList).toContain(2);
+        expect(traversedList).toContain(3);
     })
 });

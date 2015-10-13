@@ -202,12 +202,7 @@ var consts = {
     }
 };
 
-// detect if we're using requirejs, if not export with module.exports :)
-if (typeof define === 'function' && define.amd) {
-    define([], function() {
-        return consts;
-    });
-} else if (typeof exports === 'object') {
+if (typeof exports === 'object') {
     module.exports = consts;
 } else {
     window.traverseTree = consts;
