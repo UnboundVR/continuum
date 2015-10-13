@@ -70,7 +70,7 @@ var addPlayerAvatar = function(player) {
 
 var playerMoved = function(position) {
     players.me.position = position;
-    socket.emit(consts.socket.playerSync.change, players.me);
+    socket.emit(consts.socket.playerSync.CHANGE, players.me);
 };
 
 world.onInit(init);
