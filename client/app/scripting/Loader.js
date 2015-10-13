@@ -1,7 +1,7 @@
 var consts = require('../../../shared/constants');
 var manager = require('./Manager');
-var dictFromArray = require('../utils/DictFromArray');
-var traverse = require('../../../shared/TraverseTree');
+var dictFromArray = require('../../../shared/dictFromArray');
+var traverse = require('../../../shared/traverseTree');
 
 var load = function(json, app) {
     manager.setApp(app);

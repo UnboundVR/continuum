@@ -1,6 +1,6 @@
-var traverseTree = require('../../shared/TraverseTree');
+var traverseTree = require('../../shared/traverseTree');
 
-describe('TraverseTree', function () {
+describe('traverseTree', function () {
     it('calls the callback once with the object if it has no children', function () {
         var obj = {};
         var spy = jasmine.createSpy('spy');
@@ -15,14 +15,12 @@ describe('TraverseTree', function () {
         var obj2 = {
             children: [1,2,3]
         };
-
         var obj = {
             children: [
                 'some string',
                 obj2
             ]
         };
-
         var traversedList = [];
 
         traverseTree(obj, function(item) {
@@ -35,15 +33,14 @@ describe('TraverseTree', function () {
         expect(traversedList).toContain(1);
         expect(traversedList).toContain(2);
         expect(traversedList).toContain(3);
+        expect(traversedList.length).toEqual(6);
     });
 
     it('keeps iterating an objects children even if the callback modifies the children property', function() {
         var list = [1,2,3];
-
         var obj = {
             children: list
         };
-
         var traversedList = [];
 
         traverseTree(obj, function(item) {
@@ -56,5 +53,6 @@ describe('TraverseTree', function () {
         expect(traversedList).toContain(1);
         expect(traversedList).toContain(2);
         expect(traversedList).toContain(3);
+        expect(traversedList.length).toEqual(3);
     })
 });

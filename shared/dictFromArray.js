@@ -3,7 +3,7 @@ module.exports = function(array, key) {
 
     array.forEach(function(item) {
        dict[item[key]] = item;
-   });
+    });
 
     return dict;
 };

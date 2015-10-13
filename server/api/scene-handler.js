@@ -3,7 +3,7 @@ var fs = require('fs');
 var request = require('request');
 var path = require('path');
 var sceneDb = require('../db/scene');
-var traverse = require('../../shared/TraverseTree');
+var traverse = require('../../shared/traverseTree');
 
 var readFile = Promise.denodeify(fs.readFile);
 

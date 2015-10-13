@@ -4,7 +4,7 @@ var json = require('./scene.json');
 
 var couchbase = require('couchbase');
 var promise = require('promise');
-var traverse = require('../shared/TraverseTree');
+var traverse = require('../shared/traverseTree');
 
 var db = require('../server/db/db');
 var sceneDb = require('../server/db/scene');

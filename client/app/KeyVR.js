@@ -3,7 +3,7 @@ var queryString = require('./utils/QueryString');
 var world = require('./World');
 var auth = require('./auth/Token');
 var consts = require('../../shared/constants');
-var CallbackList = require('./utils/CallbackList');
+var CallbackList = require('../../shared/CallbackList');
 
 var socket;
 

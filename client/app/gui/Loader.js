@@ -1,8 +1,8 @@
 var consts = require('../../../shared/constants');
 var scenes = require('../Scenes');
 var manager = require('./Manager');
-var dictFromArray = require('../utils/DictFromArray');
-var traverse = require('../../../shared/TraverseTree');
+var dictFromArray = require('../../../shared/dictFromArray');
+var traverse = require('../../../shared/traverseTree');
 var buildHTMLNode = require('../utils/BuildHTMLNode');
 var three = require('three.js');
 
