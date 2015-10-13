@@ -1,5 +1,3 @@
-var consts = require('../../../shared/constants');
-
 module.exports = function(html, css) {
     var htmlNode = document.createElement('div');
     htmlNode.innerHTML = html;
