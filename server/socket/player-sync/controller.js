@@ -2,8 +2,6 @@ var auth = require('../auth');
 var consts = require('../../../shared/constants');
 var service = require('./service');
 
-var players = {};
-
 var init = function(io) {
     io.of(consts.socket.playerSync.NAMESPACE).use(auth);
 
