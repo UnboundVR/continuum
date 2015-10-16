@@ -1,7 +1,7 @@
 var couchbase;
 try {
     couchbase = require('couchbase');
-} catch(e) {
+} catch (e) {
     console.log('Cannot load couchbase: ' + e);
 }
 
@@ -10,7 +10,7 @@ var extend = require('extend');
 var consts = require('../../shared/constants');
 
 var init = function(cluster, bucket, bucketPassword) {
-    if(couchbase) {
+    if (couchbase) {
         this._cluster = new couchbase.Cluster(cluster);
         this._bucket = this._cluster.openBucket(bucket, bucketPassword);
         extend(this, denodeifyObj(this._bucket,
@@ -19,10 +19,10 @@ var init = function(cluster, bucket, bucketPassword) {
 };
 
 var ensureCouchbaseIsLoaded = function() {
-    if(!couchbase) {
+    if (!couchbase) {
         throw 'Couchbase is not loaded';
     }
-}
+};
 
 var denodeifyObj = function(obj, functions) {
     var res = {};

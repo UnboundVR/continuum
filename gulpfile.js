@@ -15,17 +15,18 @@ var jscs = require('gulp-jscs');
 var uglify = require('gulp-uglify');
 var del = require('del');
 
-var jasmine = require('gulp-jasmine');
+var tape = require('gulp-tape');
+var tapColorize = require('tap-colorize');
 
 gulp.task('test', function () {
   return gulp.src('spec/**/*.js')
-    .pipe(jasmine({
-      verbose: true
+    .pipe(tape({
+      reporter: tapColorize()
     }));
 });
 
 gulp.task('jscs', function() {
-    return gulp.src(['client/main.js', 'client/app/**/*.js', 'db/populate.js', 'server/**/*.js'])
+    return gulp.src(['client/main.js', 'client/app/**/*.js', 'db/populate.js', 'server/**/*.js', 'spec/**/*.js'])
       .pipe(jscs({fix: true}))
       .pipe(jscs.reporter())
       .pipe(gulp.dest(function(file) {

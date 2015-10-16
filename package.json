@@ -34,13 +34,16 @@
     "gulp-build": "^0.5.3",
     "gulp-jscs": "^3.0.1",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-tape": "0.0.4",
     "gulp-uglify": "^1.4.1",
     "gulp-util": "^3.0.6",
     "jscs": "^2.1.1",
     "lodash.assign": "^3.2.0",
     "proxyquire": "^1.7.3",
+    "sinon": "^1.17.1",
     "strictify": "^0.2.0",
     "stringify": "^3.1.0",
+    "tap-colorize": "^1.2.0",
     "tape": "^4.2.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
@@ -55,7 +58,7 @@
   },
   "scripts": {
     "populate-db": "node db/populate",
-    "test": "gulp test" 
+    "test": "gulp test"
   },
   "bugs": {
     "url": "https://github.com/unboundvr/metavrse.io/issues",
