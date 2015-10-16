@@ -2,13 +2,12 @@
   "name": "metavrse",
   "version": "0.0.1",
   "license": "MIT",
-  "description": "all your base are belong to us",
+  "description": "Decentralized virtual world",
   "dependencies": {
     "auth0-js": "^6.7.3",
     "auth0-lock": "^7.9.4",
     "body-parser": "^1.13.3",
     "codemirror": "^5.6.0",
-    "couchbase": "^2.1.1",
     "dotenv": "^1.2.0",
     "es6-shim": "^0.33.3",
     "express": "^4.13.3",
@@ -30,22 +29,25 @@
   "devDependencies": {
     "browserify": "^11.2.0",
     "del": "^2.0.2",
+    "faucet": "0.0.1",
     "gulp": "^3.9.0",
     "gulp-build": "^0.5.3",
-    "gulp-jasmine": "^2.1.0",
     "gulp-jscs": "^3.0.1",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.4.1",
     "gulp-util": "^3.0.6",
-    "jasmine": "^2.3.2",
     "jscs": "^2.1.1",
     "lodash.assign": "^3.2.0",
     "proxyquire": "^1.7.3",
     "strictify": "^0.2.0",
     "stringify": "^3.1.0",
+    "tape": "^4.2.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.4.0"
+  },
+  "optionalDependencies": {
+    "couchbase": "^2.1.1"
   },
   "repository": {
     "type": "git",
@@ -53,5 +55,10 @@
   },
   "scripts": {
     "populate-db": "node db/populate"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/unboundvr/metavrse.io/issues",
+    "email": "info@unboundvr.com"
+  },
+  "homepage": "http://metavrse.io"
 }
