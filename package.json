@@ -54,7 +54,8 @@
     "url": "https://github.com/UnboundVR/metavrse.io"
   },
   "scripts": {
-    "populate-db": "node db/populate"
+    "populate-db": "node db/populate",
+    "test": "gulp test" 
   },
   "bugs": {
     "url": "https://github.com/unboundvr/metavrse.io/issues",
