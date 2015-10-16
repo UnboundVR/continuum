@@ -6,54 +6,32 @@ var init = function(io) {
     io.of(consts.socket.playerSync.NAMESPACE).use(auth);
 
     io.of(consts.socket.playerSync.NAMESPACE).on('connection', function(socket) {
-        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-
-        var identity = socket.decoded_token;
-
-        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
         socket.on(consts.socket.playerSync.REGISTER, function(data) {
-            var broadcastConnect = function(player) {
+            var broadcast = function(player) {
                 socket.broadcast.emit(consts.socket.playerSync.OTHER_CONNECT, player);
             };
 
-            var emitConnect = function(player) {
+            var emit = function(player) {
                 socket.emit(consts.socket.playerSync.OTHER_CONNECT, player);
             };
 
-            var controllerInterface = {
-                broadcastConnect: broadcastConnect,
-                emitConnect: emitConnect,
-                identity: identity,
-                playerId: socket.id
-            };
-
-            service.register(controllerInterface, data);
+            service.register(socket, data, broadcast, emit);
         });
 
         socket.on(consts.socket.playerSync.CHANGE, function(data) {
-            var broadcastChange = function(player) {
+            var broadcast = function(player) {
                 socket.broadcast.emit(consts.socket.playerSync.OTHER_CHANGE, player);
             };
 
-            var controllerInterface = {
-                broadcastChange: broadcastChange,
-                playerId: socket.id
-            };
-
-            service.update(controllerInterface, data);
+            service.update(socket, data, broadcast);
         });
 
         socket.on('disconnect', function() {
-            var broadcastDisconnect = function(playerId) {
+            var broadcast = function(playerId) {
                 socket.broadcast.emit(consts.socket.playerSync.OTHER_DISCONNECT, playerId);
             };
 
-            var controllerInterface = {
-                broadcastDisconnect: broadcastDisconnect,
-                playerId: socket.id
-            };
-
-            service.disconnect(controllerInterface);
+            service.disconnect(socket, broadcast);
         });
     });
 };

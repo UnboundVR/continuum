@@ -1,23 +1,28 @@
 var players = [];
 
-var register = function(controller, data) {
+var register = function(socket, data, broadcast, emit) {
     for (var id in players) {
-        controller.emitConnect(players[id])
+        emit(players[id]);
     }
 
-    data.name = controller.identity.name;
-    players[controller.playerId] = data;
-    controller.broadcastConnect(data);
+    // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+
+    data.name = socket.decoded_token.name;
+
+    // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+
+    players[socket.id] = data;
+    broadcast(data);
 };
 
-var update = function(controller, data) {
-    players[controller.playerId] = data;
-    controller.broadcastChange(data);
+var update = function(socket, data, broadcast) {
+    players[socket.id] = data;
+    broadcast(data);
 };
 
-var disconnect = function(controller) {
-    delete players[controller.playerId];
-    controller.broadcastDisconnect(controller.playerId);
+var disconnect = function(socket, broadcast) {
+    delete players[socket.id];
+    broadcast(socket.id);
 };
 
 module.exports = {
