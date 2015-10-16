@@ -59,6 +59,5 @@ var init = function(io) {
 };
 
 module.exports = {
-    init: init,
-    players: players
+    init: init
 };
