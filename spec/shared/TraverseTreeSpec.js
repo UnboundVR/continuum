@@ -20,7 +20,6 @@ test('traverseTree calls the callback once with the object if it has no children
     t.ok(spy.calledOnce, 'callback is called once');
     t.ok(spy.calledWith(obj), 'callback is called with the object');
     t.end();
-    t.fail('because why not');
 });
 
 test('traverseTree recursively visits all children', function(t) {
