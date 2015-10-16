@@ -7,31 +7,31 @@ var init = function(io) {
 
     io.of(consts.socket.playerSync.NAMESPACE).on('connection', function(socket) {
         socket.on(consts.socket.playerSync.REGISTER, function(data) {
-            var broadcast = function(player) {
+            var broadcastConnect = function(player) {
                 socket.broadcast.emit(consts.socket.playerSync.OTHER_CONNECT, player);
             };
 
-            var emit = function(player) {
+            var emitConnect = function(player) {
                 socket.emit(consts.socket.playerSync.OTHER_CONNECT, player);
             };
 
-            service.register(socket, data, broadcast, emit);
+            service.register(socket, data, broadcastConnect, emitConnect);
         });
 
         socket.on(consts.socket.playerSync.CHANGE, function(data) {
-            var broadcast = function(player) {
+            var broadcastChange = function(player) {
                 socket.broadcast.emit(consts.socket.playerSync.OTHER_CHANGE, player);
             };
 
-            service.update(socket, data, broadcast);
+            service.update(socket, data, broadcastChange);
         });
 
         socket.on('disconnect', function() {
-            var broadcast = function(playerId) {
+            var broadcastDisconnect = function(playerId) {
                 socket.broadcast.emit(consts.socket.playerSync.OTHER_DISCONNECT, playerId);
             };
 
-            service.disconnect(socket, broadcast);
+            service.disconnect(socket, broadcastDisconnect);
         });
     });
 };
