@@ -1,95 +1,101 @@
-'use strict';
+var three = require('three.js');
+var scenes = require('./Scenes');
+var camera = require('./Camera');
+var pointerLock = require('./PointerLock');
+var events = require('./Events');
+var editor = require('./Editor');
+var world = require('./World');
+var keyVR = require('./KeyVR');
+var consts = require('../../shared/constants');
 
-define(['Three', 'Scenes', 'FirstPersonControls', 'Camera', 'PointerLock', 'Events', 'Editor', 'World', 'KeyVR', 'Constants'], function(THREE, scenes, controls, camera, pointerLock, events, editor, world, keyVR, constants) {
-    var isIntersecting = false;
-    var lastIntersected;
+var isIntersecting = false;
+var lastIntersected;
 
-    // TODO take this from a serious place (e.g. excluded objects could have a flag in scene.json?)
-    var excludedObjects = ['Floor', 'Skybox'];
-    var raycaster = new THREE.Raycaster();
+// TODO take this from a serious place (e.g. excluded objects could have a flag in scene.json?)
+var excludedObjects = ['Floor', 'Skybox'];
+var raycaster = new three.Raycaster();
 
-    var init = function() {
-        window.addEventListener(constants.events.MOUSE_DOWN, onMouseDown, false);
-        keyVR.onMouseDown(onMouseDown);
+var init = function() {
+    window.addEventListener(consts.browserEvents.MOUSE_DOWN, onMouseDown, false);
+    keyVR.onMouseDown(onMouseDown);
 
-        world.onLoop(animate);
-    };
+    world.onLoop(animate);
+};
 
-    var isEnabled = function() {
-        return pointerLock.enabled() || keyVR.enabled();
-    };
+var isEnabled = function() {
+    return pointerLock.enabled() || keyVR.enabled();
+};
 
-    var animate = function() {
-        if (!isEnabled()) {
-            isIntersecting = false;
-            return;
-        }
-
-        raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
-        var intersects = raycaster.intersectObjects(scenes.getScene().children);
-
-        intersects = intersects.filter(function(item) {
-            return excludedObjects.indexOf(item.object.name) == -1;
-        });
-
+var animate = function() {
+    if (!isEnabled()) {
         isIntersecting = false;
+        return;
+    }
 
-        // TODO refactor below
-        if (intersects.length) {
-            var obj = intersects[0].object;
+    raycaster.setFromCamera(new three.Vector2(0, 0), camera);
+    var intersects = raycaster.intersectObjects(scenes.getScene().children);
 
-            if (lastIntersected != null && lastIntersected != obj) {
-                onStopIntersect(lastIntersected);
-            }
+    intersects = intersects.filter(function(item) {
+        return excludedObjects.indexOf(item.object.name) == -1;
+    });
 
-            if (obj != lastIntersected) {
-                onIntersect(obj);
-            }
+    isIntersecting = false;
 
-            lastIntersected = obj;
-            isIntersecting = true;
+    // TODO refactor below
+    if (intersects.length) {
+        var obj = intersects[0].object;
+
+        if (lastIntersected != null && lastIntersected != obj) {
+            onStopIntersect(lastIntersected);
         }
 
-        if (!isIntersecting) {
-            if (lastIntersected != null) {
-                onStopIntersect(lastIntersected);
-            }
-
-            lastIntersected = null;
+        if (obj != lastIntersected) {
+            onIntersect(obj);
         }
-    };
 
-    var onMouseDown = function(event) {
-        if (isIntersecting) {
-            switch (event.button) {
-                case constants.mouse.LEFT_BUTTON:
-                    onSelect(lastIntersected);
-                    break;
-                case constants.mouse.RIGHT_BUTTON:
-                    editor.rightClick(lastIntersected);
-                    break;
-            }
-        }
-    };
-
-    var onIntersect = function(obj) {
         lastIntersected = obj;
-        events.dispatch(events.list.starthover, null, obj.uuid);
-    };
+        isIntersecting = true;
+    }
 
-    var onStopIntersect = function(obj) {
-        events.dispatch(events.list.endhover, null, obj.uuid);
-    };
-
-    var onSelect = function(obj) {
-        events.dispatch(events.list.select, null, obj.uuid);
-    };
-
-    world.onInit(init);
-
-    return {
-        isIntersecting: function() {
-            return isIntersecting;
+    if (!isIntersecting) {
+        if (lastIntersected != null) {
+            onStopIntersect(lastIntersected);
         }
-    };
-});
+
+        lastIntersected = null;
+    }
+};
+
+var onMouseDown = function(event) {
+    if (isIntersecting) {
+        switch (event.button) {
+            case consts.mouse.LEFT_BUTTON:
+                onSelect(lastIntersected);
+                break;
+            case consts.mouse.RIGHT_BUTTON:
+                editor.rightClick(lastIntersected);
+                break;
+        }
+    }
+};
+
+var onIntersect = function(obj) {
+    lastIntersected = obj;
+    events.dispatch(consts.events.START_HOVER, null, obj.uuid);
+};
+
+var onStopIntersect = function(obj) {
+    events.dispatch(consts.events.END_HOVER, null, obj.uuid);
+};
+
+var onSelect = function(obj) {
+    events.dispatch(consts.events.SELECT, null, obj.uuid);
+};
+
+world.onInit(init);
+
+module.exports = {
+    isIntersecting: function() {
+        return isIntersecting;
+    }
+};

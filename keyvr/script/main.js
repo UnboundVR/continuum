@@ -1,10 +1,10 @@
 'use strict';
 
-// TODO refactor using something other than jQuery
+// TODO refactor using react
 
 // Init Node.JS and listen to mobile device connection
-var socket = io.connect(window.location.origin + constants.socket.keyvr.NAMESPACE, {
-    query: constants.auth.TOKEN_PARAM + '=' + localStorage.getItem(constants.auth.ID_TOKEN)
+var socket = io.connect(window.location.origin + consts.socket.keyvr.NAMESPACE, {
+    query: consts.auth.TOKEN_PARAM + '=' + localStorage.getItem(consts.auth.ID_TOKEN)
 });
 
 // As soon as we connect to node, we get assigned an ID
@@ -22,8 +22,8 @@ function hookQRButton(keyboardId) {
 
             var customAddress = $('#customAddress').val();
             var payload = (customAddress || window.location.origin)
-                + constants.routes.WORLD
-                + '?' + constants.socket.keyvr.KEYBOARD_ID
+                + consts.routes.WORLD
+                + '?' + consts.socket.keyvr.KEYBOARD_ID
                 + '=' + keyboardId;
 
             $('#qrCode').qrcode(payload);
@@ -35,7 +35,7 @@ function hookQRButton(keyboardId) {
 }
 
 // When a device scans the QR code, we hook the keypress events so we start sending socket.io messages whenever a key is pressed
-socket.on(constants.socket.keyvr.DEVICE_CONNECTED, function(data) {
+socket.on(consts.socket.keyvr.DEVICE_CONNECTED, function(data) {
     var hookEvent = function(eventName, dataCallback) {
         $(document)[eventName](function(e) {
             var defaultObj = {
@@ -69,11 +69,11 @@ socket.on(constants.socket.keyvr.DEVICE_CONNECTED, function(data) {
         };
     };
 
-    hookEvent(constants.events.KEY_DOWN, keyboardDataCallback);
-    hookEvent(constants.events.KEY_UP, keyboardDataCallback);
-    hookEvent(constants.events.MOUSE_MOVE, mouseMoveDataCallback);
-    hookEvent(constants.events.MOUSE_DOWN, mouseButtonDataCallback);
-    hookEvent(constants.events.MOUSE_UP, mouseButtonDataCallback);
+    hookEvent(consts.browserEvents.KEY_DOWN, keyboardDataCallback);
+    hookEvent(consts.browserEvents.KEY_UP, keyboardDataCallback);
+    hookEvent(consts.browserEvents.MOUSE_MOVE, mouseMoveDataCallback);
+    hookEvent(consts.browserEvents.MOUSE_DOWN, mouseButtonDataCallback);
+    hookEvent(consts.browserEvents.MOUSE_UP, mouseButtonDataCallback);
 
     showScreen('deviceLinked');
 });

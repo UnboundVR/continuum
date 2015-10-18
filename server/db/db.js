@@ -1,15 +1,27 @@
-'use strict';
+var couchbase;
+try {
+    couchbase = require('couchbase');
+} catch (e) {
+    console.log('Cannot load couchbase: ' + e);
+}
 
-var couchbase = require('couchbase');
 var promise = require('promise');
 var extend = require('extend');
-var constants = require('../../shared/constants');
+var consts = require('../../shared/constants');
 
 var init = function(cluster, bucket, bucketPassword) {
-    this._cluster = new couchbase.Cluster(cluster);
-    this._bucket = this._cluster.openBucket(bucket, bucketPassword);
-    extend(this, denodeifyObj(this._bucket,
-        ['get', 'counter', 'insert', 'getMulti']));
+    if (couchbase) {
+        this._cluster = new couchbase.Cluster(cluster);
+        this._bucket = this._cluster.openBucket(bucket, bucketPassword);
+        extend(this, denodeifyObj(this._bucket,
+            ['get', 'counter', 'insert', 'getMulti']));
+    }
+};
+
+var ensureCouchbaseIsLoaded = function() {
+    if (!couchbase) {
+        throw 'Couchbase is not loaded';
+    }
 };
 
 var denodeifyObj = function(obj, functions) {
@@ -24,6 +36,8 @@ var denodeifyObj = function(obj, functions) {
 };
 
 var getByAlias = function(type, prop, alias) {
+    ensureCouchbaseIsLoaded();
+
     var _this = this;
     return this.get(type + '::' + prop + '::' + alias).then(function(res) {
         return _this.get(type + '::' + res.value).then(function(res2) {
@@ -43,6 +57,8 @@ var toValueList = function(dict) {
 };
 
 var getMultiByAlias = function(type, prop, aliases) {
+    ensureCouchbaseIsLoaded();
+
     var append = function(prefix) {
         return function(stuff) {
             return prefix + stuff;
@@ -58,9 +74,11 @@ var getMultiByAlias = function(type, prop, aliases) {
 };
 
 var createByAlias = function(type, prop, obj) {
+    ensureCouchbaseIsLoaded();
+
     var _this = this;
 
-    return this.counter(constants.db.COUNTERS + '::' + type, 1, {initial: 1}).then(function(res) {
+    return this.counter(consts.db.COUNTERS + '::' + type, 1, {initial: 1}).then(function(res) {
         return _this.insert(type + '::' + res.value, obj).then(function() {
             return _this.insert(type + '::' + prop + '::' + obj[prop], res.value);
         });

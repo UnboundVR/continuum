@@ -1,9 +1,7 @@
-'use strict';
-
 var db = require('./db');
 var objectDb = require('./object');
 var promise = require('promise');
-var constants = require('../../shared/constants');
+var consts = require('../../shared/constants');
 
 var get = function(uuid) {
     var getObjDependencies = function(obj) {
@@ -59,7 +57,7 @@ var get = function(uuid) {
 
     var response = {};
 
-    return db.getByAlias(constants.db.SCENE, 'uuid', uuid).then(function(scene) {
+    return db.getByAlias(consts.db.SCENE, 'uuid', uuid).then(function(scene) {
         response.scene = scene;
         response.remote = scene.remote;
         delete scene.remote;
@@ -78,10 +76,10 @@ var get = function(uuid) {
                 }
             };
 
-            resolveDeps(constants.objects.GEOMETRY);
-            resolveDeps(constants.objects.MATERIAL);
-            resolveDeps(constants.objects.GUI);
-            resolveDeps(constants.objects.SCRIPT);
+            resolveDeps(consts.objects.GEOMETRY);
+            resolveDeps(consts.objects.MATERIAL);
+            resolveDeps(consts.objects.GUI);
+            resolveDeps(consts.objects.SCRIPT);
 
             return promise.all(promises).then(function(results) {
                 scene.geometries = results[0];
@@ -91,9 +89,9 @@ var get = function(uuid) {
 
                 var matDeps = getMaterialDependencies(scene.materials);
                 if (matDeps.length) {
-                    return db.getMultiByAlias(constants.objects.TEXTURE, 'uuid', matDeps).then(function(textures) {
+                    return db.getMultiByAlias(consts.objects.TEXTURE, 'uuid', matDeps).then(function(textures) {
                         scene.textures = textures;
-                        return db.getMultiByAlias(constants.objects.IMAGE, 'uuid', getTextureDependencies(textures)).then(function(images) {
+                        return db.getMultiByAlias(consts.objects.IMAGE, 'uuid', getTextureDependencies(textures)).then(function(images) {
                             scene.images = images;
                             return response;
                         });
@@ -107,7 +105,7 @@ var get = function(uuid) {
 };
 
 var create = function(scene) {
-    return db.createByAlias(constants.db.SCENE, 'uuid', scene);
+    return db.createByAlias(consts.db.SCENE, 'uuid', scene);
 };
 
 module.exports = {

@@ -1,16 +1,12 @@
-'use strict';
+var AMPERSAND = '&';
+var EQUALS = '=';
 
-define([], function() {
-    var AMPERSAND = '&';
-    var EQUALS = '=';
+var pairs = location.search.slice(1).split(AMPERSAND);
 
-    var pairs = location.search.slice(1).split(AMPERSAND);
-
-    var result = {};
-    pairs.forEach(function(pair) {
-        pair = pair.split(EQUALS);
-        result[pair[0]] = decodeURIComponent(pair[1] || '');
-    });
-
-    return result;
+var result = {};
+pairs.forEach(function(pair) {
+    pair = pair.split(EQUALS);
+    result[pair[0]] = decodeURIComponent(pair[1] || '');
 });
+
+module.exports = result;

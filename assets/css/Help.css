@@ -1,0 +1,77 @@
+#ui-container .helpPanel {
+	width: 40%;
+	height: 40%;
+	margin: 0 auto;
+	margin-top: 8%;
+	padding: 3%;
+	background-color: rgba(0,0,0,0.6);
+	color: white;
+	font-family: 'Lato', sans-serif;
+	text-align: center;
+	pointer-events: all;
+}
+
+#ui-container .helpPanel span {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	background-size: 24px 24px;
+}
+
+#ui-container .helpPanel .closeButton {
+	background-image: url('assets/img/close.png');
+	width: 16px;
+	height: 16px;
+	float: right;
+	margin: 10px;
+	margin-top: -5%;
+	margin-right: -5%;
+	position: relative;
+	right: 0;
+	top: 0;
+	cursor: pointer;
+}
+
+/* .showAtStartup */
+.showAtStartup {
+	margin: 0 auto;
+	margin-top: 10px;
+	width: 148px;
+}
+.showAtStartup label {
+	float: left;
+	cursor: pointer;
+}
+.showAtStartup label:after {
+  content: '';
+  width: 9px;
+  height: 5px;
+  float: left;
+	margin: 4px 8px 4px 4px;
+  border: 3px solid #fcfff4;
+  border-top: none;
+  border-right: none;
+  background: transparent;
+  opacity: 0.2;
+	cursor: pointer;
+  -webkit-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.showAtStartup label:hover::after {
+  opacity: 0.4;
+}
+.showAtStartup input[type=checkbox] {
+  visibility: hidden;
+}
+.showAtStartup input[type=checkbox]:checked + label:after {
+  opacity: 1;
+}
+
+/* end .showAtStartup */
+
+@media (max-width:768px) {
+	#ui-container .helpPanel {
+		font-size: 12px;
+	}
+}

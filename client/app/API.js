@@ -1,18 +1,17 @@
-'use strict';
+var requests = require('./utils/Requests');
+var consts = require('../../shared/constants');
 
-define(['utils/Requests', 'Constants'], function(req, constants) {
-    var baseUrl = constants.routes.api.BASE.substring(1);
+var baseUrl = consts.routes.api.BASE.substring(1);
 
-    var getScene = function(sceneId) {
-        var url = baseUrl + constants.routes.api.SCENE;
-        if (sceneId) {
-            url += '/' + sceneId;
-        }
+var getScene = function(sceneId) {
+    var url = baseUrl + consts.routes.api.SCENE;
+    if (sceneId) {
+        url += '/' + sceneId;
+    }
 
-        return req.get(url);
-    };
+    return requests.get(url);
+};
 
-    return {
-        getScene: getScene
-    };
-});
+module.exports = {
+    getScene: getScene
+};

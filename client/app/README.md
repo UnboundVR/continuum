@@ -1,1 +1,0 @@
-Here go all the JS modules (i.e. RequireJs modules).

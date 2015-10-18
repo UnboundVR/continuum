@@ -1,0 +1,77 @@
+#ui-container .settingsPanel {
+	width: 40%;
+	height: 40%;
+	margin: 0 auto;
+	margin-top: 8%;
+	padding: 3%;
+	background-color: rgba(0,0,0,0.6);
+	color: white;
+	font-family: 'Lato', sans-serif;
+	text-align: center;
+	pointer-events: all;
+}
+
+#ui-container .settingsPanel span {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	background-size: 24px 24px;
+}
+
+#ui-container .settingsPanel .closeButton {
+	background-image: url('assets/img/close.png');
+	width: 16px;
+	height: 16px;
+	float: right;
+	margin: 10px;
+	margin-top: -5%;
+	margin-right: -5%;
+	position: relative;
+	right: 0;
+	top: 0;
+	cursor: pointer;
+}
+
+/* .iAmDev */
+.iAmDev {
+	margin: 0 auto;
+	margin-top: 10px;
+	width: 160px;
+}
+.iAmDev label {
+	float: left;
+	cursor: pointer;
+}
+.iAmDev label:after {
+  content: '';
+  width: 9px;
+  height: 5px;
+  float: left;
+	margin: 4px 8px 4px 4px;
+  border: 3px solid #fcfff4;
+  border-top: none;
+  border-right: none;
+  background: transparent;
+  opacity: 0.2;
+	cursor: pointer;
+  -webkit-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.iAmDev label:hover::after {
+  opacity: 0.4;
+}
+.iAmDev input[type=checkbox] {
+  visibility: hidden;
+}
+.iAmDev input[type=checkbox]:checked + label:after {
+  opacity: 1;
+}
+
+/* end .showAtStartup */
+
+@media (max-width:768px) {
+	#ui-container .settingsPanel {
+		font-size: 12px;
+	}
+}

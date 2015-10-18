@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
-        <link rel="icon" type="image/x-icon" href="client/assets/img/favicon.png">
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
         <title>Login to metavrse.io</title>
 
         <!-- Auth0Lock script | it's in node_modules too, TODO pick it from there, not cdn -->
@@ -14,14 +14,14 @@
     <body>
         <input id="btn-login" class="btn-login" type="submit" value="Login" />
         <script>
-            var lock = new Auth0Lock(constants.auth.AUTH0_AUDIENCE, constants.auth.AUTH0_DOMAIN);
+            var lock = new Auth0Lock(consts.auth.AUTH0_AUDIENCE, consts.auth.AUTH0_DOMAIN);
 
             document.getElementById('btn-login').addEventListener('click', function() {
                 lock.show({
-                    callbackURL: window.location.origin + constants.routes.WORLD,
+                    callbackURL: window.location.origin + consts.routes.WORLD,
                     responseType: 'token',
-                    authParams: {scope: constants.auth.LOGIN_SCOPE},
-                    connections: constants.auth.CONNECTIONS
+                    authParams: {scope: consts.auth.LOGIN_SCOPE},
+                    connections: consts.auth.CONNECTIONS
                 });
             });
         </script>

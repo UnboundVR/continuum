@@ -1,26 +1,29 @@
-'use strict';
+var consts = require('../../../shared/constants');
+var events = require('../Events');
+var token = require('./Token');
+var logout = require('./Logout');
+var profile = require('./Profile');
+var auth0 = require('./Auth0');
 
-define(['Events', './Token', './Logout', './Profile', './Auth0'], function(events, token, logout, profile, auth0) {
-    return function() {
-        var fetchProfile = function(idToken) {
-            return new Promise(function(resolve, reject) {
-                auth0.getProfile(idToken, function(err, userProfile) {
-                    window.location.hash = '';
+module.exports = function() {
+    var fetchProfile = function(idToken) {
+        return new Promise(function(resolve, reject) {
+            auth0.getProfile(idToken, function(err, userProfile) {
+                window.location.hash = '';
 
-                    if (err) {
-                        logout();
-                    }
+                if (err) {
+                    logout();
+                }
 
-                    profile.setProfile(userProfile);
-                    resolve();
-                });
+                profile.setProfile(userProfile);
+                resolve();
             });
-        };
-
-        events.subscribe(events.list.logout, logout);
-
-        return token.processIdToken().then(function(idToken) {
-            return fetchProfile(idToken);
         });
     };
-});
+
+    events.subscribe(consts.events.LOGOUT, logout);
+
+    return token.processIdToken().then(function(idToken) {
+        return fetchProfile(idToken);
+    });
+};

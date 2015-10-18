@@ -1,116 +1,98 @@
-'use strict';
+var consts = require('../../shared/constants');
+var events = require('./Events');
+var Stats = require('stats.js');
+var settings = require('./utils/Settings');
 
-define(['utils/CallbackList', 'Stats', 'Events', 'Constants', 'utils/Settings'], function(CallbackList, Stats, events, constants, settings) {
-    var initialized = false;
-    var request;
-    var prevTime;
-    var stats;
+var initialized = false;
+var request;
+var prevTime;
+var stats;
 
-    var showStats = function() {
-        stats.domElement.style.display = 'block';
-    };
+var showStats = function() {
+    stats.domElement.style.display = 'block';
+};
 
-    var hideStats = function() {
-        stats.domElement.style.display = 'none';
-    };
+var hideStats = function() {
+    stats.domElement.style.display = 'none';
+};
 
-    var initStats = function() {
-        stats = new Stats();
-        stats.setMode(0);
+var initStats = function() {
+    stats = new Stats();
+    stats.setMode(0);
 
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.left = '0px';
-        stats.domElement.style.top = '0px';
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '0px';
+    stats.domElement.style.top = '0px';
 
-        document.body.appendChild(stats.domElement);
+    document.body.appendChild(stats.domElement);
+    if (!settings.get(consts.settings.IS_DEVELOPER)) {
+        hideStats();
+    }
 
-        if (!settings.get(constants.settings.IS_DEVELOPER)) {
-            hideStats();
-        }
-
-        settings.onChange(constants.settings.IS_DEVELOPER, function(display) {
-            (display ? showStats : hideStats)();
-        });
-    };
-
-    var browserEvents = Object.keys(events).filter(function(key) {
-        return events[key].isBrowserEvent;
+    settings.onChange(consts.settings.IS_DEVELOPER, function(display) {
+        (display ? showStats : hideStats)();
     });
+};
 
-    var start = function() {
-        browserEvents.forEach(function(browserEvent) {
-            var callback = function(event) {
-                dispatch(events[browserEvent], event);
-            };
-
-            events[browserEvent].callback = callback;
-            document.addEventListener(browserEvent, callback);
-        });
-
+var start = function() {
+    if (!initialized) {
         initStats();
+        events.dispatch(consts.events.INIT);
+        initialized = true;
+    }
 
-        if (!initialized) {
-            events.dispatch(events.list.init);
-            initialized = true;
-        }
+    events.dispatch(consts.events.START);
+    startLooping();
+};
 
-        events.dispatch(events.list.start);
-        startLooping();
-    };
+var stop = function() {
+    stopLooping();
+    events.dispatch(consts.events.STOP);
+};
 
-    var stop = function() {
-        browserEvents.forEach(function(browserEvent) {
-            document.removeEventListener(browserEvent, events[browserEvent].callback);
-        });
+var loop = function(time) {
+    stats.begin();
+    events.dispatch(consts.events.UPDATE, {time: time, delta: time - prevTime});
+    stats.end();
 
-        stopLooping();
-        events.dispatch(events.list.stop);
-    };
+    prevTime = time;
+    request = requestAnimationFrame(loop);
+};
 
-    var loop = function(time) {
-        stats.begin();
-        events.dispatch(events.list.update, {time: time, delta: time - prevTime});
-        stats.end();
+var startLooping = function() {
+    request = requestAnimationFrame(loop);
+    prevTime = performance.now();
+};
 
-        prevTime = time;
-        request = requestAnimationFrame(loop);
-    };
+var stopLooping = function() {
+    cancelAnimationFrame(request);
+};
 
-    var startLooping = function() {
-        request = requestAnimationFrame(loop);
-        prevTime = performance.now();
-    };
+var onStart = function(callback) {
+    events.subscribe(consts.events.START, callback);
+};
 
-    var stopLooping = function() {
-        cancelAnimationFrame(request);
-    };
+var onStop = function(callback) {
+    events.subscribe(consts.events.STOP, callback);
+};
 
-    var onStart = function(callback) {
-        events.subscribe(events.list.start, callback);
-    };
+var onInit = function(callback) {
+    events.subscribe(consts.events.INIT, callback);
+};
 
-    var onStop = function(callback) {
-        events.subscribe(events.list.stop, callback);
-    };
+var onLoop = function(callback, interval) {
+    if (interval === undefined) {
+        events.subscribe(consts.events.UPDATE, callback);
+    } else {
+        setInterval(callback, interval);
+    }
+};
 
-    var onInit = function(callback) {
-        events.subscribe(events.list.init, callback);
-    };
-
-    var onLoop = function(callback, interval) {
-        if (interval === undefined) {
-            events.subscribe(events.list.update, callback);
-        } else {
-            setInterval(callback, interval);
-        }
-    };
-
-    return {
-        onStart: onStart,
-        onStop: onStop,
-        onInit: onInit,
-        onLoop: onLoop,
-        start: start,
-        stop: stop
-    };
-});
+module.exports = {
+    onStart: onStart,
+    onStop: onStop,
+    onInit: onInit,
+    onLoop: onLoop,
+    start: start,
+    stop: stop
+};

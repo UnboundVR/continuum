@@ -1,8 +1,7 @@
-'use strict';
+var consts = require('../../../shared/constants');
+var Auth0 = require('auth0-js');
 
-define(['Constants'], function(constants) {
-    return new Auth0({
-        domain: constants.auth.AUTH0_DOMAIN,
-        clientID: constants.auth.AUTH0_AUDIENCE
-    });
+module.exports = new Auth0({
+    domain: consts.auth.AUTH0_DOMAIN,
+    clientID: consts.auth.AUTH0_AUDIENCE
 });

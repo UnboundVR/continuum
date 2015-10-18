@@ -4,15 +4,15 @@ var json = require('./scene.json');
 
 var couchbase = require('couchbase');
 var promise = require('promise');
-var traverse = require('../shared/TraverseTree');
+var traverse = require('../shared/traverseTree');
 
 var db = require('../server/db/db');
 var sceneDb = require('../server/db/scene');
 var objectDb = require('../server/db/object');
 
-var constants = require('../shared/constants');
+var consts = require('../shared/constants');
 
-var env = process.env.NODE_ENV || constants.environments.DEV;
+var env = process.env.NODE_ENV || consts.environments.DEV;
 console.log('Populating DB in ' + env + ' environment');
 require('dotenv').load();
 
@@ -56,12 +56,12 @@ var scene = json.scene;
 createScene(json).then(function(res) {
     return promise.all([
         loadObjects(scene.object),
-        load(scene.textures, constants.objects.TEXTURE),
-        load(scene.images, constants.objects.IMAGE),
-        load(scene.geometries, constants.objects.GEOMETRY),
-        load(scene.materials, constants.objects.MATERIAL),
-        load(json.scripts, constants.objects.SCRIPT),
-        load(json.gui, constants.objects.GUI)
+        load(scene.textures, consts.objects.TEXTURE),
+        load(scene.images, consts.objects.IMAGE),
+        load(scene.geometries, consts.objects.GEOMETRY),
+        load(scene.materials, consts.objects.MATERIAL),
+        load(json.scripts, consts.objects.SCRIPT),
+        load(json.gui, consts.objects.GUI)
     ]);
 }).then(function(res) {
     console.log('Database at ' + process.env.COUCHBASE_HOST + ' populated with boilerplate scene!');

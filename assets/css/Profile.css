@@ -1,0 +1,45 @@
+@import url('http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic|Montserrat:700|Merriweather:400italic');
+
+#ui-container .profileContainer {
+    background-color: rgba(0,0,0,0.4);
+    text-align: center;
+    margin: 0 auto;
+    pointer-events: all;
+    width: 250px;
+    height: 50px;
+    padding: 8px;
+    margin-top: 8px;
+    font-family: 'Lato', sans-serif;
+}
+
+#ui-container .profileContainer .profilePicture {
+    width: 48px;
+    height: 48px;
+    float: left;
+}
+
+#ui-container .profileContainer .role {
+    width: 16px;
+    height: 16px;
+    left: 0;
+    top: 0;
+    display: block;
+    margin: 32px 0 0 -16px;
+    float: left;
+    opacity: 0.8;
+}
+#ui-container .profileContainer .role.user {background-image: url('assets/img/user.png');}
+#ui-container .profileContainer .role.admin {background-image: url('assets/img/admin.png');}
+
+#ui-container .profileContainer .userInfo {
+    font-size: 12px;
+    opacity: 0.8;
+    color: white;
+    margin: auto;
+    margin-top: 8px;
+}
+
+#ui-container .profileContainer .userInfo span {
+    display: block;
+    color: white;
+}

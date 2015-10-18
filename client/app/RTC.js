@@ -1,35 +1,36 @@
-'use strict';
+var io = require('socket.io-client');
+var world = require('./World');
+var ui = require('./2dui/Container');
+var consts = require('../../shared/constants');
 
-define(['SocketIO', 'RTCMultiConnection', 'World', '2dui/Container', 'Constants'], function(io, RTCMultiConnection, world, ui, constants) {
+window.io = io;
+require('rtcmulticonnection-v3/RTCMultiConnection.js'); // TODO use browserify-shim
 
-    var init = function() {
-        var connection = new RTCMultiConnection(constants.rtc.channel);
-        connection.socketURL = window.location.origin;
+var init = function() {
+    var connection = new RTCMultiConnection(consts.rtc.channel);
+    connection.socketURL = window.location.origin;
 
-        connection.session = {
-            audio:     true,
-            video:     false,
-            screen:    false,
+    connection.session = {
+        audio:     true,
+        video:     false,
+        screen:    false,
 
-            data:      false,
+        data:      false,
 
-            oneway:    false,
-            broadcast: true
-        };
-
-        connection.sdpConstraints.mandatory = {
-            OfferToReceiveAudio: true,
-            OfferToReceiveVideo: false
-        };
-
-        connection.onstream = function(e) {
-            ui.addElement(e.mediaElement);
-        };
-
-        connection.join(constants.rtc.DEFAULT_ROOM);
+        oneway:    false,
+        broadcast: true
     };
 
-    world.onInit(init);
+    connection.sdpConstraints.mandatory = {
+        OfferToReceiveAudio: true,
+        OfferToReceiveVideo: false
+    };
 
-    return {};
-});
+    connection.onstream = function(e) {
+        ui.addElement(e.mediaElement);
+    };
+
+    connection.join(consts.rtc.DEFAULT_ROOM);
+};
+
+world.onInit(init);

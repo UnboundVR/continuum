@@ -1,44 +1,51 @@
-'use strict';
+var consts = require('../../../shared/constants');
+var events = require('../Events');
+var settings = require('../utils/Settings');
+var i18n = require('../translations/Polyglot');
 
-define(['html!Settings', 'Events', 'utils/Settings', 'Constants'], function(html, events, settings, constants) {
-    var container;
+var buildHTMLNode = require('../utils/BuildHTMLNode');
+var html = require('../../../assets/html/Settings.html');
+var css = require('../../../assets/css/Settings.css');
+var htmlNode = buildHTMLNode(html, css);
 
-    var show = function() {
-        html.style.display = 'block';
+var show = function() {
+    htmlNode.style.display = 'block';
+};
+
+var hide = function() {
+    htmlNode.style.display = 'none';
+};
+
+var configSettings = function() {
+    var isDeveloper = settings.get(consts.settings.IS_DEVELOPER);
+
+    var isDeveloperCheckbox = htmlNode.getElementsByClassName(consts.ui.settings.IS_DEVELOPER_CHECKBOX)[0];
+    isDeveloperCheckbox.checked = isDeveloper;
+    isDeveloperCheckbox.onchange = function(event) {
+        settings.set(consts.settings.IS_DEVELOPER, isDeveloperCheckbox.checked);
     };
+};
 
-    var hide = function() {
-        html.style.display = 'none';
-    };
+var init = function() {
+    var container = document.getElementById(consts.ui.UI_CONTAINER);
+    container.appendChild(htmlNode);
 
-    var configSettings = function() {
-        var isDeveloper = settings.get(constants.settings.IS_DEVELOPER);
+    events.subscribe(consts.events.SHOW_SETTINGS, function(display) {
+        (display ? show : hide)();
+    });
 
-        var isDeveloperCheckbox = container.getElementsByClassName(constants.ui.settings.IS_DEVELOPER_CHECKBOX)[0];
-        isDeveloperCheckbox.checked = isDeveloper;
-        isDeveloperCheckbox.onchange = function(event) {
-            settings.set(constants.settings.IS_DEVELOPER, isDeveloperCheckbox.checked);
-        };
-    };
+    var isDeveloperCheckboxLabel = htmlNode.getElementsByClassName(consts.ui.settings.IS_DEVELOPER_CHECKBOX_LABEL)[0];
+    isDeveloperCheckboxLabel.innerHTML = i18n.t('settings.dev');
 
-    var init = function() {
-        container = document.getElementById(constants.ui.UI_CONTAINER);
-        container.appendChild(html);
+    var closeButton = htmlNode.getElementsByClassName(consts.ui.CLOSE_BUTTON)[0];
+    closeButton.onclick = hide;
 
-        events.subscribe(events.list.showsettings, function(display) {
-            (display ? show : hide)();
-        });
+    hide();
+    configSettings();
+};
 
-        var closeButton = html.getElementsByClassName(constants.ui.CLOSE_BUTTON)[0];
-        closeButton.onclick = hide;
-
-        hide();
-        configSettings();
-    };
-
-    return {
-        init: init,
-        show: show,
-        hide: hide
-    };
-});
+module.exports = {
+    init: init,
+    show: show,
+    hide: hide
+};

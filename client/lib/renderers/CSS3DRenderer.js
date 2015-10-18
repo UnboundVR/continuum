@@ -1,3 +1,5 @@
+var THREE = require('three.js');
+
 /**
  * Based on http://www.emagix.net/academic/mscs-project/item/camera-sync-with-css3-and-webgl-threejs
  * @author mrdoob / http://mrdoob.com/
@@ -44,7 +46,7 @@ THREE.CSS3DRenderer = function () {
 	var _widthHalf, _heightHalf;
 
 	var matrix = new THREE.Matrix4();
-	
+
 	var cache = {
 		camera: { fov: 0, style: '' },
 		objects: {}
@@ -233,7 +235,7 @@ THREE.CSS3DRenderer = function () {
 			cameraElement.style.MozTransform = style;
 			cameraElement.style.oTransform = style;
 			cameraElement.style.transform = style;
-			
+
 			cache.camera.style = style;
 
 		}

@@ -1,3 +1,5 @@
+var THREE = require('three.js');
+
 /**
  * @author mrdoob / http://mrdoob.com/
  */
@@ -17,9 +19,9 @@ THREE.PointerLockControls = function ( camera ) {
 	yawObject.add( pitchObject );
 
 	var PI_2 = Math.PI / 2;
-    
+
     var _this = this;
-    
+
     this.move = function(movement) {
         yawObject.rotation.y -= movement.x * 0.002;
 		pitchObject.rotation.x -= movement.y * 0.002;
@@ -35,7 +37,7 @@ THREE.PointerLockControls = function ( camera ) {
 		var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
 
 		_this.move({
-            x: movementX, 
+            x: movementX,
             y: movementY
         });
 

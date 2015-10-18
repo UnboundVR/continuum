@@ -1,0 +1,32 @@
+#ui-container .actionsContainer {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 8px 8px 0 0;
+}
+
+#ui-container .actionsContainer .button {
+    display: block;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    pointer-events: all;
+    margin: 6px;
+    opacity: 0.8;
+    float: right;
+}
+#ui-container .logout {background-image: url('assets/img/logout.png');}
+#ui-container .lockCursor {background-image: url('assets/img/pointerLock.png');}
+#ui-container .help {background-image: url('assets/img/help.png');}
+#ui-container .settings {background-image: url('assets/img/settings.png');}
+
+#ui-container .actionsContainer .button {
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#ui-container .actionsContainer .button:hover {
+    opacity: 1;
+    border: none;
+}

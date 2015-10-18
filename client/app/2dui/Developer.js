@@ -1,50 +1,56 @@
-'use strict';
+var consts = require('../../../shared/constants');
+var events = require('../Events');
+var settings = require('../utils/Settings');
+var world = require('../World');
 
-define(['html!Developer', 'Events', 'utils/Settings', 'Constants', 'World'], function(html, events, settings, constants, world) {
-    var container;
-    var coords;
-    var position;
+var buildHTMLNode = require('../utils/BuildHTMLNode');
+var html = require('../../../assets/html/Developer.html');
+var css = require('../../../assets/css/Developer.css');
+var htmlNode = buildHTMLNode(html, css);
 
-    var show = function() {
-        html.style.display = 'block';
-    };
+var coords;
+var position;
 
-    var hide = function() {
-        html.style.display = 'none';
-    };
+var show = function() {
+    htmlNode.style.display = 'block';
+};
 
-    var init = function() {
-        container = document.getElementById(constants.ui.UI_CONTAINER);
-        container.appendChild(html);
-        coords = container.getElementsByClassName(constants.ui.coords.COORDS_TEXT)[0];
+var hide = function() {
+    htmlNode.style.display = 'none';
+};
 
-        events.subscribe(events.list.playermoved, updateCoords);
-        world.onLoop(displayUpdatedCoords, 1000);
+var init = function() {
+    var container = document.getElementById(consts.ui.UI_CONTAINER);
+    container.appendChild(htmlNode);
 
-        if (!settings.get(constants.settings.IS_DEVELOPER)) {
-            hide();
-        }
+    coords = htmlNode.getElementsByClassName(consts.ui.coords.COORDS_TEXT)[0];
 
-        settings.onChange(constants.settings.IS_DEVELOPER, function(display) {
-            (display ? show : hide)();
-        });
-    };
+    events.subscribe(consts.events.PLAYER_MOVED, updateCoords);
+    world.onLoop(displayUpdatedCoords, 1000);
 
-    var roundCoord = function(coord) {
-        return parseFloat(Math.round(coord * 100) / 100).toFixed(3);
-    };
+    if (!settings.get(consts.settings.IS_DEVELOPER)) {
+        hide();
+    }
 
-    var updateCoords = function(val) {
-        position = val;
-    };
+    settings.onChange(consts.settings.IS_DEVELOPER, function(display) {
+        (display ? show : hide)();
+    });
+};
 
-    var displayUpdatedCoords = function() {
-        if (position) {
-            coords.innerHTML = 'X: ' +  roundCoord(position.x) + '<br/> Y: ' + roundCoord(position.y) + '<br/> Z: ' + roundCoord(position.z);
-        }
-    };
+var roundCoord = function(coord) {
+    return parseFloat(Math.round(coord * 100) / 100).toFixed(3);
+};
 
-    return {
-        init: init
-    };
-});
+var updateCoords = function(val) {
+    position = val;
+};
+
+var displayUpdatedCoords = function() {
+    if (position) {
+        coords.innerHTML = 'X: ' +  roundCoord(position.x) + '<br/> Y: ' + roundCoord(position.y) + '<br/> Z: ' + roundCoord(position.z);
+    }
+};
+
+module.exports = {
+    init: init
+};

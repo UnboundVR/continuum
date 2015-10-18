@@ -2,13 +2,13 @@
 <html>
 <head>
     <title>Metavrse.io WebRTC test</title>
-    <link rel="icon" type="image/x-icon" href="client/assets/img/favicon.png">
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
     <script src="../socket.io/socket.io.js"></script>
-    <script src="../client/lib/RTCMultiConnection.js"></script>
+    <script src="../node_modules/rtcmulticonnection-v3/RTCMultiConnection.js"></script>
     <script src="../shared/constants.js"></script>
 
     <script>
-    var connection = new RTCMultiConnection(constants.rtc.CHANNEL);
+    var connection = new RTCMultiConnection(consts.rtc.CHANNEL);
     connection.socketURL = window.location.origin;
 
     connection.session = {
@@ -22,7 +22,7 @@
          broadcast: true
     };
 
-    connection.open(constants.rtc.DEFAULT_ROOM);
+    connection.open(consts.rtc.DEFAULT_ROOM);
     </script>
 </head>
 <body>

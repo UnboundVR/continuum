@@ -1,44 +1,43 @@
-'use strict';
+var consts = require('../../../shared/constants');
+var logout = require('./Logout');
+var auth0 = require('./Auth0');
 
-define(['Constants', './Logout', './Auth0'], function(constants, logout, auth0) {
+var auth0;
+var idToken;
 
-    var auth0;
-    var idToken;
+var processIdToken = function() {
+    return new Promise(function(resolve, reject) {
+        idToken = localStorage.getItem(consts.auth.ID_TOKEN);
+        var hash = auth0.parseHash(window.location.hash);
 
-    var processIdToken = function() {
-        return new Promise(function(resolve, reject) {
-            idToken = localStorage.getItem(constants.auth.ID_TOKEN);
-            var hash = auth0.parseHash(window.location.hash);
+        if (!idToken && hash && hash[consts.auth.ID_TOKEN]) {
+            idToken = hash[consts.auth.ID_TOKEN];
+            localStorage.setItem(consts.auth.ID_TOKEN, idToken);
+        }
 
-            if (!idToken && hash && hash[constants.auth.ID_TOKEN]) {
-                idToken = hash[constants.auth.ID_TOKEN];
-                localStorage.setItem(constants.auth.ID_TOKEN, idToken);
-            }
+        if (hash && hash.error) {
+            // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 
-            if (hash && hash.error) {
-                // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+            reject('There was an error: ' + hash.error + '\n' + hash.error_description);
 
-                reject('There was an error: ' + hash.error + '\n' + hash.error_description);
+            // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
-                // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+            return;
+        }
 
-                return;
-            }
+        if (!idToken) {
+            logout();
+        }
 
-            if (!idToken) {
-                logout();
-            }
+        resolve(idToken);
+    });
+};
 
-            resolve(idToken);
-        });
-    };
+var getToken = function() {
+    return idToken;
+};
 
-    var getToken = function() {
-        return idToken;
-    };
-
-    return {
-        getToken: getToken,
-        processIdToken: processIdToken
-    };
-});
+module.exports = {
+    getToken: getToken,
+    processIdToken: processIdToken
+};

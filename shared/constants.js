@@ -1,6 +1,38 @@
 'use strict';
 
-var constants = {
+var consts = {
+    events: {
+        browserEvents: {
+            'keydown': 'keyDown',
+            'keyup': 'keyUp',
+            'mousedown': 'mouseDown',
+            'mouseup': 'mouseUp',
+            'mousemove': 'mouseMove'
+        },
+        INIT: 'init',
+        UPDATE: 'update',
+        START: 'start',
+        STOP: 'stop',
+        UNLOAD: 'unload',
+        START_HOVER: 'startHover',
+        END_HOVER: 'endHover',
+        SELECT: 'select',
+        POINTER_LOCK_CHANGE: 'pointerLockChange',
+        PLAYER_MOVED: 'playerMoved',
+        SHOW_HELP: 'showHelp',
+        LOGOUT: 'logout',
+        SHOW_SETTINGS: 'showSettings',
+        SETTING_CHANGED: 'settingChanged',
+        PERFORMANCE_MODE: 'performanceMode'
+    },
+    browserEvents: {
+        KEY_DOWN: 'keydown',
+        KEY_UP: 'keyup',
+        MOUSE_DOWN: 'mousedown',
+        MOUSE_UP: 'mouseup',
+        MOUSE_MOVE: 'mousemove',
+        RESIZE: 'resize'
+    },
     auth: {
         roles: {
             ADMIN: 'admin',
@@ -39,10 +71,12 @@ var constants = {
         help: {
             LOCK_CURSOR: 'helpText-lockCursor',
             KEYS: 'helpText-keys',
-            SHOW_AT_STARTUP_CHECKBOX: 'showAtStartup checkbox'
+            SHOW_AT_STARTUP_CHECKBOX: 'showAtStartup checkbox',
+            SHOW_AT_STARTUP_CHECKBOX_LABEL: 'showAtStartup-label'
         },
         settings: {
-            IS_DEVELOPER_CHECKBOX: 'iAmDev checkbox'
+            IS_DEVELOPER_CHECKBOX: 'iAmDev checkbox',
+            IS_DEVELOPER_CHECKBOX_LABEL: 'iAmDev-label'
         }
     },
     settings: {
@@ -61,20 +95,8 @@ var constants = {
         CLOSE_BUTTON: 'close',
         CODING_HEADER: 'codingHeader'
     },
-    html: {
-        DIV: 'div',
-        STYLE: 'style',
-        DISPLAY_NONE: 'none',
-        DISPLAY_BLOCK: 'block',
-        COLOR_BLACK: 'black'
-    },
-    events: {
-        KEY_DOWN: 'keydown',
-        KEY_UP: 'keyup',
-        MOUSE_DOWN: 'mousedown',
-        MOUSE_UP: 'mouseup',
-        MOUSE_MOVE: 'mousemove',
-        RESIZE: 'resize'
+    colors: {
+        BLACK: 'black'
     },
     keyboard: {
         F4: 115,
@@ -126,7 +148,8 @@ var constants = {
         }
     },
     renderer: {
-        CLEAR_COLOR: 0x00ff00
+        CLEAR_COLOR: 0x00ff00,
+        THREEJS_CONTAINER: 'threejs-container'
     },
     mobile: {
         ANDROID_REGEX: /Android/i
@@ -163,7 +186,8 @@ var constants = {
         LOGIN_SCREEN: '/login',
         CONTINUUM_SITE: 'http://continuum.unboundvr.com',
         WORLD: '/',
-        CLIENT: '/client',
+        BUILD: '/build',
+        ASSETS: '/assets',
         SHARED: '/shared',
         NODE_MODULES: '/node_modules',
         KEYVR: '/keyvr'
@@ -178,13 +202,8 @@ var constants = {
     }
 };
 
-// detect if we're using requirejs, if not export with module.exports :)
-if (typeof define === 'function' && define.amd) {
-    define([], function() {
-        return constants;
-    });
-} else if (typeof exports === 'object') {
-    module.exports = constants;
+if (typeof exports === 'object') {
+    module.exports = consts;
 } else {
-    window.constants = constants;
+    window.traverseTree = consts;
 }

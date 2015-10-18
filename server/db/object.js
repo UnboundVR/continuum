@@ -1,15 +1,13 @@
-'use strict';
-
 var db = require('./db');
 var promise = require('promise');
-var constants = require('../../shared/constants');
+var consts = require('../../shared/constants');
 
 var create = function(obj) {
-    return db.createByAlias(constants.db.OBJECT, 'uuid', obj);
+    return db.createByAlias(consts.db.OBJECT, 'uuid', obj);
 };
 
 var getMulti = function(uuids) {
-    return db.getMultiByAlias(constants.db.OBJECT, 'uuid', uuids).then(function(objects) {
+    return db.getMultiByAlias(consts.db.OBJECT, 'uuid', uuids).then(function(objects) {
         var promises = objects.map(function(obj) {
             if (obj.children && obj.children.length) {
                 return getMulti(obj.children);

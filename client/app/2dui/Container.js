@@ -1,45 +1,51 @@
-'use strict';
+var consts = require('../../../shared/constants');
+var events = require('../Events');
+var world = require('../World');
+var pointerLock = require('../PointerLock');
 
-define(['World', 'Events', 'PointerLock', 'Constants', './Help', './Developer', './Profile', './Actions', './Settings'], function(world, events, pointerLock, constants, help, developer, profile, actions, settings) {
+var help = require('./Help');
+var developer = require('./Developer');
+var profile = require('./Profile');
+var actions = require('./Actions');
+var settings = require('./Settings');
 
-    var container;
+var container;
 
-    var init = function() {
-        container = document.getElementById(constants.ui.UI_CONTAINER);
-        initChildren(profile, help, developer, actions, settings);
+var init = function() {
+    container = document.getElementById(consts.ui.UI_CONTAINER);
+    initChildren(profile, help, actions, settings, developer);
 
-        events.subscribe(events.list.pointerlockchange, function(locked) {
-            if (!locked) {
-                enableUI();
-            } else {
-                disableUI();
-            }
-        });
-    };
+    events.subscribe(consts.events.POINTER_LOCK_CHANGE, function(locked) {
+        if (!locked) {
+            enableUI();
+        } else {
+            disableUI();
+        }
+    });
+};
 
-    var initChildren = function() {
-        [].slice.call(arguments).forEach(function(child) {
-            child.init();
-        });
-    };
+var initChildren = function() {
+    [].slice.call(arguments).forEach(function(child) {
+        child.init();
+    });
+};
 
-    var enableUI = function() {
-        container.style.display = '';
-    };
+var enableUI = function() {
+    container.style.display = 'block';
+};
 
-    var disableUI = function() {
-        container.style.display = constants.html.DISPLAY_NONE;
-        events.dispatch(events.list.showhelp, false);
-        events.dispatch(events.list.showsettings, false);
-    };
+var disableUI = function() {
+    container.style.display = 'none';
+    events.dispatch(consts.events.SHOW_HELP, false);
+    events.dispatch(consts.events.SHOW_SETTINGS, false);
+};
 
-    var addElement = function(element) {
-        container.appendChild(element);
-    };
+var addElement = function(element) {
+    container.appendChild(element);
+};
 
-    world.onInit(init);
+world.onInit(init);
 
-    return {
-        addElement: addElement
-    };
-});
+module.exports = {
+    addElement: addElement
+};
