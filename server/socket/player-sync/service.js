@@ -12,7 +12,7 @@ var register = function(socket, data, broadcast, emit) {
 
     broadcast(data);
 
-    console.log('registering ' + socket.id);
+    //console.log('registering ' + socket.id);
 };
 
 var update = function(socket, data, broadcast) {
@@ -21,7 +21,7 @@ var update = function(socket, data, broadcast) {
         player.position = data.position;
         broadcast(player);
     } else {
-        console.log('trying to update position of ' + socket.id + ' but it is not registered yet');
+        //console.log('trying to update position of ' + socket.id + ' but it is not registered yet');
     }
 };
 
@@ -29,7 +29,7 @@ var disconnect = function(socket, broadcast) {
     delete players[socket.id];
     broadcast(socket.id);
 
-    console.log(socket.id + ' disconnected');
+    //console.log(socket.id + ' disconnected');
 };
 
 module.exports = {

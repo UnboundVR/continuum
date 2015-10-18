@@ -6,7 +6,7 @@ var init = function(io) {
     io.of(consts.socket.playerSync.NAMESPACE).use(auth.authorize);
 
     io.of(consts.socket.playerSync.NAMESPACE).on('connection', function(socket) {
-        console.log(socket.id + ' connected');
+        //console.log(socket.id + ' connected');
         socket.on(consts.socket.playerSync.REGISTER, function(data) {
             auth.getProfile(socket).then(function(profile) {
                 socket.profile = profile;

@@ -25,21 +25,21 @@ var init = function() {
         };
 
         socket.on('connect', function() {
-            console.log('registering me (' + this.id + ')');
+            //console.log('registering me (' + this.id + ')');
 
             socket.emit(consts.socket.playerSync.REGISTER, players.me);
             players.me.id = this.id;
         });
 
         socket.on(consts.socket.playerSync.OTHER_CONNECT, function(other) {
-            console.log(other.id + ' connected');
+            //console.log(other.id + ' connected');
 
             players.others[other.id] = other;
             addPlayerAvatar(other);
         });
 
         socket.on(consts.socket.playerSync.OTHER_DISCONNECT, function(id) {
-            console.log(id + ' disconnected');
+            //console.log(id + ' disconnected');
 
             var player = players.others[id];
             delete players.others[id];
@@ -47,7 +47,7 @@ var init = function() {
         });
 
         socket.on(consts.socket.playerSync.OTHER_CHANGE, function(other) {
-            console.log(other.id + ' changed');
+            //console.log(other.id + ' changed');
 
             var player = players.others[other.id];
             if (player) {
@@ -69,13 +69,8 @@ var removePlayerAvatar = function(player) {
 };
 
 var addPlayerAvatar = function(player) {
-    // TODO use decent player model
-    /*var geometry = new three.BoxGeometry(40, 40, 40);
-    var texture = three.ImageUtils.loadTexture('assets/img/grass.jpg');
-    var material = new three.MeshBasicMaterial({map: texture});
-    var playerMesh = new three.Mesh(geometry, material);*/
-
-    var textGeometry = new THREE.TextGeometry(player.id, {
+    // TODO use player model
+    var textGeometry = new THREE.TextGeometry(player.name, {
         size: 24,
         height: 1,
         font: 'optimer'
