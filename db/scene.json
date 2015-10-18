@@ -16,11 +16,11 @@
         "images": [
             {
                 "uuid": "77992DED-8BA5-40C0-8584-D5FE3EFDDF2E",
-                "url": "client/assets/img/galaxy-starfield.png"
+                "url": "assets/img/galaxy-starfield.png"
             },
             {
                 "uuid": "73945DB8-9696-443F-BF9A-B525DECFFA93",
-                "url": "client/assets/img/lowpolyart.png"
+                "url": "assets/img/lowpolyart.png"
             }
         ],
 
