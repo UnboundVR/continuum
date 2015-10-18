@@ -1,5 +1,3 @@
-var THREE = require('three.js');
-
 /**
  * @author mrdoob / http://mrdoob.com/
  */
