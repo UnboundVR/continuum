@@ -166,10 +166,6 @@ var consts = {
         APP_PARAM: 'app',
         SCENE_PARAM: 'scene'
     },
-    rtc: {
-        CHANNEL: 'continuum',
-        DEFAULT_ROOM: 'default_room'
-    },
     objects: {
         TEXTURE: 'texture',
         GEOMETRY: 'geometry',

@@ -18,7 +18,6 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 require('./server/socket/player-sync/controller').init(io);
 require('./server/socket/keyvr').init(io);
-require('./server/rtc/signaling-server').init(io);
 
 var db = require('./server/db/db');
 db.init(process.env.COUCHBASE_HOST, process.env.BUCKET_NAME, process.env.BUCKET_PASSWORD);
