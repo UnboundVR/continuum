@@ -1,3 +1,6 @@
+var three = require('three.js');
+window.THREE = three;
+
 var app = require('./app/App.js');
 
 // three.js stuff
