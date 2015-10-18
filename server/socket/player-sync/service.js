@@ -5,14 +5,12 @@ var register = function(socket, data, broadcast, emit) {
         emit(players[id]);
     }
 
-    // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-
-    data.name = socket.decoded_token.name;
-
-    // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+    data.name = socket.profile.name;
 
     players[socket.id] = data;
+
     broadcast(data);
+
 };
 
 var update = function(socket, data, broadcast) {

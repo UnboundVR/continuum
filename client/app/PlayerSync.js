@@ -6,6 +6,8 @@ var world = require('./World');
 var io = require('socket.io-client');
 var three = require('three.js');
 
+require('../../assets/fonts/Lato_Regular.js');
+
 var socket;
 var players;
 
@@ -16,15 +18,12 @@ var init = function() {
 
     players = {
         me: {
-            // FIXME un-hardcode, use real name...
-            name: 'YO',
             position: new three.Vector3(0, consts.firstPerson.INITIAL_Y, 0)
         },
         others: {}
     };
 
     socket.on('connect', function() {
-        players.me.id = this.id;
         socket.emit(consts.socket.playerSync.REGISTER, players.me);
     });
 
@@ -56,16 +55,25 @@ var removePlayerAvatar = function(player) {
 
 var addPlayerAvatar = function(player) {
     // TODO use decent player model
-    var geometry = new three.BoxGeometry(40, 40, 40);
+    /*var geometry = new three.BoxGeometry(40, 40, 40);
     var texture = three.ImageUtils.loadTexture('assets/img/grass.jpg');
     var material = new three.MeshBasicMaterial({map: texture});
+    var playerMesh = new three.Mesh(geometry, material);*/
 
-    var mesh = new three.Mesh(geometry, material);
-    mesh.position.copy(player.position);
-
-    player.mesh = mesh;
-
-    scenes.getScene().add(mesh);
+    var textGeometry = new THREE.TextGeometry(player.name, {
+        size: 24,
+        height: 5,
+        curveSegments: 2,
+        font: 'lato'
+    });
+    var textMaterial = new THREE.MeshFaceMaterial([
+		new THREE.MeshBasicMaterial({ color: 0x00cc00}),
+		new THREE.MeshBasicMaterial({ color: 0x000000})
+	]);
+    var textMesh = new THREE.Mesh(textGeometry, textMaterial);
+    textMesh.position.copy(player.position);
+    player.mesh = textMesh;
+    scenes.getScene().add(textMesh);
 };
 
 var playerMoved = function(position) {
