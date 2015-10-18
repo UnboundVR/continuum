@@ -24,29 +24,42 @@ var init = function() {
     };
 
     socket.on('connect', function() {
+        console.log('registering me (' + this.id + ')');
+
         socket.emit(consts.socket.playerSync.REGISTER, players.me);
+        players.me.id = this.id;
     });
 
     socket.on(consts.socket.playerSync.OTHER_CONNECT, function(other) {
+        console.log(other.id + ' connected');
+
         players.others[other.id] = other;
         addPlayerAvatar(other);
     });
 
     socket.on(consts.socket.playerSync.OTHER_DISCONNECT, function(id) {
+        console.log(id + ' disconnected');
+
         var player = players.others[id];
         delete players.others[id];
         removePlayerAvatar(player);
     });
 
-    socket.on(consts.socket.playerSync.OTHER_CHANGE, function(data) {
-        var player = players.others[data.id];
+    socket.on(consts.socket.playerSync.OTHER_CHANGE, function(other) {
+        console.log(other.id + ' changed');
+
+        var player = players.others[other.id];
         if (player) {
-            player.position = data.position;
-            player.mesh.position.copy(data.position);
+            player.position = other.position;
+            movePlayerAvatar(player);
         }
     });
 
     events.subscribe(consts.events.PLAYER_MOVED, playerMoved);
+};
+
+var movePlayerAvatar = function(player) {
+    player.mesh.position.copy(player.position);
 };
 
 var removePlayerAvatar = function(player) {
@@ -60,10 +73,9 @@ var addPlayerAvatar = function(player) {
     var material = new three.MeshBasicMaterial({map: texture});
     var playerMesh = new three.Mesh(geometry, material);*/
 
-    var textGeometry = new THREE.TextGeometry(player.name, {
+    var textGeometry = new THREE.TextGeometry(player.id, {
         size: 24,
-        height: 5,
-        curveSegments: 2,
+        height: 1,
         font: 'lato'
     });
     var textMaterial = new THREE.MeshFaceMaterial([
