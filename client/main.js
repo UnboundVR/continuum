@@ -23,5 +23,6 @@ require('./app/2dui/Container');
 // require('./app/RTC');
 require('./app/Performance');
 require('./app/utils/BrowserEvents');
+require('./app/Terrain');
 
 app.run();
