@@ -4,7 +4,8 @@ var Polyglot = require('node-polyglot');
 
 var locales = {
     'en-US': require('./locales/en-US'),
-    'es-AR': require('./locales/es-AR')
+    'es-AR': require('./locales/es-AR'),
+    'es-419': require('./locales/es-AR')
 };
 
 // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
