@@ -205,5 +205,5 @@ var consts = {
 if (typeof exports === 'object') {
     module.exports = consts;
 } else {
-    window.traverseTree = consts;
+    window.constants = consts;
 }
