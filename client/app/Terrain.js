@@ -40,7 +40,6 @@ var init = function() {
                             texture: t3,
                             glsl: 'slope > 0.7853981633974483 ? 0.2 : 1.0 - smoothstep(0.47123889803846897, 0.7853981633974483, slope) + 0.2'
                         }
-
                     ]);
 
                     regenerate();
@@ -65,14 +64,14 @@ var regenerate = function() {
         useBufferGeometry: false,
         xSize: 1024,
         ySize: 1024,
-        xSegments: 63,
-        ySegments: 63,
+        xSegments: 100,
+        ySegments: 100,
     };
 
     var terrain = THREE.Terrain(terrainSettings);
 
-    terrain.scale.set(25, 25, 25);
-    terrain.position.set(0, 10, 0);
+    terrain.scale.set(35, 35, 35);
+    terrain.position.set(0, 3490, 0);
 
     scenes.getScene().add(terrain);
 };
