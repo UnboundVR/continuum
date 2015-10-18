@@ -4,12 +4,12 @@ window.THREE = three;
 var app = require('./app/App.js');
 
 // three.js stuff
-require('./lib/controls/OrbitControls'); // currently unused
-require('./lib/controls/PointerLockControls');
-require('./lib/effects/StereoEffect');
-require('./lib/renderers/CSS3DRenderer');
-require('./lib/renderers/CSS3DRenderer');
-require('../node_modules/three.terrain.js/build/THREE.Terrain')
+// require('./lib/three.js/controls/OrbitControls'); // currently unused
+require('./lib/three.js/controls/PointerLockControls');
+require('./lib/three.js/effects/StereoEffect');
+require('./lib/three.js/renderers/CSS3DRenderer');
+require('./lib/three.js/utils/FontUtils');
+require('./lib/three.js/geometries/TextGeometry');
 
 // Modules that register to world
 require('./app/Renderer');

@@ -2,7 +2,7 @@ var auth = require('./auth');
 var consts = require('../../shared/constants');
 
 var init = function(io) {
-    io.of(consts.socket.keyvr.NAMESPACE).use(auth);
+    io.of(consts.socket.keyvr.NAMESPACE).use(auth.authorize);
 
     io.of(consts.socket.keyvr.NAMESPACE).on('connection', function(socket) {
         socket.on(consts.socket.keyvr.QR_CODE_SCANNED, function(data) {

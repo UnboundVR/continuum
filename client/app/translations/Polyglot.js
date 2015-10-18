@@ -3,8 +3,8 @@ var Polyglot = require('node-polyglot');
 // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 
 var languages = {
-    'en': require('./locales/en-US'),
-    'es': require('./locales/es-AR')
+    en: require('./locales/en-US'),
+    es: require('./locales/es-AR')
 };
 
 // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
@@ -12,10 +12,10 @@ var languages = {
 var getLanguage = function() {
     var defaultLanguage = 'en';
 
-    if(navigator.language) {
+    if (navigator.language) {
         var lang = navigator.language.substring(2);
 
-        if(languages[lang]) {
+        if (languages[lang]) {
             return lang;
         } else {
             return defaultLanguage;

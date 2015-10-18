@@ -127,6 +127,10 @@ var animate = function(time) {
 
     restrainPosition(obj);
 
+    obj.position.x = Math.round(obj.position.x * 100) / 100;
+    obj.position.y = Math.round(obj.position.y * 100) / 100;
+    obj.position.z = Math.round(obj.position.z * 100) / 100;
+
     if (!obj.position.equals(lastPosition)) {
         events.dispatch(consts.events.PLAYER_MOVED, obj.position);
     }
