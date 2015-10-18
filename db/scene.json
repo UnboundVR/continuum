@@ -36,7 +36,7 @@
 			{
 				"uuid": "FAE93433-E45A-4F81-B8EE-55B232701CEA",
 				"type": "SphereGeometry",
-				"radius": 20000,
+				"radius": 60000,
 				"widthSegments": 32,
 				"heightSegments": 32,
 				"phiStart": 0,
@@ -139,7 +139,7 @@
 					"name": "Sun",
                     "castShadow": true,
 					"color": 16777215,
-					"intensity": 1,
+					"intensity": 0.3,
 					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,100,400,150,1]
 				},
 				{
