@@ -6,56 +6,58 @@ var world = require('./World');
 var io = require('socket.io-client');
 var three = require('three.js');
 
-require('../../assets/fonts/Lato_Regular.js');
+var loadExternal = require('./utils/LoadExternalScript');
 
 var socket;
 var players;
 
 var init = function() {
-    socket = io.connect(window.location.origin + consts.socket.playerSync.NAMESPACE, {
-        query: consts.auth.TOKEN_PARAM + '=' + auth.getToken()
+    loadExternal('http://threejs.org/examples/fonts/optimer_regular.typeface.js').then(function() {
+        socket = io.connect(window.location.origin + consts.socket.playerSync.NAMESPACE, {
+            query: consts.auth.TOKEN_PARAM + '=' + auth.getToken()
+        });
+
+        players = {
+            me: {
+                position: new three.Vector3(0, consts.firstPerson.INITIAL_Y, 0)
+            },
+            others: {}
+        };
+
+        socket.on('connect', function() {
+            console.log('registering me (' + this.id + ')');
+
+            socket.emit(consts.socket.playerSync.REGISTER, players.me);
+            players.me.id = this.id;
+        });
+
+        socket.on(consts.socket.playerSync.OTHER_CONNECT, function(other) {
+            console.log(other.id + ' connected');
+
+            players.others[other.id] = other;
+            addPlayerAvatar(other);
+        });
+
+        socket.on(consts.socket.playerSync.OTHER_DISCONNECT, function(id) {
+            console.log(id + ' disconnected');
+
+            var player = players.others[id];
+            delete players.others[id];
+            removePlayerAvatar(player);
+        });
+
+        socket.on(consts.socket.playerSync.OTHER_CHANGE, function(other) {
+            console.log(other.id + ' changed');
+
+            var player = players.others[other.id];
+            if (player) {
+                player.position = other.position;
+                movePlayerAvatar(player);
+            }
+        });
+
+        events.subscribe(consts.events.PLAYER_MOVED, playerMoved);
     });
-
-    players = {
-        me: {
-            position: new three.Vector3(0, consts.firstPerson.INITIAL_Y, 0)
-        },
-        others: {}
-    };
-
-    socket.on('connect', function() {
-        console.log('registering me (' + this.id + ')');
-
-        socket.emit(consts.socket.playerSync.REGISTER, players.me);
-        players.me.id = this.id;
-    });
-
-    socket.on(consts.socket.playerSync.OTHER_CONNECT, function(other) {
-        console.log(other.id + ' connected');
-
-        players.others[other.id] = other;
-        addPlayerAvatar(other);
-    });
-
-    socket.on(consts.socket.playerSync.OTHER_DISCONNECT, function(id) {
-        console.log(id + ' disconnected');
-
-        var player = players.others[id];
-        delete players.others[id];
-        removePlayerAvatar(player);
-    });
-
-    socket.on(consts.socket.playerSync.OTHER_CHANGE, function(other) {
-        console.log(other.id + ' changed');
-
-        var player = players.others[other.id];
-        if (player) {
-            player.position = other.position;
-            movePlayerAvatar(player);
-        }
-    });
-
-    events.subscribe(consts.events.PLAYER_MOVED, playerMoved);
 };
 
 var movePlayerAvatar = function(player) {
@@ -76,7 +78,7 @@ var addPlayerAvatar = function(player) {
     var textGeometry = new THREE.TextGeometry(player.id, {
         size: 24,
         height: 1,
-        font: 'lato'
+        font: 'optimer'
     });
     var textMaterial = new THREE.MeshFaceMaterial([
 		new THREE.MeshBasicMaterial({ color: 0x00cc00}),
