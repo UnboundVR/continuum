@@ -9,6 +9,7 @@ var world = require('./World');
 var api = require('./API');
 var login = require('./auth/Login');
 var consts = require('../../shared/constants');
+var loading = require('./Loading');
 
 var load = function(json) {
     var objectLoader = new THREE.ObjectLoader();
@@ -27,6 +28,7 @@ var load = function(json) {
 
         scriptsLoader.load(json, relevantApp).then(function() {
             world.start();
+            loading.hide();
             document.getElementById(consts.renderer.THREEJS_CONTAINER).appendChild(renderer.getDomElement());
         });
     });

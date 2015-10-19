@@ -53,6 +53,7 @@ var consts = {
     ui: {
         UI_CONTAINER: 'ui-container',
         CLOSE_BUTTON: 'closeButton',
+        LOADING_SPINNER: 'cssload-loader',
         coords: {
             COORDS_TEXT: 'coordsText'
         },
