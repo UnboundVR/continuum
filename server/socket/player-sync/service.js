@@ -42,5 +42,6 @@ var disconnect = function(socket, broadcast) {
 module.exports = {
     register: register,
     update: update,
-    disconnect: disconnect
+    disconnect: disconnect,
+    players: players
 };
