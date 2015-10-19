@@ -80,7 +80,8 @@ var consts = {
             GHOST_MODE_CHECKBOX: 'ghostMode checkbox',
             GHOST_MODE_CHECKBOX_LABEL: 'ghostMode-label',
             GHOST_MODE_DIV: 'ghostMode',
-            LANGUAGE_LABEL: 'language-label'
+            LANGUAGE_LABEL: 'language-label',
+            LANGUAGE_SELECT: 'language-select'
         }
     },
     settings: {
@@ -98,7 +99,7 @@ var consts = {
         },
         LANGUAGE: {
             name: 'language',
-            defaultValue: 'en'
+            defaultValue: 'default'
         }
     },
     coding: {

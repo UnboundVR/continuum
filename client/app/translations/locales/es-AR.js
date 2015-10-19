@@ -21,7 +21,12 @@ module.exports = {
     settings: {
         dev: 'Soy programador/a',
         ghostMode: 'Modo fantasma',
-        langauge: 'Idioma'
+        language: 'Idioma'
+    },
+    languages: {
+        es: 'Español (Arg)',
+        en: 'Inglés (EEUU)',
+        default: 'Predeterminado'
     },
     roles: {
         admin: 'Administrador/a',

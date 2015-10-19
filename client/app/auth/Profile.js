@@ -1,7 +1,6 @@
 var consts = require('../../../shared/constants');
 var req = require('../utils/Requests');
 var events = require('../Events');
-var i18n = require('../translations/I18n');
 var logout = require('../auth/Logout');
 
 var profile;
@@ -39,17 +38,6 @@ var isAdmin = function() {
     return getRole() === consts.auth.roles.ADMIN;
 };
 
-var getVocative = function() {
-    var vocative = i18n.t('vocatives.human');
-    if (profile.gender === consts.auth.GENDER_MALE) {
-        vocative = i18n.t('vocatives.gentleman');
-    } else if (profile.gender === consts.auth.GENDER_FEMALE) {
-        vocative = i18n.t('vocatives.lady');
-    }
-
-    return vocative;
-};
-
 var getMetadataField = function(field) {
     // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 
@@ -63,7 +51,6 @@ var getMetadataField = function(field) {
 module.exports = {
     setProfile: setProfile,
     getProfile: getProfile,
-    getVocative: getVocative,
     getRole: getRole,
     isAdmin: isAdmin,
     changeUserMetadata: changeUserMetadata,

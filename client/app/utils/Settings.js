@@ -18,7 +18,7 @@ var set = function(setting, value) {
     return auth.changeUserMetadata(payload);
 };
 
-var onChange = function onChange(setting, callback) {
+var onChange = function(setting, callback) {
     events.subscribe(consts.events.SETTING_CHANGED, function(change) {
         if (change[setting.name] !== undefined) {
             callback(change[setting.name]);

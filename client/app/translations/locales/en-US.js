@@ -23,6 +23,11 @@ module.exports = {
         ghostMode: 'Ghost mode',
         language: 'Language'
     },
+    languages: {
+        es: 'Spanish (Arg)',
+        en: 'English (US)',
+        default: 'Default'
+    },
     roles: {
         admin: 'Admin',
         user: 'User'

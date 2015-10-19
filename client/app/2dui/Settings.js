@@ -3,6 +3,7 @@ var events = require('../Events');
 var settings = require('../utils/Settings');
 var i18n = require('../translations/I18n');
 var profile = require('../auth/Profile');
+var languages = require('../translations/Languages');
 
 var buildHTMLNode = require('../utils/BuildHTMLNode');
 var html = require('../../../assets/html/Settings.html');
@@ -16,6 +17,8 @@ var show = function() {
 var hide = function() {
     htmlNode.style.display = 'none';
 };
+
+var languageSelect;
 
 var configSettings = function() {
     var isDeveloper = settings.get(consts.settings.IS_DEVELOPER);
@@ -31,6 +34,14 @@ var configSettings = function() {
     ghostModeCheckbox.onchange = function(event) {
         settings.set(consts.settings.GHOST_MODE, ghostModeCheckbox.checked);
     };
+
+    var language = settings.get(consts.settings.LANGUAGE);
+    languageSelect.value = language;
+    languageSelect.onchange = function(event) {
+        settings.set(consts.settings.LANGUAGE, languageSelect.value).then(function() {
+            window.location.reload();
+        });
+    };
 };
 
 var init = function() {
@@ -44,8 +55,17 @@ var init = function() {
     var isDeveloperCheckboxLabel = htmlNode.getElementsByClassName(consts.ui.settings.IS_DEVELOPER_CHECKBOX_LABEL)[0];
     isDeveloperCheckboxLabel.innerHTML = i18n.t('settings.dev');
 
-    var ghostModeCheckboxLabel = htmlNode.getElementsByClassName(consts.ui.settings.LANGUAGE_LABEL)[0];
-    ghostModeCheckboxLabel.innerHTML = i18n.t('settings.language');
+    var languageLabel = htmlNode.getElementsByClassName(consts.ui.settings.LANGUAGE_LABEL)[0];
+    languageLabel.innerHTML = i18n.t('settings.language');
+    languageSelect = htmlNode.getElementsByClassName(consts.ui.settings.LANGUAGE_SELECT)[0];
+    var langs = Object.keys(languages);
+    langs.push(consts.settings.LANGUAGE.defaultValue);
+    langs.forEach(function(lang) {
+        var option = document.createElement('option');
+        option.value = lang;
+        option.innerHTML = i18n.t('languages.' + lang);
+        languageSelect.appendChild(option);
+    });
 
     if(!profile.isAdmin()) {
         var div = htmlNode.getElementsByClassName(consts.ui.settings.GHOST_MODE_DIV)[0];

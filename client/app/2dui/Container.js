@@ -2,18 +2,19 @@ var consts = require('../../../shared/constants');
 var events = require('../Events');
 var world = require('../World');
 var pointerLock = require('../PointerLock');
+var settings = require('../utils/Settings');
 
-var help = require('./Help');
-var developer = require('./Developer');
-var profile = require('./Profile');
-var actions = require('./Actions');
-var settings = require('./Settings');
+var helpUI = require('./Help');
+var developerUI = require('./Developer');
+var profileUI = require('./Profile');
+var actionsUI = require('./Actions');
+var settingsUI = require('./Settings');
 
 var container;
 
 var init = function() {
     container = document.getElementById(consts.ui.UI_CONTAINER);
-    initChildren(profile, help, actions, settings, developer);
+    initChildren(profileUI, helpUI, actionsUI, settingsUI, developerUI);
 
     events.subscribe(consts.events.POINTER_LOCK_CHANGE, function(locked) {
         if (!locked) {
