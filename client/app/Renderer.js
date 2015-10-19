@@ -1,5 +1,5 @@
 var consts = require('../../shared/constants');
-var three = require('three.js');
+var THREE = require('three.js');
 var world = require('./World');
 var scenes = require('./Scenes');
 var camera = require('./Camera');
@@ -10,7 +10,7 @@ var webGLRenderer;
 var css3DRenderer;
 
 var init = function() {
-    webGLRenderer = new three.WebGLRenderer({
+    webGLRenderer = new THREE.WebGLRenderer({
         antialias: true,
         alpha: true
     });
@@ -18,17 +18,17 @@ var init = function() {
     webGLRenderer.setClearColor(consts.renderer.CLEAR_COLOR, 0.0);
     webGLRenderer.setPixelRatio(window.devicePixelRatio);
     webGLRenderer.shadowMap.enabled = true;
-    webGLRenderer.shadowMap.type = three.PCFSoftShadowMap;
+    webGLRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
     webGLRenderer.domElement.id = 'webGLRenderer';
 
-    css3DRenderer = new three.CSS3DRenderer();
+    css3DRenderer = new THREE.CSS3DRenderer();
     css3DRenderer.domElement.id = 'css3dRenderer';
     css3DRenderer.domElement.appendChild(webGLRenderer.domElement);
 
     // Init stereo effect if we're in VR mode
     // FIXME CSS3D renderer doesn't work with Cardboard, so for now HTML renders awkward in VR mode.
     if (vrMode) {
-        webGLRenderer = new three.StereoEffect(webGLRenderer);
+        webGLRenderer = new THREE.StereoEffect(webGLRenderer);
         webGLRenderer.eyeSeparation = 10;
     }
 
