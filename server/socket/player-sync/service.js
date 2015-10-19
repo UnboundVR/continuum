@@ -1,42 +1,42 @@
 var consts = require('../../../shared/Constants');
+var profileUtils = require('../../../shared/profileUtils');
 
 var players = [];
 
-var register = function(socket, data, broadcast, emit) {
+var register = function(playerId, profile, data, broadcast, emit) {
     for (var id in players) {
         emit(players[id]);
     }
 
-    data.name = socket.profile.name;
-    data.id = socket.id;
+    data.name = profile.name;
+    data.id = playerId;
 
-    // TODO both for isAdmin and settings.get, create an abstraction in the server
-    if(socket.profile.role === consts.auth.roles.ADMIN && socket.profile.user_metadata[consts.settings.GHOST_MODE.name]) {
+    if(profileUtils.isAdmin(profile) && profileUtils.getSetting(profile, consts.settings.GHOST_MODE)) {
         data.ghost = true;
     }
 
-    players[socket.id] = data;
+    players[playerId] = data;
 
     broadcast(data);
 
-    console.log(socket.id + ' registered (service)');
+    console.log(playerId + ' registered (service)');
 };
 
-var update = function(socket, data, broadcast) {
-    if(players[socket.id]) {
-        var player = players[socket.id];
+var update = function(playerId, data, broadcast) {
+    if(players[playerId]) {
+        var player = players[playerId];
         player.position = data.position;
         broadcast(player);
     } else {
-        console.log('trying to update position of ' + socket.id + ' but it is not registered yet');
+        console.log('trying to update position of ' + playerId + ' but it is not registered yet');
     }
 };
 
-var disconnect = function(socket, broadcast) {
-    delete players[socket.id];
-    broadcast(socket.id);
+var disconnect = function(playerId, broadcast) {
+    delete players[playerId];
+    broadcast(playerId);
 
-    console.log(socket.id + ' disconnected (service)');
+    console.log(playerId + ' disconnected (service)');
 };
 
 module.exports = {

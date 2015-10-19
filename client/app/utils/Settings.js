@@ -1,21 +1,16 @@
-var auth = require('../auth/Profile');
+var profile = require('../auth/Profile');
 var events = require('../Events');
 var consts = require('../../../shared/constants');
+var profileUtils = require('../../../shared/profileUtils');
 
 var get = function(setting) {
-    var value = auth.getMetadataField(setting.name);
-
-    if (value === undefined) {
-        return setting.defaultValue;
-    }
-
-    return value;
+    return profileUtils.getSetting(profile.getProfile(), setting);
 };
 
 var set = function(setting, value) {
     var payload = {};
     payload[setting.name] = value;
-    return auth.changeUserMetadata(payload);
+    return profile.changeUserMetadata(payload);
 };
 
 var onChange = function(setting, callback) {

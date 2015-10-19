@@ -2,6 +2,7 @@ var consts = require('../../../shared/constants');
 var req = require('../utils/Requests');
 var events = require('../Events');
 var logout = require('../auth/Logout');
+var utils = require('../../../shared/profileUtils');
 
 var profile;
 var auth0Base = 'https://' + consts.auth.AUTH0_DOMAIN + consts.auth.AUTH0_API;
@@ -31,21 +32,11 @@ var setProfile = function(val) {
 };
 
 var getRole = function() {
-    return profile.role || consts.auth.roles.USER;
+    return utils.getRole(profile);
 };
 
 var isAdmin = function() {
-    return getRole() === consts.auth.roles.ADMIN;
-};
-
-var getMetadataField = function(field) {
-    // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-
-    if (profile.user_metadata && profile.user_metadata[field] !== undefined) {
-        return profile.user_metadata[field];
-    };
-
-    // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+    return utils.isAdmin(profile);
 };
 
 module.exports = {
@@ -53,6 +44,5 @@ module.exports = {
     getProfile: getProfile,
     getRole: getRole,
     isAdmin: isAdmin,
-    changeUserMetadata: changeUserMetadata,
-    getMetadataField: getMetadataField
+    changeUserMetadata: changeUserMetadata
 };
