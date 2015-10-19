@@ -1,7 +1,7 @@
 var consts = require('../../../shared/Constants');
 var profileUtils = require('../../../shared/profileUtils');
 
-var players = [];
+var players = {};
 
 var register = function(playerId, profile, data, broadcast, emit) {
     for (var id in players) {
