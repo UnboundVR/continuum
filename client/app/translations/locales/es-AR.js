@@ -19,7 +19,14 @@ module.exports = {
         yourRoleIs: 'Tu rol es %{role}'
     },
     settings: {
-        dev: 'Soy programador/a'
+        dev: 'Soy programador/a',
+        ghostMode: 'Modo fantasma',
+        language: 'Idioma'
+    },
+    languages: {
+        es: 'Español (Arg)',
+        en: 'Inglés (EEUU)',
+        default: 'Predeterminado'
     },
     roles: {
         admin: 'Administrador/a',

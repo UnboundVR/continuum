@@ -35,7 +35,9 @@ var init = function() {
             //console.log(other.id + ' connected');
 
             players.others[other.id] = other;
-            addPlayerAvatar(other);
+            if(!other.ghost) {
+                addPlayerAvatar(other);
+            }
         });
 
         socket.on(consts.socket.playerSync.OTHER_DISCONNECT, function(id) {
@@ -43,7 +45,9 @@ var init = function() {
 
             var player = players.others[id];
             delete players.others[id];
-            removePlayerAvatar(player);
+            if(!player.ghost) {
+                removePlayerAvatar(player);
+            }
         });
 
         socket.on(consts.socket.playerSync.OTHER_CHANGE, function(other) {
@@ -52,7 +56,9 @@ var init = function() {
             var player = players.others[other.id];
             if (player) {
                 player.position = other.position;
-                movePlayerAvatar(player);
+                if(!player.ghost) {
+                    movePlayerAvatar(player);
+                }
             }
         });
 

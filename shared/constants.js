@@ -76,7 +76,12 @@ var consts = {
         },
         settings: {
             IS_DEVELOPER_CHECKBOX: 'iAmDev checkbox',
-            IS_DEVELOPER_CHECKBOX_LABEL: 'iAmDev-label'
+            IS_DEVELOPER_CHECKBOX_LABEL: 'iAmDev-label',
+            GHOST_MODE_CHECKBOX: 'ghostMode checkbox',
+            GHOST_MODE_CHECKBOX_LABEL: 'ghostMode-label',
+            GHOST_MODE_DIV: 'ghostMode',
+            LANGUAGE_LABEL: 'language-label',
+            LANGUAGE_SELECT: 'language-select'
         }
     },
     settings: {
@@ -87,6 +92,14 @@ var consts = {
         IS_DEVELOPER: {
             name: 'isDeveloper',
             defaultValue: false
+        },
+        GHOST_MODE: {
+            name: 'ghostMode',
+            defaultValue: false
+        },
+        LANGUAGE: {
+            name: 'language',
+            defaultValue: 'default'
         }
     },
     coding: {

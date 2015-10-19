@@ -1,8 +1,8 @@
 var consts = require('../../../shared/constants');
 var req = require('../utils/Requests');
 var events = require('../Events');
-var i18n = require('../translations/Polyglot');
 var logout = require('../auth/Logout');
+var utils = require('../../../shared/profileUtils');
 
 var profile;
 var auth0Base = 'https://' + consts.auth.AUTH0_DOMAIN + consts.auth.AUTH0_API;
@@ -31,31 +31,18 @@ var setProfile = function(val) {
     profile = val;
 };
 
-var getVocative = function() {
-    var vocative = i18n.t('vocatives.human');
-    if (profile.gender === consts.auth.GENDER_MALE) {
-        vocative = i18n.t('vocatives.gentleman');
-    } else if (profile.gender === consts.auth.GENDER_FEMALE) {
-        vocative = i18n.t('vocatives.lady');
-    }
-
-    return vocative;
+var getRole = function() {
+    return utils.getRole(profile);
 };
 
-var getMetadataField = function(field) {
-    // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-
-    if (profile.user_metadata && profile.user_metadata[field] !== undefined) {
-        return profile.user_metadata[field];
-    };
-
-    // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+var isAdmin = function() {
+    return utils.isAdmin(profile);
 };
 
 module.exports = {
     setProfile: setProfile,
     getProfile: getProfile,
-    getVocative: getVocative,
-    changeUserMetadata: changeUserMetadata,
-    getMetadataField: getMetadataField
+    getRole: getRole,
+    isAdmin: isAdmin,
+    changeUserMetadata: changeUserMetadata
 };

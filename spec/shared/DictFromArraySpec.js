@@ -5,7 +5,7 @@ test('dictFromArray returns empty dictionary from empty array', function(t) {
     var arr = [];
     var dict = dictFromArray(arr);
 
-    t.equal(Object.keys(dict).length, 0);
+    t.equal(Object.keys(dict).length, 0, 'result has no keys');
     t.end();
 });
 
@@ -26,8 +26,8 @@ test('dictFromArray stores items in dictionary according to key', function(t) {
 
     var dict = dictFromArray(arr, 'key');
 
-    t.equal(dict[key1].value, value1);
-    t.equal(dict[key2].value, value2);
-    t.equal(Object.keys(dict).length, arr.length);
+    t.equal(dict[key1].value, value1, 'first object in dictionary is correct');
+    t.equal(dict[key2].value, value2, 'second object in dictionary is correct');
+    t.equal(Object.keys(dict).length, arr.length, 'amount of keys in result is equal to length of array');
     t.end();
 });

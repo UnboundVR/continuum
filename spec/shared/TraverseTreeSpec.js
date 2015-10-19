@@ -2,7 +2,16 @@ var test = require('tape');
 var sinon = require('sinon');
 var traverseTree = require('../../shared/traverseTree');
 
-var contains = function(arr, item) {
+var contains = function(arr, items) {
+    for(var i = 0; i < items.length; i++) {
+        if(!containsItem(arr, items[i])) {
+            return false;
+        }
+    }
+    return true;
+};
+
+var containsItem = function(arr, item) {
     for (var i = 0; i < arr.length; i++) {
         if (arr[i] === item) {
             return true;
@@ -39,13 +48,8 @@ test('traverseTree recursively visits all children', function(t) {
         traversedList.push(item);
     });
 
-    t.ok(contains(traversedList, obj));
-    t.ok(contains(traversedList, obj2));
-    t.ok(contains(traversedList, 'some string'));
-    t.ok(contains(traversedList, 1));
-    t.ok(contains(traversedList, 2));
-    t.ok(contains(traversedList, 3));
-    t.equals(traversedList.length, 6);
+    t.ok(contains(traversedList, [obj, obj2, 'some string', 1, 2, 3]), 'contains all required items');
+    t.equals(traversedList.length, 6, 'has no more items');
     t.end();
 });
 
@@ -64,9 +68,7 @@ test('traverseTree keeps iterating an objects children even if the callback modi
         delete obj.children;
     });
 
-    t.ok(contains(traversedList, 1));
-    t.ok(contains(traversedList, 2));
-    t.ok(contains(traversedList, 3));
-    t.equals(traversedList.length, 3);
+    t.ok(contains(traversedList, [1, 2,3]), 'contains all required items');
+    t.equals(traversedList.length, 3, 'has no more items');
     t.end();
 });

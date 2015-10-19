@@ -2,13 +2,6 @@ var test = require('tape');
 var sinon = require('sinon');
 var CallbackList = require('../../shared/CallbackList');
 
-test('CallbackList does nothing if execute is called before pushing callbacks', function(t) {
-    t.plan(1);
-    var cl = new CallbackList();
-
-    t.doesNotThrow(cl.execute);
-});
-
 test('CallbackList executes callbacks with the payload passed', function(t) {
     var payload = 'payload';
     var callback1 = sinon.spy();
