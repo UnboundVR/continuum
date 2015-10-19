@@ -4,50 +4,64 @@ var scenes = require('./Scenes');
 var auth = require('./auth/Token');
 var world = require('./World');
 var io = require('socket.io-client');
-var three = require('three.js');
+var THREE = require('three.js');
+
+var loadExternal = require('./utils/LoadExternalScript');
 
 var socket;
 var players;
 
 var init = function() {
-    socket = io.connect(window.location.origin + consts.socket.playerSync.NAMESPACE, {
-        query: consts.auth.TOKEN_PARAM + '=' + auth.getToken()
+    loadExternal('http://threejs.org/examples/fonts/optimer_regular.typeface.js').then(function() {
+        socket = io.connect(window.location.origin + consts.socket.playerSync.NAMESPACE, {
+            query: consts.auth.TOKEN_PARAM + '=' + auth.getToken()
+        });
+
+        players = {
+            me: {
+                position: new THREE.Vector3(0, consts.firstPerson.INITIAL_Y, 0)
+            },
+            others: {}
+        };
+
+        socket.on('connect', function() {
+            //console.log('registering me (' + this.id + ')');
+
+            socket.emit(consts.socket.playerSync.REGISTER, players.me);
+            players.me.id = this.id;
+        });
+
+        socket.on(consts.socket.playerSync.OTHER_CONNECT, function(other) {
+            //console.log(other.id + ' connected');
+
+            players.others[other.id] = other;
+            addPlayerAvatar(other);
+        });
+
+        socket.on(consts.socket.playerSync.OTHER_DISCONNECT, function(id) {
+            //console.log(id + ' disconnected');
+
+            var player = players.others[id];
+            delete players.others[id];
+            removePlayerAvatar(player);
+        });
+
+        socket.on(consts.socket.playerSync.OTHER_CHANGE, function(other) {
+            //console.log(other.id + ' changed');
+
+            var player = players.others[other.id];
+            if (player) {
+                player.position = other.position;
+                movePlayerAvatar(player);
+            }
+        });
+
+        events.subscribe(consts.events.PLAYER_MOVED, playerMoved);
     });
+};
 
-    players = {
-        me: {
-            // FIXME un-hardcode, use real name...
-            name: 'YO',
-            position: new three.Vector3(0, consts.firstPerson.INITIAL_Y, 0)
-        },
-        others: {}
-    };
-
-    socket.on('connect', function() {
-        players.me.id = this.id;
-        socket.emit(consts.socket.playerSync.REGISTER, players.me);
-    });
-
-    socket.on(consts.socket.playerSync.OTHER_CONNECT, function(other) {
-        players.others[other.id] = other;
-        addPlayerAvatar(other);
-    });
-
-    socket.on(consts.socket.playerSync.OTHER_DISCONNECT, function(id) {
-        var player = players.others[id];
-        delete players.others[id];
-        removePlayerAvatar(player);
-    });
-
-    socket.on(consts.socket.playerSync.OTHER_CHANGE, function(data) {
-        var player = players.others[data.id];
-        if (player) {
-            player.position = data.position;
-            player.mesh.position.copy(data.position);
-        }
-    });
-
-    events.subscribe(consts.events.PLAYER_MOVED, playerMoved);
+var movePlayerAvatar = function(player) {
+    player.mesh.position.copy(player.position);
 };
 
 var removePlayerAvatar = function(player) {
@@ -55,17 +69,20 @@ var removePlayerAvatar = function(player) {
 };
 
 var addPlayerAvatar = function(player) {
-    // TODO use decent player model
-    var geometry = new three.BoxGeometry(40, 40, 40);
-    var texture = three.ImageUtils.loadTexture('assets/img/grass.jpg');
-    var material = new three.MeshBasicMaterial({map: texture});
-
-    var mesh = new three.Mesh(geometry, material);
-    mesh.position.copy(player.position);
-
-    player.mesh = mesh;
-
-    scenes.getScene().add(mesh);
+    // TODO use player model
+    var textGeometry = new THREE.TextGeometry(player.name, {
+        size: 24,
+        height: 1,
+        font: 'optimer'
+    });
+    var textMaterial = new THREE.MeshFaceMaterial([
+		new THREE.MeshBasicMaterial({ color: 0x00cc00}),
+		new THREE.MeshBasicMaterial({ color: 0x000000})
+	]);
+    var textMesh = new THREE.Mesh(textGeometry, textMaterial);
+    textMesh.position.copy(player.position);
+    player.mesh = textMesh;
+    scenes.getScene().add(textMesh);
 };
 
 var playerMoved = function(position) {

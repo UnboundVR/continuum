@@ -1,5 +1,5 @@
 var consts = require('../../shared/constants');
-var three = require('three.js');
+var THREE = require('three.js');
 var camera = require('./Camera');
 var pointerLock = require('./PointerLock');
 var tween = require('tween.js');
@@ -14,7 +14,7 @@ var currentRadius;
 var init = function() {
     createReticle();
 
-    var reticleContainer = new three.Object3D();
+    var reticleContainer = new THREE.Object3D();
     reticleContainer.add(mesh);
     camera.add(reticleContainer);
 
@@ -46,7 +46,7 @@ var updateTween = function(isIntersecting) {
         .to({radius: isIntersecting ? consts.reticle.LARGE_RADIUS : consts.reticle.SMALL_RADIUS}, consts.reticle.TWEEN_TIME)
         .easing(tween.Easing.Cubic.InOut)
         .onUpdate(function() {
-            var geometry = new three.CircleGeometry(this.radius, consts.reticle.SEGMENTS);
+            var geometry = new THREE.CircleGeometry(this.radius, consts.reticle.SEGMENTS);
             geometry.vertices.shift();
             mesh.geometry = geometry;
             currentRadius = this.radius;
@@ -57,14 +57,14 @@ var updateTween = function(isIntersecting) {
 };
 
 var createReticle = function() {
-    var geometry = new three.CircleGeometry(consts.reticle.SMALL_RADIUS, consts.reticle.SEGMENTS);
+    var geometry = new THREE.CircleGeometry(consts.reticle.SMALL_RADIUS, consts.reticle.SEGMENTS);
     geometry.vertices.shift();
 
-    var material = new three.LineBasicMaterial({
+    var material = new THREE.LineBasicMaterial({
         color: consts.reticle.COLOR
     });
 
-    mesh = new three.Line(geometry, material);
+    mesh = new THREE.Line(geometry, material);
     mesh.position.x = 0;
     mesh.position.y = 0;
     mesh.position.z = consts.reticle.Z_POSITION;

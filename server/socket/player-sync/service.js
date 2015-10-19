@@ -5,24 +5,31 @@ var register = function(socket, data, broadcast, emit) {
         emit(players[id]);
     }
 
-    // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-
-    data.name = socket.decoded_token.name;
-
-    // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+    data.name = socket.profile.name;
+    data.id = socket.id
 
     players[socket.id] = data;
+
     broadcast(data);
+
+    //console.log('registering ' + socket.id);
 };
 
 var update = function(socket, data, broadcast) {
-    players[socket.id] = data;
-    broadcast(data);
+    if(players[socket.id]) {
+        var player = players[socket.id];
+        player.position = data.position;
+        broadcast(player);
+    } else {
+        //console.log('trying to update position of ' + socket.id + ' but it is not registered yet');
+    }
 };
 
 var disconnect = function(socket, broadcast) {
     delete players[socket.id];
     broadcast(socket.id);
+
+    //console.log(socket.id + ' disconnected');
 };
 
 module.exports = {
