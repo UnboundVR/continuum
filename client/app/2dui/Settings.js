@@ -32,7 +32,9 @@ var configSettings = function() {
     var ghostModeCheckbox = htmlNode.getElementsByClassName(consts.ui.settings.GHOST_MODE_CHECKBOX)[0];
     ghostModeCheckbox.checked = ghostMode;
     ghostModeCheckbox.onchange = function(event) {
-        settings.set(consts.settings.GHOST_MODE, ghostModeCheckbox.checked);
+        settings.set(consts.settings.GHOST_MODE, ghostModeCheckbox.checked).then(function() {
+            window.location.reload();
+        });
     };
 
     var language = settings.get(consts.settings.LANGUAGE);

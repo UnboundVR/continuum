@@ -1,3 +1,5 @@
+var consts = require('../../../shared/Constants');
+
 var players = [];
 
 var register = function(socket, data, broadcast, emit) {
@@ -6,7 +8,12 @@ var register = function(socket, data, broadcast, emit) {
     }
 
     data.name = socket.profile.name;
-    data.id = socket.id
+    data.id = socket.id;
+
+    // TODO both for isAdmin and settings.get, create an abstraction in the server
+    if(socket.profile.role === consts.auth.roles.ADMIN && socket.profile.user_metadata[consts.settings.GHOST_MODE.name]) {
+        data.ghost = true;
+    }
 
     players[socket.id] = data;
 
