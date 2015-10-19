@@ -1,7 +1,7 @@
 var consts = require('../../../shared/constants');
 var events = require('../Events');
 var settings = require('../utils/Settings');
-var i18n = require('../translations/Polyglot');
+var i18n = require('../translations/I18n');
 
 var buildHTMLNode = require('../utils/BuildHTMLNode');
 var html = require('../../../assets/html/Help.html');

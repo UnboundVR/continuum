@@ -1,7 +1,7 @@
 var consts = require('../../../shared/constants');
 var req = require('../utils/Requests');
 var events = require('../Events');
-var i18n = require('../translations/Polyglot');
+var i18n = require('../translations/I18n');
 var logout = require('../auth/Logout');
 
 var profile;

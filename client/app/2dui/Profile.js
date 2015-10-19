@@ -1,4 +1,4 @@
-var i18n = require('../translations/Polyglot');
+var i18n = require('../translations/I18n');
 var auth = require('../auth/Profile');
 var consts = require('../../../shared/constants');
 
