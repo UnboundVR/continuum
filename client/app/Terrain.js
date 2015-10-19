@@ -1,4 +1,3 @@
-var three = require('three.js');
 var scenes = require('./Scenes');
 var world = require('./World');
 
