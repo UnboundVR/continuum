@@ -7,6 +7,9 @@
 
         <script src="node_modules/es6-shim/es6-shim.min.js"></script>
         <script src="build/metavrse.js"></script>
+        <script src="assets/janus/jquery.min.js"></script>
+        <script src="assets/janus/adapter.js"></script>
+        <script src="assets/janus/janus.js"></script>
 
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
 
@@ -17,5 +20,13 @@
     <body>
       	<div id="threejs-container"></div>
         <div id="ui-container"></div>
+
+        <script>
+            var janus = new Janus({
+                server: ['ws://unboundvr.com:8188','http://unboundvr.com:8088/janus']
+            });
+
+            //console.log(janus.isConnected());
+        </script>
     </body>
 </html>

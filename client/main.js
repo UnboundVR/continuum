@@ -10,7 +10,6 @@ require('./lib/three.js/effects/StereoEffect');
 require('./lib/three.js/renderers/CSS3DRenderer');
 require('./lib/three.js/utils/FontUtils');
 require('./lib/three.js/geometries/TextGeometry');
-require('./lib/Janus.js');
 
 // Modules that register to world
 require('./app/Renderer');
@@ -23,6 +22,5 @@ require('./app/KeyVR');
 require('./app/2dui/Container');
 require('./app/Performance');
 require('./app/utils/BrowserEvents');
-require('./app/RTC');
 
 app.run();
