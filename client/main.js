@@ -1,5 +1,5 @@
-var three = require('three.js');
-window.THREE = three;
+var THREE = require('three.js');
+window.THREE = THREE;
 
 var app = require('./app/App.js');
 

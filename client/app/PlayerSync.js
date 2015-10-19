@@ -4,7 +4,7 @@ var scenes = require('./Scenes');
 var auth = require('./auth/Token');
 var world = require('./World');
 var io = require('socket.io-client');
-var three = require('three.js');
+var THREE = require('three.js');
 
 var loadExternal = require('./utils/LoadExternalScript');
 
@@ -19,7 +19,7 @@ var init = function() {
 
         players = {
             me: {
-                position: new three.Vector3(0, consts.firstPerson.INITIAL_Y, 0)
+                position: new THREE.Vector3(0, consts.firstPerson.INITIAL_Y, 0)
             },
             others: {}
         };

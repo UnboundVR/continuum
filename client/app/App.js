@@ -1,4 +1,4 @@
-var three = require('three.js');
+var THREE = require('three.js');
 var detector = require('../lib/Detector');
 var renderer = require('./Renderer');
 var scenes = require('./Scenes');
@@ -11,7 +11,7 @@ var login = require('./auth/Login');
 var consts = require('../../shared/constants');
 
 var load = function(json) {
-    var objectLoader = new three.ObjectLoader();
+    var objectLoader = new THREE.ObjectLoader();
     objectLoader.parse(json.scene, function(object) {
         scenes.setScene(object);
         guiLoader.load(json);

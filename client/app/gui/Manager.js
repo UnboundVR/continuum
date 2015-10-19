@@ -1,12 +1,12 @@
 // Based on http://learningthreejs.com/blog/2013/04/30/closing-the-gap-between-html-and-webgl/
 var consts = require('../../../shared/constants');
-var three = require('three.js');
+var THREE = require('three.js');
 var scenes = require('../Scenes');
 
 var dict = {};
 
 var insertGUI = function(htmlNode, plane) {
-    var cssObject = new three.CSS3DObject(htmlNode);
+    var cssObject = new THREE.CSS3DObject(htmlNode);
     cssObject.position.copy(plane.position);
     cssObject.rotation.copy(plane.rotation);
     scenes.getCSS3DScene().add(cssObject);
@@ -38,10 +38,10 @@ var embedGUI = function(htmlNode, planeUUID) {
         current: cssObj
     };
 
-    var material = new three.MeshBasicMaterial();
+    var material = new THREE.MeshBasicMaterial();
     material.color.set(consts.colors.BLACK);
     material.opacity = 0;
-    material.blending = three.NoBlending;
+    material.blending = THREE.NoBlending;
     plane.material = material;
 };
 

@@ -4,10 +4,10 @@ var manager = require('./Manager');
 var dictFromArray = require('../../../shared/dictFromArray');
 var traverse = require('../../../shared/traverseTree');
 var buildHTMLNode = require('../utils/BuildHTMLNode');
-var three = require('three.js');
+var THREE = require('three.js');
 
 var load = function(json) {
-    var css3DScene = new three.Scene();
+    var css3DScene = new THREE.Scene();
     scenes.setCSS3DScene(css3DScene);
 
     var guiDict = dictFromArray(json.gui, 'uuid');

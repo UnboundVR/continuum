@@ -1,4 +1,4 @@
-var three = require('three.js');
+var THREE = require('three.js');
 var scenes = require('./Scenes');
 var camera = require('./Camera');
 var pointerLock = require('./PointerLock');
@@ -13,7 +13,7 @@ var lastIntersected;
 
 // TODO take this from a serious place (e.g. excluded objects could have a flag in scene.json?)
 var excludedObjects = ['Floor', 'Skybox'];
-var raycaster = new three.Raycaster();
+var raycaster = new THREE.Raycaster();
 
 var init = function() {
     window.addEventListener(consts.browserEvents.MOUSE_DOWN, onMouseDown, false);
@@ -32,7 +32,7 @@ var animate = function() {
         return;
     }
 
-    raycaster.setFromCamera(new three.Vector2(0, 0), camera);
+    raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
     var intersects = raycaster.intersectObjects(scenes.getScene().children);
 
     intersects = intersects.filter(function(item) {

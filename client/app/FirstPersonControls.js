@@ -1,5 +1,5 @@
 var consts = require('../../shared/constants');
-var three = require('three.js');
+var THREE = require('three.js');
 var events = require('./Events');
 var world = require('./World');
 var keyVR = require('./KeyVR');
@@ -18,13 +18,13 @@ var move = {
 
 var canJump = true;
 var running = false;
-var velocity = new three.Vector3();
-var lastPosition = new three.Vector3();
+var velocity = new THREE.Vector3();
+var lastPosition = new THREE.Vector3();
 var floor;
 
 var collidableObjects = [];
 
-var controls = new three.PointerLockControls(camera);
+var controls = new THREE.PointerLockControls(camera);
 
 var init = function() {
     events.subscribe(consts.events.POINTER_LOCK_CHANGE, function(locked) {
@@ -83,7 +83,7 @@ var init = function() {
     keyVR.onKeyUp(onKeyEvent);
     keyVR.onMouseMove(controls.move);
 
-    raycaster = new three.Raycaster(new three.Vector3(), new three.Vector3(0, -1, 0), 0, 10);
+    raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, -1, 0), 0, 10);
 
     world.onLoop(animate);
 };
