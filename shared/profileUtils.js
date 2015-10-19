@@ -1,4 +1,4 @@
-var consts = require('./Constants');
+var consts = require('./constants');
 
 var getRole = function(profile) {
     return profile.role || consts.auth.roles.USER;

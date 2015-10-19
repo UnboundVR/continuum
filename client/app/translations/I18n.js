@@ -1,7 +1,7 @@
 var settings = require('../utils/Settings');
 var Polyglot = require('node-polyglot');
 var languages = require('./Languages');
-var consts = require('../../../shared/Constants');
+var consts = require('../../../shared/constants');
 var world = require('../World');
 
 var getDefaultLanguage = function() {
