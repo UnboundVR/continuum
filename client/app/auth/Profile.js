@@ -31,6 +31,14 @@ var setProfile = function(val) {
     profile = val;
 };
 
+var getRole = function() {
+    return profile.role || consts.auth.roles.USER;
+};
+
+var isAdmin = function() {
+    return getRole() === consts.auth.roles.ADMIN;
+};
+
 var getVocative = function() {
     var vocative = i18n.t('vocatives.human');
     if (profile.gender === consts.auth.GENDER_MALE) {
@@ -56,6 +64,8 @@ module.exports = {
     setProfile: setProfile,
     getProfile: getProfile,
     getVocative: getVocative,
+    getRole: getRole,
+    isAdmin: isAdmin,
     changeUserMetadata: changeUserMetadata,
     getMetadataField: getMetadataField
 };

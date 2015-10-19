@@ -19,7 +19,9 @@ module.exports = {
         yourRoleIs: 'Your role is %{role}'
     },
     settings: {
-        dev: 'I\'m a dev'
+        dev: 'I\'m a dev',
+        ghostMode: 'Ghost mode',
+        language: 'Language'
     },
     roles: {
         admin: 'Admin',

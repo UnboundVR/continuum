@@ -33,42 +33,91 @@
 }
 
 /* .iAmDev */
-.iAmDev {
+#ui-container .settingsPanel .iAmDev {
 	margin: 0 auto;
 	margin-top: 10px;
 	width: 160px;
 }
-.iAmDev label {
+#ui-container .settingsPanel .iAmDev label {
 	float: left;
 	cursor: pointer;
 }
-.iAmDev label:after {
+#ui-container .settingsPanel .iAmDev label:after {
   content: '';
   width: 9px;
   height: 5px;
   float: left;
-	margin: 4px 8px 4px 4px;
+  margin: 4px 8px 4px 4px;
   border: 3px solid #fcfff4;
   border-top: none;
   border-right: none;
   background: transparent;
   opacity: 0.2;
-	cursor: pointer;
+  cursor: pointer;
   -webkit-transform: rotate(-45deg);
       -ms-transform: rotate(-45deg);
           transform: rotate(-45deg);
 }
-.iAmDev label:hover::after {
+#ui-container .settingsPanel .iAmDev label:hover::after {
   opacity: 0.4;
 }
-.iAmDev input[type=checkbox] {
+#ui-container .settingsPanel .iAmDev input[type=checkbox] {
   visibility: hidden;
 }
-.iAmDev input[type=checkbox]:checked + label:after {
+#ui-container .settingsPanel .iAmDev input[type=checkbox]:checked + label:after {
   opacity: 1;
 }
 
-/* end .showAtStartup */
+/* .ghostMode */
+#ui-container .settingsPanel .ghostMode {
+	margin: 0 auto;
+	margin-top: 10px;
+	width: 160px;
+}
+#ui-container .settingsPanel .ghostMode label {
+	float: left;
+	cursor: pointer;
+}
+#ui-container .settingsPanel .ghostMode label:after {
+  content: '';
+  width: 9px;
+  height: 5px;
+  float: left;
+  margin: 4px 8px 4px 4px;
+  border: 3px solid #fcfff4;
+  border-top: none;
+  border-right: none;
+  background: transparent;
+  opacity: 0.2;
+  cursor: pointer;
+  -webkit-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+#ui-container .settingsPanel .ghostMode label:hover::after {
+  opacity: 0.4;
+}
+#ui-container .settingsPanel .ghostMode input[type=checkbox] {
+  visibility: hidden;
+}
+#ui-container .settingsPanel .ghostMode input[type=checkbox]:checked + label:after {
+  opacity: 1;
+}
+
+/* .language */
+#ui-container .settingsPanel .language {
+	margin: 0 auto;
+	margin-top: 45px;
+	width: 160px;
+}
+#ui-container .settingsPanel .language label {
+	float: left;
+	cursor: pointer;
+}
+#ui-container .settingsPanel .language-select {
+    margin: 4px 8px 4px 4px;
+    cursor: pointer;
+}
 
 @media (max-width:768px) {
 	#ui-container .settingsPanel {

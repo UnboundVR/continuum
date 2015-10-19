@@ -22,9 +22,9 @@ var init = function() {
     mail.innerHTML = profile.email;
 
     var role = htmlNode.getElementsByClassName(consts.ui.profile.ROLE)[0];
-    role.className += ' ' + (profile.role || consts.auth.roles.USER);
+    role.className += ' ' + auth.getRole();
     role.setAttribute('title', i18n.t('profile.yourRoleIs', {
-        role: i18n.t('roles.' + (profile.role || consts.auth.roles.USER))
+        role: i18n.t('roles.' + auth.getRole())
     }));
 };
 
