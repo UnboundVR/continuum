@@ -13,6 +13,7 @@ var loading = require('./Loading');
 
 var load = function(json) {
     var objectLoader = new THREE.ObjectLoader();
+    objectLoader.setCrossOrigin('anonymous');
     objectLoader.parse(json.scene, function(object) {
         scenes.setScene(object);
         guiLoader.load(json);
