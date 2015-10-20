@@ -6,10 +6,11 @@ var profile = require('./Profile');
 var auth0 = require('./Auth0');
 
 module.exports = function() {
-    var fetchProfile = function(idToken) {
+    var fetchProfile = function() {
         return new Promise(function(resolve, reject) {
-            auth0.getProfile(idToken, function(err, userProfile) {
-                window.location.hash = '';
+            token.processIdToken();
+            auth0.getProfile(token.getToken(), function(err, userProfile) {
+                token.clearHash();
 
                 if (err) {
                     logout();
@@ -23,7 +24,5 @@ module.exports = function() {
 
     events.subscribe(consts.events.LOGOUT, logout);
 
-    return token.processIdToken().then(function(idToken) {
-        return fetchProfile(idToken);
-    });
+    return fetchProfile();
 };
