@@ -186,6 +186,6 @@
         }
     ],
     "remote": [
-        "http://localhost:1337/assets/continuumroom.json"
+        "http://metavrse.io/public/continuum-room/continuumroom.json"
     ]
 }
