@@ -1,3 +1,5 @@
+// Creates, moves and deletes other player's avatars.
+
 var scenes = require('../Scenes');
 var THREE = require('three.js');
 
@@ -25,9 +27,9 @@ var add = function(player) {
     var map = new THREE.Texture(canvas);
     map.needsUpdate = true;
 
-    var material = new THREE.SpriteMaterial( { map: map, color: 0xffffff, fog: true } );
-    var text = new THREE.Sprite( material );
-    text.scale.set(50,50,1);
+    var material = new THREE.SpriteMaterial({ map: map, color: 0xffffff, fog: true });
+    var text = new THREE.Sprite(material);
+    text.scale.set(50, 50, 1);
 
     text.position.copy(player.position);
     player.mesh = text;
