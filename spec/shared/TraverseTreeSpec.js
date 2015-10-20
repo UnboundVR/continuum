@@ -3,11 +3,12 @@ var sinon = require('sinon');
 var traverseTree = require('../../shared/traverseTree');
 
 var contains = function(arr, items) {
-    for(var i = 0; i < items.length; i++) {
-        if(!containsItem(arr, items[i])) {
+    for (var i = 0; i < items.length; i++) {
+        if (!containsItem(arr, items[i])) {
             return false;
         }
     }
+
     return true;
 };
 

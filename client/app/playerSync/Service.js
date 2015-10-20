@@ -1,3 +1,5 @@
+// Logical component of player sync.
+
 var avatars = require('./Avatars');
 var controls = require('../FirstPersonControls');
 
@@ -11,7 +13,7 @@ var getInitialPlayerInfo = function() {
 
 var otherConnect = function(other) {
     players[other.id] = other;
-    if(!other.ghost) {
+    if (!other.ghost) {
         avatars.add(other);
     }
 };
@@ -19,7 +21,7 @@ var otherConnect = function(other) {
 var otherDisconnect = function(id) {
     var player = players[id];
     delete players[id];
-    if(!player.ghost) {
+    if (!player.ghost) {
         avatars.remove(player);
     }
 };
@@ -27,7 +29,7 @@ var otherDisconnect = function(id) {
 var otherChange = function(other) {
     var player = players[other.id];
     player.position = other.position;
-    if(!player.ghost) {
+    if (!player.ghost) {
         avatars.move(player);
     }
 };
@@ -36,5 +38,6 @@ module.exports = {
     getInitialPlayerInfo: getInitialPlayerInfo,
     otherConnect: otherConnect,
     otherDisconnect: otherDisconnect,
-    otherChange: otherChange
+    otherChange: otherChange,
+    players: players
 };

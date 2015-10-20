@@ -69,7 +69,7 @@ var init = function() {
         languageSelect.appendChild(option);
     });
 
-    if(!profile.isAdmin()) {
+    if (!profile.isAdmin()) {
         var div = htmlNode.getElementsByClassName(consts.ui.settings.GHOST_MODE_DIV)[0];
         div.style.display = 'none';
     }

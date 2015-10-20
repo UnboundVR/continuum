@@ -1,3 +1,5 @@
+// Communicates with the player sync socket.io server.
+
 var consts = require('../../../shared/constants');
 var events = require('../Events');
 var auth = require('../auth/Token');

@@ -1,6 +1,6 @@
 var test = require('tape');
 var sinon = require('sinon');
-var proxyquire = require('proxyquire');
+var proxyquire = require('proxyquire').noCallThru();
 
 var isAdmin = false;
 var ghostMode = false;
@@ -12,12 +12,12 @@ var defaultProfileUtilsStub = {
 
 var setup = function(profileUtils) {
     return proxyquire('../../server/socket/player-sync/service', {'../../../shared/profileUtils': profileUtils || defaultProfileUtilsStub});
-}
+};
 
 test('PlayerSync::register emits back all logged users', function(t) {
     var playerSync = setup();
-    playerSync.players['player1ID'] = 'player1';
-    playerSync.players['player2ID'] = 'player2';
+    playerSync.players.player1ID = 'player1';
+    playerSync.players.player2ID = 'player2';
     var emit = sinon.spy();
 
     playerSync.register('whatever', {}, {}, sinon.stub(), emit);
@@ -26,7 +26,6 @@ test('PlayerSync::register emits back all logged users', function(t) {
     t.ok(emit.calledWith('player1') && emit.calledWith('player2'), 'emit is called with the players data as payload');
     t.end();
 });
-
 
 test('PlayerSync::register stores name and ID', function(t) {
     var playerSync = setup();
@@ -48,10 +47,11 @@ test('PlayerSync::register processes ghost mode if user is admin', function(t) {
         getSetting: sinon.stub().returns(true)
     };
     var playerSync = setup(ghost);
+    var id = 'someId';
 
-    playerSync.register('someId', {}, {}, sinon.stub(), sinon.stub());
+    playerSync.register(id, {}, {}, sinon.stub(), sinon.stub());
 
-    t.equal(playerSync.players['someId'].ghost, true, 'player is ghost');
+    t.equal(playerSync.players[id].ghost, true, 'player is ghost');
     t.end();
 });
 
@@ -61,19 +61,21 @@ test('PlayerSync::register doesnt process ghost mode if user isnt admin', functi
         getSetting: sinon.stub().returns(true)
     };
     var playerSync = setup(fakeGhost);
+    var id = 'someId';
 
-    playerSync.register('someId', {}, {}, sinon.stub(), sinon.stub());
+    playerSync.register(id, {}, {}, sinon.stub(), sinon.stub());
 
-    t.notEqual(playerSync.players['someId'].ghost, true, 'player isnt ghost');
+    t.notEqual(playerSync.players[id].ghost, true, 'player isnt ghost');
     t.end();
 });
 
 test('PlayerSync::register stores the user in players list by ID', function(t) {
     var playerSync = setup();
+    var id = 'someId';
 
-    playerSync.register('someId', {}, {}, sinon.stub(), sinon.stub());
+    playerSync.register(id, {}, {}, sinon.stub(), sinon.stub());
 
-    t.equal(playerSync.players['someId'].id, 'someId', 'player is stored by id');
+    t.equal(playerSync.players[id].id, id, 'player is stored by id');
     t.end();
 });
 
@@ -81,41 +83,45 @@ test('PlayerSync::register broadcasts user info', function(t) {
     var playerSync = setup();
     var profile = {name: 'some name'};
     var broadcast = sinon.spy();
+    var id = 'someId';
 
-    playerSync.register('someId', profile, {stuff: 'leStuff'}, broadcast, sinon.stub());
+    playerSync.register(id, profile, {stuff: 'leStuff'}, broadcast, sinon.stub());
 
     t.ok(broadcast.calledOnce, 'broadcast is called once');
-    t.ok(broadcast.calledWith, playerSync.players['someId']);
+    t.ok(broadcast.calledWith(playerSync.players[id]), 'broadcast is called with player info');
     t.end();
 });
 
 test('PlayerSync::update does nothing if player does not exist', function(t) {
     var playerSync = setup();
     var broadcast = sinon.spy();
+    var id = 'someId';
 
-    playerSync.update('someId', {position: 2}, broadcast);
+    playerSync.update(id, {position: 2}, broadcast);
 
     t.false(broadcast.called, 'brodcast should not be called');
-    t.equal(playerSync['someId'], undefined, 'no new entry should be created');
+    t.equal(playerSync[id], undefined, 'no new entry should be created');
     t.end();
 });
 
 test('PlayerSync::update stores position', function(t) {
     var playerSync = setup();
-    playerSync.players['someId'] = {position: 1};
+    var id = 'someId';
+    playerSync.players[id] = {position: 1};
 
-    playerSync.update('someId', {position: 2}, sinon.stub());
+    playerSync.update(id, {position: 2}, sinon.stub());
 
-    t.equal(playerSync.players['someId'].position, 2, 'position is updated');
+    t.equal(playerSync.players[id].position, 2, 'position is updated');
     t.end();
 });
 
 test('PlayerSync::update doesnt change name, id or ghost mode', function(t) {
     var playerSync = setup();
-    playerSync.players['someId'] = {
+    var id = 'someId';
+    playerSync.players[id] = {
         position: 1,
         name: 'name',
-        id: 'someId',
+        id: id,
         ghost: false
     };
 
@@ -126,42 +132,45 @@ test('PlayerSync::update doesnt change name, id or ghost mode', function(t) {
         ghost: true
     };
 
-    playerSync.update('someId', maliciousPayload, sinon.stub());
+    playerSync.update(id, maliciousPayload, sinon.stub());
 
-    t.equal(playerSync.players['someId'].position, 2, 'position is updated');
-    t.equal(playerSync.players['someId'].id, 'someId', 'id isnt updated');
-    t.equal(playerSync.players['someId'].name, 'name', 'name isnt updated');
-    t.equal(playerSync.players['someId'].ghost, false, 'ghost isnt updated');
+    t.equal(playerSync.players[id].position, 2, 'position is updated');
+    t.equal(playerSync.players[id].id, id, 'id isnt updated');
+    t.equal(playerSync.players[id].name, 'name', 'name isnt updated');
+    t.equal(playerSync.players[id].ghost, false, 'ghost isnt updated');
     t.end();
 });
 
 test('PlayerSync::update broadcasts updated user info', function(t) {
     var playerSync = setup();
-    playerSync.players['someId'] = {position: 1};
+    var id = 'someId';
+    playerSync.players[id] = {position: 1};
     var broadcast = sinon.spy();
 
-    playerSync.update('someId', {position: 2}, broadcast);
+    playerSync.update(id, {position: 2}, broadcast);
 
-    t.ok(broadcast.calledWith(playerSync.players['someId']), 'broadcast is called with updated user info');
+    t.ok(broadcast.calledWith(playerSync.players[id]), 'broadcast is called with updated user info');
     t.end();
 });
 
 test('PlayerSync::disconnect broadcasts user ID', function(t) {
     var playerSync = setup();
     var broadcast = sinon.spy();
-    playerSync.players['someId'] = 'a player';
+    var id = 'someId';
+    playerSync.players[id] = 'a player';
 
-    playerSync.disconnect('someId', broadcast);
+    playerSync.disconnect(id, broadcast);
 
-    t.ok(broadcast.calledWith('someId'), 'broadcast is called with ID');
+    t.ok(broadcast.calledWith(id), 'broadcast is called with ID');
     t.end();
 });
 
 test('PlayerSync::disconnect does nothing if player did not exist', function(t) {
     var playerSync = setup();
     var broadcast = sinon.spy();
+    var id = 'someId';
 
-    playerSync.disconnect('someId', broadcast);
+    playerSync.disconnect(id, broadcast);
 
     t.false(broadcast.called, 'broadcast is not called');
     t.end();
@@ -169,10 +178,11 @@ test('PlayerSync::disconnect does nothing if player did not exist', function(t) 
 
 test('PlayerSync::disconnect deletes player', function(t) {
     var playerSync = setup();
-    playerSync.players['someId'] = 'some obj';
+    var id = 'someId';
+    playerSync.players[id] = 'some obj';
 
-    playerSync.disconnect('someId', sinon.stub());
+    playerSync.disconnect(id, sinon.stub());
 
-    t.equal(playerSync.players['someId'], undefined, 'player with that ID is deleted');
+    t.equal(playerSync.players[id], undefined, 'player with that ID is deleted');
     t.end();
 });

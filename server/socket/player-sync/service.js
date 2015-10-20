@@ -11,7 +11,7 @@ var register = function(playerId, profile, data, broadcast, emit) {
     data.name = profile.name;
     data.id = playerId;
 
-    if(profileUtils.isAdmin(profile) && profileUtils.getSetting(profile, consts.settings.GHOST_MODE)) {
+    if (profileUtils.isAdmin(profile) && profileUtils.getSetting(profile, consts.settings.GHOST_MODE)) {
         data.ghost = true;
     }
 
@@ -23,7 +23,7 @@ var register = function(playerId, profile, data, broadcast, emit) {
 };
 
 var update = function(playerId, data, broadcast) {
-    if(players[playerId]) {
+    if (players[playerId]) {
         var player = players[playerId];
         player.position = data.position;
         broadcast(player);
@@ -33,9 +33,10 @@ var update = function(playerId, data, broadcast) {
 };
 
 var disconnect = function(playerId, broadcast) {
-    if(players[playerId]) {
+    if (players[playerId]) {
         delete players[playerId];
         broadcast(playerId);
+
         // console.log(playerId + ' disconnected (service)');
     } else {
         // console.log('trying to disconnect ' + playerId + ' before registering');
