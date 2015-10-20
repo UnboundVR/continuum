@@ -15,7 +15,7 @@ require('./app/Renderer');
 require('./app/PointerLock');
 require('./app/FirstPersonControls');
 require('./app/ItemSelector');
-// require('./app/PlayerSync');
+// require('./app/playerSync/Controller');
 require('./app/Reticle');
 // require('./app/KeyVR');
 require('./app/2dui/Container');

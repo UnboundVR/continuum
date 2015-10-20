@@ -6,9 +6,14 @@ var init = function(io) {
     io.of(consts.socket.playerSync.NAMESPACE).use(auth.authorize);
 
     io.of(consts.socket.playerSync.NAMESPACE).on('connection', function(socket) {
-        console.log(socket.id + ' connected (controller)');
+        // console.log(socket.id + ' connected (controller)');
         socket.on(consts.socket.playerSync.REGISTER, function(data) {
             auth.getProfile(socket).then(function(profile) {
+                if(!socket.connected) {
+                    // console.log(socket.id + ' got disconnected before completing registration');
+                    return;
+                }
+
                 var broadcastConnect = function(player) {
                     socket.broadcast.emit(consts.socket.playerSync.OTHER_CONNECT, player);
                 };
@@ -30,7 +35,7 @@ var init = function(io) {
         });
 
         socket.on('disconnect', function() {
-            console.log(socket.id + ' disconnected (controller)');
+            // console.log(socket.id + ' disconnected (controller)');
             var broadcastDisconnect = function(playerId) {
                 socket.broadcast.emit(consts.socket.playerSync.OTHER_DISCONNECT, playerId);
             };
