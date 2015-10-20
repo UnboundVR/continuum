@@ -9,6 +9,11 @@ var init = function(io) {
         console.log(socket.id + ' connected (controller)');
         socket.on(consts.socket.playerSync.REGISTER, function(data) {
             auth.getProfile(socket).then(function(profile) {
+                if(!socket.connected) {
+                    console.log(socket.id + ' got disconnected before completing registration');
+                    return;
+                }
+
                 var broadcastConnect = function(player) {
                     socket.broadcast.emit(consts.socket.playerSync.OTHER_CONNECT, player);
                 };

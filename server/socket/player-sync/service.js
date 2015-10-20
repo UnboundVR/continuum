@@ -33,10 +33,13 @@ var update = function(playerId, data, broadcast) {
 };
 
 var disconnect = function(playerId, broadcast) {
-    delete players[playerId];
-    broadcast(playerId);
-
-    console.log(playerId + ' disconnected (service)');
+    if(players[playerId]) {
+        delete players[playerId];
+        broadcast(playerId);
+        console.log(playerId + ' disconnected (service)');
+    } else {
+        console.log('trying to disconnect ' + playerId + ' before registering');
+    }
 };
 
 module.exports = {

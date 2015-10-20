@@ -89,6 +89,17 @@ test('PlayerSync::register broadcasts user info', function(t) {
     t.end();
 });
 
+test('PlayerSync::update does nothing if player does not exist', function(t) {
+    var playerSync = setup();
+    var broadcast = sinon.spy();
+
+    playerSync.update('someId', {position: 2}, broadcast);
+
+    t.false(broadcast.called, 'brodcast should not be called');
+    t.equal(playerSync['someId'], undefined, 'no new entry should be created');
+    t.end();
+});
+
 test('PlayerSync::update stores position', function(t) {
     var playerSync = setup();
     playerSync.players['someId'] = {position: 1};
@@ -138,10 +149,21 @@ test('PlayerSync::update broadcasts updated user info', function(t) {
 test('PlayerSync::disconnect broadcasts user ID', function(t) {
     var playerSync = setup();
     var broadcast = sinon.spy();
+    playerSync.players['someId'] = 'a player';
 
     playerSync.disconnect('someId', broadcast);
 
     t.ok(broadcast.calledWith('someId'), 'broadcast is called with ID');
+    t.end();
+});
+
+test('PlayerSync::disconnect does nothing if player did not exist', function(t) {
+    var playerSync = setup();
+    var broadcast = sinon.spy();
+
+    playerSync.disconnect('someId', broadcast);
+
+    t.false(broadcast.called, 'broadcast is not called');
     t.end();
 });
 
