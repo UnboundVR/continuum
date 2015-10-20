@@ -19,7 +19,7 @@ var register = function(playerId, profile, data, broadcast, emit) {
 
     broadcast(data);
 
-    console.log(playerId + ' registered (service)');
+    // console.log(playerId + ' registered (service)');
 };
 
 var update = function(playerId, data, broadcast) {
@@ -28,7 +28,7 @@ var update = function(playerId, data, broadcast) {
         player.position = data.position;
         broadcast(player);
     } else {
-        console.log('trying to update position of ' + playerId + ' but it is not registered yet');
+        // console.log('trying to update position of ' + playerId + ' but it is not registered yet');
     }
 };
 
@@ -36,9 +36,9 @@ var disconnect = function(playerId, broadcast) {
     if(players[playerId]) {
         delete players[playerId];
         broadcast(playerId);
-        console.log(playerId + ' disconnected (service)');
+        // console.log(playerId + ' disconnected (service)');
     } else {
-        console.log('trying to disconnect ' + playerId + ' before registering');
+        // console.log('trying to disconnect ' + playerId + ' before registering');
     }
 };
 
