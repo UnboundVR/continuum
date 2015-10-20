@@ -93,7 +93,6 @@ var addPlayerAvatar = function(player) {
     text.position.copy(player.position);
     player.mesh = text;
     scenes.getScene().add(player.mesh);
-    console.log(player.mesh)
 };
 
 var playerMoved = function(position) {
