@@ -3,26 +3,28 @@ var scenes = require('./Scenes');
 var world = require('./World');
 
 var heightmapImage = new Image();
-heightmapImage.src = '/assets/img/terrain/heightmap.png';
+heightmapImage.crossOrigin = 'anonymous';
+heightmapImage.src = 'http://metavrse.io/public/images/terrain/heightmap.png';
 
 var blend;
 
 var init = function() {
-    THREE.ImageUtils.loadTexture('/assets/img/terrain/sand1.jpg', undefined, function (t1) {
+    THREE.ImageUtils.crossOrigin = 'anonymous';
+    THREE.ImageUtils.loadTexture('http://metavrse.io/public/images/terrain/sand1.jpg', undefined, function (t1) {
         t1.wrapS = t1.wrapT = THREE.RepeatWrapping;
-        var sand = new THREE.Mesh(
+        /*var sand = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(1024, 1024, 64, 64),
             new THREE.MeshLambertMaterial({map: t1})
         );
 
         sand.position.y = -101;
         sand.rotation.x = -0.5 * Math.PI;
-        //scene.getScene().add(sand);
-        THREE.ImageUtils.loadTexture('/assets/img/terrain/grass1.jpg', undefined, function (t2) {
+        scene.getScene().add(sand);*/
+        THREE.ImageUtils.loadTexture('http://metavrse.io/public/images/terrain/grass1.jpg', undefined, function (t2) {
             t2.wrapS = t2.wrapT = THREE.RepeatWrapping;
-            THREE.ImageUtils.loadTexture('/assets/img/terrain/stone1.jpg', undefined, function (t3) {
+            THREE.ImageUtils.loadTexture('http://metavrse.io/public/images/terrain/stone1.jpg', undefined, function (t3) {
                 t3.wrapS = t3.wrapT = THREE.RepeatWrapping;
-                THREE.ImageUtils.loadTexture('/assets/img/terrain/snow1.jpg', undefined, function (t4) {
+                THREE.ImageUtils.loadTexture('http://metavrse.io/public/images/terrain/snow1.jpg', undefined, function (t4) {
                     t4.wrapS = t4.wrapT = THREE.RepeatWrapping;
 
                     // t2.repeat.x = t2.repeat.y = 2;

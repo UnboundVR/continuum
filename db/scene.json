@@ -16,11 +16,11 @@
         "images": [
             {
                 "uuid": "77992DED-8BA5-40C0-8584-D5FE3EFDDF2E",
-                "url": "assets/img/galaxy-starfield.png"
+                "url": "http://metavrse.io/public/images/galaxy-starfield.png"
             },
             {
                 "uuid": "73945DB8-9696-443F-BF9A-B525DECFFA93",
-                "url": "assets/img/lowpolyart.png"
+                "url": "http://metavrse.io/public/images/lowpolyart.png"
             }
         ],
 
@@ -182,7 +182,7 @@
 	"gui": [
         {
             "uuid": "59720E50-E41F-48F4-8BC7-84B85060FE61",
-            "html": "<iframe id=\"player\" title=\"YouTube video player\" class=\"youtube-player\" type=\"text/html\" width=\"918\" height=\"524\" src=\"http://www.youtube.com/embed/LRhP4XAXoLI?enablejsapi=1&rel=0&autoplay=1&controls=0&fs=0&showinfo=0\" frameborder=\"0\" allowFullScreen></iframe>"
+            "html": "<iframe id=\"player\" title=\"YouTube video player\" class=\"youtube-player\" type=\"text/html\" width=\"918\" height=\"524\" src=\"http://www.youtube.com/embed/LRhP4XAXoLI?enablejsapi=1&rel=0&autoplay=0&controls=0&fs=0&showinfo=0\" frameborder=\"0\" allowFullScreen></iframe>"
         }
     ],
     "remote": [
