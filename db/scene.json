@@ -163,12 +163,12 @@
 	"gui": [
         {
             "uuid": "09C20E50-E41F-48F4-8BC7-84B85060FE61",
-            "html": "<h1 class=\"header\">Welcome to the Metaverse \\m/</h1><h2>Press the mouse mid button or f4 to toggle pointer lock</h2>",
+            "html": "<div id='localVideo'></div>",
             "css": ".header {color:red;}"
         },
         {
             "uuid": "EA9B9C85-99ED-4908-9BB4-139F81CF0319",
-            "html": "<h1 id=\"codingHeader\">Right click the cube to change its code</h1>"
+            "html": "<div id='remoteVideo'></div>"
         }
     ],
     "remote": []
