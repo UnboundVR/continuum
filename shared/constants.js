@@ -137,12 +137,12 @@ var consts = {
     },
     firstPerson: {
         JUMP_SPEED: 350,
-        INITIAL_Y: 600,
-        LOWEST_Y: 600,
+        INITIAL_Y: 300,
+        LOWEST_Y: 300,
         GRAVITY: 9.8,
         PLAYER_MASS: 75.0,
-        WALKING_SPEED: 12000,
-        RUNNING_SPEED: 40000,
+        WALKING_SPEED: 6000,
+        RUNNING_SPEED: 20000,
         DECELERATION: 10.0
     },
     socket: {

@@ -153,8 +153,8 @@
 				{
 					"uuid": "77992DED-8BA5-40C0-8584-D5FE3EFDDF2E",
 					"type": "Mesh",
-					"name": "LowPolyArt",
-					"matrix": [3.2277493476867676,0,0,0,0,4.558780670166016,0,0,0,0,3.799999952316284,0,-2455.95166015625,557.5,-1983.23486328125,1],
+					"name": "Logo",
+					"matrix": [1.61,0,0,0,0,2.27,0,0,0,0,1.9,0,-1200,280,-1000,1],
 					"geometry": "472FCB78-5711-4EC5-9F32-3DB75900DB6E",
 					"material": "504618F1-E1E5-4B5B-AE0F-CBD4CC8FE591"
 				},
@@ -164,7 +164,7 @@
 					"name": "Streaming panel",
                     "scripts": ["CB23862C-858D-410F-878C-00DDBAB7BCB8"],
 					"gui": "59720E50-E41F-48F4-8BC7-84B85060FE61",
-					"matrix": [9.739999771118164,0,0,0,0,5.650000095367432,0,0,0,0,3.799999952316284,0,-285.59002685546875,557.5,-3934.545654296875,1],
+					"matrix": [4.92,0,0,0,0,2.825,0,0,0,0,1.9,0,-143,280,-1980,1],
 					"geometry": "6504C98B-C1DC-4214-80E4-582C6DB521C3",
 					"material": "0D701989-9245-4AD4-8788-2FD969CA1D9A"
 				}
@@ -182,10 +182,10 @@
 	"gui": [
         {
             "uuid": "59720E50-E41F-48F4-8BC7-84B85060FE61",
-            "html": "<iframe id=\"player\" title=\"YouTube video player\" class=\"youtube-player\" type=\"text/html\" width=\"1940\" height=\"1080\" src=\"http://www.youtube.com/embed/LRhP4XAXoLI?enablejsapi=1&rel=0\" frameborder=\"0\" allowFullScreen></iframe>"
+            "html": "<iframe id=\"player\" title=\"YouTube video player\" class=\"youtube-player\" type=\"text/html\" width=\"918\" height=\"524\" src=\"http://www.youtube.com/embed/LRhP4XAXoLI?enablejsapi=1&rel=0&autoplay=1&controls=0&fs=0&showinfo=0\" frameborder=\"0\" allowFullScreen></iframe>"
         }
     ],
     "remote": [
-        "http://metavrse.io/public/continuum-room/continuumroom.json"
+        "http://localhost:1337/assets/continuumroom.json"
     ]
 }
