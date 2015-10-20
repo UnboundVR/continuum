@@ -8,8 +8,6 @@ var app = require('./app/App.js');
 require('./lib/three.js/controls/PointerLockControls');
 require('./lib/three.js/effects/StereoEffect');
 require('./lib/three.js/renderers/CSS3DRenderer');
-require('./lib/three.js/utils/FontUtils');
-require('./lib/three.js/geometries/TextGeometry');
 
 // Modules that register to world
 require('./app/Renderer');
