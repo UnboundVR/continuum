@@ -9,19 +9,15 @@ var THREE = require('three.js');
 var webrtc;
 
 var init = function() {
-    var presenter = settings.get(consts.settings.PRESENTER_MODE);
+    var isPresenter = settings.get(consts.settings.PRESENTER_MODE);
 
     var media = {
         audio: true,
-        video: false
+        video: isPresenter
     };
 
-    if (presenter) {
-        media.video = true;
-    }
-
     webrtc = new SimpleWebRTC({
-        localVideoEl: presenter ? 'localVideo' : '',
+        localVideoEl: isPresenter ? 'localVideo' : '',
         remoteVideosEl: '',
         autoRequestMedia: true,
         media: media,
@@ -34,14 +30,14 @@ var init = function() {
 
     webrtc.on('videoAdded', function(video, peer) {
         console.log(peer.nick + ' joined');
-        if(playerSync.getByEmail(peer.nick).presenter) {
+        if(!isPresenter && playerSync.getByEmail(peer.nick).presenter) {
             document.getElementById('remoteVideo').appendChild(video);
         };
     });
 
     webrtc.on('videoRemoved', function(video, peer) {
         console.log(peer.nick + ' left');
-        if(playerSync.getByEmail(peer.nick).presenter) {
+        if(!isPresenter && playerSync.getByEmail(peer.nick).presenter) {
             document.getElementById('remoteVideo').removeChild(video);
         };
     });
