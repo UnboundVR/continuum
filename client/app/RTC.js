@@ -1,13 +1,15 @@
 var world = require('./World');
 var SimpleWebRTC = require('simplewebrtc');
 var profile = require('./auth/Profile');
+var settings = require('./utils/Settings');
+var consts = require('../../shared/constants');
 var playerSync = require('./playerSync/Service');
 var THREE = require('three.js');
 
 var webrtc;
 
 var init = function() {
-    var presenter = false; // TODO fetch from auth0 setting
+    var presenter = settings.get(consts.settings.GHOST_MODE);
 
     var media = {
         audio: true,
@@ -54,7 +56,7 @@ var updateVolumes = function() {
                 if(volume > 1) {
                     volume = 1;
                 }
-                
+
                 peer.videoEl.volume = volume;
             }
         }
