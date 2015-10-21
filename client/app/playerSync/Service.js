@@ -20,17 +20,21 @@ var otherConnect = function(other) {
 
 var otherDisconnect = function(id) {
     var player = players[id];
-    delete players[id];
-    if (!player.presenter) {
-        avatars.remove(player);
+    if(player) {
+        delete players[id];
+        if (!player.presenter) {
+            avatars.remove(player);
+        }
     }
 };
 
 var otherChange = function(other) {
     var player = players[other.id];
-    player.position = other.position;
-    if (!player.presenter) {
-        avatars.move(player);
+    if(player) {
+        player.position = other.position;
+        if (!player.presenter) {
+            avatars.move(player);
+        }
     }
 };
 

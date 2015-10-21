@@ -134,3 +134,17 @@ test('PlayerSync::otherChange updates avatar position if it is not a presenter',
     t.ok(avatars.move.calledWith(nonPresenter), 'avatars.move is called with non presenter');
     t.end();
 });
+
+test('Calling PlayerSync::otherChange before register does nothing', function(t) {
+    var avatars = {
+        move: sinon.spy()
+    };
+    var playerSync = setup(avatars);
+    var id = 'some id';
+
+    playerSync.otherChange({id: id});
+
+    t.false(avatars.move.called, 'avatars.move is not called');
+    t.equals(playerSync.players[id], undefined, 'players list is unaltered');
+    t.end();
+});
