@@ -2,7 +2,7 @@ var world = require('./World');
 var SimpleWebRTC = require('simplewebrtc');
 
 var init = function() {
-    var presenter = false;
+    var presenter = true;
 
     var media = {
         audio: true,
@@ -14,8 +14,8 @@ var init = function() {
     }
 
     var webrtc = new SimpleWebRTC({
-        localVideoEl: '', // change depending on stuff
-        remoteVideosEl: '', // change depending on stuff
+        localVideoEl: 'localVideo', // change depending on stuff
+        remoteVideosEl: 'remoteVideo', // change depending on stuff
         autoRequestMedia: true,
         media: media
     });
@@ -26,7 +26,7 @@ var init = function() {
 
     webrtc.on('videoAdded', function(video, peer) {
         peer.videoEl.volume = 0.5;
-        console.log(peer.videoEl.volume)
+        console.log(peer);
     });
 };
 
