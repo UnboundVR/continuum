@@ -28,7 +28,7 @@ var init = function(io) {
 
         socket.on(consts.socket.playerSync.CHANGE, function(data) {
             var broadcastChange = function(player) {
-                socket.broadcast.emit(consts.socket.playerSync.OTHER_CHANGE, player);
+                socket.broadcast.volatile.emit(consts.socket.playerSync.OTHER_CHANGE, player);
             };
 
             service.update(socket.id, data, broadcastChange);
