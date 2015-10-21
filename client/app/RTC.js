@@ -25,7 +25,7 @@ var init = function() {
         autoRequestMedia: true,
         media: media,
         nick: profile.getProfile().email,
-        url: 'http://unboundvr.com:8088'
+        url: 'https://unboundvr.com:8088'
     });
 
     webrtc.on('readyToCall', function () {
