@@ -9,7 +9,7 @@ var THREE = require('three.js');
 var webrtc;
 
 var init = function() {
-    var presenter = settings.get(consts.settings.GHOST_MODE);
+    var presenter = settings.get(consts.settings.PRESENTER_MODE);
 
     var media = {
         audio: true,
