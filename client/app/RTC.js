@@ -10,7 +10,6 @@ var webrtc;
 
 var init = function() {
     var presenter = settings.get(consts.settings.GHOST_MODE);
-    console.log(presenter)
 
     var media = {
         audio: true,
