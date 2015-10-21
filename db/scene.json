@@ -164,7 +164,6 @@
         {
             "uuid": "09C20E50-E41F-48F4-8BC7-84B85060FE61",
             "html": "<div id='localVideo'></div>",
-            "css": ".header {color:red;}"
         },
         {
             "uuid": "EA9B9C85-99ED-4908-9BB4-139F81CF0319",
