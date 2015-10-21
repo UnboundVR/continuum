@@ -24,7 +24,8 @@ var init = function() {
         remoteVideosEl: '',
         autoRequestMedia: true,
         media: media,
-        nick: profile.getProfile().email
+        nick: profile.getProfile().email,
+        url: 'http://unboundvr.com:8088'
     });
 
     webrtc.on('readyToCall', function () {
