@@ -13,7 +13,7 @@ var getPlayerInfo = function() {
 
 var otherConnect = function(other) {
     players[other.id] = other;
-    if (!other.ghost) {
+    if (!other.presenter) {
         avatars.add(other);
     }
 };
@@ -21,7 +21,7 @@ var otherConnect = function(other) {
 var otherDisconnect = function(id) {
     var player = players[id];
     delete players[id];
-    if (!player.ghost) {
+    if (!player.presenter) {
         avatars.remove(player);
     }
 };
@@ -29,7 +29,7 @@ var otherDisconnect = function(id) {
 var otherChange = function(other) {
     var player = players[other.id];
     player.position = other.position;
-    if (!player.ghost) {
+    if (!player.presenter) {
         avatars.move(player);
     }
 };

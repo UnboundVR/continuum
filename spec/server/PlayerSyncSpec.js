@@ -3,7 +3,7 @@ var sinon = require('sinon');
 var proxyquire = require('proxyquire').noCallThru();
 
 var isAdmin = false;
-var ghostMode = false;
+var presenterMode = false;
 
 var defaultProfileUtilsStub = {
     isAdmin: sinon.stub().returns(false),
@@ -46,31 +46,31 @@ test('PlayerSync::register stores name, email and ID', function(t) {
     t.end();
 });
 
-test('PlayerSync::register processes ghost mode if user is admin', function(t) {
-    var ghost = {
+test('PlayerSync::register processes presenter mode if user is admin', function(t) {
+    var presenter = {
         isAdmin: sinon.stub().returns(true),
         getSetting: sinon.stub().returns(true)
     };
-    var playerSync = setup(ghost);
+    var playerSync = setup(presenter);
     var id = 'someId';
 
     playerSync.register(id, {}, {}, sinon.stub(), sinon.stub());
 
-    t.equal(playerSync.players[id].ghost, true, 'player is ghost');
+    t.equal(playerSync.players[id].presenter, true, 'player is presenter');
     t.end();
 });
 
-test('PlayerSync::register doesnt process ghost mode if user isnt admin', function(t) {
-    var fakeGhost = {
+test('PlayerSync::register doesnt process presenter mode if user isnt admin', function(t) {
+    var fakePresenter = {
         isAdmin: sinon.stub().returns(false),
         getSetting: sinon.stub().returns(true)
     };
-    var playerSync = setup(fakeGhost);
+    var playerSync = setup(fakePresenter);
     var id = 'someId';
 
     playerSync.register(id, {}, {}, sinon.stub(), sinon.stub());
 
-    t.notEqual(playerSync.players[id].ghost, true, 'player isnt ghost');
+    t.notEqual(playerSync.players[id].presenter, true, 'player isnt presenter');
     t.end();
 });
 
@@ -120,21 +120,21 @@ test('PlayerSync::update stores position', function(t) {
     t.end();
 });
 
-test('PlayerSync::update doesnt change name, id or ghost mode', function(t) {
+test('PlayerSync::update doesnt change name, id or presenter mode', function(t) {
     var playerSync = setup();
     var id = 'someId';
     playerSync.players[id] = {
         position: 1,
         name: 'name',
         id: id,
-        ghost: false
+        presenter: false
     };
 
     var maliciousPayload = {
         position: 2,
         name: 'other name',
         id: 'other id',
-        ghost: true
+        presenter: true
     };
 
     playerSync.update(id, maliciousPayload, sinon.stub());
@@ -142,7 +142,7 @@ test('PlayerSync::update doesnt change name, id or ghost mode', function(t) {
     t.equal(playerSync.players[id].position, 2, 'position is updated');
     t.equal(playerSync.players[id].id, id, 'id isnt updated');
     t.equal(playerSync.players[id].name, 'name', 'name isnt updated');
-    t.equal(playerSync.players[id].ghost, false, 'ghost isnt updated');
+    t.equal(playerSync.players[id].presenter, false, 'presenter isnt updated');
     t.end();
 });
 

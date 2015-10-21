@@ -68,17 +68,17 @@
   opacity: 1;
 }
 
-/* .ghostMode */
-#ui-container .settingsPanel .ghostMode {
+/* .presenterMode */
+#ui-container .settingsPanel .presenterMode {
 	margin: 0 auto;
 	margin-top: 10px;
 	width: 160px;
 }
-#ui-container .settingsPanel .ghostMode label {
+#ui-container .settingsPanel .presenterMode label {
 	float: left;
 	cursor: pointer;
 }
-#ui-container .settingsPanel .ghostMode label:after {
+#ui-container .settingsPanel .presenterMode label:after {
   content: '';
   width: 9px;
   height: 5px;
@@ -94,13 +94,13 @@
       -ms-transform: rotate(-45deg);
           transform: rotate(-45deg);
 }
-#ui-container .settingsPanel .ghostMode label:hover::after {
+#ui-container .settingsPanel .presenterMode label:hover::after {
   opacity: 0.4;
 }
-#ui-container .settingsPanel .ghostMode input[type=checkbox] {
+#ui-container .settingsPanel .presenterMode input[type=checkbox] {
   visibility: hidden;
 }
-#ui-container .settingsPanel .ghostMode input[type=checkbox]:checked + label:after {
+#ui-container .settingsPanel .presenterMode input[type=checkbox]:checked + label:after {
   opacity: 1;
 }
 

@@ -12,8 +12,8 @@ var register = function(playerId, profile, data, broadcast, emit) {
     data.id = playerId;
     data.email = profile.email;
 
-    if (profileUtils.isAdmin(profile) && profileUtils.getSetting(profile, consts.settings.GHOST_MODE)) {
-        data.ghost = true;
+    if (profileUtils.isAdmin(profile) && profileUtils.getSetting(profile, consts.settings.PRESENTER_MODE)) {
+        data.presenter = true;
     }
 
     players[playerId] = data;
