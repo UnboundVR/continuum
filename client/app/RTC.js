@@ -4,9 +4,12 @@ var profile = require('./auth/Profile');
 var settings = require('./utils/Settings');
 var consts = require('../../shared/constants');
 var playerSync = require('./playerSync/Service');
+var gui = require('./gui/Manager');
 var THREE = require('three.js');
 
 var webrtc;
+var videoPanel = 'F57146D0-9296-4408-B753-0532A3B8AC2F'; // FIXME hardcoded
+var presenter;
 
 var init = function() {
     var isPresenter = settings.get(consts.settings.PRESENTER_MODE);
@@ -30,15 +33,16 @@ var init = function() {
 
     webrtc.on('videoAdded', function(video, peer) {
         console.log(peer.nick + ' joined');
-        if(!isPresenter && playerSync.getByEmail(peer.nick).presenter) {
-            document.getElementById('remoteVideo').appendChild(video);
+        if(!presenter && !isPresenter && playerSync.getByEmail(peer.nick).presenter) {
+            presenter = peer.nick;
+            gui.beam(video, videoPanel);
         };
     });
 
     webrtc.on('videoRemoved', function(video, peer) {
         console.log(peer.nick + ' left');
-        if(!isPresenter && playerSync.getByEmail(peer.nick).presenter) {
-            document.getElementById('remoteVideo').removeChild(video);
+        if(!isPresenter && peer.nick === presenter) {
+            gui.cancel(videoPanel);
         };
     });
 };
