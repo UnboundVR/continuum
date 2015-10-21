@@ -27,7 +27,8 @@ var init = function() {
         autoRequestMedia: true,
         media: media,
         nick: userId,
-        url: 'http://unboundvr.com:8088'
+        url: 'http://unboundvr.com:8088',
+        debug: true
     });
 
     webrtc.on('readyToCall', function () {
@@ -37,7 +38,7 @@ var init = function() {
     webrtc.on('videoAdded', function(video, peer) {
         peer.getDataChannel('hark').onmessage = function(message) {
             var harkEvent = JSON.parse(message.data);
-            console.log(harkEvent);
+            // TODO dispatch event with this stuff so that the player sync avatar can use it
         }
         if(!presenter && playerSync.players[peer.nick] && playerSync.players[peer.nick].presenter) {
             presenter = peer.nick;
