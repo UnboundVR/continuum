@@ -21,7 +21,7 @@ var init = function() {
     }
 
     webrtc = new SimpleWebRTC({
-        localVideoEl: presenter ? 'localVideo' : '', // TODO add a div called localVideo to ui, and display that div ONLY if you're presenter
+        localVideoEl: presenter ? 'localVideo' : '',
         remoteVideosEl: '',
         autoRequestMedia: true,
         media: media,
@@ -34,12 +34,16 @@ var init = function() {
 
     webrtc.on('videoAdded', function(video, peer) {
         console.log(peer.nick + ' joined');
-        // TODO add video to dom element with id remoteVideo only if presenter left
+        if(playerSync.getByEmail(peer.nick).presenter) {
+            document.getElementById('remoteVideo').appendChild(video);
+        };
     });
 
     webrtc.on('videoRemoved', function(video, peer) {
         console.log(peer.nick + ' left');
-        // TODO remove video from dom element with id remoteVideo only if presenter left
+        if(playerSync.getByEmail(peer.nick).presenter) {
+            document.getElementById('remoteVideo').removeChild(video);
+        };
     });
 };
 
