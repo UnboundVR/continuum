@@ -11,6 +11,12 @@ canvas {
     pointer-events: none;
 }
 
+#localVideo {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+}
+
 #webGLRenderer {
     position: absolute;
     z-index: 1;
