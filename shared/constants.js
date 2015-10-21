@@ -23,7 +23,8 @@ var consts = {
         LOGOUT: 'logout',
         SHOW_SETTINGS: 'showSettings',
         SETTING_CHANGED: 'settingChanged',
-        PERFORMANCE_MODE: 'performanceMode'
+        PERFORMANCE_MODE: 'performanceMode',
+        PLAYER_SYNC_READY: 'playerSyncReady'
     },
     browserEvents: {
         KEY_DOWN: 'keydown',
