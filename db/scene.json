@@ -168,7 +168,7 @@
         },
         {
             "uuid": "EA9B9C85-99ED-4908-9BB4-139F81CF0319",
-            "html": "<div id='remoteVideo'></div>"
+            "html": "<h1 id=\"codingHeader\">Right click the cube to change its code</h1>"
         }
     ],
     "remote": []
