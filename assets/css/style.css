@@ -17,6 +17,11 @@ canvas {
     bottom: 5px;
 }
 
+#localVideo video {
+    width: 320px;
+    height: 240px;
+}
+
 #webGLRenderer {
     position: absolute;
     z-index: 1;
