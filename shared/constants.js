@@ -23,7 +23,8 @@ var consts = {
         LOGOUT: 'logout',
         SHOW_SETTINGS: 'showSettings',
         SETTING_CHANGED: 'settingChanged',
-        PERFORMANCE_MODE: 'performanceMode'
+        PERFORMANCE_MODE: 'performanceMode',
+        PLAYER_TALKING: 'playerTalking'
     },
     browserEvents: {
         KEY_DOWN: 'keydown',
@@ -158,7 +159,7 @@ var consts = {
             CHANGE: 'change',
             OTHER_CONNECT: 'other connect',
             OTHER_DISCONNECT: 'other disconnect',
-            OTHER_CHANGE: 'other change'
+            OTHER_CHANGE: 'other change',
         }
     },
     renderer: {

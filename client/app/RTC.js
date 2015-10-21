@@ -6,7 +6,6 @@ var consts = require('../../shared/constants');
 var playerSync = require('./playerSync/Service');
 var gui = require('./gui/Manager');
 var THREE = require('three.js');
-
 var webrtc;
 var videoPanel = 'F57146D0-9296-4408-B753-0532A3B8AC2F'; // FIXME hardcoded
 var presenter;
@@ -18,6 +17,21 @@ var init = function() {
         audio: true,
         video: isPresenter
     };
+
+    getUserMedia(function(err, stream) {
+        if (err) throw err;
+
+        var options = {};
+        var speechEvents = hark(stream, options);
+
+        speechEvents.on('speaking', function() {
+
+        });
+
+        speechEvents.on('stopped_speaking', function() {
+
+        });
+    });
 
     webrtc = new SimpleWebRTC({
         localVideoEl: isPresenter ? 'localVideo' : '',
