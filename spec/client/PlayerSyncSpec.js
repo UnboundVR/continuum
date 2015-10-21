@@ -95,6 +95,19 @@ test('PlayerSync::otherDisconnect removes avatar if it is not a presenter', func
     t.end();
 });
 
+test('Calling PlayerSync::otherDisconnect before register does nothing', function(t) {
+    var avatars = {
+        remove: sinon.spy()
+    };
+    var playerSync = setup(avatars);
+    var id = 'some id';
+
+    playerSync.otherDisconnect({id: id});
+
+    t.false(avatars.remove.called, 'avatars.remove is not called');
+    t.end();
+});
+
 test('PlayerSync::otherChange updates player position (even if it is a presenter)', function(t) {
     var playerSync = setup();
     var id = 'some id';
