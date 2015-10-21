@@ -78,9 +78,9 @@ var consts = {
         settings: {
             IS_DEVELOPER_CHECKBOX: 'iAmDev checkbox',
             IS_DEVELOPER_CHECKBOX_LABEL: 'iAmDev-label',
-            GHOST_MODE_CHECKBOX: 'ghostMode checkbox',
-            GHOST_MODE_CHECKBOX_LABEL: 'ghostMode-label',
-            GHOST_MODE_DIV: 'ghostMode',
+            PRESENTER_MODE_CHECKBOX: 'presenterMode checkbox',
+            PRESENTER_MODE_CHECKBOX_LABEL: 'presenterMode-label',
+            PRESENTER_MODE_DIV: 'presenterMode',
             LANGUAGE_LABEL: 'language-label',
             LANGUAGE_SELECT: 'language-select'
         }
@@ -94,8 +94,8 @@ var consts = {
             name: 'isDeveloper',
             defaultValue: false
         },
-        GHOST_MODE: {
-            name: 'ghostMode',
+        PRESENTER_MODE: {
+            name: 'presenterMode',
             defaultValue: false
         },
         LANGUAGE: {

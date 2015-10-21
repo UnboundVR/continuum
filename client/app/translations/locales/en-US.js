@@ -20,7 +20,7 @@ module.exports = {
     },
     settings: {
         dev: 'I\'m a dev',
-        ghostMode: 'Ghost mode',
+        presenterMode: 'Presenter mode',
         language: 'Language'
     },
     languages: {
