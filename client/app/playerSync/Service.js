@@ -4,6 +4,7 @@ var avatars = require('./Avatars');
 var controls = require('../FirstPersonControls');
 
 var players = {};
+var me = {};
 
 var getPlayerInfo = function() {
     return {
@@ -38,20 +39,11 @@ var otherChange = function(other) {
     }
 };
 
-var getByEmail = function(email) {
-    for(var id in players) {
-        var player = players[id];
-        if(player.email === email) {
-            return player;
-        }
-    }
-};
-
 module.exports = {
     getPlayerInfo: getPlayerInfo,
     otherConnect: otherConnect,
     otherDisconnect: otherDisconnect,
     otherChange: otherChange,
     players: players,
-    getByEmail: getByEmail
+    me: me
 };

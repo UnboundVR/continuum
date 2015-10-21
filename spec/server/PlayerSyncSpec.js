@@ -14,19 +14,6 @@ var setup = function(profileUtils) {
     return proxyquire('../../server/socket/player-sync/service', {'../../../shared/profileUtils': profileUtils || defaultProfileUtilsStub});
 };
 
-test('PlayerSync::register emits back all logged users', function(t) {
-    var playerSync = setup();
-    playerSync.players.player1ID = 'player1';
-    playerSync.players.player2ID = 'player2';
-    var emit = sinon.spy();
-
-    playerSync.register('whatever', {}, {}, sinon.stub(), emit);
-
-    t.equal(emit.callCount, 2, 'emit is called once per player');
-    t.ok(emit.calledWith('player1') && emit.calledWith('player2'), 'emit is called with the players data as payload');
-    t.end();
-});
-
 test('PlayerSync::register stores name, email and ID', function(t) {
     var playerSync = setup();
     var name = 'target name';

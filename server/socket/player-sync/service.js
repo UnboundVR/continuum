@@ -3,16 +3,23 @@ var profileUtils = require('../../../shared/profileUtils');
 
 var players = {};
 
-var register = function(playerId, profile, data, broadcast, emit) {
-    for (var id in players) {
-        emit(players[id]);
+var noPresenters = function() {
+    for(var id in players) {
+        var player = players[id];
+        if(player.presenter) {
+            return false;
+        }
     }
+    
+    return true;
+};
 
+var register = function(playerId, profile, data, broadcast) {
     data.name = profile.name;
     data.id = playerId;
     data.email = profile.email;
 
-    if (profileUtils.isAdmin(profile) && profileUtils.getSetting(profile, consts.settings.PRESENTER_MODE)) {
+    if (profileUtils.isAdmin(profile) && profileUtils.getSetting(profile, consts.settings.PRESENTER_MODE) && noPresenters()) {
         data.presenter = true;
     }
 

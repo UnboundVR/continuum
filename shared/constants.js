@@ -24,7 +24,8 @@ var consts = {
         SHOW_SETTINGS: 'showSettings',
         SETTING_CHANGED: 'settingChanged',
         PERFORMANCE_MODE: 'performanceMode',
-        PLAYER_TALKING: 'playerTalking'
+        PLAYER_TALKING: 'playerTalking',
+        PLAYER_SYNC_READY: 'playerSyncReady'
     },
     browserEvents: {
         KEY_DOWN: 'keydown',

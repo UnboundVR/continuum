@@ -5,13 +5,18 @@ var settings = require('./utils/Settings');
 var consts = require('../../shared/constants');
 var playerSync = require('./playerSync/Service');
 var gui = require('./gui/Manager');
+var events = require('./Events');
 var THREE = require('three.js');
+var hark = require('hark');
+var getUserMedia = require('getusermedia');
+
 var webrtc;
 var videoPanel = 'F57146D0-9296-4408-B753-0532A3B8AC2F'; // FIXME hardcoded
 var presenter;
 
 var init = function() {
-    var isPresenter = settings.get(consts.settings.PRESENTER_MODE);
+    var userId = playerSync.me.id;
+    var isPresenter = playerSync.me.isPresenter;
 
     var media = {
         audio: true,
@@ -38,8 +43,8 @@ var init = function() {
         remoteVideosEl: '',
         autoRequestMedia: true,
         media: media,
-        nick: profile.getProfile().email,
-        url: 'https://unboundvr.com:8088'
+        nick: userId,
+        url: 'http://unboundvr.com:8088'
     });
 
     webrtc.on('readyToCall', function () {
@@ -47,25 +52,25 @@ var init = function() {
     });
 
     webrtc.on('videoAdded', function(video, peer) {
-        console.log(peer.nick + ' joined');
-        if(!presenter && !isPresenter && playerSync.getByEmail(peer.nick).presenter) {
+        if(!presenter && playerSync.players[peer.nick].presenter) {
             presenter = peer.nick;
             gui.beam(video, videoPanel);
         };
     });
 
     webrtc.on('videoRemoved', function(video, peer) {
-        console.log(peer.nick + ' left');
-        if(!isPresenter && peer.nick === presenter) {
+        if(peer.nick === presenter) {
             gui.cancel(videoPanel);
         };
     });
+
+    world.onLoop(updateVolumes);
 };
 
 var updateVolumes = function() {
     webrtc.getPeers().forEach(function(peer) {
         if(peer.videoEl) {
-            var player = playerSync.getByEmail(peer.nick);
+            var player = playerSync.players[peer.nick];
             if(player) {
                 var myPosition = playerSync.getPlayerInfo().position;
                 var p = player.position;
@@ -82,5 +87,4 @@ var updateVolumes = function() {
     });
 };
 
-world.onInit(init);
-world.onLoop(updateVolumes);
+events.subscribe(consts.events.PLAYER_SYNC_READY, init);
