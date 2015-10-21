@@ -2,6 +2,7 @@ var world = require('./World');
 var SimpleWebRTC = require('simplewebrtc');
 var profile = require('./auth/Profile');
 var playerSync = require('./playerSync/Service');
+var THREE = require('three.js');
 
 var webrtc;
 
@@ -43,9 +44,19 @@ var init = function() {
 var updateVolumes = function() {
     webrtc.getPeers().forEach(function(peer) {
         if(peer.videoEl) {
-            console.log('peer ' + peer.nick + ' has video', peer);
-            var distance = 2;
-            peer.videoEl.volume = 1 / distance;
+            var player = playerSync.getByEmail(peer.nick);
+            if(player) {
+                var myPosition = playerSync.getPlayerInfo().position;
+                var p = player.position;
+                var otherPosition = new THREE.Vector3(p.x, p.y, p.z);
+                var volume = 750 / myPosition.distanceTo(otherPosition);
+
+                if(volume > 1) {
+                    volume = 1;
+                }
+                
+                peer.videoEl.volume = volume;
+            }
         }
     });
 };
