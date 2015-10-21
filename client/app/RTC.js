@@ -27,7 +27,7 @@ var init = function() {
         autoRequestMedia: true,
         media: media,
         nick: userId,
-        url: 'https://unboundvr.com:8088'
+        url: 'http://unboundvr.com:8088'
     });
 
     webrtc.on('readyToCall', function () {
