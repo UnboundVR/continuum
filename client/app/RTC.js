@@ -26,7 +26,7 @@ var init = function() {
         remoteVideosEl: '',
         autoRequestMedia: true,
         media: media,
-        nick: userId
+        nick: userId,
         url: 'https://unboundvr.com:8088'
     });
 
