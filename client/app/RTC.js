@@ -6,7 +6,7 @@ var playerSync = require('./playerSync/Service');
 var webrtc;
 
 var init = function() {
-    var presenter = false;
+    var presenter = false; // TODO fetch from auth0 setting
 
     var media = {
         audio: true,
@@ -18,7 +18,7 @@ var init = function() {
     }
 
     webrtc = new SimpleWebRTC({
-        localVideoEl: presenter ? 'localVideo' : '',
+        localVideoEl: presenter ? 'localVideo' : '', // TODO add a div called localVideo to ui, and display that div ONLY if you're presenter
         remoteVideosEl: '',
         autoRequestMedia: true,
         media: media,
@@ -30,10 +30,14 @@ var init = function() {
     });
 
     webrtc.on('videoAdded', function(video, peer) {
-        peer.videoEl.volume = 0.5;
         console.log(peer.nick + ' joined');
+        // TODO add video to dom element with id remoteVideo only if presenter left
     });
 
+    webrtc.on('videoRemoved', function(video, peer) {
+        console.log(peer.nick + ' left');
+        // TODO remove video from dom element with id remoteVideo only if presenter left
+    });
 };
 
 var updateVolumes = function() {
