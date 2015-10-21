@@ -5,7 +5,7 @@ var controls = require('../FirstPersonControls');
 
 var players = {};
 
-var getInitialPlayerInfo = function() {
+var getPlayerInfo = function() {
     return {
         position: controls.getPosition()
     };
@@ -35,7 +35,7 @@ var otherChange = function(other) {
 };
 
 module.exports = {
-    getInitialPlayerInfo: getInitialPlayerInfo,
+    getPlayerInfo: getPlayerInfo,
     otherConnect: otherConnect,
     otherDisconnect: otherDisconnect,
     otherChange: otherChange,
