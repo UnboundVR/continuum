@@ -10,6 +10,7 @@ var register = function(playerId, profile, data, broadcast, emit) {
 
     data.name = profile.name;
     data.id = playerId;
+    data.email = profile.email;
 
     if (profileUtils.isAdmin(profile) && profileUtils.getSetting(profile, consts.settings.GHOST_MODE)) {
         data.ghost = true;
@@ -26,7 +27,10 @@ var update = function(playerId, data, broadcast) {
     if (players[playerId]) {
         var player = players[playerId];
         player.position = data.position;
-        broadcast(player);
+        broadcast({
+            id: playerId,
+            position: player.position
+        });
     } else {
         // console.log('trying to update position of ' + playerId + ' but it is not registered yet');
     }

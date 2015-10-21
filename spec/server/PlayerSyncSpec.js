@@ -27,17 +27,22 @@ test('PlayerSync::register emits back all logged users', function(t) {
     t.end();
 });
 
-test('PlayerSync::register stores name and ID', function(t) {
+test('PlayerSync::register stores name, email and ID', function(t) {
     var playerSync = setup();
     var name = 'target name';
+    var email = 'target email';
     var id = 'target ID';
-    var profile = {name: name};
+    var profile = {
+        name: name,
+        email: email
+    };
 
     playerSync.register(id, profile, {}, sinon.stub(), sinon.stub());
 
     t.equal(Object.keys(playerSync.players).length, 1, 'players list has one item');
     t.equal(playerSync.players[id].id, id, 'ID is stored');
     t.equal(playerSync.players[id].name, name, 'name is stored');
+    t.equal(playerSync.players[id].email, email, 'email is stored');
     t.end();
 });
 
@@ -141,7 +146,7 @@ test('PlayerSync::update doesnt change name, id or ghost mode', function(t) {
     t.end();
 });
 
-test('PlayerSync::update broadcasts updated user info', function(t) {
+test('PlayerSync::update broadcasts updated position', function(t) {
     var playerSync = setup();
     var id = 'someId';
     playerSync.players[id] = {position: 1};
@@ -149,7 +154,8 @@ test('PlayerSync::update broadcasts updated user info', function(t) {
 
     playerSync.update(id, {position: 2}, broadcast);
 
-    t.ok(broadcast.calledWith(playerSync.players[id]), 'broadcast is called with updated user info');
+    t.equal(broadcast.getCall(0).args[0].position, 2, 'broadcast is called with updated position');
+    t.equal(broadcast.getCall(0).args[0].id, id, 'broadcast is called with correct id');
     t.end();
 });
 
