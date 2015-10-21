@@ -15,7 +15,7 @@ var init = function() {
     });
 
     socket.on('connect', function() {
-        socket.emit(consts.socket.playerSync.REGISTER, service.getInitialPlayerInfo());
+        socket.emit(consts.socket.playerSync.REGISTER, service.getPlayerInfo());
     });
 
     events.subscribe(consts.events.PLAYER_MOVED, function(position) {

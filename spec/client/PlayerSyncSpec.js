@@ -19,10 +19,10 @@ var defaultControls = {
     getPosition: sinon.stub().returns('some vector')
 };
 
-test('PlayerSync::getInitialPlayerInfo gets position from first person controls', function(t) {
+test('PlayerSync::getPlayerInfo gets position from first person controls', function(t) {
     var playerSync = setup();
 
-    var playerInfo = playerSync.getInitialPlayerInfo();
+    var playerInfo = playerSync.getPlayerInfo();
 
     t.equals(playerInfo.position, 'some vector', 'position is brought from fp controls');
     t.end();
