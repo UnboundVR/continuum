@@ -27,7 +27,10 @@ var update = function(playerId, data, broadcast) {
     if (players[playerId]) {
         var player = players[playerId];
         player.position = data.position;
-        broadcast({position: player.position});
+        broadcast({
+            id: playerId,
+            position: player.position
+        });
     } else {
         // console.log('trying to update position of ' + playerId + ' but it is not registered yet');
     }
