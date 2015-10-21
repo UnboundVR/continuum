@@ -7,8 +7,6 @@ var playerSync = require('./playerSync/Service');
 var gui = require('./gui/Manager');
 var events = require('./Events');
 var THREE = require('three.js');
-var hark = require('hark');
-var getUserMedia = require('getusermedia');
 
 var webrtc;
 var videoPanel = 'F57146D0-9296-4408-B753-0532A3B8AC2F'; // FIXME hardcoded
@@ -23,34 +21,25 @@ var init = function() {
         video: isPresenter
     };
 
-    getUserMedia(function(err, stream) {
-        if (err) throw err;
-
-        var options = {};
-        var speechEvents = hark(stream, options);
-
-        speechEvents.on('speaking', function() {
-
-        });
-
-        speechEvents.on('stopped_speaking', function() {
-
-        });
-    });
-
     webrtc = new SimpleWebRTC({
         localVideoEl: isPresenter ? 'localVideo' : '',
         remoteVideosEl: '',
         autoRequestMedia: true,
         media: media,
-        nick: userId
+        nick: userId,
+        url: 'http://unboundvr.com:8088'
     });
 
     webrtc.on('readyToCall', function () {
-        webrtc.joinRoom('continuum2');
+        webrtc.joinRoom('continuum');
     });
 
     webrtc.on('videoAdded', function(video, peer) {
+        console.log(peer.getDataChannel('hark'))
+        peer.getDataChannel('hark').onmessage = function(message) {
+            var harkEvent = JSON.parse(message.data);
+            console.log(harkEvent);
+        }
         if(!presenter && playerSync.players[peer.nick] && playerSync.players[peer.nick].presenter) {
             presenter = peer.nick;
             gui.beam(video, videoPanel);
