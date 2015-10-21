@@ -35,7 +35,6 @@ var init = function() {
     });
 
     webrtc.on('videoAdded', function(video, peer) {
-        console.log(peer.getDataChannel('hark'))
         peer.getDataChannel('hark').onmessage = function(message) {
             var harkEvent = JSON.parse(message.data);
             console.log(harkEvent);
