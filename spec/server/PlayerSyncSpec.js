@@ -24,7 +24,7 @@ test('PlayerSync::register stores name, email and ID', function(t) {
         email: email
     };
 
-    playerSync.register(id, profile, {}, sinon.stub(), sinon.stub());
+    playerSync.register(id, profile, {}, sinon.stub());
 
     t.equal(Object.keys(playerSync.players).length, 1, 'players list has one item');
     t.equal(playerSync.players[id].id, id, 'ID is stored');
@@ -41,9 +41,26 @@ test('PlayerSync::register processes presenter mode if user is admin', function(
     var playerSync = setup(presenter);
     var id = 'someId';
 
-    playerSync.register(id, {}, {}, sinon.stub(), sinon.stub());
+    playerSync.register(id, {}, {}, sinon.stub());
 
     t.equal(playerSync.players[id].presenter, true, 'player is presenter');
+    t.end();
+});
+
+test('PlayerSync::register processes only one presenter', function(t) {
+    var presenter = {
+        isAdmin: sinon.stub().returns(true),
+        getSetting: sinon.stub().returns(true)
+    };
+    var playerSync = setup(presenter);
+    var id = 'someId';
+    var otherId = 'someOtherId';
+
+    playerSync.register(id, {}, {}, sinon.stub());
+    playerSync.register(otherId, {}, {}, sinon.stub());
+
+    t.true(playerSync.players[id].presenter, 'player is presenter');
+    t.false(playerSync.players[otherId].presenter, 'player is not presenter');
     t.end();
 });
 
@@ -55,9 +72,9 @@ test('PlayerSync::register doesnt process presenter mode if user isnt admin', fu
     var playerSync = setup(fakePresenter);
     var id = 'someId';
 
-    playerSync.register(id, {}, {}, sinon.stub(), sinon.stub());
+    playerSync.register(id, {}, {}, sinon.stub());
 
-    t.notEqual(playerSync.players[id].presenter, true, 'player isnt presenter');
+    t.false(playerSync.players[id].presenter, 'player is not presenter');
     t.end();
 });
 
@@ -65,7 +82,7 @@ test('PlayerSync::register stores the user in players list by ID', function(t) {
     var playerSync = setup();
     var id = 'someId';
 
-    playerSync.register(id, {}, {}, sinon.stub(), sinon.stub());
+    playerSync.register(id, {}, {}, sinon.stub());
 
     t.equal(playerSync.players[id].id, id, 'player is stored by id');
     t.end();
@@ -77,7 +94,7 @@ test('PlayerSync::register broadcasts user info', function(t) {
     var broadcast = sinon.spy();
     var id = 'someId';
 
-    playerSync.register(id, profile, {stuff: 'leStuff'}, broadcast, sinon.stub());
+    playerSync.register(id, profile, {stuff: 'leStuff'}, broadcast);
 
     t.ok(broadcast.calledOnce, 'broadcast is called once');
     t.ok(broadcast.calledWith(playerSync.players[id]), 'broadcast is called with player info');

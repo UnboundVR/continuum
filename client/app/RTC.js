@@ -47,11 +47,11 @@ var init = function() {
     });
 
     webrtc.on('readyToCall', function () {
-        webrtc.joinRoom('continuum');
+        webrtc.joinRoom('continuum2');
     });
 
     webrtc.on('videoAdded', function(video, peer) {
-        if(!presenter && playerSync.players[peer.nick].presenter) {
+        if(!presenter && playerSync.players[peer.nick] && playerSync.players[peer.nick].presenter) {
             presenter = peer.nick;
             gui.beam(video, videoPanel);
         };
@@ -60,6 +60,7 @@ var init = function() {
     webrtc.on('videoRemoved', function(video, peer) {
         if(peer.nick === presenter) {
             gui.cancel(videoPanel);
+            presenter = undefined;
         };
     });
 
