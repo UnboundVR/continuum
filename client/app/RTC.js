@@ -18,8 +18,8 @@ var init = function() {
     }
 
     webrtc = new SimpleWebRTC({
-        localVideoEl: 'localVideo', // change depending on stuff
-        remoteVideosEl: 'remoteVideo', // change depending on stuff
+        localVideoEl: presenter ? 'localVideo' : '',
+        remoteVideosEl: '',
         autoRequestMedia: true,
         media: media,
         nick: profile.getProfile().email
