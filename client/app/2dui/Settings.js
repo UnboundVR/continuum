@@ -28,11 +28,11 @@ var configSettings = function() {
         settings.set(consts.settings.IS_DEVELOPER, isDeveloperCheckbox.checked);
     };
 
-    var ghostMode = settings.get(consts.settings.GHOST_MODE);
-    var ghostModeCheckbox = htmlNode.getElementsByClassName(consts.ui.settings.GHOST_MODE_CHECKBOX)[0];
-    ghostModeCheckbox.checked = ghostMode;
-    ghostModeCheckbox.onchange = function(event) {
-        settings.set(consts.settings.GHOST_MODE, ghostModeCheckbox.checked).then(function() {
+    var presenterMode = settings.get(consts.settings.PRESENTER_MODE);
+    var presenterModeCheckbox = htmlNode.getElementsByClassName(consts.ui.settings.PRESENTER_MODE_CHECKBOX)[0];
+    presenterModeCheckbox.checked = presenterMode;
+    presenterModeCheckbox.onchange = function(event) {
+        settings.set(consts.settings.PRESENTER_MODE, presenterModeCheckbox.checked).then(function() {
             window.location.reload();
         });
     };
@@ -70,12 +70,12 @@ var init = function() {
     });
 
     if (!profile.isAdmin()) {
-        var div = htmlNode.getElementsByClassName(consts.ui.settings.GHOST_MODE_DIV)[0];
+        var div = htmlNode.getElementsByClassName(consts.ui.settings.PRESENTER_MODE_DIV)[0];
         div.style.display = 'none';
     }
 
-    var ghostModeCheckboxLabel = htmlNode.getElementsByClassName(consts.ui.settings.GHOST_MODE_CHECKBOX_LABEL)[0];
-    ghostModeCheckboxLabel.innerHTML = i18n.t('settings.ghostMode');
+    var presenterModeCheckboxLabel = htmlNode.getElementsByClassName(consts.ui.settings.PRESENTER_MODE_CHECKBOX_LABEL)[0];
+    presenterModeCheckboxLabel.innerHTML = i18n.t('settings.presenterMode');
 
     var closeButton = htmlNode.getElementsByClassName(consts.ui.CLOSE_BUTTON)[0];
     closeButton.onclick = hide;

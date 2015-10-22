@@ -4,8 +4,9 @@ var avatars = require('./Avatars');
 var controls = require('../FirstPersonControls');
 
 var players = {};
+var me = {};
 
-var getInitialPlayerInfo = function() {
+var getPlayerInfo = function() {
     return {
         position: controls.getPosition()
     };
@@ -13,31 +14,36 @@ var getInitialPlayerInfo = function() {
 
 var otherConnect = function(other) {
     players[other.id] = other;
-    if (!other.ghost) {
+    if (!other.presenter) {
         avatars.add(other);
     }
 };
 
 var otherDisconnect = function(id) {
     var player = players[id];
-    delete players[id];
-    if (!player.ghost) {
-        avatars.remove(player);
+    if(player) {
+        delete players[id];
+        if (!player.presenter) {
+            avatars.remove(player);
+        }
     }
 };
 
 var otherChange = function(other) {
     var player = players[other.id];
-    player.position = other.position;
-    if (!player.ghost) {
-        avatars.move(player);
+    if(player) {
+        player.position = other.position;
+        if (!player.presenter) {
+            avatars.move(player);
+        }
     }
 };
 
 module.exports = {
-    getInitialPlayerInfo: getInitialPlayerInfo,
+    getPlayerInfo: getPlayerInfo,
     otherConnect: otherConnect,
     otherDisconnect: otherDisconnect,
     otherChange: otherChange,
-    players: players
+    players: players,
+    me: me
 };

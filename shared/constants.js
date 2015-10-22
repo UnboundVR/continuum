@@ -23,7 +23,10 @@ var consts = {
         LOGOUT: 'logout',
         SHOW_SETTINGS: 'showSettings',
         SETTING_CHANGED: 'settingChanged',
-        PERFORMANCE_MODE: 'performanceMode'
+        PERFORMANCE_MODE: 'performanceMode',
+        PLAYER_TALKING: 'playerTalking',
+        PLAYER_STOPPED_TALKING: 'playerStoppedTalking',
+        PLAYER_SYNC_READY: 'playerSyncReady'
     },
     browserEvents: {
         KEY_DOWN: 'keydown',
@@ -78,9 +81,9 @@ var consts = {
         settings: {
             IS_DEVELOPER_CHECKBOX: 'iAmDev checkbox',
             IS_DEVELOPER_CHECKBOX_LABEL: 'iAmDev-label',
-            GHOST_MODE_CHECKBOX: 'ghostMode checkbox',
-            GHOST_MODE_CHECKBOX_LABEL: 'ghostMode-label',
-            GHOST_MODE_DIV: 'ghostMode',
+            PRESENTER_MODE_CHECKBOX: 'presenterMode checkbox',
+            PRESENTER_MODE_CHECKBOX_LABEL: 'presenterMode-label',
+            PRESENTER_MODE_DIV: 'presenterMode',
             LANGUAGE_LABEL: 'language-label',
             LANGUAGE_SELECT: 'language-select'
         }
@@ -94,8 +97,8 @@ var consts = {
             name: 'isDeveloper',
             defaultValue: false
         },
-        GHOST_MODE: {
-            name: 'ghostMode',
+        PRESENTER_MODE: {
+            name: 'presenterMode',
             defaultValue: false
         },
         LANGUAGE: {
@@ -137,8 +140,8 @@ var consts = {
     },
     firstPerson: {
         JUMP_SPEED: 350,
-        INITIAL_Y: 300,
-        LOWEST_Y: 300,
+        INITIAL_Y: 70,
+        LOWEST_Y: 70,
         GRAVITY: 9.8,
         PLAYER_MASS: 75.0,
         WALKING_SPEED: 6000,
@@ -158,7 +161,7 @@ var consts = {
             CHANGE: 'change',
             OTHER_CONNECT: 'other connect',
             OTHER_DISCONNECT: 'other disconnect',
-            OTHER_CHANGE: 'other change'
+            OTHER_CHANGE: 'other change',
         }
     },
     renderer: {
