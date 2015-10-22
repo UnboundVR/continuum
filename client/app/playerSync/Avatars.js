@@ -4,6 +4,19 @@ var scenes = require('../Scenes');
 var requests = require('../utils/Requests');
 var THREE = require('three.js');
 
+var getAvatar = function(objectUrl) {
+    return requests.get(objectUrl, false).then(function(json) {
+        var loader = new THREE.ObjectLoader();
+
+        return new Promise(function(resolve, reject) {
+            // TODO what happens if this throws an error?
+            loader.parse(json, function(obj) {
+                resolve(obj);
+            });
+        });
+    });
+};
+
 var move = function(player) {
     if(player.mesh) {
         player.mesh.position.copy(player.position);
@@ -17,21 +30,18 @@ var remove = function(player) {
 };
 
 var add = function(player) {
-    requests.get('http://metavrse.io/public/avatar/avatar.json', false).then(function(json){
-        var loader = new THREE.ObjectLoader();
-        loader.parse(json, function(obj){
-            obj.position.copy(player.position);
+    return getAvatar('http://metavrse.io/public/avatar/avatar.json').then(function(obj){
+        obj.position.copy(player.position);
 
-            var text = getText(player);
-            obj.add(text);
+        var text = getText(player);
+        obj.add(text);
 
-            getSpeakingSign().then(function(sign) {
-                obj.add(sign);
-                player.speakingSign = sign;
+        return getSpeakingSign().then(function(sign) {
+            obj.add(sign);
+            player.speakingSign = sign;
 
-                player.mesh = obj;
-                scenes.getScene().add(player.mesh);
-            });
+            player.mesh = obj;
+            scenes.getScene().add(player.mesh);
         });
     });
 };
@@ -91,7 +101,6 @@ var getSpeakingSign = function() {
 }
 
 var toggleSpeakingFeedback = function(player, speaking) {
-    console.log(speaking)
     player.speakingSign.visible = speaking;
 };
 
