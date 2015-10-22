@@ -20,7 +20,7 @@ var canJump = true;
 var running = false;
 var velocity = new THREE.Vector3();
 var lastPosition = new THREE.Vector3();
-var lastRotation = new THREE.Quaternion();
+var lastRotation = 0;
 var floor;
 
 var collidableObjects = [];
@@ -128,16 +128,18 @@ var animate = function(time) {
 
     restrainPosition(obj);
 
-    obj.position.x = Math.round(obj.position.x * 100) / 100;
-    obj.position.y = Math.round(obj.position.y * 100) / 100;
-    obj.position.z = Math.round(obj.position.z * 100) / 100;
+    var position = obj.position.clone();
+    position.x = Math.round(position.x * 100) / 100;
+    position.y = Math.round(position.y * 100) / 100;
+    position.z = Math.round(position.z * 100) / 100;
 
-    if (!obj.position.equals(lastPosition) && !obj.rotation.equals(lastRotation)) {
-        events.dispatch(consts.events.PLAYER_MOVED, {position: obj.position, rotation: obj.rotation});
+    var rotation = Math.round(obj.rotation.y * 100) / 100;
+    if (!position.equals(lastPosition) || rotation !== lastRotation) {
+        events.dispatch(consts.events.PLAYER_MOVED, {position: position, rotation: rotation});
     }
 
-    lastPosition.copy(obj.position);
-    lastRotation.copy(obj.rotation);
+    lastPosition.copy(position);
+    lastRotation = rotation;
 };
 
 var getPosition = function() {

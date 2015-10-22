@@ -33,6 +33,7 @@ var otherChange = function(other) {
     var player = players[other.id];
     if(player) {
         player.position = other.position;
+        player.rotation = other.rotation;
         if (!player.presenter) {
             avatars.move(player);
         }
