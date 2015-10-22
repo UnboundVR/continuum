@@ -7,7 +7,7 @@ var playerSync = require('../playerSync/Service');
 var gui = require('../gui/Manager');
 var events = require('../Events');
 var THREE = require('three.js');
-var SIOConnection = require('./SocketIoConnection');
+var SIOConnection = require('./SocketIOConnection');
 
 var webrtc;
 var videoPanel = 'F57146D0-9296-4408-B753-0532A3B8AC2F'; // FIXME hardcoded
