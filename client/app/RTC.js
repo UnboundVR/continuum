@@ -1,5 +1,5 @@
 var world = require('./World');
-var SimpleWebRTC = require('simplewebrtc-newsocketio');
+var SimpleWebRTC = require('simplewebrtc');
 var profile = require('./auth/Profile');
 var settings = require('./utils/Settings');
 var consts = require('../../shared/constants');
@@ -36,6 +36,7 @@ var init = function() {
     });
 
     webrtc.on('videoAdded', function(video, peer) {
+        console.log(peer)
         peer.getDataChannel('hark').onmessage = function(message) {
             var harkEvent = JSON.parse(message.data);
             // TODO dispatch event with this stuff so that the player sync avatar can use it
