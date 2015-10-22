@@ -43,6 +43,13 @@ var add = function(player) {
 
             player.mesh = obj;
             scenes.getScene().add(player.mesh);
+
+            var world = require('../World')
+            var controls = require('../FirstPersonControls');
+            world.onLoop(function() {
+                var rotation = controls.controls.getObject().children[0].rotation.x;
+                player.mesh.getObjectByName('Steve_Head').rotation.z = rotation;
+            })
         });
     });
 };
