@@ -8,7 +8,6 @@ var app = require('./app/App.js');
 require('./lib/three.js/controls/PointerLockControls');
 require('./lib/three.js/effects/StereoEffect');
 require('./lib/three.js/renderers/CSS3DRenderer');
-require('three.terrain.js');
 
 // Modules that register to world
 require('./app/Renderer');
@@ -19,9 +18,9 @@ require('./app/playerSync/Controller');
 require('./app/Reticle');
 require('./app/KeyVR');
 require('./app/2dui/Container');
-require('./app/RTC');
 require('./app/Performance');
 require('./app/utils/BrowserEvents');
+require('./app/RTC/Controller');
 require('./app/Terrain');
 
 app.run();

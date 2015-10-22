@@ -1,12 +1,13 @@
-var world = require('./World');
+var world = require('../World');
 var SimpleWebRTC = require('simplewebrtc');
-var profile = require('./auth/Profile');
-var settings = require('./utils/Settings');
-var consts = require('../../shared/constants');
-var playerSync = require('./playerSync/Service');
-var gui = require('./gui/Manager');
-var events = require('./Events');
+var profile = require('../auth/Profile');
+var settings = require('../utils/Settings');
+var consts = require('../../../shared/constants');
+var playerSync = require('../playerSync/Service');
+var gui = require('../gui/Manager');
+var events = require('../Events');
 var THREE = require('three.js');
+var SIOConnection = require('./SocketIOConnection');
 
 var webrtc;
 var videoPanel = '22F7E49B-E4E0-43FF-BE28-B152AA33BED5'; // FIXME hardcoded
@@ -21,38 +22,36 @@ var init = function() {
         video: isPresenter
     };
 
+    var sioConnection = new SIOConnection({
+        url: 'http://unboundvr.com:8088',
+        socketio: {}
+    });
+
     webrtc = new SimpleWebRTC({
         localVideoEl: isPresenter ? 'localVideo' : '',
         remoteVideosEl: '',
         autoRequestMedia: true,
         media: media,
         nick: userId,
-        url: 'http://unboundvr.com:8088'
+        connection: sioConnection
     });
 
     webrtc.on('readyToCall', function() {
-        webrtc.joinRoom('continuum');
+        webrtc.joinRoom('continuum-' + location.host);
     });
 
     webrtc.on('videoAdded', function(video, peer) {
-        console.log(peer)
+        console.log(peer.nick + ' logged in');
         peer.getDataChannel('hark').onmessage = function(message) {
             var harkEvent = JSON.parse(message.data);
 
-            console.log(harkEvent);
-
             if (harkEvent.type == 'volume') {
-                switch (harkEvent.volume > (-85)) {
-
+                if (harkEvent.volume > (-85)) {
                     //Speakin'
-                    case true:
-                        events.dispatch(consts.events.PLAYER_TALKING, peer.nick);
-                        break;
-
+                    events.dispatch(consts.events.PLAYER_TALKING, peer.nick);
+                } else {
                     //Not speakin'
-                    case false:
-                        events.dispatch(consts.events.PLAYER_STOPPED_TALKING, peer.nick);
-                        break;
+                    events.dispatch(consts.events.PLAYER_STOPPED_TALKING, peer.nick);
                 }
             };
         };
@@ -64,6 +63,7 @@ var init = function() {
     });
 
     webrtc.on('videoRemoved', function(video, peer) {
+        console.log(peer.nick + ' logged out');
         if (peer.nick === presenter) {
             gui.cancel(videoPanel);
             presenter = undefined;
