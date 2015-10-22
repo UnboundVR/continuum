@@ -20,6 +20,6 @@ require('./app/KeyVR');
 require('./app/2dui/Container');
 require('./app/Performance');
 require('./app/utils/BrowserEvents');
-require('./app/RTC');
+require('./app/RTC/Controller');
 
 app.run();

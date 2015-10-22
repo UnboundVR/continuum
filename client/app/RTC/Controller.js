@@ -1,12 +1,13 @@
-var world = require('./World');
+var world = require('../World');
 var SimpleWebRTC = require('simplewebrtc');
-var profile = require('./auth/Profile');
-var settings = require('./utils/Settings');
-var consts = require('../../shared/constants');
-var playerSync = require('./playerSync/Service');
-var gui = require('./gui/Manager');
-var events = require('./Events');
+var profile = require('../auth/Profile');
+var settings = require('../utils/Settings');
+var consts = require('../../../shared/constants');
+var playerSync = require('../playerSync/Service');
+var gui = require('../gui/Manager');
+var events = require('../Events');
 var THREE = require('three.js');
+var SIOConnection = require('./SocketIoConnection');
 
 var webrtc;
 var videoPanel = 'F57146D0-9296-4408-B753-0532A3B8AC2F'; // FIXME hardcoded
@@ -21,13 +22,18 @@ var init = function() {
         video: isPresenter
     };
 
+    var sioConnection = new SIOConnection({
+        url: 'http://unboundvr.com:8088',
+        socketio: {}
+    });
+
     webrtc = new SimpleWebRTC({
         localVideoEl: isPresenter ? 'localVideo' : '',
         remoteVideosEl: '',
         autoRequestMedia: true,
         media: media,
         nick: userId,
-        url: 'http://unboundvr.com:8088'
+        connection: sioConnection
     });
 
     webrtc.on('readyToCall', function() {
