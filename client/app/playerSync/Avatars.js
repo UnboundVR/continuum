@@ -4,6 +4,9 @@ var scenes = require('../Scenes');
 var requests = require('../utils/Requests');
 var THREE = require('three.js');
 
+var controls = require('../FirstPersonControls');
+var world = require('../World');
+
 var getAvatar = function(objectUrl) {
     return requests.get(objectUrl, false).then(function(json) {
         var loader = new THREE.ObjectLoader();
@@ -42,6 +45,11 @@ var add = function(player) {
 
             player.mesh = obj;
             scenes.getScene().add(player.mesh);
+
+            world.onLoop(function() {
+                player.mesh.rotation.copy(controls.controls.getObject().rotation);
+                console.log(controls.controls.getObject().rotation)
+            });
         });
     });
 };
