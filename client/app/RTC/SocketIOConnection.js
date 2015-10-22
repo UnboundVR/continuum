@@ -7,7 +7,6 @@ function SocketIoConnection(config) {
 }
 
 SocketIoConnection.prototype.on = function (ev, fn) {
-    console.log(ev)
     this.connection.on(ev, fn);
 };
 
