@@ -36,8 +36,21 @@ var add = function(player) {
     scenes.getScene().add(player.mesh);
 };
 
+var toggleSpeakingFeedback = function(player) {
+    var canvas = document.createElement('canvas');
+    var size = 512;
+    canvas.width = size;
+    canvas.height = size;
+    var context = canvas.getContext('2d');
+
+    var image = new Image();
+    image.src = '/assets/img/speaking.png';
+    context.drawImage(image, 41, 94);
+};
+
 module.exports = {
     add: add,
     remove: remove,
-    move: move
+    move: move,
+    toggleSpeakingFeedback: toggleSpeakingFeedback
 };

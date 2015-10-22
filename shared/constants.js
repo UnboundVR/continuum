@@ -25,6 +25,7 @@ var consts = {
         SETTING_CHANGED: 'settingChanged',
         PERFORMANCE_MODE: 'performanceMode',
         PLAYER_TALKING: 'playerTalking',
+        PLAYER_STOPPED_TALKING: 'playerStoppedTalking',
         PLAYER_SYNC_READY: 'playerSyncReady'
     },
     browserEvents: {

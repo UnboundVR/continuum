@@ -31,23 +31,40 @@ var init = function() {
         debug: true
     });
 
-    webrtc.on('readyToCall', function () {
+    webrtc.on('readyToCall', function() {
         webrtc.joinRoom('continuum');
     });
 
     webrtc.on('videoAdded', function(video, peer) {
         peer.getDataChannel('hark').onmessage = function(message) {
             var harkEvent = JSON.parse(message.data);
-            // TODO dispatch event with this stuff so that the player sync avatar can use it
-        }
-        if(!presenter && playerSync.players[peer.nick] && playerSync.players[peer.nick].presenter) {
+
+            console.log(harkEvent);
+
+            if (harkEvent.type == 'volume') {
+                switch (harkEvent.volume > (-85)) {
+
+                    //Speakin'
+                    case true:
+                        events.dispatch(consts.events.PLAYER_TALKING, peer.nick);
+                        break;
+
+                    //Not speakin'
+                    case false:
+                        events.dispatch(consts.events.PLAYER_STOPPED_TALKING, peer.nick);
+                        break;
+                }
+            };
+        };
+
+        if (!presenter && playerSync.players[peer.nick] && playerSync.players[peer.nick].presenter) {
             presenter = peer.nick;
             gui.beam(video, videoPanel);
         };
     });
 
     webrtc.on('videoRemoved', function(video, peer) {
-        if(peer.nick === presenter) {
+        if (peer.nick === presenter) {
             gui.cancel(videoPanel);
             presenter = undefined;
         };
@@ -58,15 +75,15 @@ var init = function() {
 
 var updateVolumes = function() {
     webrtc.getPeers().forEach(function(peer) {
-        if(peer.videoEl) {
+        if (peer.videoEl) {
             var player = playerSync.players[peer.nick];
-            if(player) {
+            if (player) {
                 var myPosition = playerSync.getPlayerInfo().position;
                 var p = player.position;
                 var otherPosition = new THREE.Vector3(p.x, p.y, p.z);
                 var volume = 750 / myPosition.distanceTo(otherPosition);
 
-                if(volume > 1) {
+                if (volume > 1) {
                     volume = 1;
                 }
 

@@ -19,10 +19,20 @@ var init = function() {
         socket.emit(consts.socket.playerSync.REGISTER, service.getPlayerInfo(), function(players, isPresenter) {
             service.me.isPresenter = isPresenter;
 
-            for(var id in players) {
+            for (var id in players) {
                 var player = players[id];
                 service.otherConnect(player);
             }
+
+            events.subscribe(consts.events.PLAYER_TALKING, function(userId) {
+                var player = service.players[userId];
+                avatar.toggleSpeakingFeedback(player, true);
+            });
+
+            events.subscribe(consts.events.PLAYER_STOPPED_TALKING, function(userId) {
+                var player = service.players[userId];
+                avatar.toggleSpeakingFeedback(player, false);
+            });
 
             events.subscribe(consts.events.PLAYER_MOVED, function(position) {
                 socket.emit(consts.socket.playerSync.CHANGE, {position: position});
