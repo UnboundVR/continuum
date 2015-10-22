@@ -27,12 +27,16 @@ var init = function() {
 
             events.subscribe(consts.events.PLAYER_TALKING, function(userId) {
                 var player = service.players[userId];
-                avatars.toggleSpeakingFeedback(player, true);
+                if(!player.presenter) {
+                    avatars.toggleSpeakingFeedback(player, true);
+                }
             });
 
             events.subscribe(consts.events.PLAYER_STOPPED_TALKING, function(userId) {
                 var player = service.players[userId];
-                avatars.toggleSpeakingFeedback(player, false);
+                if(!player.presenter) {
+                    avatars.toggleSpeakingFeedback(player, false);
+                }
             });
 
             events.subscribe(consts.events.PLAYER_MOVED, function(position) {

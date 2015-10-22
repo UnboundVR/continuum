@@ -37,7 +37,7 @@ var init = function() {
     });
 
     webrtc.on('readyToCall', function() {
-        webrtc.joinRoom('continuum');
+        webrtc.joinRoom('continuum-' + location.host);
     });
 
     webrtc.on('videoAdded', function(video, peer) {
