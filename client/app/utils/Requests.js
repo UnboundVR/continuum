@@ -13,10 +13,13 @@ var get = function(url, useAuth) {
     if(useAuth === undefined) {
         useAuth = true;
     }
+
+    var headers = {};
+    if(useAuth) {
+        headers.authorization = consts.auth.BEARER + ' ' + auth.getToken()
+    }
     return fetch(url, {
-        headers: {
-            authorization: useAuth ? consts.auth.BEARER + ' ' + auth.getToken() : undefined
-        },
+        headers: headers,
         method: 'GET'
     }).then(toJSON);
 };
