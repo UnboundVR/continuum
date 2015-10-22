@@ -1,5 +1,5 @@
 var world = require('./World');
-var SimpleWebRTC = require('simplewebrtc');
+var SimpleWebRTC = require('simplewebrtc-newsocketio');
 var profile = require('./auth/Profile');
 var settings = require('./utils/Settings');
 var consts = require('../../shared/constants');

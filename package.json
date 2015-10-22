@@ -17,7 +17,7 @@
     "node-polyglot": "^0.4.3",
     "promise": "^7.0.4",
     "request": "^2.64.0",
-    "simplewebrtc": "^1.19.1",
+    "simplewebrtc-newsocketio": "^1.19.1",
     "socket.io": "^1.3.7",
     "socket.io-client": "^1.3.7",
     "socketio-jwt": "^4.3.1",
