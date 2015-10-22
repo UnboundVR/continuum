@@ -27,8 +27,7 @@ var init = function() {
         autoRequestMedia: true,
         media: media,
         nick: userId,
-        url: 'http://unboundvr.com:8088',
-        debug: true
+        url: 'http://unboundvr.com:8088'
     });
 
     webrtc.on('readyToCall', function() {
@@ -36,6 +35,7 @@ var init = function() {
     });
 
     webrtc.on('videoAdded', function(video, peer) {
+        console.log(peer)
         peer.getDataChannel('hark').onmessage = function(message) {
             var harkEvent = JSON.parse(message.data);
 
