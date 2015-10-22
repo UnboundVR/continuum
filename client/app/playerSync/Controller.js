@@ -6,6 +6,7 @@ var auth = require('../auth/Token');
 var world = require('../World');
 var io = require('socket.io-client');
 var service = require('./Service');
+var avatars = require('./Avatars');
 
 var socket;
 
@@ -26,12 +27,12 @@ var init = function() {
 
             events.subscribe(consts.events.PLAYER_TALKING, function(userId) {
                 var player = service.players[userId];
-                avatar.toggleSpeakingFeedback(player, true);
+                avatars.toggleSpeakingFeedback(player, true);
             });
 
             events.subscribe(consts.events.PLAYER_STOPPED_TALKING, function(userId) {
                 var player = service.players[userId];
-                avatar.toggleSpeakingFeedback(player, false);
+                avatars.toggleSpeakingFeedback(player, false);
             });
 
             events.subscribe(consts.events.PLAYER_MOVED, function(position) {

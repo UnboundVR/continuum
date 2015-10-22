@@ -35,24 +35,17 @@ var init = function() {
     });
 
     webrtc.on('videoAdded', function(video, peer) {
-        console.log(peer)
+        console.log(peer.nick + ' logged in');
         peer.getDataChannel('hark').onmessage = function(message) {
             var harkEvent = JSON.parse(message.data);
 
-            console.log(harkEvent);
-
             if (harkEvent.type == 'volume') {
-                switch (harkEvent.volume > (-85)) {
-
+                if (harkEvent.volume > (-85)) {
                     //Speakin'
-                    case true:
-                        events.dispatch(consts.events.PLAYER_TALKING, peer.nick);
-                        break;
-
+                    events.dispatch(consts.events.PLAYER_TALKING, peer.nick);
+                } else {
                     //Not speakin'
-                    case false:
-                        events.dispatch(consts.events.PLAYER_STOPPED_TALKING, peer.nick);
-                        break;
+                    events.dispatch(consts.events.PLAYER_STOPPED_TALKING, peer.nick);
                 }
             };
         };
@@ -64,6 +57,7 @@ var init = function() {
     });
 
     webrtc.on('videoRemoved', function(video, peer) {
+        console.log(peer.nick + ' logged out');
         if (peer.nick === presenter) {
             gui.cancel(videoPanel);
             presenter = undefined;
