@@ -20,6 +20,7 @@ var canJump = true;
 var running = false;
 var velocity = new THREE.Vector3();
 var lastPosition = new THREE.Vector3();
+var lastRotation = new THREE.Quaternion();
 var floor;
 
 var collidableObjects = [];
@@ -131,11 +132,12 @@ var animate = function(time) {
     obj.position.y = Math.round(obj.position.y * 100) / 100;
     obj.position.z = Math.round(obj.position.z * 100) / 100;
 
-    if (!obj.position.equals(lastPosition)) {
-        events.dispatch(consts.events.PLAYER_MOVED, obj.position);
+    if (!obj.position.equals(lastPosition) && !obj.rotation.equals(lastRotation)) {
+        events.dispatch(consts.events.PLAYER_MOVED, {position: obj.position, rotation: obj.rotation});
     }
 
     lastPosition.copy(obj.position);
+    lastRotation.copy(obj.rotation);
 };
 
 var getPosition = function() {
