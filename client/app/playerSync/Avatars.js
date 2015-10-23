@@ -20,7 +20,8 @@ var getAvatar = function(objectUrl) {
 var move = function(player) {
     if(player.mesh) {
         player.mesh.position.copy(player.position);
-        player.mesh.rotation.y = player.rotation;
+        // TODO: Arreglar modelo
+        player.mesh.rotation.y = player.rotation + Math.PI / 2;
     }
 };
 
@@ -63,7 +64,7 @@ var getText = function(player) {
 
     var material = new THREE.SpriteMaterial({ map: map, color: 0xffffff, fog: true });
     var text = new THREE.Sprite(material);
-    text.scale.set(50, 50, 1);
+    text.scale.set(150, 150, 1);
     text.position.set(0, 25, 0);
 
     return text;

@@ -140,8 +140,8 @@ var consts = {
     },
     firstPerson: {
         JUMP_SPEED: 350,
-        INITIAL_Y: 70,
-        LOWEST_Y: 70,
+        INITIAL_Y: 0,
+        LOWEST_Y: 300,
         GRAVITY: 9.8,
         PLAYER_MASS: 75.0,
         WALKING_SPEED: 6000,
