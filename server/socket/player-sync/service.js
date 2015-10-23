@@ -10,7 +10,7 @@ var noPresenters = function() {
             return false;
         }
     }
-    
+
     return true;
 };
 
@@ -26,20 +26,18 @@ var register = function(playerId, profile, data, broadcast) {
     players[playerId] = data;
 
     broadcast(data);
-
-    // console.log(playerId + ' registered (service)');
 };
 
 var update = function(playerId, data, broadcast) {
     if (players[playerId]) {
         var player = players[playerId];
         player.position = data.position;
+        player.rotation = data.rotation;
         broadcast({
             id: playerId,
-            position: player.position
+            position: player.position,
+            rotation: player.rotation
         });
-    } else {
-        // console.log('trying to update position of ' + playerId + ' but it is not registered yet');
     }
 };
 
@@ -47,10 +45,6 @@ var disconnect = function(playerId, broadcast) {
     if (players[playerId]) {
         delete players[playerId];
         broadcast(playerId);
-
-        // console.log(playerId + ' disconnected (service)');
-    } else {
-        // console.log('trying to disconnect ' + playerId + ' before registering');
     }
 };
 

@@ -39,8 +39,8 @@ var init = function() {
                 }
             });
 
-            events.subscribe(consts.events.PLAYER_MOVED, function(position) {
-                socket.emit(consts.socket.playerSync.CHANGE, {position: position});
+            events.subscribe(consts.events.PLAYER_MOVED, function(player) {
+                socket.emit(consts.socket.playerSync.CHANGE, player);
             });
 
             socket.on(consts.socket.playerSync.OTHER_CONNECT, service.otherConnect);

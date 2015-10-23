@@ -42,7 +42,7 @@ var roundCoord = function(coord) {
 };
 
 var updateCoords = function(val) {
-    position = val;
+    position = val.position;
 };
 
 var displayUpdatedCoords = function() {

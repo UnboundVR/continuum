@@ -20,6 +20,7 @@ var getAvatar = function(objectUrl) {
 var move = function(player) {
     if(player.mesh) {
         player.mesh.position.copy(player.position);
+        player.mesh.rotation.y = player.rotation;
     }
 };
 

@@ -19,7 +19,7 @@ var init = function() {
 
     var media = {
         audio: true,
-        video: isPresenter
+        video: !!isPresenter
     };
 
     var sioConnection = new SIOConnection({
