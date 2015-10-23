@@ -83,6 +83,8 @@ var updateVolumes = function() {
                 var otherPosition = new THREE.Vector3(p.x, p.y, p.z);
                 var volume = 750 / myPosition.distanceTo(otherPosition);
 
+                console.log(volume);
+
                 if (volume > 1) {
                     volume = 1;
                 }
