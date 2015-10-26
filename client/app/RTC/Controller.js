@@ -78,8 +78,8 @@ var updateVolumes = function() {
         if (peer.videoEl) {
             var player = playerSync.players[peer.nick];
             if (player) {
-                var myPosition = playerSync.getPlayerInfo().position;
-                var p = player.position;
+                var myPosition = playerSync.getPlayerTransform().position;
+                var p = player.transform.position;
                 var otherPosition = new THREE.Vector3(p.x, p.y, p.z);
                 var volume = 750 / myPosition.distanceTo(otherPosition);
 

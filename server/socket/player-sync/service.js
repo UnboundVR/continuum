@@ -31,12 +31,11 @@ var register = function(playerId, profile, data, broadcast) {
 var update = function(playerId, data, broadcast) {
     if (players[playerId]) {
         var player = players[playerId];
-        player.position = data.position;
-        player.rotation = data.rotation;
+        player.transform = data.transform;
+
         broadcast({
             id: playerId,
-            position: player.position,
-            rotation: player.rotation
+            transform: player.transform,
         });
     }
 };
@@ -44,6 +43,7 @@ var update = function(playerId, data, broadcast) {
 var disconnect = function(playerId, broadcast) {
     if (players[playerId]) {
         delete players[playerId];
+
         broadcast(playerId);
     }
 };

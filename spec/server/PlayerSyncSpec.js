@@ -106,21 +106,21 @@ test('PlayerSync::update does nothing if player does not exist', function(t) {
     var broadcast = sinon.spy();
     var id = 'someId';
 
-    playerSync.update(id, {position: 2}, broadcast);
+    playerSync.update(id, {transform: 2}, broadcast);
 
     t.false(broadcast.called, 'brodcast should not be called');
     t.equal(playerSync[id], undefined, 'no new entry should be created');
     t.end();
 });
 
-test('PlayerSync::update stores position', function(t) {
+test('PlayerSync::update stores transform', function(t) {
     var playerSync = setup();
     var id = 'someId';
-    playerSync.players[id] = {position: 1};
+    playerSync.players[id] = {transform: 1};
 
-    playerSync.update(id, {position: 2}, sinon.stub());
+    playerSync.update(id, {transform: 2}, sinon.stub());
 
-    t.equal(playerSync.players[id].position, 2, 'position is updated');
+    t.equal(playerSync.players[id].transform, 2, 'transform is updated');
     t.end();
 });
 
@@ -128,14 +128,14 @@ test('PlayerSync::update doesnt change name, id or presenter mode', function(t) 
     var playerSync = setup();
     var id = 'someId';
     playerSync.players[id] = {
-        position: 1,
+        transform: 1,
         name: 'name',
         id: id,
         presenter: false
     };
 
     var maliciousPayload = {
-        position: 2,
+        transform: 2,
         name: 'other name',
         id: 'other id',
         presenter: true
@@ -143,22 +143,22 @@ test('PlayerSync::update doesnt change name, id or presenter mode', function(t) 
 
     playerSync.update(id, maliciousPayload, sinon.stub());
 
-    t.equal(playerSync.players[id].position, 2, 'position is updated');
+    t.equal(playerSync.players[id].transform, 2, 'transform is updated');
     t.equal(playerSync.players[id].id, id, 'id isnt updated');
     t.equal(playerSync.players[id].name, 'name', 'name isnt updated');
     t.equal(playerSync.players[id].presenter, false, 'presenter isnt updated');
     t.end();
 });
 
-test('PlayerSync::update broadcasts updated position', function(t) {
+test('PlayerSync::update broadcasts updated transform', function(t) {
     var playerSync = setup();
     var id = 'someId';
-    playerSync.players[id] = {position: 1};
+    playerSync.players[id] = {transform: 1};
     var broadcast = sinon.spy();
 
-    playerSync.update(id, {position: 2}, broadcast);
+    playerSync.update(id, {transform: 2}, broadcast);
 
-    t.equal(broadcast.getCall(0).args[0].position, 2, 'broadcast is called with updated position');
+    t.equal(broadcast.getCall(0).args[0].transform, 2, 'broadcast is called with updated transform');
     t.equal(broadcast.getCall(0).args[0].id, id, 'broadcast is called with correct id');
     t.end();
 });

@@ -19,8 +19,8 @@ var getAvatar = function(objectUrl) {
 
 var move = function(player) {
     if(player.mesh) {
-        player.mesh.position.copy(player.position);
-        player.mesh.rotation.y = player.rotation;
+        player.mesh.position.copy(player.transform.position);
+        player.mesh.rotation.y = player.transform.rotation;
     }
 };
 
@@ -32,7 +32,9 @@ var remove = function(player) {
 
 var add = function(player) {
     return getAvatar('http://metavrse.io/public/avatar/avatar.json').then(function(obj){
-        obj.position.copy(player.position);
+        console.log(player)
+        obj.position.copy(player.transform.position);
+        obj.rotation.y = player.transform.rotation;
 
         var text = getText(player);
         obj.add(text);

@@ -133,7 +133,7 @@ var animate = function(time) {
     position.y = Math.round(position.y * 100) / 100;
     position.z = Math.round(position.z * 100) / 100;
 
-    var rotation = Math.round(obj.rotation.y * 100) / 100;
+    var rotation = Math.round(getRotation() * 100) / 100;
     if (!position.equals(lastPosition) || rotation !== lastRotation) {
         events.dispatch(consts.events.PLAYER_MOVED, {position: position, rotation: rotation});
     }
@@ -146,9 +146,21 @@ var getPosition = function() {
     return controls.getObject().position;
 };
 
+var getRotation = function() {
+    return controls.getObject().rotation.y;
+};
+
+var getTransform = function() {
+    return {
+        position: getPosition(),
+        rotation: getRotation()
+    };
+};
+
 world.onInit(init);
 
 module.exports = {
     controls: controls,
-    getPosition: getPosition
+    getPosition: getPosition,
+    getTransform: getTransform
 };

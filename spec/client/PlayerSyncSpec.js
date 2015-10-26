@@ -16,15 +16,15 @@ var defaultAvatars = {
 };
 
 var defaultControls = {
-    getPosition: sinon.stub().returns('some vector')
+    getTransform: sinon.stub().returns('some stuff'),
 };
 
-test('PlayerSync::getPlayerInfo gets position from first person controls', function(t) {
+test('PlayerSync::getPlayerTransform gets transform from first person controls', function(t) {
     var playerSync = setup();
 
-    var playerInfo = playerSync.getPlayerInfo();
+    var transform = playerSync.getPlayerTransform();
 
-    t.equals(playerInfo.position, 'some vector', 'position is brought from fp controls');
+    t.equals(transform, defaultControls.getTransform(), 'transform is brought from fp controls');
     t.end();
 });
 
@@ -108,7 +108,7 @@ test('Calling PlayerSync::otherDisconnect before register does nothing', functio
     t.end();
 });
 
-test('PlayerSync::otherChange updates player position (even if it is a presenter)', function(t) {
+test('PlayerSync::otherChange updates player transform and rotation (even if it is a presenter)', function(t) {
     var playerSync = setup();
     var id = 'some id';
     playerSync.players[id] = {
@@ -118,14 +118,15 @@ test('PlayerSync::otherChange updates player position (even if it is a presenter
 
     playerSync.otherChange({
         id: id,
-        position: 'new position'
+        transform: 'new transform',
+        rotation: 'new rotation'
     });
 
-    t.equals(playerSync.players[id].position, 'new position', 'updated player has new position');
+    t.equals(playerSync.players[id].transform, 'new transform', 'updated player has new transform');
     t.end();
 });
 
-test('PlayerSync::otherChange updates avatar position if it is not a presenter', function(t) {
+test('PlayerSync::otherChange updates avatar transform if it is not a presenter', function(t) {
     var avatars = {
         move: sinon.spy()
     };

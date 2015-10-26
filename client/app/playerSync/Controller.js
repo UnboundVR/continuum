@@ -17,9 +17,9 @@ var init = function() {
     socket.on('connect', function() {
         service.me.id = this.id;
 
-        socket.emit(consts.socket.playerSync.REGISTER, service.getPlayerInfo(), function(players, isPresenter) {
+        socket.emit(consts.socket.playerSync.REGISTER, {transform: service.getPlayerTransform()}, function(players, isPresenter) {
             service.me.isPresenter = isPresenter;
-
+            console.log(players)
             for (var id in players) {
                 var player = players[id];
                 service.otherConnect(player);
@@ -39,8 +39,8 @@ var init = function() {
                 }
             });
 
-            events.subscribe(consts.events.PLAYER_MOVED, function(player) {
-                socket.emit(consts.socket.playerSync.CHANGE, player);
+            events.subscribe(consts.events.PLAYER_MOVED, function(transform) {
+                socket.emit(consts.socket.playerSync.CHANGE, {transform: transform});
             });
 
             socket.on(consts.socket.playerSync.OTHER_CONNECT, service.otherConnect);

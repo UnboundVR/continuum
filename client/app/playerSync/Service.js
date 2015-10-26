@@ -6,10 +6,8 @@ var controls = require('../FirstPersonControls');
 var players = {};
 var me = {};
 
-var getPlayerInfo = function() {
-    return {
-        position: controls.getPosition()
-    };
+var getPlayerTransform = function() {
+    return controls.getTransform();
 };
 
 var otherConnect = function(other) {
@@ -32,8 +30,7 @@ var otherDisconnect = function(id) {
 var otherChange = function(other) {
     var player = players[other.id];
     if(player) {
-        player.position = other.position;
-        player.rotation = other.rotation;
+        player.transform = other.transform;
         if (!player.presenter) {
             avatars.move(player);
         }
@@ -41,7 +38,7 @@ var otherChange = function(other) {
 };
 
 module.exports = {
-    getPlayerInfo: getPlayerInfo,
+    getPlayerTransform: getPlayerTransform,
     otherConnect: otherConnect,
     otherDisconnect: otherDisconnect,
     otherChange: otherChange,
