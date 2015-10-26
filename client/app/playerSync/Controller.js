@@ -19,7 +19,6 @@ var init = function() {
 
         socket.emit(consts.socket.playerSync.REGISTER, {transform: service.getPlayerTransform()}, function(players, isPresenter) {
             service.me.isPresenter = isPresenter;
-            console.log(players)
             for (var id in players) {
                 var player = players[id];
                 service.otherConnect(player);
