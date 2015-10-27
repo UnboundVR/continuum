@@ -14,6 +14,8 @@
     "express-jwt": "^3.1.0",
     "extend": "^3.0.0",
     "jquery": "^2.1.4",
+    "kurento-client": "^6.1.0",
+    "minimist": "^1.2.0",
     "node-polyglot": "^0.4.3",
     "promise": "^7.0.4",
     "request": "^2.64.0",
@@ -24,7 +26,8 @@
     "stats.js": "^1.0.0",
     "three.js": "^0.73.0",
     "tween.js": "^16.3.1",
-    "use-strict": "^1.0.1"
+    "use-strict": "^1.0.1",
+    "ws": "^0.8.0"
   },
   "devDependencies": {
     "browserify": "^11.2.0",
