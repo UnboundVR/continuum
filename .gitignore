@@ -3,3 +3,5 @@ node_modules/
 .DS_Store
 build/metavrse.js
 build/metavrse.js.map
+
+npm-debug.log
